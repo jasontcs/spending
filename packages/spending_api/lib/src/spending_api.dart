@@ -18,6 +18,8 @@ abstract class SpendingApi {
     String? id,
     String? categoryId,
     List<String>? personIds,
+    DateTime? from,
+    DateTime? to,
   });
 
   Stream<ApiCategoryModel> getCategory(String id);

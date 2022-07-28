@@ -1,5 +1,3 @@
-library spending_api;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spending_api/spending_api.dart';
 
@@ -73,13 +71,20 @@ class FirestoreSpendingApi implements SpendingApi {
     String? id,
     String? categoryId,
     List<String>? personIds,
+    DateTime? from,
+    DateTime? to,
   }) =>
       recordsRef(firestore)
           .whereDocumentId(isEqualTo: id)
           .whereCategoryId(isEqualTo: categoryId)
           .wherePersonIds(arrayContainsAny: personIds)
           .snapshots()
-          .map((snapshot) => snapshot.docs.map((doc) => doc.data).toList());
+          .map((snapshot) => snapshot.docs
+              .map((doc) => doc.data)
+              .where((record) =>
+                  (from?.isBefore(record.dateTime) ?? true) &&
+                  (to?.isAfter(record.dateTime) ?? true))
+              .toList());
 
   @override
   Stream<ApiRecordModel> getRecord(String id) =>
