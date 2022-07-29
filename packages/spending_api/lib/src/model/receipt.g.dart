@@ -21,7 +21,8 @@ const _sentinel = _Sentinel();
 abstract class ApiReceiptModelCollectionReference
     implements
         ApiReceiptModelQuery,
-        FirestoreCollectionReference<ApiReceiptModelQuerySnapshot> {
+        FirestoreCollectionReference<ApiReceiptModel,
+            ApiReceiptModelQuerySnapshot> {
   factory ApiReceiptModelCollectionReference([
     FirebaseFirestore? firestore,
   ]) = _$ApiReceiptModelCollectionReference;
@@ -30,15 +31,18 @@ abstract class ApiReceiptModelCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return ApiReceiptModel.fromJson(snapshot.data()!);
+    return _$ApiReceiptModelFromJson(snapshot.data()!);
   }
 
   static Map<String, Object?> toFirestore(
     ApiReceiptModel value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return _$ApiReceiptModelToJson(value);
   }
+
+  @override
+  CollectionReference<ApiReceiptModel> get reference;
 
   @override
   ApiReceiptModelDocumentReference doc([String? id]);
@@ -101,7 +105,8 @@ class _$ApiReceiptModelCollectionReference extends _$ApiReceiptModelQuery
 }
 
 abstract class ApiReceiptModelDocumentReference
-    extends FirestoreDocumentReference<ApiReceiptModelDocumentSnapshot> {
+    extends FirestoreDocumentReference<ApiReceiptModel,
+        ApiReceiptModelDocumentSnapshot> {
   factory ApiReceiptModelDocumentReference(
           DocumentReference<ApiReceiptModel> reference) =
       _$ApiReceiptModelDocumentReference;
@@ -130,8 +135,8 @@ abstract class ApiReceiptModelDocumentReference
   Future<void> set(ApiReceiptModel value);
 }
 
-class _$ApiReceiptModelDocumentReference
-    extends FirestoreDocumentReference<ApiReceiptModelDocumentSnapshot>
+class _$ApiReceiptModelDocumentReference extends FirestoreDocumentReference<
+        ApiReceiptModel, ApiReceiptModelDocumentSnapshot>
     implements ApiReceiptModelDocumentReference {
   _$ApiReceiptModelDocumentReference(this.reference);
 
@@ -196,7 +201,8 @@ class _$ApiReceiptModelDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-class ApiReceiptModelDocumentSnapshot extends FirestoreDocumentSnapshot {
+class ApiReceiptModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiReceiptModel> {
   ApiReceiptModelDocumentSnapshot._(
     this.snapshot,
     this.data,
@@ -217,12 +223,77 @@ class ApiReceiptModelDocumentSnapshot extends FirestoreDocumentSnapshot {
 }
 
 abstract class ApiReceiptModelQuery
-    implements QueryReference<ApiReceiptModelQuerySnapshot> {
+    implements QueryReference<ApiReceiptModel, ApiReceiptModelQuerySnapshot> {
   @override
   ApiReceiptModelQuery limit(int limit);
 
   @override
   ApiReceiptModelQuery limitToLast(int limit);
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  ApiReceiptModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt,
+    Object? startAfter,
+    Object? endAt,
+    Object? endBefore,
+    ApiReceiptModelDocumentSnapshot? startAtDocument,
+    ApiReceiptModelDocumentSnapshot? endAtDocument,
+    ApiReceiptModelDocumentSnapshot? endBeforeDocument,
+    ApiReceiptModelDocumentSnapshot? startAfterDocument,
+  });
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  ApiReceiptModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
 
   ApiReceiptModelQuery whereDocumentId({
     String? isEqualTo,
@@ -296,7 +367,7 @@ abstract class ApiReceiptModelQuery
 }
 
 class _$ApiReceiptModelQuery
-    extends QueryReference<ApiReceiptModelQuerySnapshot>
+    extends QueryReference<ApiReceiptModel, ApiReceiptModelQuerySnapshot>
     implements ApiReceiptModelQuery {
   _$ApiReceiptModelQuery(
     this.reference,
@@ -357,6 +428,82 @@ class _$ApiReceiptModelQuery
     );
   }
 
+  ApiReceiptModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiReceiptModelDocumentSnapshot? startAtDocument,
+    ApiReceiptModelDocumentSnapshot? endAtDocument,
+    ApiReceiptModelDocumentSnapshot? endBeforeDocument,
+    ApiReceiptModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(fieldPath, descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiReceiptModelQuery(query, _collection);
+  }
+
+  ApiReceiptModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$ApiReceiptModelQuery(
+      reference.where(
+        fieldPath,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull,
+      ),
+      _collection,
+    );
+  }
+
   ApiReceiptModelQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -398,7 +545,7 @@ class _$ApiReceiptModelQuery
   }) {
     return _$ApiReceiptModelQuery(
       reference.where(
-        "imageUrl",
+        _$ApiReceiptModelFieldMap["imageUrl"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -426,7 +573,7 @@ class _$ApiReceiptModelQuery
   }) {
     return _$ApiReceiptModelQuery(
       reference.where(
-        "recordId",
+        _$ApiReceiptModelFieldMap["recordId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -494,7 +641,8 @@ class _$ApiReceiptModelQuery
     ApiReceiptModelDocumentSnapshot? endBeforeDocument,
     ApiReceiptModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("imageUrl", descending: descending);
+    var query = reference.orderBy(_$ApiReceiptModelFieldMap["imageUrl"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -536,7 +684,8 @@ class _$ApiReceiptModelQuery
     ApiReceiptModelDocumentSnapshot? endBeforeDocument,
     ApiReceiptModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("recordId", descending: descending);
+    var query = reference.orderBy(_$ApiReceiptModelFieldMap["recordId"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -578,8 +727,8 @@ class _$ApiReceiptModelQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class ApiReceiptModelQuerySnapshot
-    extends FirestoreQuerySnapshot<ApiReceiptModelQueryDocumentSnapshot> {
+class ApiReceiptModelQuerySnapshot extends FirestoreQuerySnapshot<
+    ApiReceiptModel, ApiReceiptModelQueryDocumentSnapshot> {
   ApiReceiptModelQuerySnapshot._(
     this.snapshot,
     this.docs,
@@ -597,7 +746,7 @@ class ApiReceiptModelQuerySnapshot
 }
 
 class ApiReceiptModelQueryDocumentSnapshot
-    extends FirestoreQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<ApiReceiptModel>
     implements ApiReceiptModelDocumentSnapshot {
   ApiReceiptModelQueryDocumentSnapshot._(this.snapshot, this.data);
 
@@ -622,6 +771,11 @@ ApiReceiptModel _$ApiReceiptModelFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String,
       recordId: json['recordId'] as String,
     );
+
+const _$ApiReceiptModelFieldMap = <String, String>{
+  'imageUrl': 'imageUrl',
+  'recordId': 'recordId',
+};
 
 Map<String, dynamic> _$ApiReceiptModelToJson(ApiReceiptModel instance) =>
     <String, dynamic>{

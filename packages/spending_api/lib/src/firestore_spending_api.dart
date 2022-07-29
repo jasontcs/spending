@@ -70,14 +70,14 @@ class FirestoreSpendingApi implements SpendingApi {
   Stream<List<ApiRecordModel>> getRecords({
     String? id,
     String? categoryId,
-    List<String>? personIds,
+    String? personId,
     DateTime? from,
     DateTime? to,
   }) =>
       recordsRef(firestore)
           .whereDocumentId(isEqualTo: id)
           .whereCategoryId(isEqualTo: categoryId)
-          .wherePersonIds(arrayContainsAny: personIds)
+          .wherePersonId(isEqualTo: personId)
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => doc.data)

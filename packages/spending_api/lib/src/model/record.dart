@@ -10,24 +10,19 @@ class ApiRecordModel {
     required this.amount,
     required this.currencyId,
     required this.categoryId,
-    required this.personIds,
+    required this.personId,
     required this.receiptIds,
     required this.remarks,
     required this.dateTime,
   });
 
-  factory ApiRecordModel.fromJson(Map<String, Object?> json) =>
-      _$ApiRecordModelFromJson(json);
-
   final double amount;
   final String currencyId;
   final String categoryId;
-  final List<String> personIds;
+  final String personId;
   final List<String> receiptIds;
   final String remarks;
   final DateTime dateTime;
-
-  Map<String, Object?> toJson() => _$ApiRecordModelToJson(this);
 }
 
 @Collection<ApiRecordModel>('records')

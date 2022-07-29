@@ -21,7 +21,8 @@ const _sentinel = _Sentinel();
 abstract class ApiRecordModelCollectionReference
     implements
         ApiRecordModelQuery,
-        FirestoreCollectionReference<ApiRecordModelQuerySnapshot> {
+        FirestoreCollectionReference<ApiRecordModel,
+            ApiRecordModelQuerySnapshot> {
   factory ApiRecordModelCollectionReference([
     FirebaseFirestore? firestore,
   ]) = _$ApiRecordModelCollectionReference;
@@ -30,15 +31,18 @@ abstract class ApiRecordModelCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return ApiRecordModel.fromJson(snapshot.data()!);
+    return _$ApiRecordModelFromJson(snapshot.data()!);
   }
 
   static Map<String, Object?> toFirestore(
     ApiRecordModel value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return _$ApiRecordModelToJson(value);
   }
+
+  @override
+  CollectionReference<ApiRecordModel> get reference;
 
   @override
   ApiRecordModelDocumentReference doc([String? id]);
@@ -101,7 +105,8 @@ class _$ApiRecordModelCollectionReference extends _$ApiRecordModelQuery
 }
 
 abstract class ApiRecordModelDocumentReference
-    extends FirestoreDocumentReference<ApiRecordModelDocumentSnapshot> {
+    extends FirestoreDocumentReference<ApiRecordModel,
+        ApiRecordModelDocumentSnapshot> {
   factory ApiRecordModelDocumentReference(
           DocumentReference<ApiRecordModel> reference) =
       _$ApiRecordModelDocumentReference;
@@ -126,17 +131,18 @@ abstract class ApiRecordModelDocumentReference
     double amount,
     String currencyId,
     String categoryId,
-    List<String> personIds,
+    String personId,
     List<String> receiptIds,
     String remarks,
+    DateTime dateTime,
   });
 
   Future<void> set(ApiRecordModel value);
 }
 
-class _$ApiRecordModelDocumentReference
-    extends FirestoreDocumentReference<ApiRecordModelDocumentSnapshot>
-    implements ApiRecordModelDocumentReference {
+class _$ApiRecordModelDocumentReference extends FirestoreDocumentReference<
+    ApiRecordModel,
+    ApiRecordModelDocumentSnapshot> implements ApiRecordModelDocumentReference {
   _$ApiRecordModelDocumentReference(this.reference);
 
   @override
@@ -176,17 +182,19 @@ class _$ApiRecordModelDocumentReference
     Object? amount = _sentinel,
     Object? currencyId = _sentinel,
     Object? categoryId = _sentinel,
-    Object? personIds = _sentinel,
+    Object? personId = _sentinel,
     Object? receiptIds = _sentinel,
     Object? remarks = _sentinel,
+    Object? dateTime = _sentinel,
   }) async {
     final json = {
       if (amount != _sentinel) "amount": amount as double,
       if (currencyId != _sentinel) "currencyId": currencyId as String,
       if (categoryId != _sentinel) "categoryId": categoryId as String,
-      if (personIds != _sentinel) "personIds": personIds as List<String>,
+      if (personId != _sentinel) "personId": personId as String,
       if (receiptIds != _sentinel) "receiptIds": receiptIds as List<String>,
       if (remarks != _sentinel) "remarks": remarks as String,
+      if (dateTime != _sentinel) "dateTime": dateTime as DateTime,
     };
 
     return reference.update(json);
@@ -208,7 +216,8 @@ class _$ApiRecordModelDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-class ApiRecordModelDocumentSnapshot extends FirestoreDocumentSnapshot {
+class ApiRecordModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiRecordModel> {
   ApiRecordModelDocumentSnapshot._(
     this.snapshot,
     this.data,
@@ -229,12 +238,77 @@ class ApiRecordModelDocumentSnapshot extends FirestoreDocumentSnapshot {
 }
 
 abstract class ApiRecordModelQuery
-    implements QueryReference<ApiRecordModelQuerySnapshot> {
+    implements QueryReference<ApiRecordModel, ApiRecordModelQuerySnapshot> {
   @override
   ApiRecordModelQuery limit(int limit);
 
   @override
   ApiRecordModelQuery limitToLast(int limit);
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  ApiRecordModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt,
+    Object? startAfter,
+    Object? endAt,
+    Object? endBefore,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  });
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  ApiRecordModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
 
   ApiRecordModelQuery whereDocumentId({
     String? isEqualTo,
@@ -280,15 +354,16 @@ abstract class ApiRecordModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiRecordModelQuery wherePersonIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
+  ApiRecordModelQuery wherePersonId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String>? arrayContainsAny,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
   });
   ApiRecordModelQuery whereReceiptIds({
     List<String>? isEqualTo,
@@ -298,6 +373,7 @@ abstract class ApiRecordModelQuery
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   });
   ApiRecordModelQuery whereRemarks({
@@ -310,6 +386,17 @@ abstract class ApiRecordModelQuery
     bool? isNull,
     List<String>? whereIn,
     List<String>? whereNotIn,
+  });
+  ApiRecordModelQuery whereDateTime({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
   });
 
   ApiRecordModelQuery orderByDocumentId({
@@ -360,12 +447,12 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiRecordModelQuery orderByPersonIds({
+  ApiRecordModelQuery orderByPersonId({
     bool descending = false,
-    List<String> startAt,
-    List<String> startAfter,
-    List<String> endAt,
-    List<String> endBefore,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
     ApiRecordModelDocumentSnapshot? startAtDocument,
     ApiRecordModelDocumentSnapshot? endAtDocument,
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
@@ -395,9 +482,22 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
+
+  ApiRecordModelQuery orderByDateTime({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  });
 }
 
-class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
+class _$ApiRecordModelQuery
+    extends QueryReference<ApiRecordModel, ApiRecordModelQuerySnapshot>
     implements ApiRecordModelQuery {
   _$ApiRecordModelQuery(
     this.reference,
@@ -458,6 +558,82 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     );
   }
 
+  ApiRecordModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(fieldPath, descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiRecordModelQuery(query, _collection);
+  }
+
+  ApiRecordModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$ApiRecordModelQuery(
+      reference.where(
+        fieldPath,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull,
+      ),
+      _collection,
+    );
+  }
+
   ApiRecordModelQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -499,7 +675,7 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "amount",
+        _$ApiRecordModelFieldMap["amount"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -527,7 +703,7 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "currencyId",
+        _$ApiRecordModelFieldMap["currencyId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -555,7 +731,7 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "categoryId",
+        _$ApiRecordModelFieldMap["categoryId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -570,19 +746,20 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     );
   }
 
-  ApiRecordModelQuery wherePersonIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
+  ApiRecordModelQuery wherePersonId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String>? arrayContainsAny,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "personIds",
+        _$ApiRecordModelFieldMap["personId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -590,7 +767,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
         isGreaterThan: isGreaterThan,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
         isNull: isNull,
-        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
       ),
       _collection,
     );
@@ -604,11 +782,12 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "receiptIds",
+        _$ApiRecordModelFieldMap["receiptIds"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -616,6 +795,7 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
         isGreaterThan: isGreaterThan,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
         isNull: isNull,
+        arrayContains: arrayContains,
         arrayContainsAny: arrayContainsAny,
       ),
       _collection,
@@ -635,7 +815,35 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        "remarks",
+        _$ApiRecordModelFieldMap["remarks"]!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
+  ApiRecordModelQuery whereDateTime({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  }) {
+    return _$ApiRecordModelQuery(
+      reference.where(
+        _$ApiRecordModelFieldMap["dateTime"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -703,7 +911,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("amount", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["amount"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -745,7 +954,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("currencyId", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["currencyId"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -787,7 +997,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("categoryId", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["categoryId"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -818,7 +1029,7 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     return _$ApiRecordModelQuery(query, _collection);
   }
 
-  ApiRecordModelQuery orderByPersonIds({
+  ApiRecordModelQuery orderByPersonId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -829,7 +1040,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("personIds", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["personId"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -871,7 +1083,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("receiptIds", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["receiptIds"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -913,7 +1126,51 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("remarks", descending: descending);
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["remarks"]!,
+        descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiRecordModelQuery(query, _collection);
+  }
+
+  ApiRecordModelQuery orderByDateTime({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["dateTime"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -955,8 +1212,8 @@ class _$ApiRecordModelQuery extends QueryReference<ApiRecordModelQuerySnapshot>
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class ApiRecordModelQuerySnapshot
-    extends FirestoreQuerySnapshot<ApiRecordModelQueryDocumentSnapshot> {
+class ApiRecordModelQuerySnapshot extends FirestoreQuerySnapshot<ApiRecordModel,
+    ApiRecordModelQueryDocumentSnapshot> {
   ApiRecordModelQuerySnapshot._(
     this.snapshot,
     this.docs,
@@ -973,7 +1230,8 @@ class ApiRecordModelQuerySnapshot
       docChanges;
 }
 
-class ApiRecordModelQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot
+class ApiRecordModelQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<ApiRecordModel>
     implements ApiRecordModelDocumentSnapshot {
   ApiRecordModelQueryDocumentSnapshot._(this.snapshot, this.data);
 
@@ -998,8 +1256,7 @@ ApiRecordModel _$ApiRecordModelFromJson(Map<String, dynamic> json) =>
       amount: (json['amount'] as num).toDouble(),
       currencyId: json['currencyId'] as String,
       categoryId: json['categoryId'] as String,
-      personIds:
-          (json['personIds'] as List<dynamic>).map((e) => e as String).toList(),
+      personId: json['personId'] as String,
       receiptIds: (json['receiptIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -1007,12 +1264,22 @@ ApiRecordModel _$ApiRecordModelFromJson(Map<String, dynamic> json) =>
       dateTime: DateTime.parse(json['dateTime'] as String),
     );
 
+const _$ApiRecordModelFieldMap = <String, String>{
+  'amount': 'amount',
+  'currencyId': 'currencyId',
+  'categoryId': 'categoryId',
+  'personId': 'personId',
+  'receiptIds': 'receiptIds',
+  'remarks': 'remarks',
+  'dateTime': 'dateTime',
+};
+
 Map<String, dynamic> _$ApiRecordModelToJson(ApiRecordModel instance) =>
     <String, dynamic>{
       'amount': instance.amount,
       'currencyId': instance.currencyId,
       'categoryId': instance.categoryId,
-      'personIds': instance.personIds,
+      'personId': instance.personId,
       'receiptIds': instance.receiptIds,
       'remarks': instance.remarks,
       'dateTime': instance.dateTime.toIso8601String(),

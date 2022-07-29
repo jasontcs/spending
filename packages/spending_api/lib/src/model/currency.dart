@@ -13,15 +13,10 @@ class ApiCurrencyModel {
     required this.recordIds,
   });
 
-  factory ApiCurrencyModel.fromJson(Map<String, Object?> json) =>
-      _$ApiCurrencyModelFromJson(json);
-
   final double rate;
   final String title;
   final String flag;
   final List<String> recordIds;
-
-  Map<String, Object?> toJson() => _$ApiCurrencyModelToJson(this);
 }
 
 @Collection<ApiCurrencyModel>('currencies')

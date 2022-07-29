@@ -21,7 +21,8 @@ const _sentinel = _Sentinel();
 abstract class ApiPersonModelCollectionReference
     implements
         ApiPersonModelQuery,
-        FirestoreCollectionReference<ApiPersonModelQuerySnapshot> {
+        FirestoreCollectionReference<ApiPersonModel,
+            ApiPersonModelQuerySnapshot> {
   factory ApiPersonModelCollectionReference([
     FirebaseFirestore? firestore,
   ]) = _$ApiPersonModelCollectionReference;
@@ -30,15 +31,18 @@ abstract class ApiPersonModelCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return ApiPersonModel.fromJson(snapshot.data()!);
+    return _$ApiPersonModelFromJson(snapshot.data()!);
   }
 
   static Map<String, Object?> toFirestore(
     ApiPersonModel value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return _$ApiPersonModelToJson(value);
   }
+
+  @override
+  CollectionReference<ApiPersonModel> get reference;
 
   @override
   ApiPersonModelDocumentReference doc([String? id]);
@@ -101,7 +105,8 @@ class _$ApiPersonModelCollectionReference extends _$ApiPersonModelQuery
 }
 
 abstract class ApiPersonModelDocumentReference
-    extends FirestoreDocumentReference<ApiPersonModelDocumentSnapshot> {
+    extends FirestoreDocumentReference<ApiPersonModel,
+        ApiPersonModelDocumentSnapshot> {
   factory ApiPersonModelDocumentReference(
           DocumentReference<ApiPersonModel> reference) =
       _$ApiPersonModelDocumentReference;
@@ -130,9 +135,9 @@ abstract class ApiPersonModelDocumentReference
   Future<void> set(ApiPersonModel value);
 }
 
-class _$ApiPersonModelDocumentReference
-    extends FirestoreDocumentReference<ApiPersonModelDocumentSnapshot>
-    implements ApiPersonModelDocumentReference {
+class _$ApiPersonModelDocumentReference extends FirestoreDocumentReference<
+    ApiPersonModel,
+    ApiPersonModelDocumentSnapshot> implements ApiPersonModelDocumentReference {
   _$ApiPersonModelDocumentReference(this.reference);
 
   @override
@@ -196,7 +201,8 @@ class _$ApiPersonModelDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-class ApiPersonModelDocumentSnapshot extends FirestoreDocumentSnapshot {
+class ApiPersonModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiPersonModel> {
   ApiPersonModelDocumentSnapshot._(
     this.snapshot,
     this.data,
@@ -217,12 +223,77 @@ class ApiPersonModelDocumentSnapshot extends FirestoreDocumentSnapshot {
 }
 
 abstract class ApiPersonModelQuery
-    implements QueryReference<ApiPersonModelQuerySnapshot> {
+    implements QueryReference<ApiPersonModel, ApiPersonModelQuerySnapshot> {
   @override
   ApiPersonModelQuery limit(int limit);
 
   @override
   ApiPersonModelQuery limitToLast(int limit);
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  ApiPersonModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt,
+    Object? startAfter,
+    Object? endAt,
+    Object? endBefore,
+    ApiPersonModelDocumentSnapshot? startAtDocument,
+    ApiPersonModelDocumentSnapshot? endAtDocument,
+    ApiPersonModelDocumentSnapshot? endBeforeDocument,
+    ApiPersonModelDocumentSnapshot? startAfterDocument,
+  });
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  ApiPersonModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
 
   ApiPersonModelQuery whereDocumentId({
     String? isEqualTo,
@@ -254,6 +325,7 @@ abstract class ApiPersonModelQuery
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   });
 
@@ -294,7 +366,8 @@ abstract class ApiPersonModelQuery
   });
 }
 
-class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
+class _$ApiPersonModelQuery
+    extends QueryReference<ApiPersonModel, ApiPersonModelQuerySnapshot>
     implements ApiPersonModelQuery {
   _$ApiPersonModelQuery(
     this.reference,
@@ -355,6 +428,82 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
     );
   }
 
+  ApiPersonModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiPersonModelDocumentSnapshot? startAtDocument,
+    ApiPersonModelDocumentSnapshot? endAtDocument,
+    ApiPersonModelDocumentSnapshot? endBeforeDocument,
+    ApiPersonModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(fieldPath, descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiPersonModelQuery(query, _collection);
+  }
+
+  ApiPersonModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$ApiPersonModelQuery(
+      reference.where(
+        fieldPath,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull,
+      ),
+      _collection,
+    );
+  }
+
   ApiPersonModelQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -396,7 +545,7 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
   }) {
     return _$ApiPersonModelQuery(
       reference.where(
-        "title",
+        _$ApiPersonModelFieldMap["title"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -419,11 +568,12 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   }) {
     return _$ApiPersonModelQuery(
       reference.where(
-        "recordIds",
+        _$ApiPersonModelFieldMap["recordIds"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -431,6 +581,7 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
         isGreaterThan: isGreaterThan,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
         isNull: isNull,
+        arrayContains: arrayContains,
         arrayContainsAny: arrayContainsAny,
       ),
       _collection,
@@ -490,7 +641,8 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("title", descending: descending);
+    var query = reference.orderBy(_$ApiPersonModelFieldMap["title"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -532,7 +684,8 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("recordIds", descending: descending);
+    var query = reference.orderBy(_$ApiPersonModelFieldMap["recordIds"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -574,8 +727,8 @@ class _$ApiPersonModelQuery extends QueryReference<ApiPersonModelQuerySnapshot>
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class ApiPersonModelQuerySnapshot
-    extends FirestoreQuerySnapshot<ApiPersonModelQueryDocumentSnapshot> {
+class ApiPersonModelQuerySnapshot extends FirestoreQuerySnapshot<ApiPersonModel,
+    ApiPersonModelQueryDocumentSnapshot> {
   ApiPersonModelQuerySnapshot._(
     this.snapshot,
     this.docs,
@@ -592,7 +745,8 @@ class ApiPersonModelQuerySnapshot
       docChanges;
 }
 
-class ApiPersonModelQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot
+class ApiPersonModelQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<ApiPersonModel>
     implements ApiPersonModelDocumentSnapshot {
   ApiPersonModelQueryDocumentSnapshot._(this.snapshot, this.data);
 
@@ -618,6 +772,11 @@ ApiPersonModel _$ApiPersonModelFromJson(Map<String, dynamic> json) =>
       recordIds:
           (json['recordIds'] as List<dynamic>).map((e) => e as String).toList(),
     );
+
+const _$ApiPersonModelFieldMap = <String, String>{
+  'title': 'title',
+  'recordIds': 'recordIds',
+};
 
 Map<String, dynamic> _$ApiPersonModelToJson(ApiPersonModel instance) =>
     <String, dynamic>{

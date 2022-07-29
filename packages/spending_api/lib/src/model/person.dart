@@ -11,13 +11,8 @@ class ApiPersonModel {
     required this.recordIds,
   });
 
-  factory ApiPersonModel.fromJson(Map<String, Object?> json) =>
-      _$ApiPersonModelFromJson(json);
-
   final String title;
   final List<String> recordIds;
-
-  Map<String, Object?> toJson() => _$ApiPersonModelToJson(this);
 }
 
 @Collection<ApiPersonModel>('people')

@@ -17,7 +17,7 @@ abstract class SpendingApi {
   Stream<List<ApiRecordModel>> getRecords({
     String? id,
     String? categoryId,
-    List<String>? personIds,
+    String? personId,
     DateTime? from,
     DateTime? to,
   });

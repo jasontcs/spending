@@ -21,7 +21,8 @@ const _sentinel = _Sentinel();
 abstract class ApiCurrencyModelCollectionReference
     implements
         ApiCurrencyModelQuery,
-        FirestoreCollectionReference<ApiCurrencyModelQuerySnapshot> {
+        FirestoreCollectionReference<ApiCurrencyModel,
+            ApiCurrencyModelQuerySnapshot> {
   factory ApiCurrencyModelCollectionReference([
     FirebaseFirestore? firestore,
   ]) = _$ApiCurrencyModelCollectionReference;
@@ -30,15 +31,18 @@ abstract class ApiCurrencyModelCollectionReference
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return ApiCurrencyModel.fromJson(snapshot.data()!);
+    return _$ApiCurrencyModelFromJson(snapshot.data()!);
   }
 
   static Map<String, Object?> toFirestore(
     ApiCurrencyModel value,
     SetOptions? options,
   ) {
-    return value.toJson();
+    return _$ApiCurrencyModelToJson(value);
   }
+
+  @override
+  CollectionReference<ApiCurrencyModel> get reference;
 
   @override
   ApiCurrencyModelDocumentReference doc([String? id]);
@@ -102,7 +106,8 @@ class _$ApiCurrencyModelCollectionReference extends _$ApiCurrencyModelQuery
 }
 
 abstract class ApiCurrencyModelDocumentReference
-    extends FirestoreDocumentReference<ApiCurrencyModelDocumentSnapshot> {
+    extends FirestoreDocumentReference<ApiCurrencyModel,
+        ApiCurrencyModelDocumentSnapshot> {
   factory ApiCurrencyModelDocumentReference(
           DocumentReference<ApiCurrencyModel> reference) =
       _$ApiCurrencyModelDocumentReference;
@@ -133,8 +138,8 @@ abstract class ApiCurrencyModelDocumentReference
   Future<void> set(ApiCurrencyModel value);
 }
 
-class _$ApiCurrencyModelDocumentReference
-    extends FirestoreDocumentReference<ApiCurrencyModelDocumentSnapshot>
+class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
+        ApiCurrencyModel, ApiCurrencyModelDocumentSnapshot>
     implements ApiCurrencyModelDocumentReference {
   _$ApiCurrencyModelDocumentReference(this.reference);
 
@@ -203,7 +208,8 @@ class _$ApiCurrencyModelDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-class ApiCurrencyModelDocumentSnapshot extends FirestoreDocumentSnapshot {
+class ApiCurrencyModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiCurrencyModel> {
   ApiCurrencyModelDocumentSnapshot._(
     this.snapshot,
     this.data,
@@ -224,12 +230,77 @@ class ApiCurrencyModelDocumentSnapshot extends FirestoreDocumentSnapshot {
 }
 
 abstract class ApiCurrencyModelQuery
-    implements QueryReference<ApiCurrencyModelQuerySnapshot> {
+    implements QueryReference<ApiCurrencyModel, ApiCurrencyModelQuerySnapshot> {
   @override
   ApiCurrencyModelQuery limit(int limit);
 
   @override
   ApiCurrencyModelQuery limitToLast(int limit);
+
+  /// Perform an order query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of order queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.orderByFieldPath(
+  ///   FieldPath.fromString('title'),
+  ///   startAt: 'title',
+  /// );
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.orderByTitle(startAt: 'title');
+  /// ```
+  ApiCurrencyModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt,
+    Object? startAfter,
+    Object? endAt,
+    Object? endBefore,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  });
+
+  /// Perform a where query based on a [FieldPath].
+  ///
+  /// This method is considered unsafe as it does check that the field path
+  /// maps to a valid property or that parameters such as [isEqualTo] receive
+  /// a value of the correct type.
+  ///
+  /// If possible, instead use the more explicit variant of where queries:
+  ///
+  /// **AVOID**:
+  /// ```dart
+  /// collection.whereFieldPath(FieldPath.fromString('title'), isEqualTo: 'title');
+  /// ```
+  ///
+  /// **PREFER**:
+  /// ```dart
+  /// collection.whereTitle(isEqualTo: 'title');
+  /// ```
+  ApiCurrencyModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  });
 
   ApiCurrencyModelQuery whereDocumentId({
     String? isEqualTo,
@@ -283,6 +354,7 @@ abstract class ApiCurrencyModelQuery
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   });
 
@@ -348,7 +420,7 @@ abstract class ApiCurrencyModelQuery
 }
 
 class _$ApiCurrencyModelQuery
-    extends QueryReference<ApiCurrencyModelQuerySnapshot>
+    extends QueryReference<ApiCurrencyModel, ApiCurrencyModelQuerySnapshot>
     implements ApiCurrencyModelQuery {
   _$ApiCurrencyModelQuery(
     this.reference,
@@ -409,6 +481,82 @@ class _$ApiCurrencyModelQuery
     );
   }
 
+  ApiCurrencyModelQuery orderByFieldPath(
+    FieldPath fieldPath, {
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(fieldPath, descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiCurrencyModelQuery(query, _collection);
+  }
+
+  ApiCurrencyModelQuery whereFieldPath(
+    FieldPath fieldPath, {
+    Object? isEqualTo,
+    Object? isNotEqualTo,
+    Object? isLessThan,
+    Object? isLessThanOrEqualTo,
+    Object? isGreaterThan,
+    Object? isGreaterThanOrEqualTo,
+    Object? arrayContains,
+    List<Object?>? arrayContainsAny,
+    List<Object?>? whereIn,
+    List<Object?>? whereNotIn,
+    bool? isNull,
+  }) {
+    return _$ApiCurrencyModelQuery(
+      reference.where(
+        fieldPath,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        arrayContains: arrayContains,
+        arrayContainsAny: arrayContainsAny,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+        isNull: isNull,
+      ),
+      _collection,
+    );
+  }
+
   ApiCurrencyModelQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -450,7 +598,7 @@ class _$ApiCurrencyModelQuery
   }) {
     return _$ApiCurrencyModelQuery(
       reference.where(
-        "rate",
+        _$ApiCurrencyModelFieldMap["rate"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -478,7 +626,7 @@ class _$ApiCurrencyModelQuery
   }) {
     return _$ApiCurrencyModelQuery(
       reference.where(
-        "title",
+        _$ApiCurrencyModelFieldMap["title"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -506,7 +654,7 @@ class _$ApiCurrencyModelQuery
   }) {
     return _$ApiCurrencyModelQuery(
       reference.where(
-        "flag",
+        _$ApiCurrencyModelFieldMap["flag"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -529,11 +677,12 @@ class _$ApiCurrencyModelQuery
     List<String>? isGreaterThan,
     List<String>? isGreaterThanOrEqualTo,
     bool? isNull,
+    String? arrayContains,
     List<String>? arrayContainsAny,
   }) {
     return _$ApiCurrencyModelQuery(
       reference.where(
-        "recordIds",
+        _$ApiCurrencyModelFieldMap["recordIds"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -541,6 +690,7 @@ class _$ApiCurrencyModelQuery
         isGreaterThan: isGreaterThan,
         isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
         isNull: isNull,
+        arrayContains: arrayContains,
         arrayContainsAny: arrayContainsAny,
       ),
       _collection,
@@ -600,7 +750,8 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("rate", descending: descending);
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["rate"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -642,7 +793,8 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("title", descending: descending);
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["title"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -684,7 +836,8 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("flag", descending: descending);
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["flag"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -726,7 +879,8 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy("recordIds", descending: descending);
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["recordIds"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -768,8 +922,8 @@ class _$ApiCurrencyModelQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class ApiCurrencyModelQuerySnapshot
-    extends FirestoreQuerySnapshot<ApiCurrencyModelQueryDocumentSnapshot> {
+class ApiCurrencyModelQuerySnapshot extends FirestoreQuerySnapshot<
+    ApiCurrencyModel, ApiCurrencyModelQueryDocumentSnapshot> {
   ApiCurrencyModelQuerySnapshot._(
     this.snapshot,
     this.docs,
@@ -787,7 +941,7 @@ class ApiCurrencyModelQuerySnapshot
 }
 
 class ApiCurrencyModelQueryDocumentSnapshot
-    extends FirestoreQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<ApiCurrencyModel>
     implements ApiCurrencyModelDocumentSnapshot {
   ApiCurrencyModelQueryDocumentSnapshot._(this.snapshot, this.data);
 
@@ -815,6 +969,13 @@ ApiCurrencyModel _$ApiCurrencyModelFromJson(Map<String, dynamic> json) =>
       recordIds:
           (json['recordIds'] as List<dynamic>).map((e) => e as String).toList(),
     );
+
+const _$ApiCurrencyModelFieldMap = <String, String>{
+  'rate': 'rate',
+  'title': 'title',
+  'flag': 'flag',
+  'recordIds': 'recordIds',
+};
 
 Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
     <String, dynamic>{

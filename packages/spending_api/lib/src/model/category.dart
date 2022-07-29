@@ -13,15 +13,10 @@ class ApiCategoryModel {
     required this.recordIds,
   });
 
-  factory ApiCategoryModel.fromJson(Map<String, Object?> json) =>
-      _$ApiCategoryModelFromJson(json);
-
   final String title;
   final double budget;
   final String imageUrl;
   final List<String> recordIds;
-
-  Map<String, Object?> toJson() => _$ApiCategoryModelToJson(this);
 }
 
 @Collection<ApiCategoryModel>('catogeries')
