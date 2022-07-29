@@ -8,7 +8,9 @@ part 'receipt.g.dart';
 class ApiReceiptModel {
   ApiReceiptModel({required this.imageUrl, required this.recordId});
 
-  final String imageUrl;
+  @JsonKey(ignore: true)
+  late final String id;
+  final String? imageUrl;
   final String recordId;
 }
 

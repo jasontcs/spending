@@ -13,9 +13,11 @@ class ApiCategoryModel {
     required this.recordIds,
   });
 
+  @JsonKey(ignore: true)
+  late final String id;
   final String title;
   final double budget;
-  final String imageUrl;
+  final String? imageUrl;
   final List<String> recordIds;
 }
 

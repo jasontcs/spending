@@ -11,8 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   json_annotation: ^4.6.0
-  cloud_firestore_odm: ^1.0.0-dev.20
+  cloud_firestore_odm: ^1.0.0-dev.24
   cloud_firestore: ^3.4.1
+  firebase_storage: ^10.3.4
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +21,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.2.0
   json_serializable: ^6.3.1
-  cloud_firestore_odm_generator: ^1.0.0-dev.20
+  cloud_firestore_odm_generator: ^1.0.0-dev.24
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

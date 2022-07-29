@@ -11,6 +11,8 @@ class ApiPersonModel {
     required this.recordIds,
   });
 
+  @JsonKey(ignore: true)
+  late final String id;
   final String title;
   final List<String> recordIds;
 }

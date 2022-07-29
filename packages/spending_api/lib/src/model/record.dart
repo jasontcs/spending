@@ -16,6 +16,8 @@ class ApiRecordModel {
     required this.dateTime,
   });
 
+  @JsonKey(ignore: true)
+  late final String id;
   final double amount;
   final String currencyId;
   final String categoryId;
