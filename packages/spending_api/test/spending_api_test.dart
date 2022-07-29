@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:spending_api/src/firestore_spending_api.dart';
+import 'package:spending_api/src/firebase_spending_api.dart';
 
 void main() {
   test('adds one to input values', () {
