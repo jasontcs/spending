@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spending_api/spending_api.dart';
 
 part 'model.freezed.dart';
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class Record with _$Record {
   const factory Record({
     String? id,
     required double amount,
-    required Currency? currency,
-    required Category? category,
+    required Currency currency,
+    required Category category,
     required Person person,
     required List<Receipt> receipts,
     required String remarks,
@@ -19,10 +18,9 @@ class Record with _$Record {
   }) = _Record;
 }
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class Currency with _$Currency {
   const factory Currency({
-    String? id,
     required double rate,
     required String title,
     required String flag,
@@ -30,33 +28,30 @@ class Currency with _$Currency {
   }) = _Currency;
 }
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class Category with _$Category {
   const factory Category({
-    String? id,
     required double budget,
     required String title,
+    File? image,
     String? imageUrl,
-    required File image,
     required List<Record> records,
   }) = _Category;
 }
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class Person with _$Person {
   const factory Person({
-    String? id,
     required String title,
     required List<Record> records,
   }) = _Person;
 }
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class Receipt with _$Receipt {
   const factory Receipt({
-    String? id,
+    File? image,
     String? imageUrl,
-    required File image,
     required Record? record,
   }) = _Receipt;
 }

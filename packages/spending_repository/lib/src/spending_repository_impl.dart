@@ -1,151 +1,297 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:rxdart/rxdart.dart';
+
 import 'package:spending_api/spending_api.dart';
-import 'package:spending_repository/src/spending_repository_error.dart';
 
 import '../spending_repository.dart';
+import 'spending_repository_error.dart';
+import 'dart:developer' as developer;
+import 'package:logging/logging.dart';
+
+enum SpendingRepositoryImage {
+  category('category'),
+  receipt('recipt');
+
+  final String title;
+  const SpendingRepositoryImage(this.title);
+}
 
 class ISpendingRepository implements SpendingRepository {
   final SpendingApi _spendingApi;
 
   ISpendingRepository(this._spendingApi);
 
-  // @override
-  // Future<Record?> addReceipt(Record record, File receipt) async {
-  //   if (record.id == null) throw SpendingRepositoryArgumentInvalid();
-  //   final imageUrl = await _spendingApi.uploadImage(
-  //       file: receipt, id: DateTime.now().toIso8601String(), type: 'receipt');
-  //   var id = await _spendingApi.editReceipt(
-  //     null,
-  //     ApiReceiptModel(
-  //       imageUrl: imageUrl,
-  //       recordId: record.id!,
-  //     ),
-  //   );
-  //   if (id == null) throw SpendingRepositoryApiFail();
-  //   final model = await _spendingApi.getRecord(record.id!);
-  //   final result = await _spendingApi.editRecord(
-  //       record.id!,
-  //       ApiRecordModel(
-  //         amount: model.amount,
-  //         currencyId: model.currencyId,
-  //         categoryId: model.categoryId,
-  //         personId: model.personId,
-  //         receiptIds: model.receiptIds.toList()..add(id),
-  //         remarks: model.remarks,
-  //         dateTime: model.dateTime,
-  //       ));
-  //   if (result == null) throw SpendingRepositoryApiFail();
-  // }
-
-  // @override
-  // Future<Category?> editCategory(
-  //     Category? oldCategory, Category? newCategory) async {
-  //   String? result;
-  //   if (oldCategory == null) {
-  //     if (newCategory != null) {
-  //       result = await _spendingApi.editCategory(
-  //         null,
-  //         ApiCategoryModel(
-  //           title: newCategory.title,
-  //           budget: newCategory.budget,
-  //           imageUrl: newCategory.imageUrl,
-  //           recordIds: [],
-  //         ),
-  //       );
-  //     } else {
-  //       throw SpendingRepositoryArgumentInvalid();
-  //     }
-  //   } else {
-  //     final model = await _spendingApi.getCategory(oldCategory.id!);
-  //     if (newCategory != null) {
-  //       result = await _spendingApi.editPerson(
-  //         model.id,
-  //         ApiPersonModel(title: newCategory.title, recordIds: []),
-  //       );
-  //     } else {
-  //       if (oldCategory.records.isNotEmpty) {
-  //         throw SpendingRepositoryActionNotVaild('Binded to records');
-  //       }
-  //       result = await _spendingApi.editPerson(model.id, null);
-  //     }
-  //   }
-  //   if (result == null) throw SpendingRepositoryApiFail();
-  // }
+  @override
+  Future<Category> addCategory(Category category) async {
+    if (category.imageUrl == null && category.image != null) {
+      final url = await _spendingApi.uploadImage(
+        file: category.image!,
+        id: DateTime.now().toIso8601String(),
+        type: SpendingRepositoryImage.category.title,
+      );
+      await _spendingApi
+          .addCategory(category.copyWith(imageUrl: url).fromEntity());
+    } else {
+      await _spendingApi.addCategory(category.fromEntity());
+    }
+    return category;
+  }
 
   @override
-  Future<Person?> editPerson(Person? oldPerson, Person? newPerson) async {
-    if (oldPerson == null) {
-      if (newPerson != null) {
-        final id = await _spendingApi.editPerson(
-          null,
-          ApiPersonModel(title: newPerson.title, recordIds: []),
+  Future<Currency> addCurrency(Currency currency) async {
+    await _spendingApi.addCurrency(currency.fromEntity());
+    return currency;
+  }
+
+  @override
+  Future<Record> addRecord(Record record) async {
+    List<Receipt> tmpReceipts = record.receipts.toList();
+    for (var receipt in tmpReceipts) {
+      if (receipt.imageUrl == null) {
+        if (receipt.image == null) throw SpendingRepositoryArgumentInvalid();
+        final url = await _spendingApi.uploadImage(
+          file: receipt.image!,
+          id: DateTime.now().toIso8601String(),
+          type: SpendingRepositoryImage.receipt.title,
         );
-        if (id == null) throw SpendingRepositoryApiFail();
-        return newPerson.copyWith(id: id);
-      } else {
-        throw SpendingRepositoryArgumentInvalid();
-      }
-    } else {
-      final model = await _spendingApi.getPerson(oldPerson.id!);
-      if (newPerson != null) {
-        final id = await _spendingApi.editPerson(
-          model.id,
-          ApiPersonModel(title: newPerson.title, recordIds: []),
-        );
-        if (id == null) throw SpendingRepositoryApiFail();
-        return newPerson;
-      } else {
-        if (oldPerson.records.isNotEmpty) {
-          throw SpendingRepositoryActionNotVaild('Binded to records');
-        }
-        final id = await _spendingApi.editPerson(model.id, null);
-        if (id == null) throw SpendingRepositoryApiFail();
-        return null;
+        receipt = receipt.copyWith(imageUrl: url);
       }
     }
+    final finalRecord = record.copyWith(receipts: tmpReceipts);
+    String id = await _spendingApi.addRecord(finalRecord.fromEntity());
+    return finalRecord.copyWith(id: id);
   }
 
   @override
-  Future<Record?> editRecord(Record? oldRecord, Record? newRecord) {
-    // TODO: implement editRecord
-    throw UnimplementedError();
+  Stream<List<Category>> get categoriesStream => _recordsStream.map(
+      (records) => records.map((record) => record.category).toSet().toList());
+
+  @override
+  Stream<List<Currency>> get currenciesStream => _recordsStream.map(
+      (records) => records.map((record) => record.currency).toSet().toList());
+
+  @override
+  Stream<List<Person>> get peopleStream => _recordsStream.map(
+      (records) => records.map((record) => record.person).toSet().toList());
+
+  @override
+  Stream<List<Record>> get recordsStream => _recordsStream;
+
+  Stream<List<Record>> get _recordsStream => CombineLatestStream.combine3(
+          _spendingApi.recordsStream,
+          _spendingApi.categoriesStream,
+          _spendingApi.currenciesStream, (List<ApiRecordModel> records,
+              List<ApiCategoryModel> categories,
+              List<ApiCurrencyModel> currencies) {
+        late List<Record> recordsOutput;
+        recordsOutput = records.map((recordModel) {
+          late Record recordOutput;
+          recordOutput = recordModel.toEntity(
+            currency: (title) => currencies
+                .singleWhere((element) => element.title == title)
+                .toEntity(records: recordsOutput),
+            category: (title) => categories
+                .singleWhere((element) => element.title == title)
+                .toEntity(records: recordsOutput),
+            person: (title) => Person(title: title, records: recordsOutput),
+            receipts: (receipts) => receipts
+                .map((url) => Receipt(imageUrl: url, record: recordOutput))
+                .toList(),
+          );
+          return recordOutput;
+        }).toList();
+        return recordsOutput;
+      }).asyncMap((records) async {
+        List<Record> updatedRecords = [];
+        for (var record in records) {
+          List<Receipt> updatedReceipts = [];
+          for (var receipt in record.receipts) {
+            if (receipt.image == null && receipt.imageUrl != null) {
+              final file = await _saveImage(receipt.imageUrl!);
+              updatedReceipts.add(receipt.copyWith(image: file));
+            } else {
+              updatedReceipts.add(receipt);
+            }
+          }
+          updatedRecords.add(record.copyWith(receipts: updatedReceipts));
+        }
+        _logInfo('_recordsStream', updatedRecords);
+        return updatedRecords;
+      });
+
+  @override
+  Future<Category> deleteCategory(Category category) async {
+    await _spendingApi.removeCategory(category.title);
+    _logInfo('deleteCategory', category);
+    return category;
   }
 
   @override
-  Future<Currency?> setCurrency(Currency currency, double rate) async {
-    await _spendingApi.editCurrency(
-        currency.id,
-        ApiCurrencyModel(
-          rate: rate,
-          title: currency.title,
-          flag: currency.flag,
-          recordIds: currency.records.map((e) => e.id).toList(),
-        ));
+  Future<Currency> deleteCurrency(Currency currency) async {
+    await _spendingApi.removeCurrency(currency.title);
+    _logInfo('deleteCurrency', currency);
+    return currency;
   }
 
   @override
-  Stream<List<Category>> getCategories() {
-    // TODO: implement getCategories
-    throw UnimplementedError();
+  Future<Record> deleteRecord(Record record) async {
+    if (record.id != null) {
+      await _spendingApi.removeRecord(record.id!);
+      return record.copyWith(id: null);
+    }
+    _logInfo('deleteRecord', record);
+    return record;
   }
 
   @override
-  Stream<List<Person>> getPeople() {
-    // TODO: implement getPeople
-    throw UnimplementedError();
+  Future<Category> updateCategory(Category old, Category new_) async {
+    if (old.records != new_.records) throw SpendingRepositoryArgumentInvalid();
+    if (new_.imageUrl == null && new_.image != null) {
+      final url = await _spendingApi.uploadImage(
+        file: new_.image!,
+        id: DateTime.now().toIso8601String(),
+        type: SpendingRepositoryImage.category.title,
+      );
+      await _spendingApi.editCategory(
+          old.title, new_.copyWith(imageUrl: url).fromEntity());
+    } else {
+      await _spendingApi.editCategory(old.title, new_.fromEntity());
+    }
+    _logInfo('updateCategory', new_);
+    return new_;
   }
 
   @override
-  Stream<List<Record>> getRecords(
-      {DateTime? from, DateTime? to, Category? category, Person? person}) {
-    // TODO: implement getRecords
-    throw UnimplementedError();
+  Future<Currency> updateCurrency(Currency old, Currency new_) async {
+    if (old.records != new_.records) throw SpendingRepositoryArgumentInvalid();
+    await _spendingApi.editCurrency(old.title, new_.fromEntity());
+    _logInfo('updateCurrency', new_);
+    return new_;
   }
 
   @override
-  Future<Receipt> editImage(File file) {
-    // TODO: implement editImage
-    throw UnimplementedError();
+  Future<Person> updatePerson(Person old, Person new_) async {
+    await _spendingApi.editPerson(old.title, new_.title);
+    _logInfo('updatePerson', new_);
+    return new_;
+  }
+
+  @override
+  Future<Record> updateRecord(Record old, Record new_) async {
+    if (old.id == null) throw SpendingRepositoryArgumentInvalid();
+    List<Receipt> tmpReceipts = new_.receipts.toList();
+    for (var receipt in tmpReceipts) {
+      if (receipt.imageUrl == null) {
+        if (receipt.image == null) throw SpendingRepositoryArgumentInvalid();
+        final url = await _spendingApi.uploadImage(
+          file: receipt.image!,
+          id: DateTime.now().toIso8601String(),
+          type: SpendingRepositoryImage.receipt.title,
+        );
+        receipt = receipt.copyWith(imageUrl: url);
+      }
+    }
+    await _spendingApi.editRecord(old.id!, new_.fromEntity());
+    _logInfo('updateRecord', new_);
+    return new_;
+  }
+
+  Future<File?> _saveImage(String url) async {
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final file = File("${appDocDir.absolute}/images/$url");
+    if (await _spendingApi.saveImageToFile(file: file, url: url)) {
+      return file;
+    }
+    return null;
+  }
+
+  void _logInfo(String function, Object? data) {
+    developer.log(
+      '$function: $data',
+      name: 'Repository',
+      level: Level.INFO.value,
+    );
+  }
+}
+
+extension ApiCategoryModelX on ApiCategoryModel {
+  Category toEntity({required List<Record> records}) {
+    return Category(
+      budget: budget,
+      title: title,
+      imageUrl: imageUrl,
+      records: records,
+    );
+  }
+}
+
+extension ApiCurrencyModelX on ApiCurrencyModel {
+  Currency toEntity({
+    required List<Record> records,
+  }) {
+    return Currency(
+      rate: rate,
+      title: title,
+      flag: flag,
+      records: records,
+    );
+  }
+}
+
+extension ApiRecordModelX on ApiRecordModel {
+  Record toEntity({
+    required Currency Function(String title) currency,
+    required Category Function(String title) category,
+    required Person Function(String title) person,
+    required List<Receipt> Function(List<String> receipts) receipts,
+  }) {
+    return Record(
+      id: id,
+      amount: amount,
+      currency: currency(currencyTitle),
+      category: category(categoryTitle),
+      person: person(personTitle),
+      receipts: receipts(receiptsUrl),
+      remarks: remarks,
+      dateTime: dateTime,
+    );
+  }
+}
+
+extension CategoryX on Category {
+  ApiCategoryModel fromEntity() {
+    return ApiCategoryModel(
+      title: title,
+      budget: budget,
+      imageUrl: imageUrl,
+    );
+  }
+}
+
+extension CurrencyX on Currency {
+  ApiCurrencyModel fromEntity() {
+    return ApiCurrencyModel(
+      rate: rate,
+      title: title,
+      flag: flag,
+    );
+  }
+}
+
+extension RecordX on Record {
+  ApiRecordModel fromEntity() {
+    return ApiRecordModel(
+      id: id,
+      amount: amount,
+      currencyTitle: currency.title,
+      categoryTitle: category.title,
+      personTitle: person.title,
+      receiptsUrl: receipts.map((e) => e.imageUrl).whereNotNull().toList(),
+      remarks: remarks,
+      dateTime: dateTime,
+    );
   }
 }

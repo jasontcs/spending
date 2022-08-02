@@ -132,7 +132,6 @@ abstract class ApiCurrencyModelDocumentReference
     double rate,
     String title,
     String flag,
-    List<String> recordIds,
   });
 
   Future<void> set(ApiCurrencyModel value);
@@ -180,13 +179,11 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
     Object? rate = _sentinel,
     Object? title = _sentinel,
     Object? flag = _sentinel,
-    Object? recordIds = _sentinel,
   }) async {
     final json = {
       if (rate != _sentinel) "rate": rate as double,
       if (title != _sentinel) "title": title as String,
       if (flag != _sentinel) "flag": flag as String,
-      if (recordIds != _sentinel) "recordIds": recordIds as List<String>,
     };
 
     return reference.update(json);
@@ -346,17 +343,6 @@ abstract class ApiCurrencyModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiCurrencyModelQuery whereRecordIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
-    bool? isNull,
-    String? arrayContains,
-    List<String>? arrayContainsAny,
-  });
 
   ApiCurrencyModelQuery orderByDocumentId({
     bool descending = false,
@@ -400,18 +386,6 @@ abstract class ApiCurrencyModelQuery
     String startAfter,
     String endAt,
     String endBefore,
-    ApiCurrencyModelDocumentSnapshot? startAtDocument,
-    ApiCurrencyModelDocumentSnapshot? endAtDocument,
-    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
-    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
-  });
-
-  ApiCurrencyModelQuery orderByRecordIds({
-    bool descending = false,
-    List<String> startAt,
-    List<String> startAfter,
-    List<String> endAt,
-    List<String> endBefore,
     ApiCurrencyModelDocumentSnapshot? startAtDocument,
     ApiCurrencyModelDocumentSnapshot? endAtDocument,
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
@@ -669,34 +643,6 @@ class _$ApiCurrencyModelQuery
     );
   }
 
-  ApiCurrencyModelQuery whereRecordIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
-    bool? isNull,
-    String? arrayContains,
-    List<String>? arrayContainsAny,
-  }) {
-    return _$ApiCurrencyModelQuery(
-      reference.where(
-        _$ApiCurrencyModelFieldMap["recordIds"]!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        arrayContains: arrayContains,
-        arrayContainsAny: arrayContainsAny,
-      ),
-      _collection,
-    );
-  }
-
   ApiCurrencyModelQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -868,49 +814,6 @@ class _$ApiCurrencyModelQuery
     return _$ApiCurrencyModelQuery(query, _collection);
   }
 
-  ApiCurrencyModelQuery orderByRecordIds({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ApiCurrencyModelDocumentSnapshot? startAtDocument,
-    ApiCurrencyModelDocumentSnapshot? endAtDocument,
-    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
-    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["recordIds"]!,
-        descending: descending);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ApiCurrencyModelQuery(query, _collection);
-  }
-
   @override
   bool operator ==(Object other) {
     return other is _$ApiCurrencyModelQuery &&
@@ -966,15 +869,12 @@ ApiCurrencyModel _$ApiCurrencyModelFromJson(Map<String, dynamic> json) =>
       rate: (json['rate'] as num).toDouble(),
       title: json['title'] as String,
       flag: json['flag'] as String,
-      recordIds:
-          (json['recordIds'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 const _$ApiCurrencyModelFieldMap = <String, String>{
   'rate': 'rate',
   'title': 'title',
   'flag': 'flag',
-  'recordIds': 'recordIds',
 };
 
 Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
@@ -982,5 +882,4 @@ Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
       'rate': instance.rate,
       'title': instance.title,
       'flag': instance.flag,
-      'recordIds': instance.recordIds,
     };

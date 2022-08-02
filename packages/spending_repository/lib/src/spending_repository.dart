@@ -9,24 +9,21 @@ class Calculator {
 }
 
 abstract class SpendingRepository {
-  Stream<List<Record>> getRecords({
-    DateTime? from,
-    DateTime? to,
-    Category? category,
-    Person? person,
-  });
+  Stream<List<Record>> get recordsStream;
+  Stream<List<Category>> get categoriesStream;
+  Stream<List<Currency>> get currenciesStream;
+  Stream<List<Person>> get peopleStream;
 
-  Future<Record?> editRecord(Record? oldRecord, Record? newRecord);
+  Future<Record> addRecord(Record record);
+  Future<Category> addCategory(Category category);
+  Future<Currency> addCurrency(Currency currency);
 
-  Stream<List<Category>> getCategories();
+  Future<Record> updateRecord(Record old, Record new_);
+  Future<Category> updateCategory(Category old, Category new_);
+  Future<Currency> updateCurrency(Currency old, Currency new_);
+  Future<Person> updatePerson(Person old, Person new_);
 
-  Future<Category?> editCategory(Category? oldCategory, Category? newCategory);
-
-  Stream<List<Person>> getPeople();
-
-  Future<Person?> editPerson(Person? oldPerson, Person? newPerson);
-
-  Future<Receipt> editImage(File file);
-
-  Future<Currency?> setCurrency(Currency currency, double rate);
+  Future<Record> deleteRecord(Record record);
+  Future<Category> deleteCategory(Category category);
+  Future<Currency> deleteCurrency(Currency currency);
 }

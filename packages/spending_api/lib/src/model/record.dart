@@ -7,24 +7,47 @@ part 'record.g.dart';
 @JsonSerializable()
 class ApiRecordModel {
   ApiRecordModel({
+    this.id,
     required this.amount,
-    required this.currencyId,
-    required this.categoryId,
-    required this.personId,
-    required this.receiptIds,
+    required this.currencyTitle,
+    required this.categoryTitle,
+    required this.personTitle,
+    required this.receiptsUrl,
     required this.remarks,
     required this.dateTime,
   });
 
   @JsonKey(ignore: true)
-  late final String id;
+  final String? id;
   final double amount;
-  final String currencyId;
-  final String categoryId;
-  final String personId;
-  final List<String> receiptIds;
+  final String currencyTitle;
+  final String categoryTitle;
+  final String personTitle;
+  final List<String> receiptsUrl;
   final String remarks;
   final DateTime dateTime;
+
+  ApiRecordModel copyWith({
+    String? id,
+    double? amount,
+    String? currencyTitle,
+    String? categoryTitle,
+    String? personTitle,
+    List<String>? receiptsUrl,
+    String? remarks,
+    DateTime? dateTime,
+  }) {
+    return ApiRecordModel(
+      id: id ?? this.id,
+      amount: amount ?? this.amount,
+      currencyTitle: currencyTitle ?? this.currencyTitle,
+      categoryTitle: categoryTitle ?? this.categoryTitle,
+      personTitle: personTitle ?? this.personTitle,
+      receiptsUrl: receiptsUrl ?? this.receiptsUrl,
+      remarks: remarks ?? this.remarks,
+      dateTime: dateTime ?? this.dateTime,
+    );
+  }
 }
 
 @Collection<ApiRecordModel>('records')

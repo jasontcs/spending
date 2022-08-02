@@ -131,8 +131,7 @@ abstract class ApiCategoryModelDocumentReference
   Future<void> update({
     String title,
     double budget,
-    String imageUrl,
-    List<String> recordIds,
+    String? imageUrl,
   });
 
   Future<void> set(ApiCategoryModel value);
@@ -180,13 +179,11 @@ class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
     Object? title = _sentinel,
     Object? budget = _sentinel,
     Object? imageUrl = _sentinel,
-    Object? recordIds = _sentinel,
   }) async {
     final json = {
       if (title != _sentinel) "title": title as String,
       if (budget != _sentinel) "budget": budget as double,
-      if (imageUrl != _sentinel) "imageUrl": imageUrl as String,
-      if (recordIds != _sentinel) "recordIds": recordIds as List<String>,
+      if (imageUrl != _sentinel) "imageUrl": imageUrl as String?,
     };
 
     return reference.update(json);
@@ -343,19 +340,8 @@ abstract class ApiCategoryModelQuery
     String? isGreaterThan,
     String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  });
-  ApiCategoryModelQuery whereRecordIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
-    bool? isNull,
-    String? arrayContains,
-    List<String>? arrayContainsAny,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
   });
 
   ApiCategoryModelQuery orderByDocumentId({
@@ -396,22 +382,10 @@ abstract class ApiCategoryModelQuery
 
   ApiCategoryModelQuery orderByImageUrl({
     bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
-    ApiCategoryModelDocumentSnapshot? startAtDocument,
-    ApiCategoryModelDocumentSnapshot? endAtDocument,
-    ApiCategoryModelDocumentSnapshot? endBeforeDocument,
-    ApiCategoryModelDocumentSnapshot? startAfterDocument,
-  });
-
-  ApiCategoryModelQuery orderByRecordIds({
-    bool descending = false,
-    List<String> startAt,
-    List<String> startAfter,
-    List<String> endAt,
-    List<String> endBefore,
+    String? startAt,
+    String? startAfter,
+    String? endAt,
+    String? endBefore,
     ApiCategoryModelDocumentSnapshot? startAtDocument,
     ApiCategoryModelDocumentSnapshot? endAtDocument,
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
@@ -649,8 +623,8 @@ class _$ApiCategoryModelQuery
     String? isGreaterThan,
     String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
       reference.where(
@@ -664,34 +638,6 @@ class _$ApiCategoryModelQuery
         isNull: isNull,
         whereIn: whereIn,
         whereNotIn: whereNotIn,
-      ),
-      _collection,
-    );
-  }
-
-  ApiCategoryModelQuery whereRecordIds({
-    List<String>? isEqualTo,
-    List<String>? isNotEqualTo,
-    List<String>? isLessThan,
-    List<String>? isLessThanOrEqualTo,
-    List<String>? isGreaterThan,
-    List<String>? isGreaterThanOrEqualTo,
-    bool? isNull,
-    String? arrayContains,
-    List<String>? arrayContainsAny,
-  }) {
-    return _$ApiCategoryModelQuery(
-      reference.where(
-        _$ApiCategoryModelFieldMap["recordIds"]!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        arrayContains: arrayContains,
-        arrayContainsAny: arrayContainsAny,
       ),
       _collection,
     );
@@ -868,49 +814,6 @@ class _$ApiCategoryModelQuery
     return _$ApiCategoryModelQuery(query, _collection);
   }
 
-  ApiCategoryModelQuery orderByRecordIds({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ApiCategoryModelDocumentSnapshot? startAtDocument,
-    ApiCategoryModelDocumentSnapshot? endAtDocument,
-    ApiCategoryModelDocumentSnapshot? endBeforeDocument,
-    ApiCategoryModelDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["recordIds"]!,
-        descending: descending);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ApiCategoryModelQuery(query, _collection);
-  }
-
   @override
   bool operator ==(Object other) {
     return other is _$ApiCategoryModelQuery &&
@@ -965,16 +868,13 @@ ApiCategoryModel _$ApiCategoryModelFromJson(Map<String, dynamic> json) =>
     ApiCategoryModel(
       title: json['title'] as String,
       budget: (json['budget'] as num).toDouble(),
-      imageUrl: json['imageUrl'] as String,
-      recordIds:
-          (json['recordIds'] as List<dynamic>).map((e) => e as String).toList(),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 const _$ApiCategoryModelFieldMap = <String, String>{
   'title': 'title',
   'budget': 'budget',
   'imageUrl': 'imageUrl',
-  'recordIds': 'recordIds',
 };
 
 Map<String, dynamic> _$ApiCategoryModelToJson(ApiCategoryModel instance) =>
@@ -982,5 +882,4 @@ Map<String, dynamic> _$ApiCategoryModelToJson(ApiCategoryModel instance) =>
       'title': instance.title,
       'budget': instance.budget,
       'imageUrl': instance.imageUrl,
-      'recordIds': instance.recordIds,
     };

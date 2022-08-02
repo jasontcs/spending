@@ -9,16 +9,12 @@ class ApiCategoryModel {
   ApiCategoryModel({
     required this.title,
     required this.budget,
-    required this.imageUrl,
-    required this.recordIds,
+    this.imageUrl,
   });
 
-  @JsonKey(ignore: true)
-  late final String id;
   final String title;
   final double budget;
   final String? imageUrl;
-  final List<String> recordIds;
 }
 
 @Collection<ApiCategoryModel>('catogeries')

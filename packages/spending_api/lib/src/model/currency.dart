@@ -10,15 +10,11 @@ class ApiCurrencyModel {
     required this.rate,
     required this.title,
     required this.flag,
-    required this.recordIds,
   });
 
-  @JsonKey(ignore: true)
-  late final String id;
   final double rate;
   final String title;
   final String flag;
-  final List<String> recordIds;
 }
 
 @Collection<ApiCurrencyModel>('currencies')
