@@ -6,8 +6,8 @@ part 'model.freezed.dart';
 
 @freezed
 class Record with _$Record {
-  const factory Record({
-    String? id,
+  factory Record({
+    final String? id,
     required double amount,
     required Currency currency,
     required Category category,
@@ -20,38 +20,41 @@ class Record with _$Record {
 
 @freezed
 class Currency with _$Currency {
-  const factory Currency({
+  factory Currency({
     required double rate,
     required String title,
     required String flag,
-    required List<Record> records,
   }) = _Currency;
 }
 
 @freezed
 class Category with _$Category {
-  const factory Category({
+  factory Category({
     required double budget,
     required String title,
-    File? image,
-    String? imageUrl,
-    required List<Record> records,
+    required String icon,
   }) = _Category;
 }
 
 @freezed
 class Person with _$Person {
-  const factory Person({
+  factory Person({
     required String title,
-    required List<Record> records,
   }) = _Person;
 }
 
 @freezed
 class Receipt with _$Receipt {
-  const factory Receipt({
-    File? image,
-    String? imageUrl,
-    required Record? record,
+  factory Receipt({
+    required SpendingImage image,
   }) = _Receipt;
+}
+
+@freezed
+class SpendingImage with _$SpendingImage {
+  factory SpendingImage({
+    File? imageFile,
+    String? imageUrl,
+    String? imagePath,
+  }) = _SpendingImage;
 }

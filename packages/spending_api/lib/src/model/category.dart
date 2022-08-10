@@ -9,15 +9,15 @@ class ApiCategoryModel {
   ApiCategoryModel({
     required this.title,
     required this.budget,
-    this.imageUrl,
+    required this.icon,
   });
 
   final String title;
   final double budget;
-  final String? imageUrl;
+  final String icon;
 }
 
-@Collection<ApiCategoryModel>('catogeries')
-ApiCategoryModelCollectionReference catogeriesRef(
+@Collection<ApiCategoryModel>('categories')
+ApiCategoryModelCollectionReference categoriesRef(
         [FirebaseFirestore? firestore]) =>
     ApiCategoryModelCollectionReference(firestore);

@@ -1,11 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterfire_ui/i10n.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../features/auth/auth.dart';
+import '../features/auth/view/sign_in_page.dart';
+import '../features/categories/categories.dart';
 import '../features/home/home.dart';
+import '../features/people/people.dart';
+import '../features/record/record.dart';
 
 class App extends StatelessWidget {
   App({
@@ -18,12 +24,34 @@ class App extends StatelessWidget {
   final FirebaseAuth firebaseAuth;
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: spendingRepository,
-      child: BlocProvider(
-        create: (context) => AuthBloc(firebaseAuth),
-        child: AppView(),
-      ),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: spendingRepository),
+        RepositoryProvider.value(value: firebaseAuth),
+      ],
+      child: AppBlocs(),
+    );
+  }
+}
+
+class AppBlocs extends StatelessWidget {
+  const AppBlocs({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final SpendingRepository spendingRepository =
+        context.read<SpendingRepository>();
+    final FirebaseAuth firebaseAuth = context.read<FirebaseAuth>();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              AuthBloc(firebaseAuth)..add(AuthLoginRequested()),
+        ),
+      ],
+      child: AppView(),
     );
   }
 }
@@ -37,14 +65,13 @@ class AppView extends StatelessWidget {
         (AuthBloc authBloc) => authBloc.state.status == AuthStatus.login);
     final _router = GoRouter(
       routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => AppHomePage(),
-        ),
-        GoRoute(
-          path: SignInPage.routeName,
-          builder: (context, state) => SignInPage(),
-        ),
+        AppHomePage.route(routes: [
+          RecordPage.route(routes: [
+            CategoriesPage.route(),
+            PeoplePage.route(),
+          ]),
+        ]),
+        SignInPage.route(),
       ],
       redirect: (state) {
         // if the user is not logged in, they need to login
@@ -59,24 +86,20 @@ class AppView extends StatelessWidget {
         return null;
       },
     );
-
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       routeInformationProvider: _router.routeInformationProvider,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
+      localizationsDelegates: const [
+        FormBuilderLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -16,7 +17,7 @@ class FirebaseSpendingApi implements SpendingApi {
 
   @override
   Stream<List<ApiCategoryModel>> get categoriesStream =>
-      catogeriesRef(_firestore)
+      categoriesRef(_firestore)
           .snapshots()
           .map((event) => event.docs.map((e) => e.data).toList())
         ..listen((event) {
@@ -40,16 +41,16 @@ class FirebaseSpendingApi implements SpendingApi {
       _logInfo('recordsStream', event);
     });
   @override
-  Stream<List<String>> get peopleStream => recordsStream
-      .map((event) => event.map((e) => e.personTitle).toSet().toList())
-      .distinct()
+  Stream<List<ApiPersonModel>> get peopleStream => peopleRef(_firestore)
+      .snapshots()
+      .map((event) => event.docs.map((e) => e.data).toList())
     ..listen((event) {
       _logInfo('peopleStream', event);
     });
 
   @override
   Future<String> addCategory(ApiCategoryModel category) {
-    return catogeriesRef(_firestore).add(category).then((value) {
+    return categoriesRef(_firestore).add(category).then((value) {
       _logInfo('addCategory', value.id);
       return value.id;
     }).onError((error, stackTrace) => throw SpendingApiFail());
@@ -72,6 +73,14 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   @override
+  Future<String> addPerson(ApiPersonModel person) {
+    return peopleRef(_firestore).add(person).then((value) {
+      _logInfo('addPerson', value.id);
+      return value.id;
+    }).onError((error, stackTrace) => throw SpendingApiFail());
+  }
+
+  @override
   Future<String> editCategory(String title, ApiCategoryModel category) async {
     if (title != category.title) {
       for (var record in await getRecords(categoryTitle: title)) {
@@ -83,9 +92,9 @@ class FirebaseSpendingApi implements SpendingApi {
     }
 
     final snapshot =
-        await catogeriesRef(_firestore).whereTitle(isEqualTo: title).get();
+        await categoriesRef(_firestore).whereTitle(isEqualTo: title).get();
     final id = snapshot.docs.single.id;
-    return catogeriesRef(_firestore).doc(id).set(category).then((value) {
+    return categoriesRef(_firestore).doc(id).set(category).then((value) {
       _logInfo('editCategory', category);
       return id;
     }).onError((error, stackTrace) => throw SpendingApiFail());
@@ -119,18 +128,22 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   @override
-  Future<String> editPerson(String oldName, String newName) async {
-    final snapshot =
-        await recordsRef(_firestore).wherePersonTitle(isEqualTo: oldName).get();
-    for (final element in snapshot.docs) {
-      await recordsRef(_firestore)
-          .doc(element.id)
-          .set(element.data.copyWith(personTitle: newName))
-          .then((_) {
-        _logInfo('editPerson', newName);
-      }).onError((error, stackTrace) => throw SpendingApiFail());
+  Future<String> editPerson(String title, ApiPersonModel person) async {
+    if (title != person.title) {
+      for (var record in await getRecords(personTitle: title)) {
+        await editRecord(
+          record.id!,
+          record.copyWith(personTitle: person.title),
+        );
+      }
     }
-    return newName;
+    final snapshot =
+        await peopleRef(_firestore).whereTitle(isEqualTo: title).get();
+    final id = snapshot.docs.single.id;
+    return peopleRef(_firestore).doc(id).set(person).then((value) {
+      _logInfo('editPerson', person);
+      return id;
+    }).onError((error, stackTrace) => throw SpendingApiFail());
   }
 
   @override
@@ -143,7 +156,7 @@ class FirebaseSpendingApi implements SpendingApi {
           .then((value) => value.data?.categoryTitle);
       if (categoryTitle == null) throw SpendingApiNotFound();
     }
-    return catogeriesRef(_firestore)
+    return categoriesRef(_firestore)
         .whereTitle(isEqualTo: categoryTitle)
         .get()
         .then((value) {
@@ -201,8 +214,8 @@ class FirebaseSpendingApi implements SpendingApi {
       throw SpendingApiNotAllow();
     }
     final snapshot =
-        await catogeriesRef(_firestore).whereTitle(isEqualTo: title).get();
-    return catogeriesRef(_firestore)
+        await categoriesRef(_firestore).whereTitle(isEqualTo: title).get();
+    return categoriesRef(_firestore)
         .doc(snapshot.docs.single.id)
         .delete()
         .then((_) {
@@ -234,8 +247,24 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   @override
+  Future<void> removePerson(String title) async {
+    final ref = await getRecords(personTitle: title);
+    if (ref.isNotEmpty) {
+      throw SpendingApiNotAllow();
+    }
+    final snapshot =
+        await peopleRef(_firestore).whereTitle(isEqualTo: title).get();
+    return peopleRef(_firestore)
+        .doc(snapshot.docs.single.id)
+        .delete()
+        .then((_) {
+      _logInfo('removePerson', title);
+    }).onError((error, stackTrace) => throw SpendingApiFail());
+  }
+
+  @override
   Future<ApiCategoryModel> getCategory(String title) {
-    return catogeriesRef(_firestore)
+    return categoriesRef(_firestore)
         .whereTitle(isEqualTo: title)
         .get()
         .then((value) {
@@ -264,6 +293,17 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   @override
+  Future<ApiPersonModel> getPerson(String title) {
+    return peopleRef(_firestore)
+        .whereTitle(isEqualTo: title)
+        .get()
+        .then((value) {
+      _logInfo('getPerson', title);
+      return value.docs.single.data;
+    }).onError((error, stackTrace) => throw SpendingApiNotFound());
+  }
+
+  @override
   Future<String> uploadImage({
     required File file,
     required String id,
@@ -281,32 +321,10 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   @override
-  Future<bool> saveImageToFile({
-    required File file,
-    required String url,
-  }) async {
+  Future<String> getImageUrl(String path) {
     final storageRef = _storage?.ref() ?? FirebaseStorage.instance.ref();
-    final imageRef = storageRef.child(url);
-    final downloadTask = imageRef.writeToFile(file);
-
-    late bool success;
-    await downloadTask.snapshotEvents.firstWhere((taskSnapshot) {
-      switch (taskSnapshot.state) {
-        case TaskState.success:
-          success = true;
-          return true;
-        case TaskState.canceled:
-          success = false;
-          return true;
-        case TaskState.error:
-          success = false;
-          return true;
-        default:
-          return false;
-      }
-    });
-    _logInfo('saveImageToFile(success=$success)', file);
-    return success;
+    final imageRef = storageRef.child(path);
+    return imageRef.getDownloadURL();
   }
 
   void _logInfo(String function, Object? data) {

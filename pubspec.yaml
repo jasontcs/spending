@@ -44,6 +44,11 @@ dependencies:
   go_router: ^4.2.4
   firebase_auth: ^3.6.2
   flutter_form_builder: ^7.5.0
+  cached_network_image: ^3.2.1
+  equatable: ^2.0.3
+  form_builder_extra_fields: ^8.3.0
+  form_builder_validators: ^8.3.0
+  
 
 dev_dependencies:
   flutter_test:

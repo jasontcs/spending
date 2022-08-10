@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../budget/budget.dart';
 import '../../chart/chart.dart';
+import '../../record/record.dart';
 import '../../records/records.dart';
 import '../../setting/setting.dart';
 import '../home.dart';
 
 class AppHomePage extends StatelessWidget {
   const AppHomePage({super.key});
+  static const String routeName = '/';
+  static GoRoute route({List<GoRoute>? routes}) => GoRoute(
+        name: routeName,
+        path: '/',
+        builder: (context, state) => AppHomePage(),
+        routes: routes ?? [],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,9 @@ class AppHomeView extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          context.goNamed(RecordPage.routeName);
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

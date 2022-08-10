@@ -208,7 +208,7 @@ class __$$_RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Record implements _Record {
-  const _$_Record(
+  _$_Record(
       {this.id,
       required this.amount,
       required this.currency,
@@ -280,7 +280,7 @@ class _$_Record implements _Record {
 }
 
 abstract class _Record implements Record {
-  const factory _Record(
+  factory _Record(
       {final String? id,
       required final double amount,
       required final Currency currency,
@@ -317,7 +317,6 @@ mixin _$Currency {
   double get rate => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get flag => throw _privateConstructorUsedError;
-  List<Record> get records => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrencyCopyWith<Currency> get copyWith =>
@@ -328,7 +327,7 @@ mixin _$Currency {
 abstract class $CurrencyCopyWith<$Res> {
   factory $CurrencyCopyWith(Currency value, $Res Function(Currency) then) =
       _$CurrencyCopyWithImpl<$Res>;
-  $Res call({double rate, String title, String flag, List<Record> records});
+  $Res call({double rate, String title, String flag});
 }
 
 /// @nodoc
@@ -344,7 +343,6 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
     Object? rate = freezed,
     Object? title = freezed,
     Object? flag = freezed,
-    Object? records = freezed,
   }) {
     return _then(_value.copyWith(
       rate: rate == freezed
@@ -359,10 +357,6 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as String,
-      records: records == freezed
-          ? _value.records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
     ));
   }
 }
@@ -373,7 +367,7 @@ abstract class _$$_CurrencyCopyWith<$Res> implements $CurrencyCopyWith<$Res> {
           _$_Currency value, $Res Function(_$_Currency) then) =
       __$$_CurrencyCopyWithImpl<$Res>;
   @override
-  $Res call({double rate, String title, String flag, List<Record> records});
+  $Res call({double rate, String title, String flag});
 }
 
 /// @nodoc
@@ -391,7 +385,6 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
     Object? rate = freezed,
     Object? title = freezed,
     Object? flag = freezed,
-    Object? records = freezed,
   }) {
     return _then(_$_Currency(
       rate: rate == freezed
@@ -406,10 +399,6 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
           ? _value.flag
           : flag // ignore: cast_nullable_to_non_nullable
               as String,
-      records: records == freezed
-          ? _value._records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
     ));
   }
 }
@@ -417,12 +406,7 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Currency implements _Currency {
-  const _$_Currency(
-      {required this.rate,
-      required this.title,
-      required this.flag,
-      required final List<Record> records})
-      : _records = records;
+  _$_Currency({required this.rate, required this.title, required this.flag});
 
   @override
   final double rate;
@@ -430,16 +414,10 @@ class _$_Currency implements _Currency {
   final String title;
   @override
   final String flag;
-  final List<Record> _records;
-  @override
-  List<Record> get records {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_records);
-  }
 
   @override
   String toString() {
-    return 'Currency(rate: $rate, title: $title, flag: $flag, records: $records)';
+    return 'Currency(rate: $rate, title: $title, flag: $flag)';
   }
 
   @override
@@ -449,8 +427,7 @@ class _$_Currency implements _Currency {
             other is _$_Currency &&
             const DeepCollectionEquality().equals(other.rate, rate) &&
             const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.flag, flag) &&
-            const DeepCollectionEquality().equals(other._records, _records));
+            const DeepCollectionEquality().equals(other.flag, flag));
   }
 
   @override
@@ -458,8 +435,7 @@ class _$_Currency implements _Currency {
       runtimeType,
       const DeepCollectionEquality().hash(rate),
       const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(flag),
-      const DeepCollectionEquality().hash(_records));
+      const DeepCollectionEquality().hash(flag));
 
   @JsonKey(ignore: true)
   @override
@@ -468,11 +444,10 @@ class _$_Currency implements _Currency {
 }
 
 abstract class _Currency implements Currency {
-  const factory _Currency(
+  factory _Currency(
       {required final double rate,
       required final String title,
-      required final String flag,
-      required final List<Record> records}) = _$_Currency;
+      required final String flag}) = _$_Currency;
 
   @override
   double get rate;
@@ -480,8 +455,6 @@ abstract class _Currency implements Currency {
   String get title;
   @override
   String get flag;
-  @override
-  List<Record> get records;
   @override
   @JsonKey(ignore: true)
   _$$_CurrencyCopyWith<_$_Currency> get copyWith =>
@@ -492,9 +465,7 @@ abstract class _Currency implements Currency {
 mixin _$Category {
   double get budget => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  File? get image => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
-  List<Record> get records => throw _privateConstructorUsedError;
+  String get icon => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryCopyWith<Category> get copyWith =>
@@ -505,12 +476,7 @@ mixin _$Category {
 abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res>;
-  $Res call(
-      {double budget,
-      String title,
-      File? image,
-      String? imageUrl,
-      List<Record> records});
+  $Res call({double budget, String title, String icon});
 }
 
 /// @nodoc
@@ -525,9 +491,7 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
   $Res call({
     Object? budget = freezed,
     Object? title = freezed,
-    Object? image = freezed,
-    Object? imageUrl = freezed,
-    Object? records = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
       budget: budget == freezed
@@ -538,18 +502,10 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as File?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      records: records == freezed
-          ? _value.records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -560,12 +516,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
           _$_Category value, $Res Function(_$_Category) then) =
       __$$_CategoryCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {double budget,
-      String title,
-      File? image,
-      String? imageUrl,
-      List<Record> records});
+  $Res call({double budget, String title, String icon});
 }
 
 /// @nodoc
@@ -582,9 +533,7 @@ class __$$_CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
   $Res call({
     Object? budget = freezed,
     Object? title = freezed,
-    Object? image = freezed,
-    Object? imageUrl = freezed,
-    Object? records = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_$_Category(
       budget: budget == freezed
@@ -595,18 +544,10 @@ class __$$_CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as File?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      records: records == freezed
-          ? _value._records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
+      icon: icon == freezed
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -614,32 +555,18 @@ class __$$_CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Category implements _Category {
-  const _$_Category(
-      {required this.budget,
-      required this.title,
-      this.image,
-      this.imageUrl,
-      required final List<Record> records})
-      : _records = records;
+  _$_Category({required this.budget, required this.title, required this.icon});
 
   @override
   final double budget;
   @override
   final String title;
   @override
-  final File? image;
-  @override
-  final String? imageUrl;
-  final List<Record> _records;
-  @override
-  List<Record> get records {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_records);
-  }
+  final String icon;
 
   @override
   String toString() {
-    return 'Category(budget: $budget, title: $title, image: $image, imageUrl: $imageUrl, records: $records)';
+    return 'Category(budget: $budget, title: $title, icon: $icon)';
   }
 
   @override
@@ -649,9 +576,7 @@ class _$_Category implements _Category {
             other is _$_Category &&
             const DeepCollectionEquality().equals(other.budget, budget) &&
             const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other._records, _records));
+            const DeepCollectionEquality().equals(other.icon, icon));
   }
 
   @override
@@ -659,9 +584,7 @@ class _$_Category implements _Category {
       runtimeType,
       const DeepCollectionEquality().hash(budget),
       const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(_records));
+      const DeepCollectionEquality().hash(icon));
 
   @JsonKey(ignore: true)
   @override
@@ -670,23 +593,17 @@ class _$_Category implements _Category {
 }
 
 abstract class _Category implements Category {
-  const factory _Category(
+  factory _Category(
       {required final double budget,
       required final String title,
-      final File? image,
-      final String? imageUrl,
-      required final List<Record> records}) = _$_Category;
+      required final String icon}) = _$_Category;
 
   @override
   double get budget;
   @override
   String get title;
   @override
-  File? get image;
-  @override
-  String? get imageUrl;
-  @override
-  List<Record> get records;
+  String get icon;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>
@@ -696,7 +613,6 @@ abstract class _Category implements Category {
 /// @nodoc
 mixin _$Person {
   String get title => throw _privateConstructorUsedError;
-  List<Record> get records => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
@@ -706,7 +622,7 @@ mixin _$Person {
 abstract class $PersonCopyWith<$Res> {
   factory $PersonCopyWith(Person value, $Res Function(Person) then) =
       _$PersonCopyWithImpl<$Res>;
-  $Res call({String title, List<Record> records});
+  $Res call({String title});
 }
 
 /// @nodoc
@@ -720,17 +636,12 @@ class _$PersonCopyWithImpl<$Res> implements $PersonCopyWith<$Res> {
   @override
   $Res call({
     Object? title = freezed,
-    Object? records = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      records: records == freezed
-          ? _value.records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
     ));
   }
 }
@@ -740,7 +651,7 @@ abstract class _$$_PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
   factory _$$_PersonCopyWith(_$_Person value, $Res Function(_$_Person) then) =
       __$$_PersonCopyWithImpl<$Res>;
   @override
-  $Res call({String title, List<Record> records});
+  $Res call({String title});
 }
 
 /// @nodoc
@@ -755,17 +666,12 @@ class __$$_PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = freezed,
-    Object? records = freezed,
   }) {
     return _then(_$_Person(
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      records: records == freezed
-          ? _value._records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
     ));
   }
 }
@@ -773,21 +679,14 @@ class __$$_PersonCopyWithImpl<$Res> extends _$PersonCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Person implements _Person {
-  const _$_Person({required this.title, required final List<Record> records})
-      : _records = records;
+  _$_Person({required this.title});
 
   @override
   final String title;
-  final List<Record> _records;
-  @override
-  List<Record> get records {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_records);
-  }
 
   @override
   String toString() {
-    return 'Person(title: $title, records: $records)';
+    return 'Person(title: $title)';
   }
 
   @override
@@ -795,15 +694,12 @@ class _$_Person implements _Person {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Person &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other._records, _records));
+            const DeepCollectionEquality().equals(other.title, title));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(_records));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(title));
 
   @JsonKey(ignore: true)
   @override
@@ -812,14 +708,10 @@ class _$_Person implements _Person {
 }
 
 abstract class _Person implements Person {
-  const factory _Person(
-      {required final String title,
-      required final List<Record> records}) = _$_Person;
+  factory _Person({required final String title}) = _$_Person;
 
   @override
   String get title;
-  @override
-  List<Record> get records;
   @override
   @JsonKey(ignore: true)
   _$$_PersonCopyWith<_$_Person> get copyWith =>
@@ -828,9 +720,7 @@ abstract class _Person implements Person {
 
 /// @nodoc
 mixin _$Receipt {
-  File? get image => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
-  Record? get record => throw _privateConstructorUsedError;
+  SpendingImage get image => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ReceiptCopyWith<Receipt> get copyWith => throw _privateConstructorUsedError;
@@ -840,9 +730,9 @@ mixin _$Receipt {
 abstract class $ReceiptCopyWith<$Res> {
   factory $ReceiptCopyWith(Receipt value, $Res Function(Receipt) then) =
       _$ReceiptCopyWithImpl<$Res>;
-  $Res call({File? image, String? imageUrl, Record? record});
+  $Res call({SpendingImage image});
 
-  $RecordCopyWith<$Res>? get record;
+  $SpendingImageCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -856,33 +746,19 @@ class _$ReceiptCopyWithImpl<$Res> implements $ReceiptCopyWith<$Res> {
   @override
   $Res call({
     Object? image = freezed,
-    Object? imageUrl = freezed,
-    Object? record = freezed,
   }) {
     return _then(_value.copyWith(
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as File?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      record: record == freezed
-          ? _value.record
-          : record // ignore: cast_nullable_to_non_nullable
-              as Record?,
+              as SpendingImage,
     ));
   }
 
   @override
-  $RecordCopyWith<$Res>? get record {
-    if (_value.record == null) {
-      return null;
-    }
-
-    return $RecordCopyWith<$Res>(_value.record!, (value) {
-      return _then(_value.copyWith(record: value));
+  $SpendingImageCopyWith<$Res> get image {
+    return $SpendingImageCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value));
     });
   }
 }
@@ -893,10 +769,10 @@ abstract class _$$_ReceiptCopyWith<$Res> implements $ReceiptCopyWith<$Res> {
           _$_Receipt value, $Res Function(_$_Receipt) then) =
       __$$_ReceiptCopyWithImpl<$Res>;
   @override
-  $Res call({File? image, String? imageUrl, Record? record});
+  $Res call({SpendingImage image});
 
   @override
-  $RecordCopyWith<$Res>? get record;
+  $SpendingImageCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -911,22 +787,12 @@ class __$$_ReceiptCopyWithImpl<$Res> extends _$ReceiptCopyWithImpl<$Res>
   @override
   $Res call({
     Object? image = freezed,
-    Object? imageUrl = freezed,
-    Object? record = freezed,
   }) {
     return _then(_$_Receipt(
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as File?,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      record: record == freezed
-          ? _value.record
-          : record // ignore: cast_nullable_to_non_nullable
-              as Record?,
+              as SpendingImage,
     ));
   }
 }
@@ -934,18 +800,14 @@ class __$$_ReceiptCopyWithImpl<$Res> extends _$ReceiptCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Receipt implements _Receipt {
-  const _$_Receipt({this.image, this.imageUrl, required this.record});
+  _$_Receipt({required this.image});
 
   @override
-  final File? image;
-  @override
-  final String? imageUrl;
-  @override
-  final Record? record;
+  final SpendingImage image;
 
   @override
   String toString() {
-    return 'Receipt(image: $image, imageUrl: $imageUrl, record: $record)';
+    return 'Receipt(image: $image)';
   }
 
   @override
@@ -953,17 +815,12 @@ class _$_Receipt implements _Receipt {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Receipt &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.record, record));
+            const DeepCollectionEquality().equals(other.image, image));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(record));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(image));
 
   @JsonKey(ignore: true)
   @override
@@ -972,19 +829,165 @@ class _$_Receipt implements _Receipt {
 }
 
 abstract class _Receipt implements Receipt {
-  const factory _Receipt(
-      {final File? image,
-      final String? imageUrl,
-      required final Record? record}) = _$_Receipt;
+  factory _Receipt({required final SpendingImage image}) = _$_Receipt;
 
   @override
-  File? get image;
-  @override
-  String? get imageUrl;
-  @override
-  Record? get record;
+  SpendingImage get image;
   @override
   @JsonKey(ignore: true)
   _$$_ReceiptCopyWith<_$_Receipt> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SpendingImage {
+  File? get imageFile => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get imagePath => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SpendingImageCopyWith<SpendingImage> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SpendingImageCopyWith<$Res> {
+  factory $SpendingImageCopyWith(
+          SpendingImage value, $Res Function(SpendingImage) then) =
+      _$SpendingImageCopyWithImpl<$Res>;
+  $Res call({File? imageFile, String? imageUrl, String? imagePath});
+}
+
+/// @nodoc
+class _$SpendingImageCopyWithImpl<$Res>
+    implements $SpendingImageCopyWith<$Res> {
+  _$SpendingImageCopyWithImpl(this._value, this._then);
+
+  final SpendingImage _value;
+  // ignore: unused_field
+  final $Res Function(SpendingImage) _then;
+
+  @override
+  $Res call({
+    Object? imageFile = freezed,
+    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
+  }) {
+    return _then(_value.copyWith(
+      imageFile: imageFile == freezed
+          ? _value.imageFile
+          : imageFile // ignore: cast_nullable_to_non_nullable
+              as File?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_SpendingImageCopyWith<$Res>
+    implements $SpendingImageCopyWith<$Res> {
+  factory _$$_SpendingImageCopyWith(
+          _$_SpendingImage value, $Res Function(_$_SpendingImage) then) =
+      __$$_SpendingImageCopyWithImpl<$Res>;
+  @override
+  $Res call({File? imageFile, String? imageUrl, String? imagePath});
+}
+
+/// @nodoc
+class __$$_SpendingImageCopyWithImpl<$Res>
+    extends _$SpendingImageCopyWithImpl<$Res>
+    implements _$$_SpendingImageCopyWith<$Res> {
+  __$$_SpendingImageCopyWithImpl(
+      _$_SpendingImage _value, $Res Function(_$_SpendingImage) _then)
+      : super(_value, (v) => _then(v as _$_SpendingImage));
+
+  @override
+  _$_SpendingImage get _value => super._value as _$_SpendingImage;
+
+  @override
+  $Res call({
+    Object? imageFile = freezed,
+    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
+  }) {
+    return _then(_$_SpendingImage(
+      imageFile: imageFile == freezed
+          ? _value.imageFile
+          : imageFile // ignore: cast_nullable_to_non_nullable
+              as File?,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SpendingImage implements _SpendingImage {
+  _$_SpendingImage({this.imageFile, this.imageUrl, this.imagePath});
+
+  @override
+  final File? imageFile;
+  @override
+  final String? imageUrl;
+  @override
+  final String? imagePath;
+
+  @override
+  String toString() {
+    return 'SpendingImage(imageFile: $imageFile, imageUrl: $imageUrl, imagePath: $imagePath)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SpendingImage &&
+            const DeepCollectionEquality().equals(other.imageFile, imageFile) &&
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
+            const DeepCollectionEquality().equals(other.imagePath, imagePath));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(imageFile),
+      const DeepCollectionEquality().hash(imageUrl),
+      const DeepCollectionEquality().hash(imagePath));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_SpendingImageCopyWith<_$_SpendingImage> get copyWith =>
+      __$$_SpendingImageCopyWithImpl<_$_SpendingImage>(this, _$identity);
+}
+
+abstract class _SpendingImage implements SpendingImage {
+  factory _SpendingImage(
+      {final File? imageFile,
+      final String? imageUrl,
+      final String? imagePath}) = _$_SpendingImage;
+
+  @override
+  File? get imageFile;
+  @override
+  String? get imageUrl;
+  @override
+  String? get imagePath;
+  @override
+  @JsonKey(ignore: true)
+  _$$_SpendingImageCopyWith<_$_SpendingImage> get copyWith =>
       throw _privateConstructorUsedError;
 }

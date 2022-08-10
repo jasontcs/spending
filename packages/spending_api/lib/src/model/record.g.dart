@@ -132,7 +132,7 @@ abstract class ApiRecordModelDocumentReference
     String currencyTitle,
     String categoryTitle,
     String personTitle,
-    List<String> receiptsUrl,
+    List<String> receiptsPath,
     String remarks,
     DateTime dateTime,
   });
@@ -183,7 +183,7 @@ class _$ApiRecordModelDocumentReference extends FirestoreDocumentReference<
     Object? currencyTitle = _sentinel,
     Object? categoryTitle = _sentinel,
     Object? personTitle = _sentinel,
-    Object? receiptsUrl = _sentinel,
+    Object? receiptsPath = _sentinel,
     Object? remarks = _sentinel,
     Object? dateTime = _sentinel,
   }) async {
@@ -192,7 +192,8 @@ class _$ApiRecordModelDocumentReference extends FirestoreDocumentReference<
       if (currencyTitle != _sentinel) "currencyTitle": currencyTitle as String,
       if (categoryTitle != _sentinel) "categoryTitle": categoryTitle as String,
       if (personTitle != _sentinel) "personTitle": personTitle as String,
-      if (receiptsUrl != _sentinel) "receiptsUrl": receiptsUrl as List<String>,
+      if (receiptsPath != _sentinel)
+        "receiptsPath": receiptsPath as List<String>,
       if (remarks != _sentinel) "remarks": remarks as String,
       if (dateTime != _sentinel) "dateTime": dateTime as DateTime,
     };
@@ -365,7 +366,7 @@ abstract class ApiRecordModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiRecordModelQuery whereReceiptsUrl({
+  ApiRecordModelQuery whereReceiptsPath({
     List<String>? isEqualTo,
     List<String>? isNotEqualTo,
     List<String>? isLessThan,
@@ -459,7 +460,7 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiRecordModelQuery orderByReceiptsUrl({
+  ApiRecordModelQuery orderByReceiptsPath({
     bool descending = false,
     List<String> startAt,
     List<String> startAfter,
@@ -774,7 +775,7 @@ class _$ApiRecordModelQuery
     );
   }
 
-  ApiRecordModelQuery whereReceiptsUrl({
+  ApiRecordModelQuery whereReceiptsPath({
     List<String>? isEqualTo,
     List<String>? isNotEqualTo,
     List<String>? isLessThan,
@@ -787,7 +788,7 @@ class _$ApiRecordModelQuery
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        _$ApiRecordModelFieldMap["receiptsUrl"]!,
+        _$ApiRecordModelFieldMap["receiptsPath"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -1072,7 +1073,7 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(query, _collection);
   }
 
-  ApiRecordModelQuery orderByReceiptsUrl({
+  ApiRecordModelQuery orderByReceiptsPath({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1083,7 +1084,7 @@ class _$ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiRecordModelFieldMap["receiptsUrl"]!,
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["receiptsPath"]!,
         descending: descending);
 
     if (startAtDocument != null) {
@@ -1257,7 +1258,7 @@ ApiRecordModel _$ApiRecordModelFromJson(Map<String, dynamic> json) =>
       currencyTitle: json['currencyTitle'] as String,
       categoryTitle: json['categoryTitle'] as String,
       personTitle: json['personTitle'] as String,
-      receiptsUrl: (json['receiptsUrl'] as List<dynamic>)
+      receiptsPath: (json['receiptsPath'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       remarks: json['remarks'] as String,
@@ -1269,7 +1270,7 @@ const _$ApiRecordModelFieldMap = <String, String>{
   'currencyTitle': 'currencyTitle',
   'categoryTitle': 'categoryTitle',
   'personTitle': 'personTitle',
-  'receiptsUrl': 'receiptsUrl',
+  'receiptsPath': 'receiptsPath',
   'remarks': 'remarks',
   'dateTime': 'dateTime',
 };
@@ -1280,7 +1281,7 @@ Map<String, dynamic> _$ApiRecordModelToJson(ApiRecordModel instance) =>
       'currencyTitle': instance.currencyTitle,
       'categoryTitle': instance.categoryTitle,
       'personTitle': instance.personTitle,
-      'receiptsUrl': instance.receiptsUrl,
+      'receiptsPath': instance.receiptsPath,
       'remarks': instance.remarks,
       'dateTime': instance.dateTime.toIso8601String(),
     };

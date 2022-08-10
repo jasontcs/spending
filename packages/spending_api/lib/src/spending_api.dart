@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import '../spending_api.dart';
 
@@ -6,7 +7,7 @@ abstract class SpendingApi {
   Stream<List<ApiCategoryModel>> get categoriesStream;
   Stream<List<ApiCurrencyModel>> get currenciesStream;
   Stream<List<ApiRecordModel>> get recordsStream;
-  Stream<List<String>> get peopleStream;
+  Stream<List<ApiPersonModel>> get peopleStream;
 
   Future<List<ApiCategoryModel>> getCategories({
     String? recordId,
@@ -25,19 +26,22 @@ abstract class SpendingApi {
   Future<ApiCategoryModel> getCategory(String title);
   Future<ApiCurrencyModel> getCurrency(String title);
   Future<ApiRecordModel> getRecord(String id);
+  Future<ApiPersonModel> getPerson(String title);
 
   Future<String> addCategory(ApiCategoryModel category);
   Future<String> addCurrency(ApiCurrencyModel currency);
   Future<String> addRecord(ApiRecordModel record);
+  Future<String> addPerson(ApiPersonModel person);
 
   Future<String> editCategory(String title, ApiCategoryModel category);
   Future<String> editCurrency(String title, ApiCurrencyModel currency);
   Future<String> editRecord(String id, ApiRecordModel record);
-  Future<String> editPerson(String oldName, String newName);
+  Future<String> editPerson(String title, ApiPersonModel person);
 
   Future<void> removeCategory(String title);
   Future<void> removeCurrency(String title);
   Future<void> removeRecord(String id);
+  Future<void> removePerson(String title);
 
   Future<String> uploadImage({
     required File file,
@@ -45,5 +49,5 @@ abstract class SpendingApi {
     required String type,
   });
 
-  Future<bool> saveImageToFile({required File file, required String url});
+  Future<String> getImageUrl(String path);
 }

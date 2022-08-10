@@ -59,7 +59,7 @@ class _$ApiCategoryModelCollectionReference extends _$ApiCategoryModelQuery
     firestore ??= FirebaseFirestore.instance;
 
     return _$ApiCategoryModelCollectionReference._(
-      firestore.collection('catogeries').withConverter(
+      firestore.collection('categories').withConverter(
             fromFirestore: ApiCategoryModelCollectionReference.fromFirestore,
             toFirestore: ApiCategoryModelCollectionReference.toFirestore,
           ),
@@ -131,7 +131,7 @@ abstract class ApiCategoryModelDocumentReference
   Future<void> update({
     String title,
     double budget,
-    String? imageUrl,
+    String icon,
   });
 
   Future<void> set(ApiCategoryModel value);
@@ -178,12 +178,12 @@ class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
   Future<void> update({
     Object? title = _sentinel,
     Object? budget = _sentinel,
-    Object? imageUrl = _sentinel,
+    Object? icon = _sentinel,
   }) async {
     final json = {
       if (title != _sentinel) "title": title as String,
       if (budget != _sentinel) "budget": budget as double,
-      if (imageUrl != _sentinel) "imageUrl": imageUrl as String?,
+      if (icon != _sentinel) "icon": icon as String,
     };
 
     return reference.update(json);
@@ -332,7 +332,7 @@ abstract class ApiCategoryModelQuery
     List<double>? whereIn,
     List<double>? whereNotIn,
   });
-  ApiCategoryModelQuery whereImageUrl({
+  ApiCategoryModelQuery whereIcon({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -340,8 +340,8 @@ abstract class ApiCategoryModelQuery
     String? isGreaterThan,
     String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
   });
 
   ApiCategoryModelQuery orderByDocumentId({
@@ -380,12 +380,12 @@ abstract class ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiCategoryModelQuery orderByImageUrl({
+  ApiCategoryModelQuery orderByIcon({
     bool descending = false,
-    String? startAt,
-    String? startAfter,
-    String? endAt,
-    String? endBefore,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
     ApiCategoryModelDocumentSnapshot? startAtDocument,
     ApiCategoryModelDocumentSnapshot? endAtDocument,
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
@@ -615,7 +615,7 @@ class _$ApiCategoryModelQuery
     );
   }
 
-  ApiCategoryModelQuery whereImageUrl({
+  ApiCategoryModelQuery whereIcon({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -623,12 +623,12 @@ class _$ApiCategoryModelQuery
     String? isGreaterThan,
     String? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
       reference.where(
-        _$ApiCategoryModelFieldMap["imageUrl"]!,
+        _$ApiCategoryModelFieldMap["icon"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -771,7 +771,7 @@ class _$ApiCategoryModelQuery
     return _$ApiCategoryModelQuery(query, _collection);
   }
 
-  ApiCategoryModelQuery orderByImageUrl({
+  ApiCategoryModelQuery orderByIcon({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -782,7 +782,7 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["imageUrl"]!,
+    var query = reference.orderBy(_$ApiCategoryModelFieldMap["icon"]!,
         descending: descending);
 
     if (startAtDocument != null) {
@@ -868,18 +868,18 @@ ApiCategoryModel _$ApiCategoryModelFromJson(Map<String, dynamic> json) =>
     ApiCategoryModel(
       title: json['title'] as String,
       budget: (json['budget'] as num).toDouble(),
-      imageUrl: json['imageUrl'] as String?,
+      icon: json['icon'] as String,
     );
 
 const _$ApiCategoryModelFieldMap = <String, String>{
   'title': 'title',
   'budget': 'budget',
-  'imageUrl': 'imageUrl',
+  'icon': 'icon',
 };
 
 Map<String, dynamic> _$ApiCategoryModelToJson(ApiCategoryModel instance) =>
     <String, dynamic>{
       'title': instance.title,
       'budget': instance.budget,
-      'imageUrl': instance.imageUrl,
+      'icon': instance.icon,
     };

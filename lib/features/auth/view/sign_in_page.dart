@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../auth.dart';
 
-class SignInPage extends StatefulWidget {
+class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
-  static const String routeName = '/sign-in';
-
-  @override
-  State<SignInPage> createState() => _SignInPageState();
-}
-
-class _SignInPageState extends State<SignInPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(AuthLoginRequested());
-  }
+  static const String routeName = 'sign-in';
+  static GoRoute route() => GoRoute(
+        path: '/sign-in',
+        name: routeName,
+        builder: (context, state) => SignInPage(),
+      );
 
   @override
   Widget build(BuildContext context) {

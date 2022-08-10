@@ -12,7 +12,7 @@ class ApiRecordModel {
     required this.currencyTitle,
     required this.categoryTitle,
     required this.personTitle,
-    required this.receiptsUrl,
+    required this.receiptsPath,
     required this.remarks,
     required this.dateTime,
   });
@@ -23,7 +23,7 @@ class ApiRecordModel {
   final String currencyTitle;
   final String categoryTitle;
   final String personTitle;
-  final List<String> receiptsUrl;
+  final List<String> receiptsPath;
   final String remarks;
   final DateTime dateTime;
 
@@ -33,7 +33,7 @@ class ApiRecordModel {
     String? currencyTitle,
     String? categoryTitle,
     String? personTitle,
-    List<String>? receiptsUrl,
+    List<String>? receiptsPath,
     String? remarks,
     DateTime? dateTime,
   }) {
@@ -43,7 +43,7 @@ class ApiRecordModel {
       currencyTitle: currencyTitle ?? this.currencyTitle,
       categoryTitle: categoryTitle ?? this.categoryTitle,
       personTitle: personTitle ?? this.personTitle,
-      receiptsUrl: receiptsUrl ?? this.receiptsUrl,
+      receiptsPath: receiptsPath ?? this.receiptsPath,
       remarks: remarks ?? this.remarks,
       dateTime: dateTime ?? this.dateTime,
     );

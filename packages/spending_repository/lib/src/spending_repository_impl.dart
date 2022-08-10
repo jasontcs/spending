@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:spending_api/spending_api.dart';
@@ -26,23 +26,15 @@ class ISpendingRepository implements SpendingRepository {
 
   @override
   Future<Category> addCategory(Category category) async {
-    if (category.imageUrl == null && category.image != null) {
-      final url = await _spendingApi.uploadImage(
-        file: category.image!,
-        id: DateTime.now().toIso8601String(),
-        type: SpendingRepositoryImage.category.title,
-      );
-      await _spendingApi
-          .addCategory(category.copyWith(imageUrl: url).fromEntity());
-    } else {
-      await _spendingApi.addCategory(category.fromEntity());
-    }
+    await _spendingApi.addCategory(category.fromEntity());
+    _logInfo('addCategory', addCategory);
     return category;
   }
 
   @override
   Future<Currency> addCurrency(Currency currency) async {
     await _spendingApi.addCurrency(currency.fromEntity());
+    _logInfo('addCurrency', currency);
     return currency;
   }
 
@@ -50,76 +42,98 @@ class ISpendingRepository implements SpendingRepository {
   Future<Record> addRecord(Record record) async {
     List<Receipt> tmpReceipts = record.receipts.toList();
     for (var receipt in tmpReceipts) {
-      if (receipt.imageUrl == null) {
-        if (receipt.image == null) throw SpendingRepositoryArgumentInvalid();
-        final url = await _spendingApi.uploadImage(
-          file: receipt.image!,
-          id: DateTime.now().toIso8601String(),
-          type: SpendingRepositoryImage.receipt.title,
-        );
-        receipt = receipt.copyWith(imageUrl: url);
+      if (receipt.image.imagePath != null || receipt.image.imageFile == null) {
+        throw SpendingRepositoryArgumentInvalid();
       }
+      final path = await _spendingApi.uploadImage(
+        file: receipt.image.imageFile!,
+        id: DateTime.now().toIso8601String(),
+        type: SpendingRepositoryImage.receipt.title,
+      );
+      receipt = receipt.copyWith.image(imagePath: path);
     }
     final finalRecord = record.copyWith(receipts: tmpReceipts);
     String id = await _spendingApi.addRecord(finalRecord.fromEntity());
+    _logInfo('addRecord', record);
     return finalRecord.copyWith(id: id);
   }
 
   @override
-  Stream<List<Category>> get categoriesStream => _recordsStream.map(
-      (records) => records.map((record) => record.category).toSet().toList());
+  Future<Person> addPerson(Person person) async {
+    await _spendingApi.addPerson(person.fromEntity());
+    _logInfo('addPerson', person);
+    return person;
+  }
 
   @override
-  Stream<List<Currency>> get currenciesStream => _recordsStream.map(
-      (records) => records.map((record) => record.currency).toSet().toList());
+  Stream<List<Category>> get categoriesStream =>
+      _spendingApi.categoriesStream.map((categories) {
+        _latestCategories =
+            categories.map((category) => category.toEntity()).toList();
+        return _latestCategories;
+      });
 
   @override
-  Stream<List<Person>> get peopleStream => _recordsStream.map(
-      (records) => records.map((record) => record.person).toSet().toList());
+  Stream<List<Currency>> get currenciesStream =>
+      _spendingApi.currenciesStream.map((currencies) {
+        _latestCurrencies =
+            currencies.map((currency) => currency.toEntity()).toList();
+        return _latestCurrencies;
+      });
 
   @override
-  Stream<List<Record>> get recordsStream => _recordsStream;
+  Stream<List<Person>> get peopleStream =>
+      _spendingApi.peopleStream.map((people) {
+        _latestPeople = people.map((person) => person.toEntity()).toList();
+        return _latestPeople;
+      });
 
-  Stream<List<Record>> get _recordsStream => CombineLatestStream.combine3(
+  @override
+  Stream<List<Record>> get recordsStream => CombineLatestStream.combine4(
           _spendingApi.recordsStream,
           _spendingApi.categoriesStream,
-          _spendingApi.currenciesStream, (List<ApiRecordModel> records,
-              List<ApiCategoryModel> categories,
-              List<ApiCurrencyModel> currencies) {
-        late List<Record> recordsOutput;
-        recordsOutput = records.map((recordModel) {
-          late Record recordOutput;
-          recordOutput = recordModel.toEntity(
-            currency: (title) => currencies
-                .singleWhere((element) => element.title == title)
-                .toEntity(records: recordsOutput),
-            category: (title) => categories
-                .singleWhere((element) => element.title == title)
-                .toEntity(records: recordsOutput),
-            person: (title) => Person(title: title, records: recordsOutput),
-            receipts: (receipts) => receipts
-                .map((url) => Receipt(imageUrl: url, record: recordOutput))
-                .toList(),
-          );
-          return recordOutput;
+          _spendingApi.currenciesStream,
+          _spendingApi.peopleStream, (
+        List<ApiRecordModel> recordModels,
+        List<ApiCategoryModel> categoryModels,
+        List<ApiCurrencyModel> currencyModels,
+        List<ApiPersonModel> personModels,
+      ) {
+        final records = recordModels.map((recordModel) {
+          return recordModel.toEntity(
+              currency: (title) => currencyModels
+                  .map((currencyModel) => currencyModel.toEntity())
+                  .singleWhere((currency) => currency.title == title),
+              category: (title) => categoryModels
+                  .map((categoryModel) => categoryModel.toEntity())
+                  .singleWhere((category) => category.title == title),
+              person: (title) => personModels
+                  .map((personModel) => personModel.toEntity())
+                  .singleWhere((person) => person.title == title),
+              receipts: (receipts) => receipts
+                  .map((receipt) =>
+                      Receipt(image: SpendingImage(imagePath: receipt)))
+                  .toList());
         }).toList();
-        return recordsOutput;
+
+        return records;
       }).asyncMap((records) async {
-        List<Record> updatedRecords = [];
+        List<Record> recordsWithImage = [];
         for (var record in records) {
-          List<Receipt> updatedReceipts = [];
+          List<Receipt> receiptsWithImage = [];
           for (var receipt in record.receipts) {
-            if (receipt.image == null && receipt.imageUrl != null) {
-              final file = await _saveImage(receipt.imageUrl!);
-              updatedReceipts.add(receipt.copyWith(image: file));
-            } else {
-              updatedReceipts.add(receipt);
-            }
+            receiptsWithImage.add(
+              receipt.copyWith.image(
+                imageUrl:
+                    await _spendingApi.getImageUrl(receipt.image.imagePath!),
+              ),
+            );
           }
-          updatedRecords.add(record.copyWith(receipts: updatedReceipts));
+          recordsWithImage.add(record.copyWith(receipts: receiptsWithImage));
         }
-        _logInfo('_recordsStream', updatedRecords);
-        return updatedRecords;
+        _latestRecords = recordsWithImage;
+        _logInfo('_recordsStream', recordsWithImage);
+        return recordsWithImage;
       });
 
   @override
@@ -147,26 +161,21 @@ class ISpendingRepository implements SpendingRepository {
   }
 
   @override
+  Future<Person> deletePerson(Person person) async {
+    await _spendingApi.removePerson(person.title);
+    _logInfo('deletePerson', person);
+    return person;
+  }
+
+  @override
   Future<Category> updateCategory(Category old, Category new_) async {
-    if (old.records != new_.records) throw SpendingRepositoryArgumentInvalid();
-    if (new_.imageUrl == null && new_.image != null) {
-      final url = await _spendingApi.uploadImage(
-        file: new_.image!,
-        id: DateTime.now().toIso8601String(),
-        type: SpendingRepositoryImage.category.title,
-      );
-      await _spendingApi.editCategory(
-          old.title, new_.copyWith(imageUrl: url).fromEntity());
-    } else {
-      await _spendingApi.editCategory(old.title, new_.fromEntity());
-    }
+    await _spendingApi.editCategory(old.title, new_.fromEntity());
     _logInfo('updateCategory', new_);
     return new_;
   }
 
   @override
   Future<Currency> updateCurrency(Currency old, Currency new_) async {
-    if (old.records != new_.records) throw SpendingRepositoryArgumentInvalid();
     await _spendingApi.editCurrency(old.title, new_.fromEntity());
     _logInfo('updateCurrency', new_);
     return new_;
@@ -174,7 +183,7 @@ class ISpendingRepository implements SpendingRepository {
 
   @override
   Future<Person> updatePerson(Person old, Person new_) async {
-    await _spendingApi.editPerson(old.title, new_.title);
+    await _spendingApi.editPerson(old.title, new_.fromEntity());
     _logInfo('updatePerson', new_);
     return new_;
   }
@@ -184,28 +193,21 @@ class ISpendingRepository implements SpendingRepository {
     if (old.id == null) throw SpendingRepositoryArgumentInvalid();
     List<Receipt> tmpReceipts = new_.receipts.toList();
     for (var receipt in tmpReceipts) {
-      if (receipt.imageUrl == null) {
-        if (receipt.image == null) throw SpendingRepositoryArgumentInvalid();
-        final url = await _spendingApi.uploadImage(
-          file: receipt.image!,
+      if (receipt.image.imagePath == null) {
+        if (receipt.image.imageFile == null) {
+          throw SpendingRepositoryArgumentInvalid();
+        }
+        final path = await _spendingApi.uploadImage(
+          file: receipt.image.imageFile!,
           id: DateTime.now().toIso8601String(),
           type: SpendingRepositoryImage.receipt.title,
         );
-        receipt = receipt.copyWith(imageUrl: url);
+        receipt = receipt.copyWith.image(imagePath: path);
       }
     }
     await _spendingApi.editRecord(old.id!, new_.fromEntity());
     _logInfo('updateRecord', new_);
     return new_;
-  }
-
-  Future<File?> _saveImage(String url) async {
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final file = File("${appDocDir.absolute}/images/$url");
-    if (await _spendingApi.saveImageToFile(file: file, url: url)) {
-      return file;
-    }
-    return null;
   }
 
   void _logInfo(String function, Object? data) {
@@ -215,29 +217,64 @@ class ISpendingRepository implements SpendingRepository {
       level: Level.INFO.value,
     );
   }
+
+  @override
+  Category? getCategory(String title) => _latestCategories
+      .singleWhereOrNull((category) => category.title == title);
+
+  @override
+  Currency? getCurrency(String title) => _latestCurrencies
+      .singleWhereOrNull((currency) => currency.title == title);
+
+  @override
+  Person? getPerson(String title) =>
+      _latestPeople.singleWhereOrNull((person) => person.title == title);
+
+  @override
+  Record? getRecord(String id) =>
+      _latestRecords.singleWhereOrNull((record) => record.id == id);
+
+  List<Record> _latestRecords = [];
+  List<Category> _latestCategories = [];
+  List<Currency> _latestCurrencies = [];
+  List<Person> _latestPeople = [];
+
+  @override
+  List<Category> get categories => _latestCategories;
+
+  @override
+  List<Currency> get currencies => _latestCurrencies;
+
+  @override
+  List<Person> get people => _latestPeople;
+
+  @override
+  List<Record> get records => _latestRecords;
 }
 
 extension ApiCategoryModelX on ApiCategoryModel {
-  Category toEntity({required List<Record> records}) {
+  Category toEntity() {
     return Category(
       budget: budget,
       title: title,
-      imageUrl: imageUrl,
-      records: records,
+      icon: icon,
     );
   }
 }
 
 extension ApiCurrencyModelX on ApiCurrencyModel {
-  Currency toEntity({
-    required List<Record> records,
-  }) {
+  Currency toEntity() {
     return Currency(
       rate: rate,
       title: title,
       flag: flag,
-      records: records,
     );
+  }
+}
+
+extension ApiPersonModelX on ApiPersonModel {
+  Person toEntity() {
+    return Person(title: title);
   }
 }
 
@@ -254,7 +291,7 @@ extension ApiRecordModelX on ApiRecordModel {
       currency: currency(currencyTitle),
       category: category(categoryTitle),
       person: person(personTitle),
-      receipts: receipts(receiptsUrl),
+      receipts: receipts(receiptsPath),
       remarks: remarks,
       dateTime: dateTime,
     );
@@ -266,7 +303,7 @@ extension CategoryX on Category {
     return ApiCategoryModel(
       title: title,
       budget: budget,
-      imageUrl: imageUrl,
+      icon: icon,
     );
   }
 }
@@ -281,6 +318,12 @@ extension CurrencyX on Currency {
   }
 }
 
+extension PersonX on Person {
+  ApiPersonModel fromEntity() {
+    return ApiPersonModel(title: title);
+  }
+}
+
 extension RecordX on Record {
   ApiRecordModel fromEntity() {
     return ApiRecordModel(
@@ -289,7 +332,8 @@ extension RecordX on Record {
       currencyTitle: currency.title,
       categoryTitle: category.title,
       personTitle: person.title,
-      receiptsUrl: receipts.map((e) => e.imageUrl).whereNotNull().toList(),
+      receiptsPath:
+          receipts.map((e) => e.image.imagePath).whereNotNull().toList(),
       remarks: remarks,
       dateTime: dateTime,
     );

@@ -14,7 +14,6 @@ dependencies:
   spending_api:
     path: ../spending_api
   rxdart: ^0.27.5
-  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
