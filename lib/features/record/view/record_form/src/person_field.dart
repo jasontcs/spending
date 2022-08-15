@@ -21,7 +21,7 @@ class PersonField extends StatelessWidget {
       onTap: () {
         final id = context.read<RecordBloc>().state.record!.id;
         final queryParams = context.goNamed(
-          PeoplePage.routeName,
+          PeoplePage.routeNameWithRecord,
           queryParams: {
             if (id != null) RecordPage.recordIdKey: id,
           },

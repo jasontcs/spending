@@ -68,9 +68,11 @@ class _AppViewState extends State<AppView> {
     routes: [
       AppHomePage.route(routes: [
         RecordPage.route(routes: [
-          CategoriesPage.route(),
-          PeoplePage.route(),
+          CategoriesPage.route(withRecord: true),
+          PeoplePage.route(withRecord: true),
         ]),
+        CategoriesPage.route(),
+        PeoplePage.route(),
       ]),
       SignInPage.route(),
     ],

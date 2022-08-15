@@ -37,11 +37,11 @@ class AppHomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [
+        children: [
           RecordsPage(),
           BudgetPage(),
           ChartPage(),
-          SettingPage()
+          SettingPage(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

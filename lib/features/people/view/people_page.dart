@@ -9,10 +9,11 @@ import '../../record/view/record_form/record_form.dart';
 import '../people.dart';
 
 class PeoplePage extends StatelessWidget {
-  const PeoplePage({super.key, this.recordBloc});
+  const PeoplePage({super.key});
+  static const String routeNameWithRecord = 'peopleWithRecord';
   static const String routeName = 'people';
-  static GoRoute route() => GoRoute(
-        name: routeName,
+  static GoRoute route({bool withRecord = false}) => GoRoute(
+        name: withRecord ? routeNameWithRecord : routeName,
         path: 'people',
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
@@ -24,38 +25,28 @@ class PeoplePage extends StatelessWidget {
                     spendingRepository: context.read<SpendingRepository>()),
               ),
             ],
-            child: PeoplePage(
-              recordBloc: recordBloc,
-            ),
+            child: PeoplePage(),
           );
         },
       );
 
-  final RecordBloc? recordBloc;
-
   @override
   Widget build(BuildContext context) {
-    return PeopleView(isFromRecord: recordBloc != null);
+    return PeopleView();
   }
 }
 
 class PeopleView extends StatelessWidget {
-  const PeopleView({Key? key, required this.isFromRecord}) : super(key: key);
-
-  final bool isFromRecord;
+  const PeopleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<Person> people =
         context.select((PeopleBloc bloc) => bloc.state.people);
-    final record = isFromRecord
-        ? context.select((RecordBloc bloc) => bloc.state.record!)
-        : null;
-
-    final personField = isFromRecord
-        ? context.select((RecordBloc bloc) =>
-            bloc.state.formKey?.currentState?.fields[PersonField.name])
-        : null;
+    final record = context.select((RecordBloc? bloc) => bloc?.state.record);
+    final selected = context.select((RecordBloc? bloc) =>
+            bloc?.state.formKey?.currentState?.fields[PersonField.name]?.value)
+        as String?;
     return Scaffold(
       appBar: AppBar(title: Text('People')),
       body: ListView.separated(
@@ -66,7 +57,13 @@ class PeopleView extends StatelessWidget {
               person: person,
               onTap: record != null
                   ? () {
-                      personField?.didChange(person.title);
+                      context
+                          .read<RecordBloc?>()
+                          ?.state
+                          .formKey
+                          ?.currentState
+                          ?.fields[PersonField.name]
+                          ?.didChange(person.title);
 
                       Map<String, String> queryParams = record.id != null
                           ? {RecordPage.recordIdKey: record.id!}
@@ -75,7 +72,7 @@ class PeopleView extends StatelessWidget {
                           queryParams: queryParams);
                     }
                   : null,
-              selected: person.title == personField?.value,
+              selected: person.title == selected,
             );
           },
           separatorBuilder: (context, index) {

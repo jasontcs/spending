@@ -8,10 +8,11 @@ import '../../record/view/record_form/record_form.dart';
 import '../categories.dart';
 
 class CategoriesPage extends StatelessWidget {
-  const CategoriesPage({super.key, this.recordBloc});
+  const CategoriesPage({super.key});
+  static const String routeNameWithRecord = 'categoriesWithRecord';
   static const String routeName = 'categories';
-  static GoRoute route() => GoRoute(
-        name: routeName,
+  static GoRoute route({bool withRecord = false}) => GoRoute(
+        name: withRecord ? routeNameWithRecord : routeName,
         path: 'categories',
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
@@ -23,39 +24,28 @@ class CategoriesPage extends StatelessWidget {
                     spendingRepository: context.read<SpendingRepository>()),
               ),
             ],
-            child: CategoriesPage(
-              recordBloc: recordBloc,
-            ),
+            child: CategoriesPage(),
           );
         },
       );
 
-  final RecordBloc? recordBloc;
-
   @override
   Widget build(BuildContext context) {
-    return CategoriesView(isFromRecord: recordBloc != null);
+    return CategoriesView();
   }
 }
 
 class CategoriesView extends StatelessWidget {
-  const CategoriesView({Key? key, required this.isFromRecord})
-      : super(key: key);
-
-  final bool isFromRecord;
+  const CategoriesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<Category> categories =
         context.select((CategoriesBloc bloc) => bloc.state.categories);
-    final record = isFromRecord
-        ? context.select((RecordBloc bloc) => bloc.state.record!)
-        : null;
+    final record = context.select((RecordBloc? bloc) => bloc?.state.record);
 
-    final categoryField = isFromRecord
-        ? context.select((RecordBloc bloc) =>
-            bloc.state.formKey?.currentState?.fields[CategoryField.name])
-        : null;
+    final selected = context.select((RecordBloc? bloc) => bloc?.state.formKey
+        ?.currentState?.fields[CategoryField.name]?.value) as String?;
     return Scaffold(
       appBar: AppBar(title: Text('Categories')),
       body: GridView.builder(
@@ -69,7 +59,13 @@ class CategoriesView extends StatelessWidget {
             category: category,
             onTap: record != null
                 ? () {
-                    categoryField?.didChange(category.title);
+                    context
+                        .read<RecordBloc?>()
+                        ?.state
+                        .formKey
+                        ?.currentState
+                        ?.fields[CategoryField.name]
+                        ?.didChange(category.title);
 
                     Map<String, String> queryParams = record.id != null
                         ? {RecordPage.recordIdKey: record.id!}
@@ -78,7 +74,7 @@ class CategoriesView extends StatelessWidget {
                         queryParams: queryParams);
                   }
                 : null,
-            selected: category.title == categoryField?.value,
+            selected: category.title == selected,
           );
         },
       ),

@@ -21,7 +21,7 @@ class CategoryField extends StatelessWidget {
       onTap: () {
         final id = context.read<RecordBloc>().state.record!.id;
         final queryParams = context.goNamed(
-          CategoriesPage.routeName,
+          CategoriesPage.routeNameWithRecord,
           queryParams: {
             if (id != null) RecordPage.recordIdKey: id,
           },
