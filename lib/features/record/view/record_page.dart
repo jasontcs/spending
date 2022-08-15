@@ -28,9 +28,17 @@ class RecordPage extends StatelessWidget {
           final rid = state.queryParams[recordIdKey];
           final date = state.queryParams[dateKey];
           return CupertinoPage<void>(
-            child: RecordPage(
-              recordId: rid,
-              date: date,
+            child: BlocProvider(
+              create: (context) => RecordBloc(
+                  spendingRepository: context.read<SpendingRepository>())
+                ..add(RecordPageEntered(
+                  recordId: rid,
+                  dateString: date,
+                )),
+              child: RecordPage(
+                recordId: rid,
+                date: date,
+              ),
             ),
             fullscreenDialog: true,
           );
@@ -47,13 +55,45 @@ class RecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          RecordBloc(spendingRepository: context.read<SpendingRepository>())
-            ..add(RecordPageEntered(
-              recordId: recordId,
-              dateString: date,
-            )),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RecordBloc, RecordState>(
+          listenWhen: (previous, current) =>
+              previous.status == RecordStatus.posting &&
+              current.status == RecordStatus.idle &&
+              previous.record?.id == null &&
+              current.record?.id != null,
+          listener: (context, state) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Created')));
+            context.goNamed(AppHomePage.routeName);
+          },
+        ),
+        BlocListener<RecordBloc, RecordState>(
+          listenWhen: (previous, current) =>
+              previous.status == RecordStatus.posting &&
+              current.status == RecordStatus.idle &&
+              previous.record?.id != null &&
+              current.record?.id != null,
+          listener: (context, state) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Updated')));
+            context.goNamed(AppHomePage.routeName);
+          },
+        ),
+        BlocListener<RecordBloc, RecordState>(
+          listenWhen: (previous, current) =>
+              previous.status == RecordStatus.posting &&
+              current.status == RecordStatus.idle &&
+              previous.record?.id != null &&
+              current.record?.id == null,
+          listener: (context, state) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Deleted')));
+            context.goNamed(AppHomePage.routeName);
+          },
+        ),
+      ],
       child: RecordView(),
     );
   }
@@ -73,6 +113,14 @@ class RecordView extends StatelessWidget {
             context.goNamed(AppHomePage.routeName);
           },
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<RecordBloc>().add(RecordRemoveRequested());
+            },
+            icon: const Icon(Icons.delete),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

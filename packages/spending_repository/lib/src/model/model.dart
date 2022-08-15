@@ -15,21 +15,26 @@ class Record with _$Record {
     required List<Receipt> receipts,
     required String remarks,
     required DateTime dateTime,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _Record;
 }
 
 @freezed
 class Currency with _$Currency {
   factory Currency({
+    final String? id,
     required double rate,
     required String title,
     required String flag,
+    DateTime? updatedAt,
   }) = _Currency;
 }
 
 @freezed
 class Category with _$Category {
   factory Category({
+    final String? id,
     required double budget,
     required String title,
     required String icon,
@@ -39,6 +44,7 @@ class Category with _$Category {
 @freezed
 class Person with _$Person {
   factory Person({
+    final String? id,
     required String title,
   }) = _Person;
 }

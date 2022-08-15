@@ -16,8 +16,17 @@ class PeoplePage extends StatelessWidget {
         path: 'people',
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
-          return PeoplePage(
-            recordBloc: recordBloc,
+          return MultiBlocProvider(
+            providers: [
+              if (recordBloc != null) BlocProvider.value(value: recordBloc),
+              BlocProvider(
+                create: (context) => PeopleBloc(
+                    spendingRepository: context.read<SpendingRepository>()),
+              ),
+            ],
+            child: PeoplePage(
+              recordBloc: recordBloc,
+            ),
           );
         },
       );
@@ -26,18 +35,7 @@ class PeoplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFromRecord = recordBloc != null;
-
-    return MultiBlocProvider(
-      providers: [
-        if (isFromRecord) BlocProvider.value(value: recordBloc!),
-        BlocProvider(
-          create: (context) => PeopleBloc(
-              spendingRepository: context.read<SpendingRepository>()),
-        ),
-      ],
-      child: PeopleView(isFromRecord: isFromRecord),
-    );
+    return PeopleView(isFromRecord: recordBloc != null);
   }
 }
 
@@ -60,27 +58,29 @@ class PeopleView extends StatelessWidget {
         : null;
     return Scaffold(
       appBar: AppBar(title: Text('People')),
-      body: ListView.builder(
-        itemCount: people.length,
-        itemBuilder: (context, index) {
-          final person = people[index];
-          return PersonTile(
-            person: person,
-            onTap: record != null
-                ? () {
-                    personField?.didChange(person.title);
+      body: ListView.separated(
+          itemCount: people.length,
+          itemBuilder: (context, index) {
+            final person = people[index];
+            return PersonTile(
+              person: person,
+              onTap: record != null
+                  ? () {
+                      personField?.didChange(person.title);
 
-                    Map<String, String> queryParams = record.id != null
-                        ? {RecordPage.recordIdKey: record.id!}
-                        : {};
-                    context.goNamed(RecordPage.routeName,
-                        queryParams: queryParams);
-                  }
-                : null,
-            selected: person.title == personField?.value,
-          );
-        },
-      ),
+                      Map<String, String> queryParams = record.id != null
+                          ? {RecordPage.recordIdKey: record.id!}
+                          : {};
+                      context.goNamed(RecordPage.routeName,
+                          queryParams: queryParams);
+                    }
+                  : null,
+              selected: person.title == personField?.value,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          }),
     );
   }
 }

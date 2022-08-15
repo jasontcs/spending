@@ -14,7 +14,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final spendingRepository = ISpendingRepository(FirebaseSpendingApi());
+  final spendingRepository = SpendingRepositoryImpl(FirebaseSpendingApi());
 
   BlocOverrides.runZoned(
     () {

@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 part 'records_event.dart';
 part 'records_state.dart';
+part 'records_bloc.freezed.dart';
 
 class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
   RecordsBloc({required SpendingRepository spendingRepository})

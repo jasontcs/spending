@@ -4,10 +4,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
+
+import '../record.dart';
 
 part 'record_event.dart';
 part 'record_state.dart';
+part 'record_bloc.freezed.dart';
 
 class RecordBloc extends Bloc<RecordEvent, RecordState> {
   RecordBloc({required SpendingRepository spendingRepository})
@@ -17,7 +21,9 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     on<RecordCurrenciesUpdated>(_onCurrenciesUpdated);
     on<RecordPeopleUpdated>(_onPeopleUpdated);
     on<RecordPageEntered>(_onPageEntered);
-    // on<RecordPersonSelected>(_onPersonSelected);
+    on<RecordFormEditted>(_onFormEditted);
+    on<RecordFormSaved>(_onFormSaved);
+    on<RecordRemoveRequested>(_onRemoveRequested);
 
     _categoriesSubscription =
         _spendingRepository.categoriesStream.listen((categories) {
@@ -65,20 +71,21 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     emit(state.copyWith(people: event.people));
   }
 
-  void _onPageEntered(
+  Future<void> _onPageEntered(
     RecordPageEntered event,
     Emitter<RecordState> emit,
-  ) {
+  ) async {
     if (event.recordId != null && event.dateString != null)
       throw Exception('event.recordId != null && event.dateString != null');
 
+    emit(state.copyWith(status: RecordStatus.fetching));
     final record = event.recordId != null
-        ? _spendingRepository.getRecord(event.recordId!)
+        ? await _spendingRepository.getRecord(event.recordId!)
         : Record(
             amount: 0,
-            currency: _spendingRepository.currencies.first,
-            category: _spendingRepository.categories.first,
-            person: _spendingRepository.people.first,
+            currency: (await _spendingRepository.currencies).first,
+            category: (await _spendingRepository.categories).first,
+            person: (await _spendingRepository.people).first,
             receipts: [],
             remarks: '',
             dateTime: event.dateString != null
@@ -86,7 +93,10 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
                 : DateTime.now(),
           );
 
-    emit(state.copyWith(record: record));
+    emit(state.copyWith(
+      record: record,
+      status: RecordStatus.idle,
+    ));
 
     if (event.dateString != null) {
       emit(
@@ -99,14 +109,35 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     }
   }
 
-  // void _onPersonSelected(
-  //   RecordPersonSelected event,
-  //   Emitter<RecordState> emit,
-  // ) {
-  //   final person = _spendingRepository.getPerson(event.person);
-  //   if (person != null) {
-  //     emit(state.copyWith(
-  //         unsavedRecord: state.unsavedRecord?.copyWith(person: person)));
-  //   }
-  // }
+  void _onFormEditted(
+    RecordFormEditted event,
+    Emitter<RecordState> emit,
+  ) {
+    emit(state.copyWith(status: RecordStatus.unsaved));
+  }
+
+  Future<void> _onFormSaved(
+    RecordFormSaved event,
+    Emitter<RecordState> emit,
+  ) async {
+    final record = event.record;
+    emit(state.copyWith(record: record, status: RecordStatus.posting));
+    late final Record result;
+    if (record.id == null)
+      result = await _spendingRepository.addRecord(record);
+    else
+      result = await _spendingRepository.updateRecord(state.record!, record);
+    emit(state.copyWith(record: result, status: RecordStatus.idle));
+    emit(state.copyWith(formKey: GlobalKey<FormBuilderState>()));
+  }
+
+  Future<void> _onRemoveRequested(
+    RecordRemoveRequested event,
+    Emitter<RecordState> emit,
+  ) async {
+    final record = state.record;
+    emit(state.copyWith(status: RecordStatus.posting));
+    final result = await _spendingRepository.deleteRecord(record!);
+    emit(state.copyWith(record: result, status: RecordStatus.idle));
+  }
 }

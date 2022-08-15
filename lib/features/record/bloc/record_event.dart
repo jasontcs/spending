@@ -20,6 +20,8 @@ class RecordPeopleUpdated extends RecordEvent {
   final List<Person> people;
 }
 
+class RecordFormEditted extends RecordEvent {}
+
 class RecordFormSaved extends RecordEvent {
   RecordFormSaved(this.record);
 
@@ -33,8 +35,4 @@ class RecordPageEntered extends RecordEvent {
   final String? dateString;
 }
 
-// class RecordPersonSelected extends RecordEvent {
-//   RecordPersonSelected(this.person);
-
-//   final String person;
-// }
+class RecordRemoveRequested extends RecordEvent {}

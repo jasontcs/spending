@@ -129,12 +129,14 @@ abstract class ApiRecordModelDocumentReference
 
   Future<void> update({
     double amount,
-    String currencyTitle,
-    String categoryTitle,
-    String personTitle,
+    String currencyId,
+    String categoryId,
+    String personId,
     List<String> receiptsPath,
     String remarks,
     DateTime dateTime,
+    DateTime createdAt,
+    DateTime updatedAt,
   });
 
   Future<void> set(ApiRecordModel value);
@@ -180,22 +182,26 @@ class _$ApiRecordModelDocumentReference extends FirestoreDocumentReference<
 
   Future<void> update({
     Object? amount = _sentinel,
-    Object? currencyTitle = _sentinel,
-    Object? categoryTitle = _sentinel,
-    Object? personTitle = _sentinel,
+    Object? currencyId = _sentinel,
+    Object? categoryId = _sentinel,
+    Object? personId = _sentinel,
     Object? receiptsPath = _sentinel,
     Object? remarks = _sentinel,
     Object? dateTime = _sentinel,
+    Object? createdAt = _sentinel,
+    Object? updatedAt = _sentinel,
   }) async {
     final json = {
       if (amount != _sentinel) "amount": amount as double,
-      if (currencyTitle != _sentinel) "currencyTitle": currencyTitle as String,
-      if (categoryTitle != _sentinel) "categoryTitle": categoryTitle as String,
-      if (personTitle != _sentinel) "personTitle": personTitle as String,
+      if (currencyId != _sentinel) "currencyId": currencyId as String,
+      if (categoryId != _sentinel) "categoryId": categoryId as String,
+      if (personId != _sentinel) "personId": personId as String,
       if (receiptsPath != _sentinel)
         "receiptsPath": receiptsPath as List<String>,
       if (remarks != _sentinel) "remarks": remarks as String,
       if (dateTime != _sentinel) "dateTime": dateTime as DateTime,
+      if (createdAt != _sentinel) "createdAt": createdAt as DateTime,
+      if (updatedAt != _sentinel) "updatedAt": updatedAt as DateTime,
     };
 
     return reference.update(json);
@@ -333,7 +339,7 @@ abstract class ApiRecordModelQuery
     List<double>? whereIn,
     List<double>? whereNotIn,
   });
-  ApiRecordModelQuery whereCurrencyTitle({
+  ApiRecordModelQuery whereCurrencyId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -344,7 +350,7 @@ abstract class ApiRecordModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiRecordModelQuery whereCategoryTitle({
+  ApiRecordModelQuery whereCategoryId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -355,7 +361,7 @@ abstract class ApiRecordModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiRecordModelQuery wherePersonTitle({
+  ApiRecordModelQuery wherePersonId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -399,6 +405,28 @@ abstract class ApiRecordModelQuery
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
   });
+  ApiRecordModelQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  });
+  ApiRecordModelQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  });
 
   ApiRecordModelQuery orderByDocumentId({
     bool descending = false,
@@ -424,7 +452,7 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiRecordModelQuery orderByCurrencyTitle({
+  ApiRecordModelQuery orderByCurrencyId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -436,7 +464,7 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiRecordModelQuery orderByCategoryTitle({
+  ApiRecordModelQuery orderByCategoryId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -448,7 +476,7 @@ abstract class ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   });
 
-  ApiRecordModelQuery orderByPersonTitle({
+  ApiRecordModelQuery orderByPersonId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -485,6 +513,30 @@ abstract class ApiRecordModelQuery
   });
 
   ApiRecordModelQuery orderByDateTime({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  });
+
+  ApiRecordModelQuery orderByCreatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  });
+
+  ApiRecordModelQuery orderByUpdatedAt({
     bool descending = false,
     DateTime startAt,
     DateTime startAfter,
@@ -691,7 +743,7 @@ class _$ApiRecordModelQuery
     );
   }
 
-  ApiRecordModelQuery whereCurrencyTitle({
+  ApiRecordModelQuery whereCurrencyId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -704,7 +756,7 @@ class _$ApiRecordModelQuery
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        _$ApiRecordModelFieldMap["currencyTitle"]!,
+        _$ApiRecordModelFieldMap["currencyId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -719,7 +771,7 @@ class _$ApiRecordModelQuery
     );
   }
 
-  ApiRecordModelQuery whereCategoryTitle({
+  ApiRecordModelQuery whereCategoryId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -732,7 +784,7 @@ class _$ApiRecordModelQuery
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        _$ApiRecordModelFieldMap["categoryTitle"]!,
+        _$ApiRecordModelFieldMap["categoryId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -747,7 +799,7 @@ class _$ApiRecordModelQuery
     );
   }
 
-  ApiRecordModelQuery wherePersonTitle({
+  ApiRecordModelQuery wherePersonId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -760,7 +812,7 @@ class _$ApiRecordModelQuery
   }) {
     return _$ApiRecordModelQuery(
       reference.where(
-        _$ApiRecordModelFieldMap["personTitle"]!,
+        _$ApiRecordModelFieldMap["personId"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -845,6 +897,62 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(
       reference.where(
         _$ApiRecordModelFieldMap["dateTime"]!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
+  ApiRecordModelQuery whereCreatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  }) {
+    return _$ApiRecordModelQuery(
+      reference.where(
+        _$ApiRecordModelFieldMap["createdAt"]!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
+  ApiRecordModelQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  }) {
+    return _$ApiRecordModelQuery(
+      reference.where(
+        _$ApiRecordModelFieldMap["updatedAt"]!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -944,7 +1052,7 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(query, _collection);
   }
 
-  ApiRecordModelQuery orderByCurrencyTitle({
+  ApiRecordModelQuery orderByCurrencyId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -955,7 +1063,7 @@ class _$ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiRecordModelFieldMap["currencyTitle"]!,
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["currencyId"]!,
         descending: descending);
 
     if (startAtDocument != null) {
@@ -987,7 +1095,7 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(query, _collection);
   }
 
-  ApiRecordModelQuery orderByCategoryTitle({
+  ApiRecordModelQuery orderByCategoryId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -998,7 +1106,7 @@ class _$ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiRecordModelFieldMap["categoryTitle"]!,
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["categoryId"]!,
         descending: descending);
 
     if (startAtDocument != null) {
@@ -1030,7 +1138,7 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(query, _collection);
   }
 
-  ApiRecordModelQuery orderByPersonTitle({
+  ApiRecordModelQuery orderByPersonId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
@@ -1041,7 +1149,7 @@ class _$ApiRecordModelQuery
     ApiRecordModelDocumentSnapshot? endBeforeDocument,
     ApiRecordModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiRecordModelFieldMap["personTitle"]!,
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["personId"]!,
         descending: descending);
 
     if (startAtDocument != null) {
@@ -1202,6 +1310,92 @@ class _$ApiRecordModelQuery
     return _$ApiRecordModelQuery(query, _collection);
   }
 
+  ApiRecordModelQuery orderByCreatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["createdAt"]!,
+        descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiRecordModelQuery(query, _collection);
+  }
+
+  ApiRecordModelQuery orderByUpdatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiRecordModelDocumentSnapshot? startAtDocument,
+    ApiRecordModelDocumentSnapshot? endAtDocument,
+    ApiRecordModelDocumentSnapshot? endBeforeDocument,
+    ApiRecordModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(_$ApiRecordModelFieldMap["updatedAt"]!,
+        descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiRecordModelQuery(query, _collection);
+  }
+
   @override
   bool operator ==(Object other) {
     return other is _$ApiRecordModelQuery &&
@@ -1255,33 +1449,39 @@ class ApiRecordModelQueryDocumentSnapshot
 ApiRecordModel _$ApiRecordModelFromJson(Map<String, dynamic> json) =>
     ApiRecordModel(
       amount: (json['amount'] as num).toDouble(),
-      currencyTitle: json['currencyTitle'] as String,
-      categoryTitle: json['categoryTitle'] as String,
-      personTitle: json['personTitle'] as String,
+      currencyId: json['currencyId'] as String,
+      categoryId: json['categoryId'] as String,
+      personId: json['personId'] as String,
       receiptsPath: (json['receiptsPath'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       remarks: json['remarks'] as String,
       dateTime: DateTime.parse(json['dateTime'] as String),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
 const _$ApiRecordModelFieldMap = <String, String>{
   'amount': 'amount',
-  'currencyTitle': 'currencyTitle',
-  'categoryTitle': 'categoryTitle',
-  'personTitle': 'personTitle',
+  'currencyId': 'currencyId',
+  'categoryId': 'categoryId',
+  'personId': 'personId',
   'receiptsPath': 'receiptsPath',
   'remarks': 'remarks',
   'dateTime': 'dateTime',
+  'createdAt': 'createdAt',
+  'updatedAt': 'updatedAt',
 };
 
 Map<String, dynamic> _$ApiRecordModelToJson(ApiRecordModel instance) =>
     <String, dynamic>{
       'amount': instance.amount,
-      'currencyTitle': instance.currencyTitle,
-      'categoryTitle': instance.categoryTitle,
-      'personTitle': instance.personTitle,
+      'currencyId': instance.currencyId,
+      'categoryId': instance.categoryId,
+      'personId': instance.personId,
       'receiptsPath': instance.receiptsPath,
       'remarks': instance.remarks,
       'dateTime': instance.dateTime.toIso8601String(),
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
     };

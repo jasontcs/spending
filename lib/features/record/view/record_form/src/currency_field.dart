@@ -28,6 +28,8 @@ class CurrencyField extends StatelessWidget {
                 child: Text(currency.title),
               ))
           .toList(),
+      valueTransformer: (value) =>
+          currencies.singleWhereOrNull((currency) => currency.title == value),
       onChanged: (Currency? value) {
         if (value == null) {
           final org = FormBuilder.of(context)!.fields[name]!.value as Currency?;

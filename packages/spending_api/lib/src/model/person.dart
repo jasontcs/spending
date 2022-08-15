@@ -7,10 +7,21 @@ part 'person.g.dart';
 @JsonSerializable()
 class ApiPersonModel {
   ApiPersonModel({
+    this.id,
     required this.title,
   });
 
+  final String? id;
   final String title;
+
+  ApiPersonModel copyWith({
+    String? id,
+    String? title,
+  }) =>
+      ApiPersonModel(
+        id: id ?? this.id,
+        title: title ?? this.title,
+      );
 }
 
 @Collection<ApiPersonModel>('people')

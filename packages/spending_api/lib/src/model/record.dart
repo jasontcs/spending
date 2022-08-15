@@ -9,43 +9,51 @@ class ApiRecordModel {
   ApiRecordModel({
     this.id,
     required this.amount,
-    required this.currencyTitle,
-    required this.categoryTitle,
-    required this.personTitle,
+    required this.currencyId,
+    required this.categoryId,
+    required this.personId,
     required this.receiptsPath,
     required this.remarks,
     required this.dateTime,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   @JsonKey(ignore: true)
   final String? id;
   final double amount;
-  final String currencyTitle;
-  final String categoryTitle;
-  final String personTitle;
+  final String currencyId;
+  final String categoryId;
+  final String personId;
   final List<String> receiptsPath;
   final String remarks;
   final DateTime dateTime;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   ApiRecordModel copyWith({
     String? id,
     double? amount,
-    String? currencyTitle,
-    String? categoryTitle,
-    String? personTitle,
+    String? currencyId,
+    String? categoryId,
+    String? personId,
     List<String>? receiptsPath,
     String? remarks,
     DateTime? dateTime,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return ApiRecordModel(
       id: id ?? this.id,
       amount: amount ?? this.amount,
-      currencyTitle: currencyTitle ?? this.currencyTitle,
-      categoryTitle: categoryTitle ?? this.categoryTitle,
-      personTitle: personTitle ?? this.personTitle,
+      currencyId: currencyId ?? this.currencyId,
+      categoryId: categoryId ?? this.categoryId,
+      personId: personId ?? this.personId,
       receiptsPath: receiptsPath ?? this.receiptsPath,
       remarks: remarks ?? this.remarks,
       dateTime: dateTime ?? this.dateTime,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }

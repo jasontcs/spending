@@ -2,8 +2,8 @@ part of 'auth_bloc.dart';
 
 enum AuthStatus { login, logout }
 
-class AuthState {
-  AuthState({this.status = AuthStatus.logout});
-
-  final AuthStatus status;
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState({@Default(AuthStatus.logout) AuthStatus status}) =
+      _AuthState;
 }

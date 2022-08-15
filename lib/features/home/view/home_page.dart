@@ -15,16 +15,16 @@ class AppHomePage extends StatelessWidget {
   static GoRoute route({List<GoRoute>? routes}) => GoRoute(
         name: routeName,
         path: '/',
-        builder: (context, state) => AppHomePage(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => HomeCubit(),
+          child: AppHomePage(),
+        ),
         routes: routes ?? [],
       );
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeCubit(),
-      child: const AppHomeView(),
-    );
+    return const AppHomeView();
   }
 }
 

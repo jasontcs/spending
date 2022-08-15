@@ -15,8 +15,17 @@ class CategoriesPage extends StatelessWidget {
         path: 'categories',
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
-          return CategoriesPage(
-            recordBloc: recordBloc,
+          return MultiBlocProvider(
+            providers: [
+              if (recordBloc != null) BlocProvider.value(value: recordBloc),
+              BlocProvider(
+                create: (context) => CategoriesBloc(
+                    spendingRepository: context.read<SpendingRepository>()),
+              ),
+            ],
+            child: CategoriesPage(
+              recordBloc: recordBloc,
+            ),
           );
         },
       );
@@ -25,18 +34,7 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFromRecord = recordBloc != null;
-
-    return MultiBlocProvider(
-      providers: [
-        if (isFromRecord) BlocProvider.value(value: recordBloc!),
-        BlocProvider(
-          create: (context) => CategoriesBloc(
-              spendingRepository: context.read<SpendingRepository>()),
-        ),
-      ],
-      child: CategoriesView(isFromRecord: isFromRecord),
-    );
+    return CategoriesView(isFromRecord: recordBloc != null);
   }
 }
 
@@ -102,10 +100,15 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(category.title),
-      onTap: onTap,
-      selected: selected,
+    return Card(
+      color: selected ? Theme.of(context).primaryColorLight : null,
+      child: InkWell(
+        onTap: onTap,
+        child: GridTile(
+          footer: Center(child: Text(category.title)),
+          child: Center(child: Text(category.icon)),
+        ),
+      ),
     );
   }
 }

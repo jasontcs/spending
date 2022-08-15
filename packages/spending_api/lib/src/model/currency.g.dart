@@ -129,9 +129,11 @@ abstract class ApiCurrencyModelDocumentReference
   Future<void> delete();
 
   Future<void> update({
+    String? id,
     double rate,
     String title,
     String flag,
+    DateTime updatedAt,
   });
 
   Future<void> set(ApiCurrencyModel value);
@@ -176,14 +178,18 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
   }
 
   Future<void> update({
+    Object? id = _sentinel,
     Object? rate = _sentinel,
     Object? title = _sentinel,
     Object? flag = _sentinel,
+    Object? updatedAt = _sentinel,
   }) async {
     final json = {
+      if (id != _sentinel) "id": id as String?,
       if (rate != _sentinel) "rate": rate as double,
       if (title != _sentinel) "title": title as String,
       if (flag != _sentinel) "flag": flag as String,
+      if (updatedAt != _sentinel) "updatedAt": updatedAt as DateTime,
     };
 
     return reference.update(json);
@@ -310,6 +316,17 @@ abstract class ApiCurrencyModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
+  ApiCurrencyModelQuery whereId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+  });
   ApiCurrencyModelQuery whereRate({
     double? isEqualTo,
     double? isNotEqualTo,
@@ -343,6 +360,17 @@ abstract class ApiCurrencyModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
+  ApiCurrencyModelQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  });
 
   ApiCurrencyModelQuery orderByDocumentId({
     bool descending = false,
@@ -350,6 +378,18 @@ abstract class ApiCurrencyModelQuery
     String startAfter,
     String endAt,
     String endBefore,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  });
+
+  ApiCurrencyModelQuery orderById({
+    bool descending = false,
+    String? startAt,
+    String? startAfter,
+    String? endAt,
+    String? endBefore,
     ApiCurrencyModelDocumentSnapshot? startAtDocument,
     ApiCurrencyModelDocumentSnapshot? endAtDocument,
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
@@ -386,6 +426,18 @@ abstract class ApiCurrencyModelQuery
     String startAfter,
     String endAt,
     String endBefore,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  });
+
+  ApiCurrencyModelQuery orderByUpdatedAt({
+    bool descending = false,
+    DateTime startAt,
+    DateTime startAfter,
+    DateTime endAt,
+    DateTime endBefore,
     ApiCurrencyModelDocumentSnapshot? startAtDocument,
     ApiCurrencyModelDocumentSnapshot? endAtDocument,
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
@@ -559,6 +611,34 @@ class _$ApiCurrencyModelQuery
     );
   }
 
+  ApiCurrencyModelQuery whereId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String?>? whereIn,
+    List<String?>? whereNotIn,
+  }) {
+    return _$ApiCurrencyModelQuery(
+      reference.where(
+        _$ApiCurrencyModelFieldMap["id"]!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
   ApiCurrencyModelQuery whereRate({
     double? isEqualTo,
     double? isNotEqualTo,
@@ -643,6 +723,34 @@ class _$ApiCurrencyModelQuery
     );
   }
 
+  ApiCurrencyModelQuery whereUpdatedAt({
+    DateTime? isEqualTo,
+    DateTime? isNotEqualTo,
+    DateTime? isLessThan,
+    DateTime? isLessThanOrEqualTo,
+    DateTime? isGreaterThan,
+    DateTime? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<DateTime>? whereIn,
+    List<DateTime>? whereNotIn,
+  }) {
+    return _$ApiCurrencyModelQuery(
+      reference.where(
+        _$ApiCurrencyModelFieldMap["updatedAt"]!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      _collection,
+    );
+  }
+
   ApiCurrencyModelQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -655,6 +763,49 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
     var query = reference.orderBy(FieldPath.documentId, descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiCurrencyModelQuery(query, _collection);
+  }
+
+  ApiCurrencyModelQuery orderById({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["id"]!,
+        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -814,6 +965,49 @@ class _$ApiCurrencyModelQuery
     return _$ApiCurrencyModelQuery(query, _collection);
   }
 
+  ApiCurrencyModelQuery orderByUpdatedAt({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  }) {
+    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["updatedAt"]!,
+        descending: descending);
+
+    if (startAtDocument != null) {
+      query = query.startAtDocument(startAtDocument.snapshot);
+    }
+    if (startAfterDocument != null) {
+      query = query.startAfterDocument(startAfterDocument.snapshot);
+    }
+    if (endAtDocument != null) {
+      query = query.endAtDocument(endAtDocument.snapshot);
+    }
+    if (endBeforeDocument != null) {
+      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+    }
+
+    if (startAt != _sentinel) {
+      query = query.startAt([startAt]);
+    }
+    if (startAfter != _sentinel) {
+      query = query.startAfter([startAfter]);
+    }
+    if (endAt != _sentinel) {
+      query = query.endAt([endAt]);
+    }
+    if (endBefore != _sentinel) {
+      query = query.endBefore([endBefore]);
+    }
+
+    return _$ApiCurrencyModelQuery(query, _collection);
+  }
+
   @override
   bool operator ==(Object other) {
     return other is _$ApiCurrencyModelQuery &&
@@ -866,20 +1060,26 @@ class ApiCurrencyModelQueryDocumentSnapshot
 
 ApiCurrencyModel _$ApiCurrencyModelFromJson(Map<String, dynamic> json) =>
     ApiCurrencyModel(
+      id: json['id'] as String?,
       rate: (json['rate'] as num).toDouble(),
       title: json['title'] as String,
       flag: json['flag'] as String,
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
 const _$ApiCurrencyModelFieldMap = <String, String>{
+  'id': 'id',
   'rate': 'rate',
   'title': 'title',
   'flag': 'flag',
+  'updatedAt': 'updatedAt',
 };
 
 Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'rate': instance.rate,
       'title': instance.title,
       'flag': instance.flag,
+      'updatedAt': instance.updatedAt.toIso8601String(),
     };

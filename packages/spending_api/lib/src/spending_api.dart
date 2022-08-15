@@ -16,36 +16,39 @@ abstract class SpendingApi {
     String? recordId,
   });
   Future<List<ApiRecordModel>> getRecords({
-    String? categoryTitle,
-    String? currencyTitle,
-    String? personTitle,
+    String? categoryId,
+    String? currencyId,
+    String? personId,
     DateTime? from,
     DateTime? to,
   });
+  Future<List<ApiPersonModel>> getPeople({
+    String? recordId,
+  });
 
-  Future<ApiCategoryModel> getCategory(String title);
-  Future<ApiCurrencyModel> getCurrency(String title);
+  Future<ApiCategoryModel> getCategory(String id);
+  Future<ApiCurrencyModel> getCurrency(String id);
   Future<ApiRecordModel> getRecord(String id);
-  Future<ApiPersonModel> getPerson(String title);
+  Future<ApiPersonModel> getPerson(String id);
 
   Future<String> addCategory(ApiCategoryModel category);
   Future<String> addCurrency(ApiCurrencyModel currency);
   Future<String> addRecord(ApiRecordModel record);
   Future<String> addPerson(ApiPersonModel person);
 
-  Future<String> editCategory(String title, ApiCategoryModel category);
-  Future<String> editCurrency(String title, ApiCurrencyModel currency);
+  Future<String> editCategory(String id, ApiCategoryModel category);
+  Future<String> editCurrency(String id, ApiCurrencyModel currency);
   Future<String> editRecord(String id, ApiRecordModel record);
-  Future<String> editPerson(String title, ApiPersonModel person);
+  Future<String> editPerson(String id, ApiPersonModel person);
 
-  Future<void> removeCategory(String title);
-  Future<void> removeCurrency(String title);
+  Future<void> removeCategory(String id);
+  Future<void> removeCurrency(String id);
   Future<void> removeRecord(String id);
-  Future<void> removePerson(String title);
+  Future<void> removePerson(String id);
 
   Future<String> uploadImage({
     required File file,
-    required String id,
+    String? id,
     required String type,
   });
 

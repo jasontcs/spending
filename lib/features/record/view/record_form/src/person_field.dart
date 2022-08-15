@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:collection/collection.dart';
 
@@ -18,10 +19,11 @@ class PersonField extends StatelessWidget {
     return FormBuilderTextField(
       name: name,
       onTap: () {
-        context.goNamed(
+        final id = context.read<RecordBloc>().state.record!.id;
+        final queryParams = context.goNamed(
           PeoplePage.routeName,
           queryParams: {
-            RecordPage.recordIdKey: context.read<RecordBloc>().state.record!.id!
+            if (id != null) RecordPage.recordIdKey: id,
           },
           extra: context.read<RecordBloc>(),
         );
@@ -29,6 +31,8 @@ class PersonField extends StatelessWidget {
       readOnly: true,
       valueTransformer: (value) =>
           people.singleWhereOrNull((person) => person.title == value),
+      decoration: InputDecoration(suffixIcon: Icon(Icons.arrow_forward_ios)),
+      validator: FormBuilderValidators.required(),
     );
   }
 }

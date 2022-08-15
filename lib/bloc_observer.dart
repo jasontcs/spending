@@ -27,17 +27,17 @@ class AppBlocObserver extends BlocObserver {
     _log('onClose -- ${bloc.runtimeType}');
   }
 
-  @override
-  void onEvent(Bloc bloc, Object? event) {
-    super.onEvent(bloc, event);
-    _log('onEvent -- ${bloc.runtimeType}, $event');
-  }
+  // @override
+  // void onEvent(Bloc bloc, Object? event) {
+  //   super.onEvent(bloc, event);
+  //   _log('onEvent -- ${bloc.runtimeType}, $event');
+  // }
 
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
-    _log('onTransition -- ${bloc.runtimeType}, $transition');
-  }
+  // @override
+  // void onTransition(Bloc bloc, Transition transition) {
+  //   super.onTransition(bloc, transition);
+  //   _log('onTransition -- ${bloc.runtimeType}, $transition');
+  // }
 
   void _log(String message) => developer.log(
         message,

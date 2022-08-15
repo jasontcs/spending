@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 part 'people_state.dart';
 part 'people_event.dart';
+part 'people_bloc.freezed.dart';
 
 class PeopleBloc extends Bloc<PeopleEvent, PeopleState> {
   PeopleBloc({required SpendingRepository spendingRepository})

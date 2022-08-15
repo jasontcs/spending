@@ -56,36 +56,45 @@ class AppBlocs extends StatelessWidget {
   }
 }
 
-class AppView extends StatelessWidget {
+class AppView extends StatefulWidget {
   AppView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final loggedIn = context.select(
-        (AuthBloc authBloc) => authBloc.state.status == AuthStatus.login);
-    final _router = GoRouter(
-      routes: [
-        AppHomePage.route(routes: [
-          RecordPage.route(routes: [
-            CategoriesPage.route(),
-            PeoplePage.route(),
-          ]),
+  State<AppView> createState() => _AppViewState();
+}
+
+class _AppViewState extends State<AppView> {
+  late GoRouter _router = GoRouter(
+    routes: [
+      AppHomePage.route(routes: [
+        RecordPage.route(routes: [
+          CategoriesPage.route(),
+          PeoplePage.route(),
         ]),
-        SignInPage.route(),
-      ],
-      redirect: (state) {
-        // if the user is not logged in, they need to login
-        final loggingIn = state.subloc == '/sign-in';
-        if (!loggedIn) return loggingIn ? null : '/sign-in';
+      ]),
+      SignInPage.route(),
+    ],
+    redirect: (state) {
+      // if the user is not logged in, they need to login
+      final loggingIn = state.subloc == '/sign-in';
+      if (authBloc.state.status != AuthStatus.login)
+        return loggingIn ? null : '/sign-in';
 
-        // if the user is logged in but still on the login page, send them to
-        // the home page
-        if (loggingIn) return '/';
+      // if the user is logged in but still on the login page, send them to
+      // the home page
+      if (loggingIn) return '/';
 
-        // no need to redirect at all
-        return null;
-      },
-    );
+      // no need to redirect at all
+      return null;
+    },
+    refreshListenable: GoRouterRefreshStream(authBloc.stream),
+  );
+
+  late AuthBloc authBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    authBloc = context.watch<AuthBloc>();
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(

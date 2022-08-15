@@ -30,24 +30,43 @@ class RecordsView extends StatelessWidget {
     final records = context.select((RecordsBloc bloc) => bloc.state.records);
     return Scaffold(
       appBar: AppBar(title: Text('Record')),
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: records.length,
         itemBuilder: (context, index) {
           final record = records[index];
-          return ListTile(
-            leading: CircleAvatar(
-              child: Text(record.category.icon),
-            ),
-            title: Text(record.category.title),
-            subtitle: Text(record.person.title),
-            trailing: Text(NumberFormat.simpleCurrency().format(record.amount)),
-            onTap: () {
-              context.goNamed(RecordPage.routeName,
-                  queryParams: {RecordPage.recordIdKey: record.id!});
-            },
-          );
+          return RecordTile(record: record);
+        },
+        separatorBuilder: (context, index) {
+          return Divider();
         },
       ),
+    );
+  }
+}
+
+class RecordTile extends StatelessWidget {
+  const RecordTile({
+    Key? key,
+    required this.record,
+  }) : super(key: key);
+
+  final Record record;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        child: Text(
+          record.category.icon,
+        ),
+      ),
+      title: Text(record.category.title),
+      subtitle: Text(record.person.title),
+      trailing: Text(NumberFormat.simpleCurrency().format(record.amount)),
+      onTap: () {
+        context.goNamed(RecordPage.routeName,
+            queryParams: {RecordPage.recordIdKey: record.id!});
+      },
     );
   }
 }

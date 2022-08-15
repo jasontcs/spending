@@ -14,15 +14,15 @@ abstract class SpendingRepository {
   Stream<List<Currency>> get currenciesStream;
   Stream<List<Person>> get peopleStream;
 
-  List<Record> get records;
-  List<Category> get categories;
-  List<Currency> get currencies;
-  List<Person> get people;
+  Future<List<Record>> get records;
+  Future<List<Category>> get categories;
+  Future<List<Currency>> get currencies;
+  Future<List<Person>> get people;
 
-  Record? getRecord(String id);
-  Category? getCategory(String title);
-  Currency? getCurrency(String title);
-  Person? getPerson(String title);
+  Future<Record?> getRecord(String id);
+  Future<Category?> getCategory(String id);
+  Future<Currency?> getCurrency(String id);
+  Future<Person?> getPerson(String id);
 
   Future<Record> addRecord(Record record);
   Future<Category> addCategory(Category category);
