@@ -12,7 +12,8 @@ class PeoplePage extends StatelessWidget {
   const PeoplePage({super.key});
   static const String routeNameWithRecord = 'peopleWithRecord';
   static const String routeName = 'people';
-  static GoRoute route({bool withRecord = false}) => GoRoute(
+  static GoRoute route({bool withRecord = false, List<GoRoute>? routes}) =>
+      GoRoute(
         name: withRecord ? routeNameWithRecord : routeName,
         path: 'people',
         builder: (context, state) {
@@ -21,13 +22,14 @@ class PeoplePage extends StatelessWidget {
             providers: [
               if (recordBloc != null) BlocProvider.value(value: recordBloc),
               BlocProvider(
-                create: (context) => PeopleBloc(
+                create: (context) => PeopleCubit(
                     spendingRepository: context.read<SpendingRepository>()),
               ),
             ],
             child: PeoplePage(),
           );
         },
+        routes: routes ?? [],
       );
 
   @override
@@ -42,7 +44,7 @@ class PeopleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Person> people =
-        context.select((PeopleBloc bloc) => bloc.state.people);
+        context.select((PeopleCubit bloc) => bloc.state.people);
     final record = context.select((RecordBloc? bloc) => bloc?.state.record);
     final selected = context.select((RecordBloc? bloc) =>
             bloc?.state.formKey?.currentState?.fields[PersonField.name]?.value)

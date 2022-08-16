@@ -129,7 +129,6 @@ abstract class ApiCategoryModelDocumentReference
   Future<void> delete();
 
   Future<void> update({
-    String? id,
     String title,
     double budget,
     String icon,
@@ -177,13 +176,11 @@ class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
   }
 
   Future<void> update({
-    Object? id = _sentinel,
     Object? title = _sentinel,
     Object? budget = _sentinel,
     Object? icon = _sentinel,
   }) async {
     final json = {
-      if (id != _sentinel) "id": id as String?,
       if (title != _sentinel) "title": title as String,
       if (budget != _sentinel) "budget": budget as double,
       if (icon != _sentinel) "icon": icon as String,
@@ -313,17 +310,6 @@ abstract class ApiCategoryModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiCategoryModelQuery whereId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  });
   ApiCategoryModelQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -364,18 +350,6 @@ abstract class ApiCategoryModelQuery
     String startAfter,
     String endAt,
     String endBefore,
-    ApiCategoryModelDocumentSnapshot? startAtDocument,
-    ApiCategoryModelDocumentSnapshot? endAtDocument,
-    ApiCategoryModelDocumentSnapshot? endBeforeDocument,
-    ApiCategoryModelDocumentSnapshot? startAfterDocument,
-  });
-
-  ApiCategoryModelQuery orderById({
-    bool descending = false,
-    String? startAt,
-    String? startAfter,
-    String? endAt,
-    String? endBefore,
     ApiCategoryModelDocumentSnapshot? startAtDocument,
     ApiCategoryModelDocumentSnapshot? endAtDocument,
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
@@ -585,34 +559,6 @@ class _$ApiCategoryModelQuery
     );
   }
 
-  ApiCategoryModelQuery whereId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  }) {
-    return _$ApiCategoryModelQuery(
-      reference.where(
-        _$ApiCategoryModelFieldMap["id"]!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      _collection,
-    );
-  }
-
   ApiCategoryModelQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -709,49 +655,6 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
     var query = reference.orderBy(FieldPath.documentId, descending: descending);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ApiCategoryModelQuery(query, _collection);
-  }
-
-  ApiCategoryModelQuery orderById({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ApiCategoryModelDocumentSnapshot? startAtDocument,
-    ApiCategoryModelDocumentSnapshot? endAtDocument,
-    ApiCategoryModelDocumentSnapshot? endBeforeDocument,
-    ApiCategoryModelDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["id"]!,
-        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -963,14 +866,12 @@ class ApiCategoryModelQueryDocumentSnapshot
 
 ApiCategoryModel _$ApiCategoryModelFromJson(Map<String, dynamic> json) =>
     ApiCategoryModel(
-      id: json['id'] as String?,
       title: json['title'] as String,
       budget: (json['budget'] as num).toDouble(),
       icon: json['icon'] as String,
     );
 
 const _$ApiCategoryModelFieldMap = <String, String>{
-  'id': 'id',
   'title': 'title',
   'budget': 'budget',
   'icon': 'icon',
@@ -978,7 +879,6 @@ const _$ApiCategoryModelFieldMap = <String, String>{
 
 Map<String, dynamic> _$ApiCategoryModelToJson(ApiCategoryModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'title': instance.title,
       'budget': instance.budget,
       'icon': instance.icon,

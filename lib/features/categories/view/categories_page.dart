@@ -3,30 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../category/category.dart';
 import '../../record/record.dart';
 import '../../record/view/record_form/record_form.dart';
 import '../categories.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
-  static const String routeNameWithRecord = 'categoriesWithRecord';
+  static const String routeNameWithRecord = '${routeName}WithRecord';
   static const String routeName = 'categories';
-  static GoRoute route({bool withRecord = false}) => GoRoute(
+  static GoRoute route({bool withRecord = false, List<GoRoute>? routes}) =>
+      GoRoute(
         name: withRecord ? routeNameWithRecord : routeName,
-        path: 'categories',
+        path: routeName,
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
           return MultiBlocProvider(
             providers: [
               if (recordBloc != null) BlocProvider.value(value: recordBloc),
               BlocProvider(
-                create: (context) => CategoriesBloc(
+                create: (context) => CategoriesCubit(
                     spendingRepository: context.read<SpendingRepository>()),
               ),
             ],
             child: CategoriesPage(),
           );
         },
+        routes: routes ?? [],
       );
 
   @override
@@ -41,13 +44,24 @@ class CategoriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Category> categories =
-        context.select((CategoriesBloc bloc) => bloc.state.categories);
+        context.select((CategoriesCubit cubit) => cubit.state.categories);
     final record = context.select((RecordBloc? bloc) => bloc?.state.record);
 
     final selected = context.select((RecordBloc? bloc) => bloc?.state.formKey
         ?.currentState?.fields[CategoryField.name]?.value) as String?;
     return Scaffold(
-      appBar: AppBar(title: Text('Categories')),
+      appBar: AppBar(
+        title: Text('類別'),
+        actions: [
+          if (record == null)
+            IconButton(
+              onPressed: () {
+                context.goNamed(CategoryPage.routeName);
+              },
+              icon: Icon(Icons.add),
+            )
+        ],
+      ),
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 100,
@@ -57,23 +71,27 @@ class CategoriesView extends StatelessWidget {
           final category = categories[index];
           return CategoryTile(
             category: category,
-            onTap: record != null
-                ? () {
-                    context
-                        .read<RecordBloc?>()
-                        ?.state
-                        .formKey
-                        ?.currentState
-                        ?.fields[CategoryField.name]
-                        ?.didChange(category.title);
+            onTap: () {
+              if (record != null) {
+                context
+                    .read<RecordBloc?>()
+                    ?.state
+                    .formKey
+                    ?.currentState
+                    ?.fields[CategoryField.name]
+                    ?.didChange(category.title);
 
-                    Map<String, String> queryParams = record.id != null
-                        ? {RecordPage.recordIdKey: record.id!}
-                        : {};
-                    context.goNamed(RecordPage.routeName,
-                        queryParams: queryParams);
-                  }
-                : null,
+                Map<String, String> queryParams = record.id != null
+                    ? {RecordPage.recordIdKey: record.id!}
+                    : {};
+                context.goNamed(RecordPage.routeName, queryParams: queryParams);
+              } else {
+                context.goNamed(
+                  CategoryPage.routeName,
+                  queryParams: {CategoryPage.routeName: category.id!},
+                );
+              }
+            },
             selected: category.title == selected,
           );
         },

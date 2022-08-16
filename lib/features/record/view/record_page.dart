@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
+import '../../../utils.dart';
 import '../../home/home.dart';
 import '../../people/people.dart';
 import '../../records/bloc/records_bloc.dart';
@@ -59,8 +60,8 @@ class RecordPage extends StatelessWidget {
       listeners: [
         BlocListener<RecordBloc, RecordState>(
           listenWhen: (previous, current) =>
-              previous.status == RecordStatus.posting &&
-              current.status == RecordStatus.idle &&
+              previous.status == AppFormStatus.posting &&
+              current.status == AppFormStatus.idle &&
               previous.record?.id == null &&
               current.record?.id != null,
           listener: (context, state) {
@@ -71,8 +72,8 @@ class RecordPage extends StatelessWidget {
         ),
         BlocListener<RecordBloc, RecordState>(
           listenWhen: (previous, current) =>
-              previous.status == RecordStatus.posting &&
-              current.status == RecordStatus.idle &&
+              previous.status == AppFormStatus.posting &&
+              current.status == AppFormStatus.idle &&
               previous.record?.id != null &&
               current.record?.id != null,
           listener: (context, state) {
@@ -83,8 +84,8 @@ class RecordPage extends StatelessWidget {
         ),
         BlocListener<RecordBloc, RecordState>(
           listenWhen: (previous, current) =>
-              previous.status == RecordStatus.posting &&
-              current.status == RecordStatus.idle &&
+              previous.status == AppFormStatus.posting &&
+              current.status == AppFormStatus.idle &&
               previous.record?.id != null &&
               current.record?.id == null,
           listener: (context, state) {

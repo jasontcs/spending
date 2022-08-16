@@ -5,16 +5,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 part 'people_state.dart';
-part 'people_event.dart';
-part 'people_bloc.freezed.dart';
+part 'people_cubit.freezed.dart';
 
-class PeopleBloc extends Bloc<PeopleEvent, PeopleState> {
-  PeopleBloc({required SpendingRepository spendingRepository})
+class PeopleCubit extends Cubit<PeopleState> {
+  PeopleCubit({required SpendingRepository spendingRepository})
       : _spendingRepository = spendingRepository,
         super(PeopleState()) {
-    on<PeopleItemsChanged>(_onItemsChanged);
     _peopleSubscription = _spendingRepository.peopleStream.listen((people) {
-      add(PeopleItemsChanged(people));
+      emit(state.copyWith(people: people));
     });
   }
   final SpendingRepository _spendingRepository;
@@ -24,12 +22,5 @@ class PeopleBloc extends Bloc<PeopleEvent, PeopleState> {
   Future<void> close() {
     _peopleSubscription.cancel();
     return super.close();
-  }
-
-  void _onItemsChanged(
-    PeopleItemsChanged event,
-    Emitter<PeopleState> emit,
-  ) {
-    emit(state.copyWith(people: event.people));
   }
 }

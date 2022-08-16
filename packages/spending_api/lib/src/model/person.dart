@@ -11,6 +11,7 @@ class ApiPersonModel {
     required this.title,
   });
 
+  @JsonKey(ignore: true)
   final String? id;
   final String title;
 

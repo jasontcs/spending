@@ -1,4 +1,4 @@
-part of 'categories_bloc.dart';
+part of 'categories_cubit.dart';
 
 @freezed
 class CategoriesState with _$CategoriesState {

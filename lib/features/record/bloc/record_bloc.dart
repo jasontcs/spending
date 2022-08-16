@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../../utils.dart';
 import '../record.dart';
 
 part 'record_event.dart';
@@ -78,7 +79,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     if (event.recordId != null && event.dateString != null)
       throw Exception('event.recordId != null && event.dateString != null');
 
-    emit(state.copyWith(status: RecordStatus.fetching));
+    emit(state.copyWith(status: AppFormStatus.fetching));
     final record = event.recordId != null
         ? await _spendingRepository.getRecord(event.recordId!)
         : Record(
@@ -95,7 +96,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
 
     emit(state.copyWith(
       record: record,
-      status: RecordStatus.idle,
+      status: AppFormStatus.idle,
     ));
 
     if (event.dateString != null) {
@@ -113,7 +114,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     RecordFormEditted event,
     Emitter<RecordState> emit,
   ) {
-    emit(state.copyWith(status: RecordStatus.unsaved));
+    emit(state.copyWith(status: AppFormStatus.unsaved));
   }
 
   Future<void> _onFormSaved(
@@ -121,13 +122,13 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     Emitter<RecordState> emit,
   ) async {
     final record = event.record;
-    emit(state.copyWith(record: record, status: RecordStatus.posting));
+    emit(state.copyWith(record: record, status: AppFormStatus.posting));
     late final Record result;
     if (record.id == null)
       result = await _spendingRepository.addRecord(record);
     else
       result = await _spendingRepository.updateRecord(state.record!, record);
-    emit(state.copyWith(record: result, status: RecordStatus.idle));
+    emit(state.copyWith(record: result, status: AppFormStatus.idle));
     emit(state.copyWith(formKey: GlobalKey<FormBuilderState>()));
   }
 
@@ -136,8 +137,8 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     Emitter<RecordState> emit,
   ) async {
     final record = state.record;
-    emit(state.copyWith(status: RecordStatus.posting));
+    emit(state.copyWith(status: AppFormStatus.posting));
     final result = await _spendingRepository.deleteRecord(record!);
-    emit(state.copyWith(record: result, status: RecordStatus.idle));
+    emit(state.copyWith(record: result, status: AppFormStatus.idle));
   }
 }

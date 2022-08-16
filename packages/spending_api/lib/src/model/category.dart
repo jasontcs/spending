@@ -13,6 +13,7 @@ class ApiCategoryModel {
     required this.icon,
   });
 
+  @JsonKey(ignore: true)
   final String? id;
   final String title;
   final double budget;

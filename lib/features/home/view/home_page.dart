@@ -14,7 +14,7 @@ class AppHomePage extends StatelessWidget {
   static const String routeName = '/';
   static GoRoute route({List<GoRoute>? routes}) => GoRoute(
         name: routeName,
-        path: '/',
+        path: routeName,
         builder: (context, state) => BlocProvider(
           create: (_) => HomeCubit(),
           child: AppHomePage(),
@@ -52,63 +52,33 @@ class AppHomeView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.records,
+        shape: CircularNotchedRectangle(),
+        clipBehavior: Clip.antiAlias,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: selectedTab.index,
+          onTap: (index) =>
+              context.read<HomeCubit>().setTab(HomeTab.values[index]),
+          items: const [
+            BottomNavigationBarItem(
               icon: const Icon(Icons.list_alt),
+              label: '紀錄',
             ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.budget,
-              icon: const Icon(Icons.battery_std),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.battery_5_bar),
+              label: '預算',
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
-                Icons.add,
-                color: Colors.transparent,
-              ),
-            ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.charts,
+            BottomNavigationBarItem(
               icon: const Icon(Icons.pie_chart),
+              label: '分析',
             ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.setting,
+            BottomNavigationBarItem(
               icon: const Icon(Icons.settings),
+              label: '設定',
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _HomeTabButton extends StatelessWidget {
-  const _HomeTabButton({
-    required this.groupValue,
-    required this.value,
-    required this.icon,
-  });
-
-  final HomeTab groupValue;
-  final HomeTab value;
-  final Widget icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => context.read<HomeCubit>().setTab(value),
-      iconSize: 32,
-      color:
-          groupValue != value ? null : Theme.of(context).colorScheme.secondary,
-      icon: icon,
     );
   }
 }

@@ -4,8 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'dart:developer' as developer;
 import 'package:logging/logging.dart';
 
-import '../../../bloc/record_bloc.dart';
-import 'record_form.dart';
+import '../../../category.dart';
 
 class SaveButton extends StatelessWidget {
   const SaveButton({Key? key}) : super(key: key);
@@ -19,15 +18,15 @@ class SaveButton extends StatelessWidget {
           developer.log(form!.value.toString(),
               name: 'UI', level: Level.INFO.value);
           context
-              .read<RecordBloc>()
-              .add(RecordFormSaved(form.value.toRecord()));
+              .read<CategoryBloc>()
+              .add(CategoryFormSaved(form.value.toCategory()));
         } else {
           developer.log(form!.value.toString(),
               name: 'UI', level: Level.INFO.value);
           debugPrint('validation failed');
         }
       },
-      child: const Text('Save'),
+      child: Text('儲存'),
     );
   }
 }

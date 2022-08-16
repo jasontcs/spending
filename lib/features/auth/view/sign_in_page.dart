@@ -9,7 +9,7 @@ class SignInPage extends StatelessWidget {
 
   static const String routeName = 'sign-in';
   static GoRoute route() => GoRoute(
-        path: '/sign-in',
+        path: '/$routeName',
         name: routeName,
         builder: (context, state) => SignInPage(),
       );

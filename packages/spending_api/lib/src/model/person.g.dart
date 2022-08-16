@@ -128,7 +128,6 @@ abstract class ApiPersonModelDocumentReference
   Future<void> delete();
 
   Future<void> update({
-    String? id,
     String title,
   });
 
@@ -174,11 +173,9 @@ class _$ApiPersonModelDocumentReference extends FirestoreDocumentReference<
   }
 
   Future<void> update({
-    Object? id = _sentinel,
     Object? title = _sentinel,
   }) async {
     final json = {
-      if (id != _sentinel) "id": id as String?,
       if (title != _sentinel) "title": title as String,
     };
 
@@ -306,17 +303,6 @@ abstract class ApiPersonModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  ApiPersonModelQuery whereId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  });
   ApiPersonModelQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -335,18 +321,6 @@ abstract class ApiPersonModelQuery
     String startAfter,
     String endAt,
     String endBefore,
-    ApiPersonModelDocumentSnapshot? startAtDocument,
-    ApiPersonModelDocumentSnapshot? endAtDocument,
-    ApiPersonModelDocumentSnapshot? endBeforeDocument,
-    ApiPersonModelDocumentSnapshot? startAfterDocument,
-  });
-
-  ApiPersonModelQuery orderById({
-    bool descending = false,
-    String? startAt,
-    String? startAfter,
-    String? endAt,
-    String? endBefore,
     ApiPersonModelDocumentSnapshot? startAtDocument,
     ApiPersonModelDocumentSnapshot? endAtDocument,
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
@@ -532,34 +506,6 @@ class _$ApiPersonModelQuery
     );
   }
 
-  ApiPersonModelQuery whereId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String?>? whereIn,
-    List<String?>? whereNotIn,
-  }) {
-    return _$ApiPersonModelQuery(
-      reference.where(
-        _$ApiPersonModelFieldMap["id"]!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      _collection,
-    );
-  }
-
   ApiPersonModelQuery whereTitle({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -600,49 +546,6 @@ class _$ApiPersonModelQuery
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
     var query = reference.orderBy(FieldPath.documentId, descending: descending);
-
-    if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
-    }
-    if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
-    }
-    if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
-    }
-    if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
-    }
-
-    if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
-    }
-    if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
-    }
-    if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
-    }
-    if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
-    }
-
-    return _$ApiPersonModelQuery(query, _collection);
-  }
-
-  ApiPersonModelQuery orderById({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    ApiPersonModelDocumentSnapshot? startAtDocument,
-    ApiPersonModelDocumentSnapshot? endAtDocument,
-    ApiPersonModelDocumentSnapshot? endBeforeDocument,
-    ApiPersonModelDocumentSnapshot? startAfterDocument,
-  }) {
-    var query = reference.orderBy(_$ApiPersonModelFieldMap["id"]!,
-        descending: descending);
 
     if (startAtDocument != null) {
       query = query.startAtDocument(startAtDocument.snapshot);
@@ -768,17 +671,14 @@ class ApiPersonModelQueryDocumentSnapshot
 
 ApiPersonModel _$ApiPersonModelFromJson(Map<String, dynamic> json) =>
     ApiPersonModel(
-      id: json['id'] as String?,
       title: json['title'] as String,
     );
 
 const _$ApiPersonModelFieldMap = <String, String>{
-  'id': 'id',
   'title': 'title',
 };
 
 Map<String, dynamic> _$ApiPersonModelToJson(ApiPersonModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'title': instance.title,
     };

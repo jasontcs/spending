@@ -1,4 +1,4 @@
-part of 'people_bloc.dart';
+part of 'people_cubit.dart';
 
 @freezed
 class PeopleState with _$PeopleState {

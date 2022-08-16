@@ -1,5 +1,14 @@
 import 'package:intl/intl.dart';
 
+enum AppFormStatus {
+  init,
+  fetching,
+  idle,
+  unsaved,
+  posting,
+  error,
+}
+
 class Utils {
   String dateString(DateTime date) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');

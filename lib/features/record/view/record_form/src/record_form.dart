@@ -15,8 +15,8 @@ class RecordForm extends StatelessWidget {
     final record = context.select((RecordBloc bloc) => bloc.state.record);
     final formKey = context.select((RecordBloc bloc) => bloc.state.formKey);
     final enabled = context.select((RecordBloc bloc) =>
-        bloc.state.status == RecordStatus.idle ||
-        bloc.state.status == RecordStatus.unsaved);
+        bloc.state.status == AppFormStatus.idle ||
+        bloc.state.status == AppFormStatus.unsaved);
 
     return record != null && formKey != null
         ? FormBuilder(
@@ -38,13 +38,7 @@ class RecordForm extends StatelessWidget {
                 CurrencyField(),
                 ReceiptsField(),
                 RemarkField(),
-                Row(
-                  children: <Widget>[
-                    Expanded(child: SaveButton()),
-                    const SizedBox(width: 20),
-                    Expanded(child: ResetButton()),
-                  ],
-                ),
+                SaveButton(),
               ],
             ),
           )

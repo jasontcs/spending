@@ -29,7 +29,7 @@ class RecordsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final records = context.select((RecordsBloc bloc) => bloc.state.records);
     return Scaffold(
-      appBar: AppBar(title: Text('Record')),
+      appBar: AppBar(title: Text('記錄')),
       body: ListView.separated(
         itemCount: records.length,
         itemBuilder: (context, index) {

@@ -22,7 +22,7 @@ mixin _$RecordState {
   Record? get record => throw _privateConstructorUsedError;
   GlobalKey<FormBuilderState>? get formKey =>
       throw _privateConstructorUsedError;
-  RecordStatus get status => throw _privateConstructorUsedError;
+  AppFormStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RecordStateCopyWith<RecordState> get copyWith =>
@@ -40,7 +40,7 @@ abstract class $RecordStateCopyWith<$Res> {
       List<Person> people,
       Record? record,
       GlobalKey<FormBuilderState>? formKey,
-      RecordStatus status});
+      AppFormStatus status});
 
   $RecordCopyWith<$Res>? get record;
 }
@@ -86,7 +86,7 @@ class _$RecordStateCopyWithImpl<$Res> implements $RecordStateCopyWith<$Res> {
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as RecordStatus,
+              as AppFormStatus,
     ));
   }
 
@@ -115,7 +115,7 @@ abstract class _$$_RecordStateCopyWith<$Res>
       List<Person> people,
       Record? record,
       GlobalKey<FormBuilderState>? formKey,
-      RecordStatus status});
+      AppFormStatus status});
 
   @override
   $RecordCopyWith<$Res>? get record;
@@ -164,7 +164,7 @@ class __$$_RecordStateCopyWithImpl<$Res> extends _$RecordStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as RecordStatus,
+              as AppFormStatus,
     ));
   }
 }
@@ -178,7 +178,7 @@ class _$_RecordState implements _RecordState {
       final List<Person> people = const [],
       this.record,
       this.formKey,
-      this.status = RecordStatus.init})
+      this.status = AppFormStatus.init})
       : _categories = categories,
         _currencies = currencies,
         _people = people;
@@ -213,7 +213,7 @@ class _$_RecordState implements _RecordState {
   final GlobalKey<FormBuilderState>? formKey;
   @override
   @JsonKey()
-  final RecordStatus status;
+  final AppFormStatus status;
 
   @override
   String toString() {
@@ -258,7 +258,7 @@ abstract class _RecordState implements RecordState {
       final List<Person> people,
       final Record? record,
       final GlobalKey<FormBuilderState>? formKey,
-      final RecordStatus status}) = _$_RecordState;
+      final AppFormStatus status}) = _$_RecordState;
 
   @override
   List<Category> get categories;
@@ -271,7 +271,7 @@ abstract class _RecordState implements RecordState {
   @override
   GlobalKey<FormBuilderState>? get formKey;
   @override
-  RecordStatus get status;
+  AppFormStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$_RecordStateCopyWith<_$_RecordState> get copyWith =>

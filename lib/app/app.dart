@@ -9,6 +9,7 @@ import 'package:spending_repository/spending_repository.dart';
 import '../features/auth/auth.dart';
 import '../features/auth/view/sign_in_page.dart';
 import '../features/categories/categories.dart';
+import '../features/category/category.dart';
 import '../features/home/home.dart';
 import '../features/people/people.dart';
 import '../features/record/record.dart';
@@ -64,14 +65,16 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  late GoRouter _router = GoRouter(
+  late final GoRouter _router = GoRouter(
     routes: [
       AppHomePage.route(routes: [
         RecordPage.route(routes: [
           CategoriesPage.route(withRecord: true),
           PeoplePage.route(withRecord: true),
         ]),
-        CategoriesPage.route(),
+        CategoriesPage.route(routes: [
+          CategoryPage.route(),
+        ]),
         PeoplePage.route(),
       ]),
       SignInPage.route(),

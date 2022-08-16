@@ -8,14 +8,14 @@ class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);
 
   final items = [
-    SettingItem(title: 'Categories', routeTo: CategoriesPage.routeName),
-    SettingItem(title: 'People', routeTo: PeoplePage.routeName),
+    SettingItem(title: '類別', routeTo: CategoriesPage.routeName),
+    SettingItem(title: '成員', routeTo: PeoplePage.routeName),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Setting')),
+      appBar: AppBar(title: Text('設定')),
       body: ListView.separated(
         itemBuilder: (context, index) {
           final item = items[index];

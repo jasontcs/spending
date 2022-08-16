@@ -14,6 +14,7 @@ class ApiCurrencyModel {
     required this.updatedAt,
   });
 
+  @JsonKey(ignore: true)
   final String? id;
   final double rate;
   final String title;

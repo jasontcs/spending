@@ -1,14 +1,5 @@
 part of 'record_bloc.dart';
 
-enum RecordStatus {
-  init,
-  fetching,
-  idle,
-  unsaved,
-  posting,
-  error,
-}
-
 @freezed
 class RecordState with _$RecordState {
   const factory RecordState({
@@ -17,6 +8,6 @@ class RecordState with _$RecordState {
     @Default([]) List<Person> people,
     Record? record,
     GlobalKey<FormBuilderState>? formKey,
-    @Default(RecordStatus.init) RecordStatus status,
+    @Default(AppFormStatus.init) AppFormStatus status,
   }) = _RecordState;
 }
