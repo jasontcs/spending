@@ -136,7 +136,7 @@ class FirebaseSpendingApi implements SpendingApi {
       if (categoryId == null) throw SpendingApiNotFound();
     }
     return categoriesRef(_firestore)
-        .whereId(isEqualTo: categoryId)
+        .whereDocumentId(isEqualTo: categoryId)
         .get()
         .then((value) {
       final datas = value.docs.map((e) => e.data.copyWith(id: e.id)).toList();
@@ -156,7 +156,7 @@ class FirebaseSpendingApi implements SpendingApi {
       if (currencyId == null) throw SpendingApiNotFound();
     }
     return currenciesRef(_firestore)
-        .whereId(isEqualTo: currencyId)
+        .whereDocumentId(isEqualTo: currencyId)
         .get()
         .then((value) {
       final datas = value.docs.map((e) => e.data.copyWith(id: e.id)).toList();
@@ -199,7 +199,7 @@ class FirebaseSpendingApi implements SpendingApi {
       if (personId == null) throw SpendingApiNotFound();
     }
     return peopleRef(_firestore)
-        .whereId(isEqualTo: personId)
+        .whereDocumentId(isEqualTo: personId)
         .get()
         .then((value) {
       final datas = value.docs.map((e) => e.data.copyWith(id: e.id)).toList();

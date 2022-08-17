@@ -8,6 +8,7 @@ import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
 import '../../../utils.dart';
+import '../../../widgets/form_posting_listener.dart';
 import '../../home/home.dart';
 import '../../people/people.dart';
 import '../../records/bloc/records_bloc.dart';
@@ -56,45 +57,20 @@ class RecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<RecordBloc, RecordState>(
-          listenWhen: (previous, current) =>
-              previous.status == AppFormStatus.posting &&
-              current.status == AppFormStatus.idle &&
-              previous.record?.id == null &&
-              current.record?.id != null,
-          listener: (context, state) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Created')));
-            context.goNamed(AppHomePage.routeName);
-          },
-        ),
-        BlocListener<RecordBloc, RecordState>(
-          listenWhen: (previous, current) =>
-              previous.status == AppFormStatus.posting &&
-              current.status == AppFormStatus.idle &&
-              previous.record?.id != null &&
-              current.record?.id != null,
-          listener: (context, state) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Updated')));
-            context.goNamed(AppHomePage.routeName);
-          },
-        ),
-        BlocListener<RecordBloc, RecordState>(
-          listenWhen: (previous, current) =>
-              previous.status == AppFormStatus.posting &&
-              current.status == AppFormStatus.idle &&
-              previous.record?.id != null &&
-              current.record?.id == null,
-          listener: (context, state) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Deleted')));
-            context.goNamed(AppHomePage.routeName);
-          },
-        ),
-      ],
+    return PostingListener.id<RecordBloc, RecordState>(
+      listenWhen: (previous, current) =>
+          previous.status == AppFormStatus.posting &&
+          current.status == AppFormStatus.idle,
+      idExist: (state) => state.record?.id != null,
+      listener: (context, state, type) {
+        late final String label;
+        if (type == PostingType.created) label = 'Created';
+        if (type == PostingType.updated) label = 'Updated';
+        if (type == PostingType.created) label = 'Deleted';
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(label)));
+        context.goNamed(AppHomePage.routeName);
+      },
       child: RecordView(),
     );
   }

@@ -12,6 +12,7 @@ import '../features/categories/categories.dart';
 import '../features/category/category.dart';
 import '../features/home/home.dart';
 import '../features/people/people.dart';
+import '../features/person/person.dart';
 import '../features/record/record.dart';
 
 class App extends StatelessWidget {
@@ -75,7 +76,9 @@ class _AppViewState extends State<AppView> {
         CategoriesPage.route(routes: [
           CategoryPage.route(),
         ]),
-        PeoplePage.route(),
+        PeoplePage.route(routes: [
+          PersonPage.route(),
+        ]),
       ]),
       SignInPage.route(),
     ],

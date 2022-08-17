@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/src/form_builder_field.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../person/person.dart';
 import '../../record/record.dart';
 import '../../record/view/record_form/record_form.dart';
 import '../people.dart';
 
 class PeoplePage extends StatelessWidget {
   const PeoplePage({super.key});
-  static const String routeNameWithRecord = 'peopleWithRecord';
+  static const String routeNameWithRecord = '${routeName}WithRecord';
   static const String routeName = 'people';
   static GoRoute route({bool withRecord = false, List<GoRoute>? routes}) =>
       GoRoute(
         name: withRecord ? routeNameWithRecord : routeName,
-        path: 'people',
+        path: routeName,
         builder: (context, state) {
           final recordBloc = state.extra as RecordBloc?;
           return MultiBlocProvider(
@@ -44,42 +44,57 @@ class PeopleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Person> people =
-        context.select((PeopleCubit bloc) => bloc.state.people);
+        context.select((PeopleCubit cubit) => cubit.state.people);
     final record = context.select((RecordBloc? bloc) => bloc?.state.record);
+
     final selected = context.select((RecordBloc? bloc) =>
             bloc?.state.formKey?.currentState?.fields[PersonField.name]?.value)
         as String?;
     return Scaffold(
-      appBar: AppBar(title: Text('People')),
+      appBar: AppBar(
+        title: Text('成員'),
+        actions: [
+          if (record == null)
+            IconButton(
+              onPressed: () {
+                context.goNamed(PersonPage.routeName);
+              },
+              icon: Icon(Icons.add),
+            )
+        ],
+      ),
       body: ListView.separated(
-          itemCount: people.length,
-          itemBuilder: (context, index) {
-            final person = people[index];
-            return PersonTile(
-              person: person,
-              onTap: record != null
-                  ? () {
-                      context
-                          .read<RecordBloc?>()
-                          ?.state
-                          .formKey
-                          ?.currentState
-                          ?.fields[PersonField.name]
-                          ?.didChange(person.title);
+        itemCount: people.length,
+        itemBuilder: (context, index) {
+          final person = people[index];
+          return PersonTile(
+            person: person,
+            onTap: () {
+              if (record != null) {
+                context
+                    .read<RecordBloc?>()
+                    ?.state
+                    .formKey
+                    ?.currentState
+                    ?.fields[PersonField.name]
+                    ?.didChange(person.title);
 
-                      Map<String, String> queryParams = record.id != null
-                          ? {RecordPage.recordIdKey: record.id!}
-                          : {};
-                      context.goNamed(RecordPage.routeName,
-                          queryParams: queryParams);
-                    }
-                  : null,
-              selected: person.title == selected,
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider();
-          }),
+                Map<String, String> queryParams = record.id != null
+                    ? {RecordPage.recordIdKey: record.id!}
+                    : {};
+                context.goNamed(RecordPage.routeName, queryParams: queryParams);
+              } else {
+                context.goNamed(
+                  PersonPage.routeName,
+                  queryParams: {PersonPage.routeName: person.id!},
+                );
+              }
+            },
+            selected: person.title == selected,
+          );
+        },
+        separatorBuilder: (context, index) => Divider(),
+      ),
     );
   }
 }

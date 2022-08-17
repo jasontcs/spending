@@ -25,16 +25,26 @@ class SpendingRepositoryImpl implements SpendingRepository {
 
   @override
   Future<Category> addCategory(Category category) async {
-    await _spendingApi.addCategory(category.fromEntity());
-    _logInfo('addCategory', addCategory);
-    return category;
+    String id = await _spendingApi.addCategory(category.fromEntity());
+    final result = await getCategory(id);
+    _logInfo('addCategory', result);
+    return result!;
   }
 
   @override
   Future<Currency> addCurrency(Currency currency) async {
-    await _spendingApi.addCurrency(currency.fromEntity());
-    _logInfo('addCurrency', currency);
-    return currency;
+    String id = await _spendingApi.addCurrency(currency.fromEntity());
+    final result = await getCurrency(id);
+    _logInfo('addCurrency', result);
+    return result!;
+  }
+
+  @override
+  Future<Person> addPerson(Person person) async {
+    String id = await _spendingApi.addPerson(person.fromEntity());
+    final result = await getPerson(id);
+    _logInfo('addPerson', result);
+    return result!;
   }
 
   @override
@@ -44,13 +54,6 @@ class SpendingRepositoryImpl implements SpendingRepository {
     final result = await getRecord(id);
     _logInfo('addRecord', result);
     return result!;
-  }
-
-  @override
-  Future<Person> addPerson(Person person) async {
-    await _spendingApi.addPerson(person.fromEntity());
-    _logInfo('addPerson', person);
-    return person;
   }
 
   @override

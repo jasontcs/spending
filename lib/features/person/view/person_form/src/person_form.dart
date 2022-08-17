@@ -4,33 +4,31 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../../../utils.dart';
-import '../../../category.dart';
+import '../../../person.dart';
 
-class CategoryForm extends StatelessWidget {
-  const CategoryForm({
+class PersonForm extends StatelessWidget {
+  const PersonForm({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final category = context.select((CategoryBloc bloc) => bloc.state.category);
+    final person = context.select((PersonBloc bloc) => bloc.state.person);
     final enabled =
-        context.select((CategoryBloc bloc) => !bloc.state.status.isBusy);
+        context.select((PersonBloc bloc) => !bloc.state.status.isBusy);
     FormBuilder.of(context)?.instantValue;
-    return category != null
+    return person != null
         ? FormBuilder(
-            initialValue: category.toFormData(),
+            initialValue: person.toFormData(),
             enabled: enabled,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: () {
-              context.read<CategoryBloc>().add(CategoryFormEdited());
+              context.read<PersonBloc>().add(PersonFormEdited());
             },
             child: Column(
               children: [
                 IdField(),
                 TitleField(),
-                IconField(),
-                BudgetField(),
                 SaveButton(),
               ],
             ),
@@ -39,20 +37,16 @@ class CategoryForm extends StatelessWidget {
   }
 }
 
-extension CategoryX on Category {
+extension PersonX on Person {
   Map<String, Object?> toFormData() => {
         IdField.name: id,
         TitleField.name: title,
-        BudgetField.name: budget.toString(),
-        IconField.name: icon,
       };
 }
 
 extension FormDataX on Map<String, dynamic> {
-  Category toCategory() => Category(
+  Person toPerson() => Person(
         id: this[IdField.name] as String?,
-        budget: this[BudgetField.name] as double,
         title: this[TitleField.name] as String,
-        icon: this[IconField.name] as String,
       );
 }

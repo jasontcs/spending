@@ -6,7 +6,10 @@ enum AppFormStatus {
   idle,
   unsaved,
   posting,
-  error,
+  error;
+
+  bool get isBusy =>
+      this == AppFormStatus.fetching || this == AppFormStatus.posting;
 }
 
 class Utils {
