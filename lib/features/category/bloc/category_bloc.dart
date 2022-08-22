@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
-import '../../../utils.dart';
+import '../../../common/common.dart';
 
 part 'category_state.dart';
 part 'category_event.dart';

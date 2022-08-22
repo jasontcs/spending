@@ -3,7 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../utils.dart';
+import '../../../../../common/common.dart';
 import '../../../record.dart';
 import '../record_form.dart';
 
@@ -56,9 +56,9 @@ class LastUpdate extends StatelessWidget {
       if (record?.createdAt == null)
         return 'Draft';
       else if (record!.updatedAt == record.createdAt)
-        return 'Created At ${Utils().dateString(record.createdAt!)}';
+        return 'Created At ${record.createdAt!.toDateString}';
       else
-        return 'Updated At ${Utils().dateString(record.createdAt!)}';
+        return 'Updated At ${record.createdAt!.toDateString}';
     });
     return Text(dateString);
   }

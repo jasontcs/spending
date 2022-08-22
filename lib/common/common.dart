@@ -12,10 +12,10 @@ enum AppFormStatus {
       this == AppFormStatus.fetching || this == AppFormStatus.posting;
 }
 
-class Utils {
-  String dateString(DateTime date) {
+extension DateStringExtenstion on DateTime {
+  String get toDateString {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    return formatter.format(date);
+    return formatter.format(this);
   }
 }
 
