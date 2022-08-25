@@ -6,6 +6,7 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../app_router.dart';
 import '../features/auth/auth.dart';
 import '../features/auth/view/sign_in_page.dart';
 import '../features/categories/categories.dart';
@@ -100,6 +101,8 @@ class _AppViewState extends State<AppView> {
 
   late AuthBloc authBloc;
 
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     authBloc = context.watch<AuthBloc>();
@@ -108,9 +111,9 @@ class _AppViewState extends State<AppView> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
+      routeInformationProvider: _appRouter.routeInfoProvider(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: _appRouter.delegate(),
       localizationsDelegates: const [
         FormBuilderLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
