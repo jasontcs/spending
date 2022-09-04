@@ -16,6 +16,7 @@ class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
     _recordsSubscription = _spendingRepository.recordsStream.listen((records) {
       add(RecordsItemsChanged(records));
     });
+    on<RecordsCalendarConfigChanged>(_onCalendarConfigChanged);
   }
 
   final SpendingRepository _spendingRepository;
@@ -32,5 +33,19 @@ class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
     Emitter<RecordsState> emit,
   ) {
     emit(state.copyWith(records: event.records));
+  }
+
+  void _onCalendarConfigChanged(
+    RecordsCalendarConfigChanged event,
+    Emitter<RecordsState> emit,
+  ) {
+    RecordsState state = this.state;
+    if (event.config.selectedDate != null)
+      state = state.copyWith
+          .calendarConfig(selectedDate: event.config.selectedDate);
+    if (event.config.focusedDay != null)
+      state =
+          state.copyWith.calendarConfig(focusedDay: event.config.focusedDay);
+    emit(state);
   }
 }

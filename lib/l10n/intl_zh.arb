@@ -1,0 +1,27 @@
+{
+    "app_title": "記帳HK",
+    "sign_in": "登入",
+    "record": "記錄",
+    "no_records": "沒有記錄",
+    "date": "日期",
+    "amount": "金額",
+    "category": "類別",
+    "new_category": "新類別",
+    "person": "成員",
+    "new_person": "新成員",
+    "draft": "未上載",
+    "created": "已上載", 
+    "updated": "已更新",
+    "deleted": "已刪除",
+    "save": "儲存",
+    "budget": "預算",
+    "chart": "分析",
+    "setting": "設定",
+    "date_format_pattern": "yyyy年M月d日",
+    "currency": "貨幣",
+    "remark": "備註",
+    "receipts": "收據",
+    "camera": "相機",
+    "gallery": "相簿"
+
+}

@@ -3,18 +3,25 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
+import 'package:collection/collection.dart';
 
 part 'people_state.dart';
 part 'people_cubit.freezed.dart';
 
 class PeopleCubit extends Cubit<PeopleState> {
-  PeopleCubit({required SpendingRepository spendingRepository})
-      : _spendingRepository = spendingRepository,
+  PeopleCubit({
+    required SpendingRepository spendingRepository,
+    this.selectedId,
+  })  : _spendingRepository = spendingRepository,
         super(PeopleState()) {
     _peopleSubscription = _spendingRepository.peopleStream.listen((people) {
-      emit(state.copyWith(people: people));
+      emit(state.copyWith(
+        people: people,
+        selected: people.singleWhereOrNull((person) => person.id == selectedId),
+      ));
     });
   }
+  final String? selectedId;
   final SpendingRepository _spendingRepository;
   late StreamSubscription<List<Person>> _peopleSubscription;
 

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CategoriesState {
   List<Category> get categories => throw _privateConstructorUsedError;
+  Category? get selected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoriesStateCopyWith<CategoriesState> get copyWith =>
@@ -28,7 +29,9 @@ abstract class $CategoriesStateCopyWith<$Res> {
   factory $CategoriesStateCopyWith(
           CategoriesState value, $Res Function(CategoriesState) then) =
       _$CategoriesStateCopyWithImpl<$Res>;
-  $Res call({List<Category> categories});
+  $Res call({List<Category> categories, Category? selected});
+
+  $CategoryCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
@@ -43,13 +46,29 @@ class _$CategoriesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? categories = freezed,
+    Object? selected = freezed,
   }) {
     return _then(_value.copyWith(
       categories: categories == freezed
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      selected: selected == freezed
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as Category?,
     ));
+  }
+
+  @override
+  $CategoryCopyWith<$Res>? get selected {
+    if (_value.selected == null) {
+      return null;
+    }
+
+    return $CategoryCopyWith<$Res>(_value.selected!, (value) {
+      return _then(_value.copyWith(selected: value));
+    });
   }
 }
 
@@ -60,7 +79,10 @@ abstract class _$$_CategoriesStateCopyWith<$Res>
           _$_CategoriesState value, $Res Function(_$_CategoriesState) then) =
       __$$_CategoriesStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Category> categories});
+  $Res call({List<Category> categories, Category? selected});
+
+  @override
+  $CategoryCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
@@ -77,12 +99,17 @@ class __$$_CategoriesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? categories = freezed,
+    Object? selected = freezed,
   }) {
     return _then(_$_CategoriesState(
       categories: categories == freezed
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      selected: selected == freezed
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as Category?,
     ));
   }
 }
@@ -90,7 +117,8 @@ class __$$_CategoriesStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CategoriesState implements _CategoriesState {
-  const _$_CategoriesState({final List<Category> categories = const []})
+  const _$_CategoriesState(
+      {final List<Category> categories = const [], this.selected})
       : _categories = categories;
 
   final List<Category> _categories;
@@ -102,8 +130,11 @@ class _$_CategoriesState implements _CategoriesState {
   }
 
   @override
+  final Category? selected;
+
+  @override
   String toString() {
-    return 'CategoriesState(categories: $categories)';
+    return 'CategoriesState(categories: $categories, selected: $selected)';
   }
 
   @override
@@ -112,12 +143,15 @@ class _$_CategoriesState implements _CategoriesState {
         (other.runtimeType == runtimeType &&
             other is _$_CategoriesState &&
             const DeepCollectionEquality()
-                .equals(other._categories, _categories));
+                .equals(other._categories, _categories) &&
+            const DeepCollectionEquality().equals(other.selected, selected));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categories));
+      runtimeType,
+      const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(selected));
 
   @JsonKey(ignore: true)
   @override
@@ -126,11 +160,14 @@ class _$_CategoriesState implements _CategoriesState {
 }
 
 abstract class _CategoriesState implements CategoriesState {
-  const factory _CategoriesState({final List<Category> categories}) =
-      _$_CategoriesState;
+  const factory _CategoriesState(
+      {final List<Category> categories,
+      final Category? selected}) = _$_CategoriesState;
 
   @override
   List<Category> get categories;
+  @override
+  Category? get selected;
   @override
   @JsonKey(ignore: true)
   _$$_CategoriesStateCopyWith<_$_CategoriesState> get copyWith =>

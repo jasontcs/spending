@@ -3,6 +3,7 @@ export 'src/category_field.dart';
 export 'src/currency_field.dart';
 export 'src/date_field.dart';
 export 'src/id_field.dart';
+export 'src/last_update.dart';
 export 'src/person_field.dart';
 export 'src/receipts_field.dart';
 export 'src/record_form.dart';

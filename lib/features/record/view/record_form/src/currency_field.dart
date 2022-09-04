@@ -5,6 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../record.dart';
 
 class CurrencyField extends StatelessWidget {
@@ -30,12 +31,10 @@ class CurrencyField extends StatelessWidget {
           .toList(),
       valueTransformer: (value) =>
           currencies.singleWhereOrNull((currency) => currency.title == value),
-      onChanged: (Currency? value) {
-        if (value == null) {
-          final org = FormBuilder.of(context)!.fields[name]!.value as Currency?;
-          print(org);
-        }
-      },
+      spacing: 8.0,
+      decoration: InputDecoration(
+        labelText: S.of(context).currency,
+      ),
     );
   }
 }

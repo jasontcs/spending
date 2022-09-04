@@ -1,33 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../common/common.dart';
+import '../../../generated/l10n.dart';
+import '../../../widgets/form_page.dart';
 import '../../../widgets/form_posting_listener.dart';
 import '../../categories/view/categories_page.dart';
 import '../category.dart';
 
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({Key? key}) : super(key: key);
+class CategoryPage extends StatelessWidget with AutoRouteWrapper {
+  const CategoryPage({Key? key, this.id}) : super(key: key);
 
-  static String routeName = 'category';
-
-  static GoRoute route() => GoRoute(
-        name: routeName,
-        path: routeName,
-        builder: (context, state) {
-          final id = state.queryParams[routeName];
-          return BlocProvider(
-            create: (context) => CategoryBloc(
-              spendingRepository: context.read<SpendingRepository>(),
-            )..add(CategoryItemLoaded(id)),
-            child: CategoryPage(),
-          );
-        },
-      );
+  @QueryParam('category_id')
+  final String? id;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +27,24 @@ class CategoryPage extends StatelessWidget {
       idExist: (state) => state.category?.id != null,
       listener: (context, state, type) {
         late final String label;
-        if (type == PostingType.created) label = 'Created';
-        if (type == PostingType.updated) label = 'Updated';
-        if (type == PostingType.deleted) label = 'Deleted';
+        if (type == PostingType.created) label = S.of(context).created;
+        if (type == PostingType.updated) label = S.of(context).updated;
+        if (type == PostingType.deleted) label = S.of(context).deleted;
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(label)));
-        context.goNamed(CategoriesPage.routeName);
+        context.popRoute();
       },
       child: CategoryView(),
+    );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CategoryBloc(
+        spendingRepository: context.read<SpendingRepository>(),
+      )..add(CategoryItemLoaded(id)),
+      child: this,
     );
   }
 }
@@ -57,23 +56,17 @@ class CategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final title =
         context.select((CategoryBloc bloc) => bloc.state.category?.title);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title?.isNotEmpty == true ? title! : '新類別'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<CategoryBloc>().add(CategoryRemoveRequested());
-            },
-            icon: Icon(Icons.delete),
-          )
-        ],
-      ),
-      body: ListView(
-        children: [
-          CategoryForm(),
-        ],
-      ),
+    final isBusy =
+        context.select((CategoryBloc bloc) => bloc.state.status.isBusy);
+
+    return AppFormPage(
+      title:
+          Text(title?.isNotEmpty == true ? title! : S.of(context).new_category),
+      isBusy: isBusy,
+      onDelete: () {
+        context.read<CategoryBloc>().add(CategoryRemoveRequested());
+      },
+      child: CategoryForm(),
     );
   }
 }

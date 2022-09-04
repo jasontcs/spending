@@ -3,19 +3,27 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
+import 'package:collection/collection.dart';
 
 part 'categories_state.dart';
 part 'categories_cubit.freezed.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
-  CategoriesCubit({required SpendingRepository spendingRepository})
-      : _spendingRepository = spendingRepository,
+  CategoriesCubit({
+    required SpendingRepository spendingRepository,
+    this.selectedId,
+  })  : _spendingRepository = spendingRepository,
         super(CategoriesState()) {
     _categoriesSubscription =
         _spendingRepository.categoriesStream.listen((categories) {
-      emit(state.copyWith(categories: categories));
+      emit(state.copyWith(
+        categories: categories,
+        selected: categories
+            .singleWhereOrNull((category) => category.id == selectedId),
+      ));
     });
   }
+  final String? selectedId;
   final SpendingRepository _spendingRepository;
   late StreamSubscription<List<Category>> _categoriesSubscription;
 

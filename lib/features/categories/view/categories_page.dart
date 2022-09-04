@@ -1,40 +1,34 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../../app_router.dart';
+import '../../../generated/l10n.dart';
 import '../../category/category.dart';
-import '../../record/record.dart';
 import '../../record/view/record_form/record_form.dart';
 import '../categories.dart';
 
-class CategoriesPage extends StatelessWidget {
-  const CategoriesPage({super.key});
-  static const String routeNameWithRecord = '${routeName}WithRecord';
-  static const String routeName = 'categories';
-  static GoRoute route({bool withRecord = false, List<GoRoute>? routes}) =>
-      GoRoute(
-        name: withRecord ? routeNameWithRecord : routeName,
-        path: routeName,
-        builder: (context, state) {
-          final recordBloc = state.extra as RecordBloc?;
-          return MultiBlocProvider(
-            providers: [
-              if (recordBloc != null) BlocProvider.value(value: recordBloc),
-              BlocProvider(
-                create: (context) => CategoriesCubit(
-                    spendingRepository: context.read<SpendingRepository>()),
-              ),
-            ],
-            child: CategoriesPage(),
-          );
-        },
-        routes: routes ?? [],
-      );
+class CategoriesPage extends StatelessWidget with AutoRouteWrapper {
+  const CategoriesPage({super.key, this.selected});
+
+  @QueryParam()
+  final String? selected;
 
   @override
   Widget build(BuildContext context) {
     return CategoriesView();
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CategoriesCubit(
+        selectedId: selected,
+        spendingRepository: context.read<SpendingRepository>(),
+      ),
+      child: this,
+    );
   }
 }
 
@@ -45,18 +39,16 @@ class CategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Category> categories =
         context.select((CategoriesCubit cubit) => cubit.state.categories);
-    final record = context.select((RecordBloc? bloc) => bloc?.state.record);
-
-    final selected = context.select((RecordBloc? bloc) => bloc?.state.formKey
-        ?.currentState?.fields[CategoryField.name]?.value) as String?;
+    final Category? selected =
+        context.select((CategoriesCubit cubit) => cubit.state.selected);
     return Scaffold(
       appBar: AppBar(
-        title: Text('類別'),
+        title: Text(S.of(context).category),
         actions: [
-          if (record == null)
+          if (selected == null)
             IconButton(
               onPressed: () {
-                context.goNamed(CategoryPage.routeName);
+                context.pushRoute(CategoryRoute());
               },
               icon: Icon(Icons.add),
             )
@@ -72,27 +64,13 @@ class CategoriesView extends StatelessWidget {
           return CategoryTile(
             category: category,
             onTap: () {
-              if (record != null) {
-                context
-                    .read<RecordBloc?>()
-                    ?.state
-                    .formKey
-                    ?.currentState
-                    ?.fields[CategoryField.name]
-                    ?.didChange(category.title);
-
-                Map<String, String> queryParams = record.id != null
-                    ? {RecordPage.recordIdKey: record.id!}
-                    : {};
-                context.goNamed(RecordPage.routeName, queryParams: queryParams);
+              if (selected != null) {
+                context.popRoute(category);
               } else {
-                context.goNamed(
-                  CategoryPage.routeName,
-                  queryParams: {CategoryPage.routeName: category.id!},
-                );
+                context.pushRoute(CategoryRoute(id: category.id));
               }
             },
-            selected: category.title == selected,
+            selected: category == selected,
           );
         },
       ),

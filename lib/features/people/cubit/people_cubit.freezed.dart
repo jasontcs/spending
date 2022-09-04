@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PeopleState {
   List<Person> get people => throw _privateConstructorUsedError;
+  Person? get selected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PeopleStateCopyWith<PeopleState> get copyWith =>
@@ -28,7 +29,9 @@ abstract class $PeopleStateCopyWith<$Res> {
   factory $PeopleStateCopyWith(
           PeopleState value, $Res Function(PeopleState) then) =
       _$PeopleStateCopyWithImpl<$Res>;
-  $Res call({List<Person> people});
+  $Res call({List<Person> people, Person? selected});
+
+  $PersonCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
@@ -42,13 +45,29 @@ class _$PeopleStateCopyWithImpl<$Res> implements $PeopleStateCopyWith<$Res> {
   @override
   $Res call({
     Object? people = freezed,
+    Object? selected = freezed,
   }) {
     return _then(_value.copyWith(
       people: people == freezed
           ? _value.people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
+      selected: selected == freezed
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as Person?,
     ));
+  }
+
+  @override
+  $PersonCopyWith<$Res>? get selected {
+    if (_value.selected == null) {
+      return null;
+    }
+
+    return $PersonCopyWith<$Res>(_value.selected!, (value) {
+      return _then(_value.copyWith(selected: value));
+    });
   }
 }
 
@@ -59,7 +78,10 @@ abstract class _$$_PeopleStateCopyWith<$Res>
           _$_PeopleState value, $Res Function(_$_PeopleState) then) =
       __$$_PeopleStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Person> people});
+  $Res call({List<Person> people, Person? selected});
+
+  @override
+  $PersonCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
@@ -75,12 +97,17 @@ class __$$_PeopleStateCopyWithImpl<$Res> extends _$PeopleStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? people = freezed,
+    Object? selected = freezed,
   }) {
     return _then(_$_PeopleState(
       people: people == freezed
           ? _value._people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
+      selected: selected == freezed
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as Person?,
     ));
   }
 }
@@ -88,7 +115,7 @@ class __$$_PeopleStateCopyWithImpl<$Res> extends _$PeopleStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PeopleState implements _PeopleState {
-  const _$_PeopleState({final List<Person> people = const []})
+  const _$_PeopleState({final List<Person> people = const [], this.selected})
       : _people = people;
 
   final List<Person> _people;
@@ -100,8 +127,11 @@ class _$_PeopleState implements _PeopleState {
   }
 
   @override
+  final Person? selected;
+
+  @override
   String toString() {
-    return 'PeopleState(people: $people)';
+    return 'PeopleState(people: $people, selected: $selected)';
   }
 
   @override
@@ -109,12 +139,15 @@ class _$_PeopleState implements _PeopleState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PeopleState &&
-            const DeepCollectionEquality().equals(other._people, _people));
+            const DeepCollectionEquality().equals(other._people, _people) &&
+            const DeepCollectionEquality().equals(other.selected, selected));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_people));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_people),
+      const DeepCollectionEquality().hash(selected));
 
   @JsonKey(ignore: true)
   @override
@@ -123,10 +156,13 @@ class _$_PeopleState implements _PeopleState {
 }
 
 abstract class _PeopleState implements PeopleState {
-  const factory _PeopleState({final List<Person> people}) = _$_PeopleState;
+  const factory _PeopleState(
+      {final List<Person> people, final Person? selected}) = _$_PeopleState;
 
   @override
   List<Person> get people;
+  @override
+  Person? get selected;
   @override
   @JsonKey(ignore: true)
   _$$_PeopleStateCopyWith<_$_PeopleState> get copyWith =>

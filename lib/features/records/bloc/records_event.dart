@@ -7,3 +7,9 @@ class RecordsItemsChanged extends RecordsEvent {
 
   final List<Record> records;
 }
+
+class RecordsCalendarConfigChanged extends RecordsEvent {
+  RecordsCalendarConfigChanged(this.config);
+
+  final TableCalendarConfig config;
+}

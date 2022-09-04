@@ -1,13 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
 import '../../../common/common.dart';
+import '../../../widgets/form_page.dart';
 import '../../../widgets/form_posting_listener.dart';
 import '../../home/home.dart';
 import '../../people/people.dart';
@@ -15,44 +16,13 @@ import '../../records/bloc/records_bloc.dart';
 import '../bloc/record_bloc.dart';
 import 'record_form/record_form.dart';
 
-class RecordPage extends StatelessWidget {
+class RecordPage extends StatelessWidget with AutoRouteWrapper {
   RecordPage({Key? key, this.recordId, this.date}) : super(key: key);
 
-  static const String routeName = 'record';
-
-  static const String recordIdKey = 'rid';
-  static const String dateKey = 'date';
-
-  static GoRoute route({List<GoRoute>? routes}) => GoRoute(
-        name: routeName,
-        path: 'record',
-        pageBuilder: (context, state) {
-          final rid = state.queryParams[recordIdKey];
-          final date = state.queryParams[dateKey];
-          return CupertinoPage<void>(
-            child: BlocProvider(
-              create: (context) => RecordBloc(
-                  spendingRepository: context.read<SpendingRepository>())
-                ..add(RecordPageEntered(
-                  recordId: rid,
-                  dateString: date,
-                )),
-              child: RecordPage(
-                recordId: rid,
-                date: date,
-              ),
-            ),
-            fullscreenDialog: true,
-          );
-        },
-        routes: routes ?? [],
-      );
-
-  static Map<String, String> queryParams({Record? record}) {
-    return record != null && record.id != null ? {recordIdKey: record.id!} : {};
-  }
-
+  @QueryParam('record_id')
   final String? recordId;
+
+  @QueryParam()
   final String? date;
 
   @override
@@ -66,12 +36,25 @@ class RecordPage extends StatelessWidget {
         late final String label;
         if (type == PostingType.created) label = 'Created';
         if (type == PostingType.updated) label = 'Updated';
-        if (type == PostingType.created) label = 'Deleted';
+        if (type == PostingType.deleted) label = 'Deleted';
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(label)));
-        context.goNamed(AppHomePage.routeName);
+        context.popRoute();
       },
       child: RecordView(),
+    );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          RecordBloc(spendingRepository: context.read<SpendingRepository>())
+            ..add(RecordPageEntered(
+              recordId: recordId,
+              dateString: date,
+            )),
+      child: this,
     );
   }
 }
@@ -81,32 +64,16 @@ class RecordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Record Edit'),
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () {
-            context.goNamed(AppHomePage.routeName);
-          },
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<RecordBloc>().add(RecordRemoveRequested());
-            },
-            icon: const Icon(Icons.delete),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [RecordForm()],
-          ),
-        ),
-      ),
+    final isBusy =
+        context.select((RecordBloc bloc) => bloc.state.status.isBusy);
+
+    return AppFormPage(
+      title: Text('記錄'),
+      onDelete: () {
+        context.read<RecordBloc>().add(RecordRemoveRequested());
+      },
+      isBusy: isBusy,
+      child: RecordForm(),
     );
   }
 }

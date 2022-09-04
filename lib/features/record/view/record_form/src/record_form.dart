@@ -29,15 +29,27 @@ class RecordForm extends StatelessWidget {
             },
             child: Column(
               children: [
-                RecordIdField(),
+                Visibility(
+                  visible: false,
+                  maintainState: true,
+                  child: RecordIdField(),
+                ),
                 LastUpdate(),
+                SizedBox(height: 8.0),
                 DateField(),
+                SizedBox(height: 8.0),
                 AmountField(),
+                SizedBox(height: 8.0),
                 CategoryField(),
+                SizedBox(height: 8.0),
                 PersonField(),
+                SizedBox(height: 8.0),
                 CurrencyField(),
+                SizedBox(height: 8.0),
                 ReceiptsField(),
+                SizedBox(height: 8.0),
                 RemarkField(),
+                SizedBox(height: 12.0),
                 SaveButton(),
               ],
             ),
@@ -46,31 +58,13 @@ class RecordForm extends StatelessWidget {
   }
 }
 
-class LastUpdate extends StatelessWidget {
-  const LastUpdate({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final dateString = context.select((RecordBloc bloc) {
-      final record = bloc.state.record;
-      if (record?.createdAt == null)
-        return 'Draft';
-      else if (record!.updatedAt == record.createdAt)
-        return 'Created At ${record.createdAt!.toDateString}';
-      else
-        return 'Updated At ${record.createdAt!.toDateString}';
-    });
-    return Text(dateString);
-  }
-}
-
 extension RecordX on Record {
   Map<String, Object> toFormData() => {
         if (id != null) RecordIdField.name: id!,
         DateField.name: dateTime,
-        AmountField.name: amount.toString(),
-        CategoryField.name: category.title,
-        PersonField.name: person.title,
+        AmountField.name: amount,
+        CategoryField.name: category,
+        PersonField.name: person,
         CurrencyField.name: currency,
         ReceiptsField.name: receipts,
         RemarkField.name: remarks,

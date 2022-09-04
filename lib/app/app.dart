@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/i10n.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
-import 'package:go_router/go_router.dart';
+import 'package:spending/app/theme.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../app_router.dart';
 import '../features/auth/auth.dart';
-import '../features/auth/view/sign_in_page.dart';
-import '../features/categories/categories.dart';
-import '../features/category/category.dart';
-import '../features/home/home.dart';
-import '../features/people/people.dart';
-import '../features/person/person.dart';
-import '../features/record/record.dart';
+import '../generated/l10n.dart';
 
 class App extends StatelessWidget {
   App({
@@ -67,59 +61,35 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  late final GoRouter _router = GoRouter(
-    routes: [
-      AppHomePage.route(routes: [
-        RecordPage.route(routes: [
-          CategoriesPage.route(withRecord: true),
-          PeoplePage.route(withRecord: true),
-        ]),
-        CategoriesPage.route(routes: [
-          CategoryPage.route(),
-        ]),
-        PeoplePage.route(routes: [
-          PersonPage.route(),
-        ]),
-      ]),
-      SignInPage.route(),
-    ],
-    redirect: (state) {
-      // if the user is not logged in, they need to login
-      final loggingIn = state.subloc == '/sign-in';
-      if (authBloc.state.status != AuthStatus.login)
-        return loggingIn ? null : '/sign-in';
+  late final AppRouter _appRouter;
 
-      // if the user is logged in but still on the login page, send them to
-      // the home page
-      if (loggingIn) return '/';
-
-      // no need to redirect at all
-      return null;
-    },
-    refreshListenable: GoRouterRefreshStream(authBloc.stream),
-  );
-
-  late AuthBloc authBloc;
-
-  final _appRouter = AppRouter();
+  @override
+  void initState() {
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: false);
+    _appRouter = AppRouter(authGuard: AuthGuard(authBloc.stream));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    authBloc = context.watch<AuthBloc>();
     return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      onGenerateTitle: (context) => S.of(context).app_title,
+      theme: kAppTheme,
+      darkTheme: kAppDarkTheme,
+      // themeMode: ThemeMode.dark,
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate: _appRouter.delegate(),
       localizationsDelegates: const [
+        S.delegate,
         FormBuilderLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
+      // supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
+      supportedLocales: [
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+      ],
     );
   }
 }

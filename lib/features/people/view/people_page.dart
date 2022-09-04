@@ -1,40 +1,33 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../../app_router.dart';
+import '../../../generated/l10n.dart';
 import '../../person/person.dart';
-import '../../record/record.dart';
-import '../../record/view/record_form/record_form.dart';
 import '../people.dart';
 
-class PeoplePage extends StatelessWidget {
-  const PeoplePage({super.key});
-  static const String routeNameWithRecord = '${routeName}WithRecord';
-  static const String routeName = 'people';
-  static GoRoute route({bool withRecord = false, List<GoRoute>? routes}) =>
-      GoRoute(
-        name: withRecord ? routeNameWithRecord : routeName,
-        path: routeName,
-        builder: (context, state) {
-          final recordBloc = state.extra as RecordBloc?;
-          return MultiBlocProvider(
-            providers: [
-              if (recordBloc != null) BlocProvider.value(value: recordBloc),
-              BlocProvider(
-                create: (context) => PeopleCubit(
-                    spendingRepository: context.read<SpendingRepository>()),
-              ),
-            ],
-            child: PeoplePage(),
-          );
-        },
-        routes: routes ?? [],
-      );
+class PeoplePage extends StatelessWidget with AutoRouteWrapper {
+  const PeoplePage({super.key, this.selectedId});
+
+  @QueryParam('selected_id')
+  final String? selectedId;
 
   @override
   Widget build(BuildContext context) {
     return PeopleView();
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PeopleCubit(
+        spendingRepository: context.read<SpendingRepository>(),
+        selectedId: selectedId,
+      ),
+      child: this,
+    );
   }
 }
 
@@ -45,19 +38,16 @@ class PeopleView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Person> people =
         context.select((PeopleCubit cubit) => cubit.state.people);
-    final record = context.select((RecordBloc? bloc) => bloc?.state.record);
-
-    final selected = context.select((RecordBloc? bloc) =>
-            bloc?.state.formKey?.currentState?.fields[PersonField.name]?.value)
-        as String?;
+    final Person? selected =
+        context.select((PeopleCubit cubit) => cubit.state.selected);
     return Scaffold(
       appBar: AppBar(
-        title: Text('成員'),
+        title: Text(S.of(context).person),
         actions: [
-          if (record == null)
+          if (selected == null)
             IconButton(
               onPressed: () {
-                context.goNamed(PersonPage.routeName);
+                context.pushRoute(PersonRoute());
               },
               icon: Icon(Icons.add),
             )
@@ -70,27 +60,13 @@ class PeopleView extends StatelessWidget {
           return PersonTile(
             person: person,
             onTap: () {
-              if (record != null) {
-                context
-                    .read<RecordBloc?>()
-                    ?.state
-                    .formKey
-                    ?.currentState
-                    ?.fields[PersonField.name]
-                    ?.didChange(person.title);
-
-                Map<String, String> queryParams = record.id != null
-                    ? {RecordPage.recordIdKey: record.id!}
-                    : {};
-                context.goNamed(RecordPage.routeName, queryParams: queryParams);
+              if (selected != null) {
+                context.popRoute(person);
               } else {
-                context.goNamed(
-                  PersonPage.routeName,
-                  queryParams: {PersonPage.routeName: person.id!},
-                );
+                context.pushRoute(PersonRoute(id: person.id));
               }
             },
-            selected: person.title == selected,
+            selected: person == selected,
           );
         },
         separatorBuilder: (context, index) => Divider(),

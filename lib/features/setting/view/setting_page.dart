@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../app_router.dart';
+import '../../../generated/l10n.dart';
 import '../../categories/categories.dart';
 import '../../people/people.dart';
 
@@ -8,21 +10,21 @@ class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);
 
   final items = [
-    SettingItem(title: '類別', routeTo: CategoriesPage.routeName),
-    SettingItem(title: '成員', routeTo: PeoplePage.routeName),
+    SettingItem(title: S.current.category, route: CategoriesRoute()),
+    SettingItem(title: S.current.person, route: PeopleRoute()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('設定')),
+      appBar: AppBar(title: Text(S.of(context).setting)),
       body: ListView.separated(
         itemBuilder: (context, index) {
           final item = items[index];
           return ListTile(
             title: Text(item.title),
             onTap: () {
-              context.goNamed(item.routeTo);
+              context.pushRoute(item.route);
             },
           );
         },
@@ -34,8 +36,8 @@ class SettingPage extends StatelessWidget {
 }
 
 class SettingItem {
-  SettingItem({required this.title, required this.routeTo});
+  SettingItem({required this.title, required this.route});
 
   final String title;
-  final String routeTo;
+  final PageRouteInfo route;
 }

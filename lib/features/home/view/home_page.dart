@@ -1,27 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../budget/budget.dart';
-import '../../chart/chart.dart';
-import '../../record/record.dart';
-import '../../records/records.dart';
-import '../../setting/setting.dart';
-import '../home.dart';
+import '../../../app_router.dart';
+import '../../../generated/l10n.dart';
 
 class AppHomePage extends StatelessWidget {
   const AppHomePage({super.key});
-  static const String routeName = '/';
-  static GoRoute route({List<GoRoute>? routes}) => GoRoute(
-        name: routeName,
-        path: routeName,
-        builder: (context, state) => BlocProvider(
-          create: (_) => HomeCubit(),
-          child: AppHomePage(),
-        ),
-        routes: routes ?? [],
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -34,78 +19,66 @@ class AppHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
-    return Scaffold(
-      body: IndexedStack(
-        index: selectedTab.index,
-        children: [
-          RecordsPage(),
-          BudgetPage(),
-          ChartPage(),
-          SettingPage(),
-        ],
-      ),
-      extendBody: true,
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.fixedCircle,
-        onTap: (index) {
-          if (index == 2) context.goNamed(RecordPage.routeName);
-          context
-              .read<HomeCubit>()
-              .setTab(HomeTab.values[index < 2 ? index : --index]);
-        },
-        initialActiveIndex: selectedTab.index,
-        items: [
-          TabItem(
-            icon: Icons.list_alt,
-            title: '紀錄',
+    return AutoTabsRouter(
+      routes: [
+        const RecordsRoute(),
+        const BudgetRoute(),
+        const ChartRoute(),
+        SettingRoute(),
+      ],
+      builder: (context, child, animation) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        final bottomNavigationBarTheme =
+            Theme.of(context).bottomNavigationBarTheme;
+        return Scaffold(
+          body: FadeTransition(
+            opacity: animation,
+            child: child,
           ),
-          TabItem(
-            icon: Icons.battery_5_bar,
-            title: '預算',
+          bottomNavigationBar: ConvexAppBar(
+            backgroundColor: bottomNavigationBarTheme.backgroundColor,
+            color: bottomNavigationBarTheme.unselectedItemColor,
+            activeColor: bottomNavigationBarTheme.selectedItemColor,
+            elevation: bottomNavigationBarTheme.elevation,
+            style: TabStyle.fixedCircle,
+            onTabNotify: (index) {
+              if (index == 2) {
+                context.pushRoute(RecordRoute());
+                return false;
+              }
+              if (index < 2)
+                tabsRouter.setActiveIndex(index);
+              else
+                tabsRouter.setActiveIndex(index - 1);
+              return true;
+            },
+            initialActiveIndex: tabsRouter.activeIndex < 2
+                ? tabsRouter.activeIndex
+                : tabsRouter.activeIndex + 1,
+            items: [
+              TabItem(
+                icon: Icons.list_alt,
+                title: S.of(context).record,
+              ),
+              TabItem(
+                icon: Icons.battery_5_bar,
+                title: S.of(context).budget,
+              ),
+              const TabItem(
+                icon: Icons.add,
+              ),
+              TabItem(
+                icon: Icons.pie_chart,
+                title: S.of(context).chart,
+              ),
+              TabItem(
+                icon: Icons.settings,
+                title: S.of(context).setting,
+              ),
+            ],
           ),
-          TabItem(
-            icon: Icons.add,
-          ),
-          TabItem(
-            icon: Icons.pie_chart,
-            title: '分析',
-          ),
-          TabItem(
-            icon: Icons.settings,
-            title: '設定',
-          ),
-        ],
-      ),
-      // bottomNavigationBar: BottomAppBar(
-      //   shape: CircularNotchedRectangle(),
-      //   clipBehavior: Clip.antiAlias,
-      //   child: BottomNavigationBar(
-      //     type: BottomNavigationBarType.fixed,
-      //     elevation: 0,
-      //     currentIndex: selectedTab.index,
-      //     onTap: (index) =>
-      //         context.read<HomeCubit>().setTab(HomeTab.values[index]),
-      //     items: const [
-      //       BottomNavigationBarItem(
-      //         icon: const Icon(Icons.list_alt),
-      //         label: '紀錄',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: const Icon(Icons.battery_5_bar),
-      //         label: '預算',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: const Icon(Icons.pie_chart),
-      //         label: '分析',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: const Icon(Icons.settings),
-      //         label: '設定',
-      //       ),
-      //     ],
-      //   ),
-      // ),
+        );
+      },
     );
   }
 }

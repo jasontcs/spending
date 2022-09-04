@@ -1,11 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
 import 'package:collection/collection.dart';
+import 'package:spending_repository/spending_repository.dart';
 
-import '../../../../people/people.dart';
+import '../../../../../app_router.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../record.dart';
 
 class PersonField extends StatelessWidget {
@@ -15,23 +17,22 @@ class PersonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final people = context.select((RecordBloc bloc) => bloc.state.people);
-    return FormBuilderTextField(
+    return FormBuilderField<Person>(
       name: name,
-      onTap: () {
-        final id = context.read<RecordBloc>().state.record!.id;
-        final queryParams = context.goNamed(
-          PeoplePage.routeNameWithRecord,
-          queryParams: {
-            if (id != null) RecordPage.recordIdKey: id,
-          },
-          extra: context.read<RecordBloc>(),
-        );
-      },
-      readOnly: true,
-      valueTransformer: (value) =>
-          people.singleWhereOrNull((person) => person.title == value),
-      decoration: InputDecoration(suffixIcon: Icon(Icons.arrow_forward_ios)),
+      builder: (field) => TextFormField(
+        controller: TextEditingController(text: field.value?.title),
+        readOnly: true,
+        onTap: () async {
+          final selected = await context
+              .pushRoute<Person?>(PeopleRoute(selectedId: field.value?.id));
+          if (selected != null) field.didChange(selected);
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.person),
+          labelText: S.of(context).person,
+          suffixIcon: Icon(Icons.arrow_forward_ios),
+        ),
+      ),
       validator: FormBuilderValidators.required(),
     );
   }
