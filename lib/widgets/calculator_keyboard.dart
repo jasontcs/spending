@@ -56,7 +56,8 @@ class CalculatorField extends StatelessWidget {
                 calculator.init(initialValue: num.tryParse(value));
               } else {
                 calculator.done();
-                onDone?.call(num.tryParse(value));
+                final result = calculator.value.first;
+                onDone?.call(result != null ? num.tryParse(result) : null);
               }
             },
             child: builder(context, value, hasFocus),
