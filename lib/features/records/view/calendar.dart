@@ -16,8 +16,8 @@ class RecordsCalendar extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return TableCalendar(
       locale: 'zh_HK',
-      firstDay: DateTime.utc(2010, 3, 14),
-      lastDay: DateTime.utc(2030, 3, 14),
+      firstDay: DateTime.utc(0),
+      lastDay: DateTime.utc(9999),
       focusedDay: config.focusedDay ?? DateTime.now(),
       selectedDayPredicate: (day) => isSameDay(config.selectedDate, day),
       weekendDays: [DateTime.sunday],
