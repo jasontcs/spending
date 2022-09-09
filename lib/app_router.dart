@@ -11,6 +11,7 @@ import 'features/chart/chart.dart';
 import 'features/home/home.dart';
 import 'features/people/people.dart';
 import 'features/person/person.dart';
+import 'features/receipt/view/receipt_page.dart';
 import 'features/record/record.dart';
 import 'features/records/records.dart';
 import 'features/setting/view/setting_page.dart';
@@ -31,12 +32,19 @@ part 'app_router.gr.dart';
       ],
       initial: true,
     ),
-    AutoRoute(page: RecordPage, fullscreenDialog: true),
+    AutoRoute(
+      page: RecordPage,
+      fullscreenDialog: true,
+    ),
     AutoRoute<Category?>(page: CategoriesPage),
     AutoRoute(page: CategoryPage),
     AutoRoute<Person?>(page: PeoplePage),
     AutoRoute(page: PersonPage),
     AutoRoute(page: SignInPage),
+    AutoRoute(
+      page: ReceiptPage,
+      fullscreenDialog: true,
+    ),
   ],
 )
 // extend the generated private router

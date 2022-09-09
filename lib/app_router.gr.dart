@@ -69,6 +69,14 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SignInPage());
     },
+    ReceiptRoute.name: (routeData) {
+      final args = routeData.argsAs<ReceiptRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: ReceiptPage(
+              key: args.key, image: args.image, heroTag: args.heroTag),
+          fullscreenDialog: true);
+    },
     RecordsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
@@ -109,7 +117,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(CategoryRoute.name, path: '/category-page'),
         RouteConfig(PeopleRoute.name, path: '/people-page'),
         RouteConfig(PersonRoute.name, path: '/person-page'),
-        RouteConfig(SignInRoute.name, path: '/sign-in-page')
+        RouteConfig(SignInRoute.name, path: '/sign-in-page'),
+        RouteConfig(ReceiptRoute.name, path: '/receipt-page')
       ];
 }
 
@@ -248,6 +257,33 @@ class SignInRoute extends PageRouteInfo<void> {
   const SignInRoute() : super(SignInRoute.name, path: '/sign-in-page');
 
   static const String name = 'SignInRoute';
+}
+
+/// generated route for
+/// [ReceiptPage]
+class ReceiptRoute extends PageRouteInfo<ReceiptRouteArgs> {
+  ReceiptRoute({Key? key, required Image image, required Object heroTag})
+      : super(ReceiptRoute.name,
+            path: '/receipt-page',
+            args: ReceiptRouteArgs(key: key, image: image, heroTag: heroTag));
+
+  static const String name = 'ReceiptRoute';
+}
+
+class ReceiptRouteArgs {
+  const ReceiptRouteArgs(
+      {this.key, required this.image, required this.heroTag});
+
+  final Key? key;
+
+  final Image image;
+
+  final Object heroTag;
+
+  @override
+  String toString() {
+    return 'ReceiptRouteArgs{key: $key, image: $image, heroTag: $heroTag}';
+  }
 }
 
 /// generated route for
