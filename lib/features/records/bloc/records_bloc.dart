@@ -13,10 +13,10 @@ class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
       : _spendingRepository = spendingRepository,
         super(RecordsState()) {
     on<RecordsItemsChanged>(_onItemsChanged);
+    on<RecordsCalendarConfigChanged>(_onCalendarConfigChanged);
     _recordsSubscription = _spendingRepository.recordsStream.listen((records) {
       add(RecordsItemsChanged(records));
     });
-    on<RecordsCalendarConfigChanged>(_onCalendarConfigChanged);
   }
 
   final SpendingRepository _spendingRepository;

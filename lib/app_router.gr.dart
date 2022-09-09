@@ -88,13 +88,25 @@ class _$AppRouter extends RootStackRouter {
     },
     ChartRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const ChartPage());
+          routeData: routeData, child: WrappedRoute(child: const ChartPage()));
     },
     SettingRoute.name: (routeData) {
       final args = routeData.argsAs<SettingRouteArgs>(
           orElse: () => const SettingRouteArgs());
       return MaterialPageX<dynamic>(
           routeData: routeData, child: SettingPage(key: args.key));
+    },
+    ByPersonTabRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ByPersonTabPage());
+    },
+    ByCategoryTabRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ByCategoryTabPage());
+    },
+    TrendTabRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const TrendTabPage());
     }
   };
 
@@ -108,7 +120,16 @@ class _$AppRouter extends RootStackRouter {
           RouteConfig(BudgetRoute.name,
               path: 'budget-page', parent: AppHomeRoute.name),
           RouteConfig(ChartRoute.name,
-              path: 'chart-page', parent: AppHomeRoute.name),
+              path: 'chart-page',
+              parent: AppHomeRoute.name,
+              children: [
+                RouteConfig(ByPersonTabRoute.name,
+                    path: 'by-person-tab-page', parent: ChartRoute.name),
+                RouteConfig(ByCategoryTabRoute.name,
+                    path: 'by-category-tab-page', parent: ChartRoute.name),
+                RouteConfig(TrendTabRoute.name,
+                    path: 'trend-tab-page', parent: ChartRoute.name)
+              ]),
           RouteConfig(SettingRoute.name,
               path: 'setting-page', parent: AppHomeRoute.name)
         ]),
@@ -305,7 +326,8 @@ class BudgetRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [ChartPage]
 class ChartRoute extends PageRouteInfo<void> {
-  const ChartRoute() : super(ChartRoute.name, path: 'chart-page');
+  const ChartRoute({List<PageRouteInfo>? children})
+      : super(ChartRoute.name, path: 'chart-page', initialChildren: children);
 
   static const String name = 'ChartRoute';
 }
@@ -329,4 +351,30 @@ class SettingRouteArgs {
   String toString() {
     return 'SettingRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [ByPersonTabPage]
+class ByPersonTabRoute extends PageRouteInfo<void> {
+  const ByPersonTabRoute()
+      : super(ByPersonTabRoute.name, path: 'by-person-tab-page');
+
+  static const String name = 'ByPersonTabRoute';
+}
+
+/// generated route for
+/// [ByCategoryTabPage]
+class ByCategoryTabRoute extends PageRouteInfo<void> {
+  const ByCategoryTabRoute()
+      : super(ByCategoryTabRoute.name, path: 'by-category-tab-page');
+
+  static const String name = 'ByCategoryTabRoute';
+}
+
+/// generated route for
+/// [TrendTabPage]
+class TrendTabRoute extends PageRouteInfo<void> {
+  const TrendTabRoute() : super(TrendTabRoute.name, path: 'trend-tab-page');
+
+  static const String name = 'TrendTabRoute';
 }

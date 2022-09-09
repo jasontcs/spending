@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import 'features/auth/auth.dart';
@@ -11,10 +10,10 @@ import 'features/chart/chart.dart';
 import 'features/home/home.dart';
 import 'features/people/people.dart';
 import 'features/person/person.dart';
-import 'features/receipt/view/receipt_page.dart';
+import 'features/receipt/receipt.dart';
 import 'features/record/record.dart';
 import 'features/records/records.dart';
-import 'features/setting/view/setting_page.dart';
+import 'features/setting/setting.dart';
 
 part 'app_router.gr.dart';
 
@@ -27,7 +26,14 @@ part 'app_router.gr.dart';
       children: [
         AutoRoute(page: RecordsPage),
         AutoRoute(page: BudgetPage),
-        AutoRoute(page: ChartPage),
+        AutoRoute(
+          page: ChartPage,
+          children: [
+            AutoRoute(page: ByPersonTabPage),
+            AutoRoute(page: ByCategoryTabPage),
+            AutoRoute(page: TrendTabPage),
+          ],
+        ),
         AutoRoute(page: SettingPage),
       ],
       initial: true,
