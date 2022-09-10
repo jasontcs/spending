@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
 import '../auth.dart';
 
@@ -9,8 +11,16 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).sign_in)),
+    return BlocListener<AuthBloc, AuthState>(
+      listenWhen: (previous, current) =>
+          previous.status == AuthStatus.logout &&
+          current.status == AuthStatus.login,
+      listener: (context, state) {
+        context.replaceRoute(AppHomeRoute());
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text(S.of(context).sign_in)),
+      ),
     );
   }
 }
