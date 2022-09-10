@@ -8,7 +8,7 @@ part 'model.freezed.dart';
 class Record with _$Record {
   factory Record({
     final String? id,
-    required double amount,
+    required num amount,
     required Currency currency,
     required Category category,
     required Person person,
@@ -24,7 +24,7 @@ class Record with _$Record {
 class Currency with _$Currency {
   factory Currency({
     final String? id,
-    required double rate,
+    required num rate,
     required String title,
     required String flag,
     DateTime? updatedAt,
@@ -35,7 +35,7 @@ class Currency with _$Currency {
 class Category with _$Category {
   factory Category({
     final String? id,
-    required double budget,
+    required num budget,
     required String title,
     required String icon,
   }) = _Category;

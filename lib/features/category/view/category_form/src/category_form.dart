@@ -51,7 +51,7 @@ extension CategoryX on Category {
 extension FormDataX on Map<String, dynamic> {
   Category toCategory() => Category(
         id: this[IdField.name] as String?,
-        budget: this[BudgetField.name] as double,
+        budget: this[BudgetField.name] as num,
         title: this[TitleField.name] as String,
         icon: this[IconField.name] as String,
       );

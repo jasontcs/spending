@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:calculator/calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+
+import '../generated/l10n.dart';
 
 class CalculatorField extends StatelessWidget {
   CalculatorField({
@@ -16,7 +19,7 @@ class CalculatorField extends StatelessWidget {
   final String initialValue;
   final FocusNode focusNode;
   late final notifier = ValueNotifier<String>(initialValue);
-  final ValueChanged<num?>? onDone;
+  final ValueChanged<num>? onDone;
   final Widget Function(BuildContext context, String value, bool? hasFocus)
       builder;
 
@@ -27,23 +30,46 @@ class CalculatorField extends StatelessWidget {
     return KeyboardActions(
       disableScroll: true,
       config: KeyboardActionsConfig(
+        keyboardBarColor: Theme.of(context).colorScheme.onTertiaryContainer,
         actions: [
           KeyboardActionsItem(
-              focusNode: focusNode,
-              footerBuilder: (_) => CalculatorKeyboard(
-                    notifier: notifier,
-                    calculator: calculator,
+            focusNode: focusNode,
+            footerBuilder: (_) => CalculatorKeyboard(
+              notifier: notifier,
+              calculator: calculator,
+            ),
+            displayArrows: false,
+            toolbarButtons: [
+              (_) => Expanded(
+                    child: ValueListenableBuilder(
+                        valueListenable: notifier,
+                        builder: (context, String value, child) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12.0, horizontal: 18.0),
+                            child: Text(
+                              value,
+                              style:
+                                  Theme.of(context).primaryTextTheme.bodyLarge,
+                            ),
+                          );
+                        }),
                   ),
-              displayArrows: false,
-              toolbarAlignment: MainAxisAlignment.center,
-              toolbarButtons: [
-                (focusNode) => TextButton(
-                      onPressed: () {
-                        focusNode.unfocus();
-                      },
-                      child: Text('Enter'),
-                    )
-              ]),
+              (focusNode) => InkWell(
+                    onTap: () {
+                      focusNode.unfocus();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 18.0),
+                      child: Text(
+                        S.of(context).calculator_enter,
+                        style: Theme.of(context).primaryTextTheme.bodyLarge,
+                      ),
+                    ),
+                  )
+            ],
+          ),
         ],
       ),
       child: KeyboardCustomInput<String>(
@@ -57,7 +83,7 @@ class CalculatorField extends StatelessWidget {
               } else {
                 calculator.done();
                 final result = calculator.value.first;
-                onDone?.call(result != null ? num.tryParse(result) : null);
+                onDone?.call(result != null ? num.tryParse(result) ?? 0 : 0);
               }
             },
             child: builder(context, value, hasFocus),
@@ -67,6 +93,8 @@ class CalculatorField extends StatelessWidget {
     );
   }
 }
+
+const double kKeyboardKeyHeight = 70;
 
 class CalculatorKeyboard extends StatefulWidget implements PreferredSizeWidget {
   const CalculatorKeyboard({
@@ -80,7 +108,7 @@ class CalculatorKeyboard extends StatefulWidget implements PreferredSizeWidget {
 
   @override
   State<CalculatorKeyboard> createState() => _CalculatorKeyboardState();
-  Size get preferredSize => Size.fromHeight(400);
+  Size get preferredSize => Size.fromHeight(kKeyboardKeyHeight * 4 + 24);
 }
 
 class _CalculatorKeyboardState extends State<CalculatorKeyboard>
@@ -91,10 +119,15 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
   @override
   void initState() {
     super.initState();
-    _subscription = widget.calculator.snapshot.listen((value) {
-      updateValue(
-          '${value.first ?? ''} ${value.operator?.value ?? ''} ${value.second ?? ''}');
-    });
+    _subscription = widget.calculator.snapshot.listen(
+      (value) {
+        updateValue(
+            '${value.first ?? ''} ${value.operator?.value ?? ''} ${value.second ?? ''}');
+      },
+      onError: (e) async {
+        await HapticFeedback.vibrate();
+      },
+    );
   }
 
   @override
@@ -104,114 +137,125 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(children: [
-          CalculatorKeyboardKey(
-            label: '÷',
-            onTap: () {
-              widget.calculator.operate(CalculatorOperator.divide);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '7',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.seven);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '8',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.eight);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '9',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.nine);
-            },
-          ),
-        ]),
-        TableRow(children: [
-          CalculatorKeyboardKey(
-            label: '×',
-            onTap: () {
-              widget.calculator.operate(CalculatorOperator.multiply);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '4',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.four);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '5',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.five);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '6',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.six);
-            },
-          ),
-        ]),
-        TableRow(children: [
-          CalculatorKeyboardKey(
-            label: '-',
-            onTap: () {
-              widget.calculator.operate(CalculatorOperator.minus);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '1',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.one);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '2',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.two);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '3',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.three);
-            },
-          ),
-        ]),
-        TableRow(children: [
-          CalculatorKeyboardKey(
-            label: '+',
-            onTap: () {
-              widget.calculator.operate(CalculatorOperator.add);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '.',
-            onTap: () {
-              widget.calculator.dot();
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '0',
-            onTap: () {
-              widget.calculator.input(CalculatorNumber.zero);
-            },
-          ),
-          CalculatorKeyboardKey(
-            label: '<',
-            onTap: () {
-              widget.calculator.remove();
-            },
-          ),
-        ]),
-      ],
+    final tertiary = Theme.of(context).colorScheme.tertiary;
+    final error = Theme.of(context).colorScheme.onErrorContainer;
+    return ColoredBox(
+      color: Theme.of(context).colorScheme.onTertiaryContainer,
+      child: Table(
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        columnWidths: [FractionColumnWidth(0.23)].asMap(),
+        children: [
+          TableRow(children: [
+            CalculatorKeyboardKey(
+              label: '÷',
+              onTap: () {
+                widget.calculator.operate(CalculatorOperator.divide);
+              },
+              backgroundColor: tertiary,
+            ),
+            CalculatorKeyboardKey(
+              label: '7',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.seven);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '8',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.eight);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '9',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.nine);
+              },
+            ),
+          ]),
+          TableRow(children: [
+            CalculatorKeyboardKey(
+              label: '×',
+              onTap: () {
+                widget.calculator.operate(CalculatorOperator.multiply);
+              },
+              backgroundColor: tertiary,
+            ),
+            CalculatorKeyboardKey(
+              label: '4',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.four);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '5',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.five);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '6',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.six);
+              },
+            ),
+          ]),
+          TableRow(children: [
+            CalculatorKeyboardKey(
+              label: '-',
+              onTap: () {
+                widget.calculator.operate(CalculatorOperator.minus);
+              },
+              backgroundColor: tertiary,
+            ),
+            CalculatorKeyboardKey(
+              label: '1',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.one);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '2',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.two);
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '3',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.three);
+              },
+            ),
+          ]),
+          TableRow(children: [
+            CalculatorKeyboardKey(
+              label: '+',
+              onTap: () {
+                widget.calculator.operate(CalculatorOperator.add);
+              },
+              backgroundColor: tertiary,
+            ),
+            CalculatorKeyboardKey(
+              label: '.',
+              onTap: () {
+                widget.calculator.dot();
+              },
+            ),
+            CalculatorKeyboardKey(
+              label: '0',
+              onTap: () {
+                widget.calculator.input(CalculatorNumber.zero);
+              },
+            ),
+            CalculatorKeyboardKey(
+              widget: const Icon(Icons.backspace),
+              onTap: () {
+                widget.calculator.remove();
+              },
+              backgroundColor: error,
+            ),
+          ]),
+        ],
+      ),
     );
   }
 
@@ -222,20 +266,38 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
 class CalculatorKeyboardKey extends StatelessWidget {
   const CalculatorKeyboardKey({
     Key? key,
-    required this.label,
+    this.label,
+    this.widget,
     required this.onTap,
-  }) : super(key: key);
-  final String label;
+    this.backgroundColor,
+  })  : assert(label != null || widget != null),
+        super(key: key);
+  final String? label;
+  final Widget? widget;
   final GestureTapCallback onTap;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 60,
-        alignment: Alignment.center,
-        child: Text(label),
+    return SizedBox(
+      height: kKeyboardKeyHeight,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor:
+                backgroundColor ?? Theme.of(context).colorScheme.secondary,
+          ),
+          onPressed: onTap,
+          child: Container(
+            alignment: Alignment.center,
+            child: widget ??
+                Text(
+                  label!,
+                  style: Theme.of(context).primaryTextTheme.titleLarge,
+                ),
+          ),
+        ),
       ),
     );
   }

@@ -16,14 +16,14 @@ class ApiCurrencyModel {
 
   @JsonKey(ignore: true)
   final String? id;
-  final double rate;
+  final num rate;
   final String title;
   final String flag;
   final DateTime updatedAt;
 
   ApiCurrencyModel copyWith({
     String? id,
-    double? rate,
+    num? rate,
     String? title,
     String? flag,
     DateTime? updatedAt,

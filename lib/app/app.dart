@@ -85,10 +85,12 @@ class _AppViewState extends State<AppView> {
         FormBuilderLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       // supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
       supportedLocales: [
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
       ],
     );
   }

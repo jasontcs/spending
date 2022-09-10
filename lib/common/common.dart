@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../generated/l10n.dart';
 
 enum AppFormStatus {
   init,
@@ -19,3 +22,6 @@ extension MapTrySet<K, V> on Map<K, V> {
     }
   }
 }
+
+String currencyFormat(BuildContext context, num amount) =>
+    NumberFormat.simpleCurrency(locale: S.of(context).locale).format(amount);

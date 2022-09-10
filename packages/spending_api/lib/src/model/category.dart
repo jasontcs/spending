@@ -16,13 +16,13 @@ class ApiCategoryModel {
   @JsonKey(ignore: true)
   final String? id;
   final String title;
-  final double budget;
+  final num budget;
   final String icon;
 
   ApiCategoryModel copyWith({
     String? id,
     String? title,
-    double? budget,
+    num? budget,
     String? icon,
   }) =>
       ApiCategoryModel(

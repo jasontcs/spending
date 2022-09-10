@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../app_router.dart';
+import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
 import '../../record/view/view.dart';
 import '../bloc/records_bloc.dart';
@@ -90,7 +91,7 @@ class RecordTile extends StatelessWidget {
       ),
       title: Text(record.category.title),
       subtitle: Text(record.person.title),
-      trailing: Text(NumberFormat.simpleCurrency().format(record.amount)),
+      trailing: Text(currencyFormat(context, record.amount)),
       onTap: () {
         context.pushRoute(RecordRoute(recordId: record.id));
       },

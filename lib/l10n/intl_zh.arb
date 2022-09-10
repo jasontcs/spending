@@ -1,4 +1,5 @@
 {
+    "locale": "zh_HK",
     "app_title": "記帳HK",
     "sign_in": "登入",
     "record": "記錄",
@@ -10,7 +11,7 @@
     "person": "成員",
     "new_person": "新成員",
     "draft": "未上載",
-    "created": "已上載", 
+    "created": "已上載",
     "updated": "已更新",
     "deleted": "已刪除",
     "save": "儲存",
@@ -22,6 +23,6 @@
     "remark": "備註",
     "receipts": "收據",
     "camera": "相機",
-    "gallery": "相簿"
-
+    "gallery": "相簿",
+    "calculator_enter": "確定"
 }

@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `zh_HK`
+  String get locale {
+    return Intl.message(
+      'zh_HK',
+      name: 'locale',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `記帳HK`
   String get app_title {
     return Intl.message(
@@ -285,6 +295,16 @@ class S {
     return Intl.message(
       '相簿',
       name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `確定`
+  String get calculator_enter {
+    return Intl.message(
+      '確定',
+      name: 'calculator_enter',
       desc: '',
       args: [],
     );

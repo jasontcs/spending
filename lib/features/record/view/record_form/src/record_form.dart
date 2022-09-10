@@ -74,7 +74,7 @@ extension RecordX on Record {
 extension FormDataX on Map<String, dynamic> {
   Record toRecord() => Record(
         id: this[RecordIdField.name] as String?,
-        amount: this[AmountField.name] as double,
+        amount: this[AmountField.name] as num,
         currency: this[CurrencyField.name] as Currency,
         category: this[CategoryField.name] as Category,
         person: this[PersonField.name] as Person,

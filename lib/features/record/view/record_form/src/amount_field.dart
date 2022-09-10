@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:spending_repository/spending_repository.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../../common/common.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../widgets/calculator_keyboard.dart';
 
@@ -14,33 +16,29 @@ class AmountField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderField<double>(
+    return FormBuilderField<num>(
       name: name,
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(),
+      ]),
       builder: (field) {
         return CalculatorField(
           initialValue: field.value.toString(),
-          builder: ((context, value, hasFocus) {
+          builder: (context, value, hasFocus) {
             return TextFormField(
-              controller: TextEditingController(text: value),
+              controller: TextEditingController(
+                text: currencyFormat(context, field.value ?? 0),
+              ),
               readOnly: true,
+              decoration: InputDecoration(
+                labelText: S.of(context).amount,
+                prefixIcon: Icon(Icons.attach_money),
+              ),
             );
-          }),
-          onDone: (value) {
-            field.didChange(value?.toDouble());
           },
-        );
-        return FormBuilderTextField(
-          name: name,
-          keyboardType: TextInputType.number,
-          valueTransformer: (value) => double.tryParse(value ?? ''),
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(),
-            FormBuilderValidators.numeric(),
-          ]),
-          decoration: InputDecoration(
-            labelText: S.of(context).amount,
-            prefixIcon: Icon(Icons.attach_money),
-          ),
+          onDone: (value) {
+            field.didChange(value);
+          },
         );
       },
     );

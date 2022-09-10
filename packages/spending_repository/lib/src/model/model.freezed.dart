@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Record {
   String? get id => throw _privateConstructorUsedError;
-  double get amount => throw _privateConstructorUsedError;
+  num get amount => throw _privateConstructorUsedError;
   Currency get currency => throw _privateConstructorUsedError;
   Category get category => throw _privateConstructorUsedError;
   Person get person => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $RecordCopyWith<$Res> {
       _$RecordCopyWithImpl<$Res>;
   $Res call(
       {String? id,
-      double amount,
+      num amount,
       Currency currency,
       Category category,
       Person person,
@@ -81,7 +81,7 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       currency: currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -146,7 +146,7 @@ abstract class _$$_RecordCopyWith<$Res> implements $RecordCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
-      double amount,
+      num amount,
       Currency currency,
       Category category,
       Person person,
@@ -194,7 +194,7 @@ class __$$_RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
       amount: amount == freezed
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       currency: currency == freezed
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ class _$_Record implements _Record {
   @override
   final String? id;
   @override
-  final double amount;
+  final num amount;
   @override
   final Currency currency;
   @override
@@ -318,7 +318,7 @@ class _$_Record implements _Record {
 abstract class _Record implements Record {
   factory _Record(
       {final String? id,
-      required final double amount,
+      required final num amount,
       required final Currency currency,
       required final Category category,
       required final Person person,
@@ -331,7 +331,7 @@ abstract class _Record implements Record {
   @override
   String? get id;
   @override
-  double get amount;
+  num get amount;
   @override
   Currency get currency;
   @override
@@ -357,7 +357,7 @@ abstract class _Record implements Record {
 /// @nodoc
 mixin _$Currency {
   String? get id => throw _privateConstructorUsedError;
-  double get rate => throw _privateConstructorUsedError;
+  num get rate => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get flag => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -372,11 +372,7 @@ abstract class $CurrencyCopyWith<$Res> {
   factory $CurrencyCopyWith(Currency value, $Res Function(Currency) then) =
       _$CurrencyCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
-      double rate,
-      String title,
-      String flag,
-      DateTime? updatedAt});
+      {String? id, num rate, String title, String flag, DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -403,7 +399,7 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -427,11 +423,7 @@ abstract class _$$_CurrencyCopyWith<$Res> implements $CurrencyCopyWith<$Res> {
       __$$_CurrencyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
-      double rate,
-      String title,
-      String flag,
-      DateTime? updatedAt});
+      {String? id, num rate, String title, String flag, DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -460,7 +452,7 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
       rate: rate == freezed
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -490,7 +482,7 @@ class _$_Currency implements _Currency {
   @override
   final String? id;
   @override
-  final double rate;
+  final num rate;
   @override
   final String title;
   @override
@@ -533,7 +525,7 @@ class _$_Currency implements _Currency {
 abstract class _Currency implements Currency {
   factory _Currency(
       {final String? id,
-      required final double rate,
+      required final num rate,
       required final String title,
       required final String flag,
       final DateTime? updatedAt}) = _$_Currency;
@@ -541,7 +533,7 @@ abstract class _Currency implements Currency {
   @override
   String? get id;
   @override
-  double get rate;
+  num get rate;
   @override
   String get title;
   @override
@@ -557,7 +549,7 @@ abstract class _Currency implements Currency {
 /// @nodoc
 mixin _$Category {
   String? get id => throw _privateConstructorUsedError;
-  double get budget => throw _privateConstructorUsedError;
+  num get budget => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
 
@@ -570,7 +562,7 @@ mixin _$Category {
 abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res>;
-  $Res call({String? id, double budget, String title, String icon});
+  $Res call({String? id, num budget, String title, String icon});
 }
 
 /// @nodoc
@@ -596,7 +588,7 @@ class _$CategoryCopyWithImpl<$Res> implements $CategoryCopyWith<$Res> {
       budget: budget == freezed
           ? _value.budget
           : budget // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -615,7 +607,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
           _$_Category value, $Res Function(_$_Category) then) =
       __$$_CategoryCopyWithImpl<$Res>;
   @override
-  $Res call({String? id, double budget, String title, String icon});
+  $Res call({String? id, num budget, String title, String icon});
 }
 
 /// @nodoc
@@ -643,7 +635,7 @@ class __$$_CategoryCopyWithImpl<$Res> extends _$CategoryCopyWithImpl<$Res>
       budget: budget == freezed
           ? _value.budget
           : budget // ignore: cast_nullable_to_non_nullable
-              as double,
+              as num,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -665,7 +657,7 @@ class _$_Category implements _Category {
   @override
   final String? id;
   @override
-  final double budget;
+  final num budget;
   @override
   final String title;
   @override
@@ -704,14 +696,14 @@ class _$_Category implements _Category {
 abstract class _Category implements Category {
   factory _Category(
       {final String? id,
-      required final double budget,
+      required final num budget,
       required final String title,
       required final String icon}) = _$_Category;
 
   @override
   String? get id;
   @override
-  double get budget;
+  num get budget;
   @override
   String get title;
   @override

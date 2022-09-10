@@ -69,12 +69,27 @@ class Calculator {
   CalculatorValue get value =>
       _value != null ? _value! : throw CalcualtorNotInit();
 
-  void _update(CalculatorValue value) {
+  late final int _decimal;
+  late final Duration _autoCalculateDelay;
+
+  Future<void> _update(CalculatorValue value) async {
     _controller.add(value);
     _value = value;
+    if (value.second != null) {
+      await Future.delayed(_autoCalculateDelay);
+      if (value.second != null) {
+        calculate();
+      }
+    }
   }
 
-  void init({num? initialValue}) {
+  void init({
+    num? initialValue,
+    int decimal = 2,
+    Duration autoCalculateDelay = const Duration(seconds: 1),
+  }) {
+    _decimal = decimal;
+    _autoCalculateDelay = autoCalculateDelay;
     _update(CalculatorValue(first: initialValue?.toString()));
   }
 
@@ -170,20 +185,20 @@ class Calculator {
     switch (operator) {
       case CalculatorOperator.add:
         return (Decimal.parse(first) + Decimal.parse(second))
-            .round(scale: 2)
+            .round(scale: _decimal)
             .toString();
       case CalculatorOperator.minus:
         return (Decimal.parse(first) - Decimal.parse(second))
-            .round(scale: 2)
+            .round(scale: _decimal)
             .toString();
       case CalculatorOperator.multiply:
         return (Decimal.parse(first) * Decimal.parse(second))
-            .round(scale: 2)
+            .round(scale: _decimal)
             .toString();
       case CalculatorOperator.divide:
         return (Decimal.parse(first) / Decimal.parse(second))
-            .toDecimal(scaleOnInfinitePrecision: 2)
-            .round(scale: 2)
+            .toDecimal(scaleOnInfinitePrecision: _decimal)
+            .round(scale: _decimal)
             .toString();
     }
   }

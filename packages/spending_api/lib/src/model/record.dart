@@ -21,7 +21,7 @@ class ApiRecordModel {
 
   @JsonKey(ignore: true)
   final String? id;
-  final double amount;
+  final num amount;
   final String currencyId;
   final String categoryId;
   final String personId;
@@ -33,7 +33,7 @@ class ApiRecordModel {
 
   ApiRecordModel copyWith({
     String? id,
-    double? amount,
+    num? amount,
     String? currencyId,
     String? categoryId,
     String? personId,

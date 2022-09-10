@@ -18,7 +18,7 @@ class BudgetField extends StatelessWidget {
         FormBuilderValidators.required(),
         FormBuilderValidators.numeric(),
       ]),
-      valueTransformer: (value) => double.tryParse(value ?? ''),
+      valueTransformer: (value) => num.tryParse(value ?? ''),
     );
   }
 }

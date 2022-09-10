@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../generated/l10n.dart';
 import '../records.dart';
 
 class RecordsCalendar extends StatelessWidget {
@@ -15,7 +16,7 @@ class RecordsCalendar extends StatelessWidget {
     final records = context.select((RecordsBloc bloc) => bloc.state.records);
     final colorScheme = Theme.of(context).colorScheme;
     return TableCalendar(
-      locale: 'zh_HK',
+      locale: S.of(context).locale,
       firstDay: DateTime.utc(0),
       lastDay: DateTime.utc(9999),
       focusedDay: config.focusedDay ?? DateTime.now(),
@@ -79,7 +80,7 @@ class RecordsCalendar extends StatelessWidget {
       calendarBuilders: CalendarBuilders(
         markerBuilder: (context, day, List<Record> records) {
           if (records.isNotEmpty) {
-            final total = records.fold<double>(
+            final total = records.fold<num>(
                 0, (total, current) => total += current.amount);
             final theme = Theme.of(context);
             return Text(
