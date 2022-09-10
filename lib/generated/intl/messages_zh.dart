@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_person": MessageLookupByLibrary.simpleMessage("新成員"),
         "no_records": MessageLookupByLibrary.simpleMessage("沒有記錄"),
         "person": MessageLookupByLibrary.simpleMessage("成員"),
+        "ratio": MessageLookupByLibrary.simpleMessage("比例"),
         "receipts": MessageLookupByLibrary.simpleMessage("收據"),
         "record": MessageLookupByLibrary.simpleMessage("記錄"),
         "remark": MessageLookupByLibrary.simpleMessage("備註"),

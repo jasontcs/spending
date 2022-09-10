@@ -6,6 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../../common/common.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'chart_bloc.freezed.dart';
 part 'chart_event.dart';
 part 'chart_state.dart';

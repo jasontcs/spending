@@ -1,16 +1,17 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:collection/collection.dart';
-export 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/common.dart';
 
-part 'person_state.dart';
-part 'person_event.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'person_bloc.freezed.dart';
+part 'person_event.dart';
+part 'person_state.dart';
 
 class PersonBloc extends Bloc<PersonEvent, PersonState> {
   PersonBloc({

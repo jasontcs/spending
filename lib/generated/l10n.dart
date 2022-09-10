@@ -309,6 +309,16 @@ class S {
       args: [],
     );
   }
+
+  /// `比例`
+  String get ratio {
+    return Intl.message(
+      '比例',
+      name: 'ratio',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

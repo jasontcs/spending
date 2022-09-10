@@ -117,13 +117,14 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChartState implements _ChartState {
+class _$_ChartState extends _ChartState {
   const _$_ChartState(
       {this.month,
       final Map<Category, List<Record>> categoriesWithRecords = const {},
       final Map<Person, List<Record>> peopleWithRecords = const {}})
       : _categoriesWithRecords = categoriesWithRecords,
-        _peopleWithRecords = peopleWithRecords;
+        _peopleWithRecords = peopleWithRecords,
+        super._();
 
   @override
   final DateTime? month;
@@ -173,11 +174,12 @@ class _$_ChartState implements _ChartState {
       __$$_ChartStateCopyWithImpl<_$_ChartState>(this, _$identity);
 }
 
-abstract class _ChartState implements ChartState {
+abstract class _ChartState extends ChartState {
   const factory _ChartState(
       {final DateTime? month,
       final Map<Category, List<Record>> categoriesWithRecords,
       final Map<Person, List<Record>> peopleWithRecords}) = _$_ChartState;
+  const _ChartState._() : super._();
 
   @override
   DateTime? get month;
