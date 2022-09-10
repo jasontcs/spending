@@ -1,18 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
 import '../../../common/common.dart';
 import '../../../widgets/form_page.dart';
 import '../../../widgets/form_posting_listener.dart';
-import '../../home/home.dart';
-import '../../people/people.dart';
-import '../../records/bloc/records_bloc.dart';
 import '../bloc/record_bloc.dart';
 import 'record_form/record_form.dart';
 

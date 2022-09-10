@@ -4,6 +4,7 @@ part of 'chart_bloc.dart';
 class ChartState with _$ChartState {
   const factory ChartState({
     DateTime? month,
-    @Default([]) List<Record> records,
+    @Default({}) Map<Category, List<Record>> categoriesWithRecords,
+    @Default({}) Map<Person, List<Record>> peopleWithRecords,
   }) = _ChartState;
 }

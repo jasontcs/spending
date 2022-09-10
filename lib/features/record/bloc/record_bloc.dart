@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -10,9 +9,11 @@ import 'package:spending_repository/spending_repository.dart';
 import '../../../common/common.dart';
 import '../record.dart';
 
+export 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'record_bloc.freezed.dart';
 part 'record_event.dart';
 part 'record_state.dart';
-part 'record_bloc.freezed.dart';
 
 class RecordBloc extends Bloc<RecordEvent, RecordState> {
   RecordBloc({required SpendingRepository spendingRepository})

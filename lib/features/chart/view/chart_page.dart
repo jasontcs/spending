@@ -25,8 +25,8 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
             bottom: MonthBar(),
           ),
           body: child,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+          floatingActionButton: Transform.translate(
+            offset: const Offset(0, -16),
             child: TabPageSelector(controller: tabController),
           ),
           floatingActionButtonLocation:

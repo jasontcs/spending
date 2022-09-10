@@ -1,24 +1,50 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:spending_repository/spending_repository.dart';
-part 'chart_state.dart';
-part 'chart_event.dart';
+
 part 'chart_bloc.freezed.dart';
+part 'chart_event.dart';
+part 'chart_state.dart';
 
 class ChartBloc extends Bloc<ChartEvent, ChartState> {
   ChartBloc({required SpendingRepository spendingRepository})
       : _spendingRepository = spendingRepository,
         super(ChartState()) {
     on<ChartMonthChanged>(_onMonthChanged);
-    on<ChartRecordsChanged>(_onRecordsChanged);
-    _recordsSubscription = _spendingRepository.recordsStream.listen((records) {
-      add(ChartRecordsChanged(records));
+    on<ChartCategoriesWithRecordsChanged>(_onCategoriesWithRecordsChanged);
+    on<ChartPeopleWithRecordsChanged>(_onPeopleWithRecordsChanged);
+    _categoriesWithRecordsSubscription = CombineLatestStream.combine2(
+      _spendingRepository.categoriesStream,
+      _spendingRepository.recordsStream,
+      (List<Category> a, List<Record> b) {
+        return Map.fromEntries(
+            a.map((category) => MapEntry(category, <Record>[])).toList())
+          ..addAll(b.groupListsBy((record) => record.category));
+      },
+    ).listen((value) {
+      add(ChartCategoriesWithRecordsChanged(value));
+    });
+    _peopleWithRecordsSubscription = CombineLatestStream.combine2(
+      _spendingRepository.peopleStream,
+      _spendingRepository.recordsStream,
+      (List<Person> a, List<Record> b) {
+        return Map.fromEntries(
+            a.map((people) => MapEntry(people, <Record>[])).toList())
+          ..addAll(b.groupListsBy((record) => record.person));
+      },
+    ).listen((value) {
+      add(ChartPeopleWithRecordsChanged(value));
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Record>> _recordsSubscription;
+  late StreamSubscription<Map<Category, List<Record>>>
+      _categoriesWithRecordsSubscription;
+  late StreamSubscription<Map<Person, List<Record>>>
+      _peopleWithRecordsSubscription;
 
   void _onMonthChanged(
     ChartMonthChanged event,
@@ -27,16 +53,24 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     emit(state.copyWith(month: event.month));
   }
 
-  void _onRecordsChanged(
-    ChartRecordsChanged event,
+  void _onCategoriesWithRecordsChanged(
+    ChartCategoriesWithRecordsChanged event,
     Emitter<ChartState> emit,
   ) async {
-    emit(state.copyWith(records: event.records));
+    emit(state.copyWith(categoriesWithRecords: event.categoriesWithRecords));
+  }
+
+  void _onPeopleWithRecordsChanged(
+    ChartPeopleWithRecordsChanged event,
+    Emitter<ChartState> emit,
+  ) async {
+    emit(state.copyWith(peopleWithRecords: event.peopleWithRecords));
   }
 
   @override
   Future<void> close() {
-    _recordsSubscription.cancel();
+    _categoriesWithRecordsSubscription.cancel();
+    _peopleWithRecordsSubscription.cancel();
     return super.close();
   }
 }

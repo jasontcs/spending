@@ -1,15 +1,17 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:collection/collection.dart';
 
 import '../../../common/common.dart';
 
-part 'category_state.dart';
-part 'category_event.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'category_bloc.freezed.dart';
+part 'category_event.dart';
+part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({

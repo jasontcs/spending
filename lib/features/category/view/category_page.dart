@@ -1,15 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
 import '../../../widgets/form_page.dart';
 import '../../../widgets/form_posting_listener.dart';
-import '../../categories/view/categories_page.dart';
 import '../category.dart';
 
 class CategoryPage extends StatelessWidget with AutoRouteWrapper {

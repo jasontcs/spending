@@ -17,7 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ChartState {
   DateTime? get month => throw _privateConstructorUsedError;
-  List<Record> get records => throw _privateConstructorUsedError;
+  Map<Category, List<Record>> get categoriesWithRecords =>
+      throw _privateConstructorUsedError;
+  Map<Person, List<Record>> get peopleWithRecords =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChartStateCopyWith<ChartState> get copyWith =>
@@ -29,7 +32,10 @@ abstract class $ChartStateCopyWith<$Res> {
   factory $ChartStateCopyWith(
           ChartState value, $Res Function(ChartState) then) =
       _$ChartStateCopyWithImpl<$Res>;
-  $Res call({DateTime? month, List<Record> records});
+  $Res call(
+      {DateTime? month,
+      Map<Category, List<Record>> categoriesWithRecords,
+      Map<Person, List<Record>> peopleWithRecords});
 }
 
 /// @nodoc
@@ -43,17 +49,22 @@ class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
   @override
   $Res call({
     Object? month = freezed,
-    Object? records = freezed,
+    Object? categoriesWithRecords = freezed,
+    Object? peopleWithRecords = freezed,
   }) {
     return _then(_value.copyWith(
       month: month == freezed
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      records: records == freezed
-          ? _value.records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
+      categoriesWithRecords: categoriesWithRecords == freezed
+          ? _value.categoriesWithRecords
+          : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
+              as Map<Category, List<Record>>,
+      peopleWithRecords: peopleWithRecords == freezed
+          ? _value.peopleWithRecords
+          : peopleWithRecords // ignore: cast_nullable_to_non_nullable
+              as Map<Person, List<Record>>,
     ));
   }
 }
@@ -65,7 +76,10 @@ abstract class _$$_ChartStateCopyWith<$Res>
           _$_ChartState value, $Res Function(_$_ChartState) then) =
       __$$_ChartStateCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime? month, List<Record> records});
+  $Res call(
+      {DateTime? month,
+      Map<Category, List<Record>> categoriesWithRecords,
+      Map<Person, List<Record>> peopleWithRecords});
 }
 
 /// @nodoc
@@ -81,17 +95,22 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? month = freezed,
-    Object? records = freezed,
+    Object? categoriesWithRecords = freezed,
+    Object? peopleWithRecords = freezed,
   }) {
     return _then(_$_ChartState(
       month: month == freezed
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      records: records == freezed
-          ? _value._records
-          : records // ignore: cast_nullable_to_non_nullable
-              as List<Record>,
+      categoriesWithRecords: categoriesWithRecords == freezed
+          ? _value._categoriesWithRecords
+          : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
+              as Map<Category, List<Record>>,
+      peopleWithRecords: peopleWithRecords == freezed
+          ? _value._peopleWithRecords
+          : peopleWithRecords // ignore: cast_nullable_to_non_nullable
+              as Map<Person, List<Record>>,
     ));
   }
 }
@@ -99,22 +118,34 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ChartState implements _ChartState {
-  const _$_ChartState({this.month, final List<Record> records = const []})
-      : _records = records;
+  const _$_ChartState(
+      {this.month,
+      final Map<Category, List<Record>> categoriesWithRecords = const {},
+      final Map<Person, List<Record>> peopleWithRecords = const {}})
+      : _categoriesWithRecords = categoriesWithRecords,
+        _peopleWithRecords = peopleWithRecords;
 
   @override
   final DateTime? month;
-  final List<Record> _records;
+  final Map<Category, List<Record>> _categoriesWithRecords;
   @override
   @JsonKey()
-  List<Record> get records {
+  Map<Category, List<Record>> get categoriesWithRecords {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_records);
+    return EqualUnmodifiableMapView(_categoriesWithRecords);
+  }
+
+  final Map<Person, List<Record>> _peopleWithRecords;
+  @override
+  @JsonKey()
+  Map<Person, List<Record>> get peopleWithRecords {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_peopleWithRecords);
   }
 
   @override
   String toString() {
-    return 'ChartState(month: $month, records: $records)';
+    return 'ChartState(month: $month, categoriesWithRecords: $categoriesWithRecords, peopleWithRecords: $peopleWithRecords)';
   }
 
   @override
@@ -123,14 +154,18 @@ class _$_ChartState implements _ChartState {
         (other.runtimeType == runtimeType &&
             other is _$_ChartState &&
             const DeepCollectionEquality().equals(other.month, month) &&
-            const DeepCollectionEquality().equals(other._records, _records));
+            const DeepCollectionEquality()
+                .equals(other._categoriesWithRecords, _categoriesWithRecords) &&
+            const DeepCollectionEquality()
+                .equals(other._peopleWithRecords, _peopleWithRecords));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(month),
-      const DeepCollectionEquality().hash(_records));
+      const DeepCollectionEquality().hash(_categoriesWithRecords),
+      const DeepCollectionEquality().hash(_peopleWithRecords));
 
   @JsonKey(ignore: true)
   @override
@@ -140,12 +175,16 @@ class _$_ChartState implements _ChartState {
 
 abstract class _ChartState implements ChartState {
   const factory _ChartState(
-      {final DateTime? month, final List<Record> records}) = _$_ChartState;
+      {final DateTime? month,
+      final Map<Category, List<Record>> categoriesWithRecords,
+      final Map<Person, List<Record>> peopleWithRecords}) = _$_ChartState;
 
   @override
   DateTime? get month;
   @override
-  List<Record> get records;
+  Map<Category, List<Record>> get categoriesWithRecords;
+  @override
+  Map<Person, List<Record>> get peopleWithRecords;
   @override
   @JsonKey(ignore: true)
   _$$_ChartStateCopyWith<_$_ChartState> get copyWith =>

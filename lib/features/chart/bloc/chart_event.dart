@@ -2,10 +2,16 @@ part of 'chart_bloc.dart';
 
 abstract class ChartEvent {}
 
-class ChartRecordsChanged extends ChartEvent {
-  ChartRecordsChanged(this.records);
+class ChartCategoriesWithRecordsChanged extends ChartEvent {
+  ChartCategoriesWithRecordsChanged(this.categoriesWithRecords);
 
-  final List<Record> records;
+  final Map<Category, List<Record>> categoriesWithRecords;
+}
+
+class ChartPeopleWithRecordsChanged extends ChartEvent {
+  ChartPeopleWithRecordsChanged(this.peopleWithRecords);
+
+  final Map<Person, List<Record>> peopleWithRecords;
 }
 
 class ChartMonthChanged extends ChartEvent {

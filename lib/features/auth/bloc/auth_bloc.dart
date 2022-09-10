@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'auth_state.dart';
 part 'auth_event.dart';
