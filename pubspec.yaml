@@ -57,8 +57,9 @@ dependencies:
   form_builder_image_picker: ^3.1.0
   keyboard_actions: ^4.0.1
   photo_view: ^0.14.0
-  syncfusion_flutter_charts: ^20.2.48
+  fl_chart: ^0.55.1
   rxdart: ^0.27.5
+  syncfusion_flutter_charts: ^20.2.48
 dependency_overrides:
   async: ^2.9.0
 

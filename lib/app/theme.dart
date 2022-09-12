@@ -2,7 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final kAppTheme = FlexThemeData.light(
-  scheme: FlexScheme.dellGenoa,
+  scheme: FlexScheme.flutterDash,
   surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
   blendLevel: 20,
   appBarOpacity: 0.95,
@@ -11,11 +11,13 @@ final kAppTheme = FlexThemeData.light(
     blendOnColors: false,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.notoSans().fontFamily,
+  useMaterial3: true,
+  // To use the playground font, add GoogleFonts package and uncomment
+  // fontFamily: GoogleFonts.notoSans().fontFamily,
 );
 
 final kAppDarkTheme = FlexThemeData.dark(
-  scheme: FlexScheme.dellGenoa,
+  scheme: FlexScheme.flutterDash,
   surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
   blendLevel: 15,
   appBarStyle: FlexAppBarStyle.background,
@@ -24,5 +26,7 @@ final kAppDarkTheme = FlexThemeData.dark(
     blendOnLevel: 30,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  fontFamily: GoogleFonts.notoSans().fontFamily,
+  useMaterial3: true,
+  // To use the playground font, add GoogleFonts package and uncomment
+  // fontFamily: GoogleFonts.notoSans().fontFamily,
 );
