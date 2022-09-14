@@ -285,7 +285,7 @@ class CalculatorKeyboardKey extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor:
+            onSurface:
                 backgroundColor ?? Theme.of(context).colorScheme.secondary,
           ),
           onPressed: onTap,

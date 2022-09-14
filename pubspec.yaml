@@ -60,6 +60,7 @@ dependencies:
   fl_chart: ^0.55.1
   rxdart: ^0.27.5
   syncfusion_flutter_charts: ^20.2.48
+  percent_indicator: ^4.2.2
 dependency_overrides:
   async: ^2.9.0
 
