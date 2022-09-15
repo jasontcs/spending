@@ -1,60 +1,50 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:spending_repository/spending_repository.dart';
 
 import '../../../generated/l10n.dart';
+import '../budget.dart';
 
-class BudgetPage extends StatelessWidget {
+class BudgetPage extends StatelessWidget with AutoRouteWrapper {
   const BudgetPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(S.of(context).budget)),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                CircularPercentIndicator(
-                  radius: 60,
-                  percent: 0.3,
-                  lineWidth: 12.0,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  center: Text('30%'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: BudgetPercentIndicator(),
                 ),
-                Expanded(
-                  child: Table(
-                    children: [
-                      TableRow(children: [Text('Budget'), Text('999')]),
-                      TableRow(children: [Text('Used'), Text('600')]),
-                      TableRow(children: [Text('Balance'), Text('399')]),
-                    ],
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: BudgetOverallTable(),
                   ),
                 ),
               ],
             ),
-            ListView.separated(
-              itemBuilder: (context, index) => ListTile(
-                leading: CircleAvatar(child: Text('😋')),
-                title: Text('Food'),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LinearPercentIndicator(
-                      padding: EdgeInsets.zero,
-                      percent: 0.3,
-                    ),
-                    Text('Balance:--'),
-                  ],
-                ),
-              ),
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: 5,
-              shrinkWrap: true,
-            ),
-          ],
-        ),
+          ),
+          Flexible(
+            child: BudgetCategoriesList(),
+          ),
+        ],
       ),
+    );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          BudgetBloc(spendingRepository: context.read<SpendingRepository>()),
+      child: this,
     );
   }
 }

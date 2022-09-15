@@ -18,11 +18,12 @@ class RecordsCalendar extends StatelessWidget {
       locale: S.of(context).locale,
       firstDay: DateTime.utc(0),
       lastDay: DateTime.utc(9999),
-      focusedDay: config.focusedDay ?? DateTime.now(),
-      selectedDayPredicate: (day) => isSameDay(config.selectedDate, day),
+      focusedDay: config.focusedDay ?? DateUtils.dateOnly(DateTime.now()),
+      selectedDayPredicate: (day) =>
+          DateUtils.isSameDay(config.selectedDate, day),
       weekendDays: [DateTime.sunday],
       onDaySelected: (selectedDay, focusedDay) {
-        if (!isSameDay(config.selectedDate, selectedDay)) {
+        if (!DateUtils.isSameDay(config.selectedDate, selectedDay)) {
           context.read<RecordsBloc>().add(
                 RecordsCalendarConfigChanged(
                   TableCalendarConfig(
@@ -35,7 +36,7 @@ class RecordsCalendar extends StatelessWidget {
       },
       eventLoader: (day) {
         return records
-            .where((record) => isSameDay(record.dateTime, day))
+            .where((record) => DateUtils.isSameDay(record.dateTime, day))
             .toList();
       },
       daysOfWeekStyle: DaysOfWeekStyle(

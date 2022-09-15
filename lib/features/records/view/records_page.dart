@@ -40,8 +40,8 @@ class RecordsView extends StatelessWidget {
     final records = context.select((RecordsBloc bloc) {
       final records = bloc.state.records;
       final selectedDate = bloc.state.calendarConfig.selectedDate;
-      return records
-          .where((record) => isSameDay(selectedDate, record.dateTime));
+      return records.where((record) =>
+          DateUtils.isSameDay(selectedDate ?? DateTime.now(), record.dateTime));
     }).toList();
 
     return Scaffold(

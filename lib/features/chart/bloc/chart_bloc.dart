@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,7 +17,11 @@ part 'chart_state.dart';
 class ChartBloc extends Bloc<ChartEvent, ChartState> {
   ChartBloc({required SpendingRepository spendingRepository})
       : _spendingRepository = spendingRepository,
-        super(ChartState()) {
+        super(ChartState(
+            month: DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+        ))) {
     on<ChartMonthChanged>(_onMonthChanged);
     on<ChartCategoriesWithRecordsChanged>(_onCategoriesWithRecordsChanged);
     on<ChartPeopleWithRecordsChanged>(_onPeopleWithRecordsChanged);

@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChartState {
-  DateTime? get month => throw _privateConstructorUsedError;
+  DateTime get month => throw _privateConstructorUsedError;
   Map<Category, List<Record>> get categoriesWithRecords =>
       throw _privateConstructorUsedError;
   Map<Person, List<Record>> get peopleWithRecords =>
@@ -33,7 +33,7 @@ abstract class $ChartStateCopyWith<$Res> {
           ChartState value, $Res Function(ChartState) then) =
       _$ChartStateCopyWithImpl<$Res>;
   $Res call(
-      {DateTime? month,
+      {DateTime month,
       Map<Category, List<Record>> categoriesWithRecords,
       Map<Person, List<Record>> peopleWithRecords});
 }
@@ -56,7 +56,7 @@ class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
       month: month == freezed
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       categoriesWithRecords: categoriesWithRecords == freezed
           ? _value.categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,7 @@ abstract class _$$_ChartStateCopyWith<$Res>
       __$$_ChartStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime? month,
+      {DateTime month,
       Map<Category, List<Record>> categoriesWithRecords,
       Map<Person, List<Record>> peopleWithRecords});
 }
@@ -102,7 +102,7 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
       month: month == freezed
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       categoriesWithRecords: categoriesWithRecords == freezed
           ? _value._categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
@@ -119,7 +119,7 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
 
 class _$_ChartState extends _ChartState {
   const _$_ChartState(
-      {this.month,
+      {required this.month,
       final Map<Category, List<Record>> categoriesWithRecords = const {},
       final Map<Person, List<Record>> peopleWithRecords = const {}})
       : _categoriesWithRecords = categoriesWithRecords,
@@ -127,7 +127,7 @@ class _$_ChartState extends _ChartState {
         super._();
 
   @override
-  final DateTime? month;
+  final DateTime month;
   final Map<Category, List<Record>> _categoriesWithRecords;
   @override
   @JsonKey()
@@ -176,13 +176,13 @@ class _$_ChartState extends _ChartState {
 
 abstract class _ChartState extends ChartState {
   const factory _ChartState(
-      {final DateTime? month,
+      {required final DateTime month,
       final Map<Category, List<Record>> categoriesWithRecords,
       final Map<Person, List<Record>> peopleWithRecords}) = _$_ChartState;
   const _ChartState._() : super._();
 
   @override
-  DateTime? get month;
+  DateTime get month;
   @override
   Map<Category, List<Record>> get categoriesWithRecords;
   @override

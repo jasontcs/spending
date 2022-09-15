@@ -25,5 +25,8 @@
     "camera": "相機",
     "gallery": "相簿",
     "calculator_enter": "確定",
-    "ratio": "比例"
+    "ratio": "比例",
+    "spent": "支出",
+    "balance": "餘額",
+    "not_set": "未設定"
 }

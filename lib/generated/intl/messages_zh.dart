@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "amount": MessageLookupByLibrary.simpleMessage("金額"),
         "app_title": MessageLookupByLibrary.simpleMessage("記帳HK"),
+        "balance": MessageLookupByLibrary.simpleMessage("餘額"),
         "budget": MessageLookupByLibrary.simpleMessage("預算"),
         "calculator_enter": MessageLookupByLibrary.simpleMessage("確定"),
         "camera": MessageLookupByLibrary.simpleMessage("相機"),
@@ -41,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_category": MessageLookupByLibrary.simpleMessage("新類別"),
         "new_person": MessageLookupByLibrary.simpleMessage("新成員"),
         "no_records": MessageLookupByLibrary.simpleMessage("沒有記錄"),
+        "not_set": MessageLookupByLibrary.simpleMessage("未設定"),
         "person": MessageLookupByLibrary.simpleMessage("成員"),
         "ratio": MessageLookupByLibrary.simpleMessage("比例"),
         "receipts": MessageLookupByLibrary.simpleMessage("收據"),
@@ -49,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("儲存"),
         "setting": MessageLookupByLibrary.simpleMessage("設定"),
         "sign_in": MessageLookupByLibrary.simpleMessage("登入"),
+        "spent": MessageLookupByLibrary.simpleMessage("支出"),
         "updated": MessageLookupByLibrary.simpleMessage("已更新")
       };
 }

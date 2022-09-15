@@ -1,15 +1,13 @@
-part of 'chart_bloc.dart';
+part of 'budget_bloc.dart';
 
 @freezed
-class ChartState with _$ChartState {
-  const ChartState._();
+class BudgetState with _$BudgetState {
+  const BudgetState._();
 
-  const factory ChartState({
+  const factory BudgetState({
     required DateTime month,
     @Default({}) Map<Category, List<Record>> categoriesWithRecords,
-    @Default({}) Map<Person, List<Record>> peopleWithRecords,
-  }) = _ChartState;
-
+  }) = _BudgetState;
   Map<Category, List<Record>> get categoriesWithRecordsThisMonth =>
       categoriesWithRecords.map((key, value) => MapEntry(
           key,

@@ -5,6 +5,7 @@ import 'package:spending_repository/spending_repository.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/month_bar.dart';
 import '../chart.dart';
 
 class ChartPage extends StatelessWidget with AutoRouteWrapper {
@@ -19,10 +20,16 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
         TrendTabRoute(),
       ],
       builder: (context, child, tabController) {
+        final month = context.select((ChartBloc bloc) => bloc.state.month);
         return Scaffold(
           appBar: AppBar(
             title: Text(S.of(context).chart),
-            bottom: MonthBar(),
+            bottom: MonthBar(
+              focusedMonth: month,
+              onPageChanged: (focusedDay) {
+                context.read<ChartBloc>().add(ChartMonthChanged(focusedDay));
+              },
+            ),
           ),
           body: child,
           floatingActionButton: Transform.translate(

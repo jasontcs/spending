@@ -92,7 +92,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
             remarks: '',
             dateTime: event.dateString != null
                 ? DateTime.parse(event.dateString!)
-                : DateTime.now(),
+                : DateUtils.dateOnly(DateTime.now()),
           );
 
     emit(state.copyWith(

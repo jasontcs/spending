@@ -84,7 +84,7 @@ class _$AppRouter extends RootStackRouter {
     },
     BudgetRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const BudgetPage());
+          routeData: routeData, child: WrappedRoute(child: const BudgetPage()));
     },
     ChartRoute.name: (routeData) {
       return MaterialPageX<dynamic>(

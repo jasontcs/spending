@@ -319,6 +319,36 @@ class S {
       args: [],
     );
   }
+
+  /// `支出`
+  String get spent {
+    return Intl.message(
+      '支出',
+      name: 'spent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `餘額`
+  String get balance {
+    return Intl.message(
+      '餘額',
+      name: 'balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `未設定`
+  String get not_set {
+    return Intl.message(
+      '未設定',
+      name: 'not_set',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

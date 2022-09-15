@@ -28,11 +28,3 @@ String currencyFormat(BuildContext context, num amount) =>
 
 String percentageFormat(BuildContext context, num value) =>
     NumberFormat.percentPattern(S.of(context).locale).format(value);
-
-bool isSameMonth(DateTime? a, DateTime? b) {
-  if (a == null || b == null) {
-    return false;
-  }
-
-  return a.year == b.year && a.month == b.month;
-}

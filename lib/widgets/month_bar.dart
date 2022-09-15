@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../chart.dart';
+import '../features/chart/chart.dart';
 
 class MonthBar extends StatelessWidget implements PreferredSizeWidget {
   const MonthBar({
     Key? key,
+    required this.focusedMonth,
+    this.onPageChanged,
   }) : super(key: key);
+
+  final DateTime focusedMonth;
+  final void Function(DateTime focusedDay)? onPageChanged;
 
   @override
   Widget build(BuildContext context) {
-    final month = context.select((ChartBloc bloc) => bloc.state.month);
     final color = Theme.of(context).colorScheme.onPrimary;
     return TableCalendar(
-      focusedDay: month ?? DateTime.now(),
+      focusedDay: focusedMonth,
       firstDay: DateTime.utc(0),
       lastDay: DateTime.utc(9999),
       daysOfWeekVisible: false,
@@ -40,9 +44,7 @@ class MonthBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       rowHeight: 0,
       daysOfWeekHeight: 0,
-      onPageChanged: (focusedDay) {
-        context.read<ChartBloc>().add(ChartMonthChanged(focusedDay));
-      },
+      onPageChanged: onPageChanged,
     );
   }
 

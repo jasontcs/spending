@@ -12,7 +12,6 @@ class ByCategoryTabPage extends StatelessWidget {
         child: Column(
           children: [
             ByCategoryPieChart(),
-            ByCategoryPieChart2(),
             ByCategoryDataTable(),
           ],
         ),
