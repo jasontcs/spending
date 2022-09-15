@@ -13,3 +13,10 @@ class BudgetMonthChanged extends BudgetEvent {
 
   final DateTime month;
 }
+
+class BudgetCategoriesBudgetUpdated extends BudgetEvent {
+  BudgetCategoriesBudgetUpdated({required this.category, this.budget});
+
+  final Category category;
+  final num? budget;
+}

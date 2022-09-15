@@ -62,6 +62,14 @@ class CalcualtorNotInit implements Exception {}
 class CalcualtorInputNotValid implements Exception {}
 
 class Calculator {
+  Calculator({
+    this.initialValue,
+    this.decimal = 2,
+    this.autoCalculateDelay = const Duration(seconds: 1),
+  }) {
+    _update(CalculatorValue(first: initialValue?.toString()));
+  }
+
   CalculatorValue? _value;
   final _controller = StreamController<CalculatorValue>();
   late final Stream<CalculatorValue> snapshot =
@@ -69,28 +77,24 @@ class Calculator {
   CalculatorValue get value =>
       _value != null ? _value! : throw CalcualtorNotInit();
 
-  late final int _decimal;
-  late final Duration _autoCalculateDelay;
+  final num? initialValue;
+  final int decimal;
+  final Duration autoCalculateDelay;
+
+  void trySetTo(num? value) {
+    if (value == null) return;
+    _update(CalculatorValue(first: value.toString()));
+  }
 
   Future<void> _update(CalculatorValue value) async {
     _controller.add(value);
     _value = value;
     if (value.second != null) {
-      await Future.delayed(_autoCalculateDelay);
+      await Future.delayed(autoCalculateDelay);
       if (value.second != null) {
         calculate();
       }
     }
-  }
-
-  void init({
-    num? initialValue,
-    int decimal = 2,
-    Duration autoCalculateDelay = const Duration(seconds: 1),
-  }) {
-    _decimal = decimal;
-    _autoCalculateDelay = autoCalculateDelay;
-    _update(CalculatorValue(first: initialValue?.toString()));
   }
 
   void input(CalculatorNumber number) {
@@ -185,20 +189,20 @@ class Calculator {
     switch (operator) {
       case CalculatorOperator.add:
         return (Decimal.parse(first) + Decimal.parse(second))
-            .round(scale: _decimal)
+            .round(scale: decimal)
             .toString();
       case CalculatorOperator.minus:
         return (Decimal.parse(first) - Decimal.parse(second))
-            .round(scale: _decimal)
+            .round(scale: decimal)
             .toString();
       case CalculatorOperator.multiply:
         return (Decimal.parse(first) * Decimal.parse(second))
-            .round(scale: _decimal)
+            .round(scale: decimal)
             .toString();
       case CalculatorOperator.divide:
         return (Decimal.parse(first) / Decimal.parse(second))
-            .toDecimal(scaleOnInfinitePrecision: _decimal)
-            .round(scale: _decimal)
+            .toDecimal(scaleOnInfinitePrecision: decimal)
+            .round(scale: decimal)
             .toString();
     }
   }

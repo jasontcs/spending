@@ -20,7 +20,7 @@ class CalculatorField extends StatelessWidget {
   final FocusNode focusNode;
   late final notifier = ValueNotifier<String>(initialValue);
   final ValueChanged<num>? onDone;
-  final Widget Function(BuildContext context, String value, bool? hasFocus)
+  final Widget Function(BuildContext context, String? value, bool? hasFocus)
       builder;
 
   final Calculator calculator = Calculator();
@@ -79,14 +79,15 @@ class CalculatorField extends StatelessWidget {
           return Focus(
             onFocusChange: (hasFocus) {
               if (hasFocus) {
-                calculator.init(initialValue: num.tryParse(value));
+                calculator.trySetTo(num.tryParse(value));
               } else {
                 calculator.done();
                 final result = calculator.value.first;
                 onDone?.call(result != null ? num.tryParse(result) ?? 0 : 0);
               }
             },
-            child: builder(context, value, hasFocus),
+            child: builder(
+                context, value.trim().isNotEmpty ? value : null, hasFocus),
           );
         },
       ),

@@ -3,6 +3,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/calculator_keyboard.dart';
 import '../budget.dart';
 
 class BudgetCategoriesList extends StatelessWidget {
@@ -28,9 +29,41 @@ class BudgetCategoriesList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(category.title),
-              Text(budget != null
-                  ? currencyFormat(context, budget)
-                  : S.of(context).not_set),
+              Spacer(),
+              Flexible(
+                child: CalculatorField(
+                  builder: (context, value, hasFocus) {
+                    final text = hasFocus == true
+                        ? value
+                        : budget != null
+                            ? currencyFormat(context, budget)
+                            : null;
+                    return TextField(
+                      controller: TextEditingController(text: text),
+                      keyboardType: TextInputType.none,
+                      textAlign: TextAlign.end,
+                      decoration: InputDecoration.collapsed(
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                        hintText: S.of(context).not_set,
+                      ).copyWith(
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
+                      ),
+                    );
+                  },
+                  onDone: (value) {
+                    context.read<BudgetBloc>().add(
+                          BudgetCategoriesBudgetUpdated(
+                            category: category,
+                            budget: value,
+                          ),
+                        );
+                  },
+                ),
+              ),
             ],
           ),
           subtitle: Column(

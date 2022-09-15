@@ -16,7 +16,6 @@ void main() {
 
   test('1+1', () {
     final calculator = Calculator()
-      ..init()
       ..input(CalculatorNumber.one)
       ..operate(CalculatorOperator.add)
       ..input(CalculatorNumber.one);
@@ -24,7 +23,6 @@ void main() {
   });
   test('1+1=', () {
     final calculator = Calculator()
-      ..init()
       ..input(CalculatorNumber.one)
       ..operate(CalculatorOperator.add)
       ..input(CalculatorNumber.one)
@@ -34,7 +32,6 @@ void main() {
 
   test('.1', () {
     final calculator = Calculator()
-      ..init()
       ..dot()
       ..input(CalculatorNumber.one);
     expectCalculator(calculator.value, '0.1', null, null);
@@ -42,7 +39,6 @@ void main() {
 
   test('.1<', () {
     final calculator = Calculator()
-      ..init()
       ..dot()
       ..input(CalculatorNumber.one)
       ..remove();
@@ -50,7 +46,6 @@ void main() {
   });
   test('.13', () {
     final calculator = Calculator()
-      ..init()
       ..dot()
       ..input(CalculatorNumber.one)
       ..input(CalculatorNumber.three);
@@ -59,7 +54,6 @@ void main() {
   });
   test('.13<2++-.1x', () {
     final calculator = Calculator()
-      ..init()
       ..dot()
       ..input(CalculatorNumber.one)
       ..input(CalculatorNumber.three)
@@ -78,7 +72,6 @@ void main() {
 
   test('1/7', () {
     final calculator = Calculator()
-      ..init()
       ..input(CalculatorNumber.one)
       ..operate(CalculatorOperator.divide)
       ..input(CalculatorNumber.seven)

@@ -24,6 +24,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     on<BudgetMonthChanged>(_onBudgetMonthChanged);
     on<BudgetCategoriesWithRecordsChanged>(
         _onBudgetCategoriesWithRecordsChanged);
+    on<BudgetCategoriesBudgetUpdated>(_onBudgetCategoriesBudgetUpdated);
     _categoriesWithRecordsSubscription = CombineLatestStream.combine2(
         _spendingRepository.categoriesStream, _spendingRepository.recordsStream,
         (List<Category> a, List<Record> b) {
@@ -50,6 +51,14 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     Emitter<BudgetState> emit,
   ) async {
     emit(state.copyWith(month: event.month));
+  }
+
+  void _onBudgetCategoriesBudgetUpdated(
+    BudgetCategoriesBudgetUpdated event,
+    Emitter<BudgetState> emit,
+  ) async {
+    await _spendingRepository.updateCategory(
+        event.category, event.category.copyWith(budget: event.budget ?? 0));
   }
 
   @override
