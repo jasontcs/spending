@@ -19,3 +19,15 @@ class ChartMonthChanged extends ChartEvent {
 
   final DateTime month;
 }
+
+class ChartTrendBarSelected extends ChartEvent {
+  ChartTrendBarSelected(this.date);
+
+  final DateTime date;
+}
+
+class ChartRecordsUpdated extends ChartEvent {
+  ChartRecordsUpdated(this.records);
+
+  final List<Record> records;
+}

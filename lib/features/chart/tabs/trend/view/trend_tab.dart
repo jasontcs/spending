@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../widgets/records_list.dart';
 import '../../../chart.dart';
 
 class TrendTabPage extends StatelessWidget {
@@ -7,13 +8,22 @@ class TrendTabPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final records = context.select((ChartBloc bloc) => bloc.state.records
+        .where(
+          (record) => DateUtils.isSameDay(
+            bloc.state.trendFocusedDate,
+            record.dateTime,
+          ),
+        )
+        .toList());
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TrendStackedLineChart(),
-          ],
-        ),
+      body: Column(
+        children: [
+          TrendStackedLineChart(),
+          Flexible(
+            child: RecordsList(records: records),
+          ),
+        ],
       ),
     );
   }

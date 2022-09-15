@@ -46,7 +46,10 @@ class TrendStackedLineChart extends StatelessWidget {
         isVisible: true,
         position: LegendPosition.bottom,
       ),
-      tooltipBehavior: TooltipBehavior(enable: true),
+      tooltipBehavior: TooltipBehavior(
+        enable: true,
+        shouldAlwaysShow: true,
+      ),
       series: datas.entries
           .map((e) =>
               StackedColumnSeries<MapEntry<DateTime, List<Record>>, DateTime>(
@@ -59,6 +62,16 @@ class TrendStackedLineChart extends StatelessWidget {
                         previousValue += element.amount),
               ))
           .toList(),
+      onTooltipRender: (tooltipArgs) {
+        final date = datas.entries
+            .elementAt(tooltipArgs.seriesIndex as int)
+            .value
+            .entries
+            .elementAt(tooltipArgs.pointIndex! as int)
+            .key;
+
+        context.read<ChartBloc>().add(ChartTrendBarSelected(date));
+      },
     );
   }
 }

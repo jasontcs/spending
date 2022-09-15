@@ -9,6 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../app_router.dart';
 import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/records_list.dart';
 import '../../record/view/view.dart';
 import '../bloc/records_bloc.dart';
 import '../records.dart';
@@ -56,45 +57,10 @@ class RecordsView extends StatelessWidget {
             )
           else
             Flexible(
-              child: ListView.separated(
-                itemCount: records.length,
-                itemBuilder: (context, index) {
-                  final record = records[index];
-                  return RecordTile(record: record);
-                },
-                separatorBuilder: (context, index) {
-                  return Divider();
-                },
-              ),
+              child: RecordsList(records: records),
             ),
         ],
       ),
-    );
-  }
-}
-
-class RecordTile extends StatelessWidget {
-  const RecordTile({
-    Key? key,
-    required this.record,
-  }) : super(key: key);
-
-  final Record record;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(
-          record.category.icon,
-        ),
-      ),
-      title: Text(record.category.title),
-      subtitle: Text(record.person.title),
-      trailing: Text(currencyFormat(context, record.amount)),
-      onTap: () {
-        context.pushRoute(RecordRoute(recordId: record.id));
-      },
     );
   }
 }

@@ -4,15 +4,15 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../../common/common.dart';
 import '../../../chart.dart';
 
-class ByCategoryPieChart extends StatelessWidget {
-  const ByCategoryPieChart({
+class ByPersonPieChart extends StatelessWidget {
+  const ByPersonPieChart({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = context.select((ChartBloc bloc) => bloc
-        .state.categoriesWithTotalThisMonth.entries
+        .state.peopleWithTotalThisMonth.entries
         .map((e) => ChartData(e.key.title, e.value))
         .toList());
     return SfCircularChart(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../app/theme.dart';
 import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
 import '../../../widgets/calculator_keyboard.dart';
@@ -15,13 +16,16 @@ class BudgetCategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoriesWithTotalThisMonth = context
         .select((BudgetBloc bloc) => bloc.state.categoriesWithTotalThisMonth);
+
+    final percentColor = Theme.of(context).extension<PercentColor>()!;
     return ListView.separated(
       itemBuilder: (context, index) {
         final category =
             categoriesWithTotalThisMonth.entries.elementAt(index).key;
-        final budget = category.budget == 0 ? null : category.budget;
-        final spent =
-            categoriesWithTotalThisMonth.entries.elementAt(index).value;
+        final budget = Budget(
+          total: category.budget,
+          used: categoriesWithTotalThisMonth.entries.elementAt(index).value,
+        );
 
         return ListTile(
           leading: CircleAvatar(child: Text(category.icon)),
@@ -35,8 +39,8 @@ class BudgetCategoriesList extends StatelessWidget {
                   builder: (context, value, hasFocus) {
                     final text = hasFocus == true
                         ? value
-                        : budget != null
-                            ? currencyFormat(context, budget)
+                        : budget.total != 0
+                            ? currencyFormat(context, budget.total)
                             : null;
                     return TextField(
                       controller: TextEditingController(text: text),
@@ -71,16 +75,21 @@ class BudgetCategoriesList extends StatelessWidget {
             children: [
               LinearPercentIndicator(
                 padding: EdgeInsets.zero,
-                percent: budget != null ? (budget - spent) / budget : 0,
+                percent: budget.percentForIndicator,
                 barRadius: Radius.circular(2.5),
+                progressColor: budget.isPositive
+                    ? percentColor.positive
+                    : percentColor.negative,
+                backgroundColor: Theme.of(context).dividerColor,
+                animation: true,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      '${S.of(context).balance}: ${budget != null ? currencyFormat(context, budget - spent) : '--'}'),
+                      '${S.of(context).balance}: ${budget.percentString(context) ?? '--'}'),
                   Text(
-                      '${S.of(context).spent}: ${currencyFormat(context, spent)}')
+                      '${S.of(context).spent}: ${currencyFormat(context, budget.used)}')
                 ],
               ),
             ],

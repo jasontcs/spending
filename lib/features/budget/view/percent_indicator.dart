@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../app/theme.dart';
 import '../../../common/common.dart';
 import '../budget.dart';
 
@@ -11,22 +12,27 @@ class BudgetPercentIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final percent = context.select((BudgetBloc bloc) {
-      final budget = bloc.state.categoriesWithRecords.keys.fold<num>(
+    final budget = context.select((BudgetBloc bloc) {
+      final total = bloc.state.categoriesWithRecords.keys.fold<num>(
           0, (previousValue, category) => previousValue + category.budget);
       final spent = bloc.state.totalThisMonth;
-      return (budget - spent) / budget;
+      return Budget(total: total, used: spent);
     });
+    final percentColor = Theme.of(context).extension<PercentColor>()!;
     return CircularPercentIndicator(
       radius: 60,
-      percent: percent,
+      percent: budget.percentForIndicator,
       lineWidth: 12.0,
       circularStrokeCap: CircularStrokeCap.round,
       center: Text(
-        percentageFormat(context, percent),
+        budget.percentString(context) ?? '-',
         style: Theme.of(context).textTheme.titleLarge,
       ),
       backgroundColor: Theme.of(context).dividerColor,
+      progressColor:
+          budget.isPositive ? percentColor.positive : percentColor.negative,
+      reverse: !budget.isPositive,
+      animation: true,
     );
   }
 }

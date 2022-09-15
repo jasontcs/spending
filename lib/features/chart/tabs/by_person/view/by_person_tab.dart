@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../chart.dart';
+import '../by_person.dart';
 
 class ByPersonTabPage extends StatelessWidget {
   const ByPersonTabPage({Key? key}) : super(key: key);
@@ -8,9 +8,13 @@ class ByPersonTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-            context.select((ChartBloc bloc) => bloc.state.month.toString())),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ByPersonPieChart(),
+            ByPersonDataTable(),
+          ],
+        ),
       ),
     );
   }

@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: spendingRepository),
         RepositoryProvider.value(value: firebaseAuth),
       ],
-      child: AppBlocs(),
+      child: const AppBlocs(),
     );
   }
 }
@@ -73,8 +73,22 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       onGenerateTitle: (context) => S.of(context).app_title,
-      theme: kAppTheme,
-      darkTheme: kAppDarkTheme,
+      theme: kAppTheme.copyWith(
+        extensions: [
+          const PercentColor(
+            positive: Colors.green,
+            negative: Colors.red,
+          )
+        ],
+      ),
+      darkTheme: kAppDarkTheme.copyWith(
+        extensions: [
+          const PercentColor(
+            positive: Colors.green,
+            negative: Colors.red,
+          )
+        ],
+      ),
       // themeMode: ThemeMode.dark,
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),
@@ -88,8 +102,8 @@ class _AppViewState extends State<AppView> {
       ],
       // supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
       supportedLocales: [
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
       ],
     );
   }
