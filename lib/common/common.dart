@@ -28,3 +28,18 @@ String currencyFormat(BuildContext context, num amount) =>
 
 String percentageFormat(BuildContext context, num value) =>
     NumberFormat.percentPattern(S.of(context).locale).format(value);
+
+class AppFormBuilderValidators {
+  static FormFieldValidator<T> positiveNum<T>({
+    String? errorText,
+  }) =>
+      (T? value) {
+        num? numVal;
+        if (value is String) {
+          numVal = num.tryParse(value);
+        } else if (value is num) {
+          numVal = value;
+        }
+        return (numVal ?? 0) > 0 ? null : S.current.error_num_not_larger_than_0;
+      };
+}

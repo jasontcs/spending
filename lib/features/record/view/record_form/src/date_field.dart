@@ -12,15 +12,18 @@ class DateField extends StatelessWidget {
   static const String name = 'date';
   @override
   Widget build(BuildContext context) {
-    return FormBuilderDateTimePicker(
-      name: name,
-      inputType: InputType.date,
-      resetIcon: null,
-      validator: FormBuilderValidators.required(),
-      format: DateFormat(S.of(context).date_format_pattern),
-      decoration: InputDecoration(
-        labelText: S.of(context).date,
-        prefixIcon: Icon(Icons.calendar_today),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderDateTimePicker(
+        name: name,
+        inputType: InputType.date,
+        resetIcon: null,
+        validator: FormBuilderValidators.required(),
+        format: DateFormat(S.of(context).date_format_pattern),
+        decoration: InputDecoration(
+          labelText: S.of(context).date,
+          prefixIcon: Icon(Icons.calendar_today),
+        ),
       ),
     );
   }

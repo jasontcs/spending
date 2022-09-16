@@ -9,9 +9,11 @@ class RecordsList extends StatelessWidget {
   const RecordsList({
     Key? key,
     required this.records,
+    this.categoriesColor,
   }) : super(key: key);
 
   final List<Record> records;
+  final Map<Category, Color?>? categoriesColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,10 @@ class RecordsList extends StatelessWidget {
       itemCount: records.length,
       itemBuilder: (context, index) {
         final record = records[index];
-        return RecordTile(record: record);
+        return RecordTile(
+          record: record,
+          backgroundColor: categoriesColor?[record.category],
+        );
       },
       separatorBuilder: (context, index) {
         return Divider();
@@ -32,16 +37,20 @@ class RecordTile extends StatelessWidget {
   const RecordTile({
     Key? key,
     required this.record,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Record record;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
+        backgroundColor: backgroundColor,
         child: Text(
           record.category.icon,
+          style: Theme.of(context).primaryTextTheme.titleMedium,
         ),
       ),
       title: Text(record.category.title),

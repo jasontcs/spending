@@ -18,7 +18,7 @@ class BudgetPercentIndicator extends StatelessWidget {
       final spent = bloc.state.totalThisMonth;
       return Budget(total: total, used: spent);
     });
-    final percentColor = Theme.of(context).extension<PercentColor>()!;
+    final percentColor = Theme.of(context).extension<AppColor>()!;
     return CircularPercentIndicator(
       radius: 60,
       percent: budget.percentForIndicator,

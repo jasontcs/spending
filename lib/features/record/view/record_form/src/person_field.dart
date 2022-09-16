@@ -17,23 +17,27 @@ class PersonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderField<Person>(
-      name: name,
-      builder: (field) => TextFormField(
-        controller: TextEditingController(text: field.value?.title),
-        readOnly: true,
-        onTap: () async {
-          final selected = await context
-              .pushRoute<Person?>(PeopleRoute(selectedId: field.value?.id));
-          if (selected != null) field.didChange(selected);
-        },
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.person),
-          labelText: S.of(context).person,
-          suffixIcon: Icon(Icons.arrow_forward_ios),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderField<Person>(
+        name: name,
+        builder: (field) => TextFormField(
+          controller: TextEditingController(text: field.value?.title),
+          readOnly: true,
+          onTap: () async {
+            final selected = await context
+                .pushRoute<Person?>(PeopleRoute(selectedId: field.value?.id));
+            if (selected != null) field.didChange(selected);
+          },
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.person),
+            labelText: S.of(context).person,
+            suffixIcon: Icon(Icons.arrow_forward_ios),
+            errorText: field.errorText,
+          ),
         ),
+        validator: FormBuilderValidators.required(),
       ),
-      validator: FormBuilderValidators.required(),
     );
   }
 }

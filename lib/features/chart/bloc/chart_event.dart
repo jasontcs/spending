@@ -5,13 +5,13 @@ abstract class ChartEvent {}
 class ChartCategoriesWithRecordsChanged extends ChartEvent {
   ChartCategoriesWithRecordsChanged(this.categoriesWithRecords);
 
-  final Map<Category, List<Record>> categoriesWithRecords;
+  final List<CategoryWithRecords> categoriesWithRecords;
 }
 
 class ChartPeopleWithRecordsChanged extends ChartEvent {
   ChartPeopleWithRecordsChanged(this.peopleWithRecords);
 
-  final Map<Person, List<Record>> peopleWithRecords;
+  final List<PersonWithRecords> peopleWithRecords;
 }
 
 class ChartMonthChanged extends ChartEvent {

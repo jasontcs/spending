@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../../../app/theme.dart';
 import '../../../../../common/common.dart';
 import '../../../chart.dart';
 
@@ -12,8 +13,9 @@ class ByCategoryPieChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = context.select((ChartBloc bloc) => bloc
-        .state.categoriesWithTotalThisMonth.entries
-        .map((e) => ChartData(e.key.title, e.value))
+        .state.categoriesWithRecords
+        .map((e) => e.whereMonth(bloc.state.month))
+        .map((e) => ChartData(e.category.title, e.total))
         .toList());
     return SfCircularChart(
       legend: Legend(
@@ -31,6 +33,7 @@ class ByCategoryPieChart extends StatelessWidget {
           yValueMapper: (ChartData data, _) => data.y,
         )
       ],
+      palette: Theme.of(context).extension<AppColor>()!.palette,
     );
   }
 }

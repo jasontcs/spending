@@ -73,22 +73,8 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       onGenerateTitle: (context) => S.of(context).app_title,
-      theme: kAppTheme.copyWith(
-        extensions: [
-          const PercentColor(
-            positive: Colors.green,
-            negative: Colors.red,
-          )
-        ],
-      ),
-      darkTheme: kAppDarkTheme.copyWith(
-        extensions: [
-          const PercentColor(
-            positive: Colors.green,
-            negative: Colors.red,
-          )
-        ],
-      ),
+      theme: kAppTheme,
+      darkTheme: kAppDarkTheme,
       // themeMode: ThemeMode.dark,
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),

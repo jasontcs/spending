@@ -10,23 +10,23 @@ class ByPersonDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rows = context
-        .select((ChartBloc bloc) => bloc.state.peopleWithTotalThisMonth.entries
-            .sorted((a, b) => -a.value.compareTo(b.value))
-            .mapIndexed(
-              (index, element) => DataRow(
-                cells: <DataCell>[
-                  DataCell(Text((index + 1).toString())),
-                  DataCell(Text(element.key.title)),
-                  DataCell(Text(currencyFormat(context, element.value))),
-                  DataCell(Text(bloc.state.totalThisMonth == 0
-                      ? '-'
-                      : percentageFormat(
-                          context, element.value / bloc.state.totalThisMonth))),
-                ],
-              ),
-            )
-            .toList());
+    final rows = context.select((ChartBloc bloc) => bloc.state.peopleWithRecords
+        .map((e) => e.whereMonth(bloc.state.month))
+        .sorted((a, b) => -a.total.compareTo(b.total))
+        .mapIndexed(
+          (index, element) => DataRow(
+            cells: <DataCell>[
+              DataCell(Text((index + 1).toString())),
+              DataCell(Text(element.person.title)),
+              DataCell(Text(currencyFormat(context, element.total))),
+              DataCell(Text(bloc.state.totalThisMonth == 0
+                  ? '-'
+                  : percentageFormat(
+                      context, element.total / bloc.state.totalThisMonth))),
+            ],
+          ),
+        )
+        .toList());
     return DataTable(
       columns: [
         '#',

@@ -16,9 +16,10 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
     return AutoTabsRouter.tabBar(
       routes: [
         ByCategoryTabRoute(),
-        ByPersonTabRoute(),
         TrendTabRoute(),
+        ByPersonTabRoute(),
       ],
+      homeIndex: 1,
       builder: (context, child, tabController) {
         final month = context.select((ChartBloc bloc) => bloc.state.month);
         return Scaffold(

@@ -30,8 +30,8 @@ part 'app_router.gr.dart';
           page: ChartPage,
           children: [
             AutoRoute(page: ByPersonTabPage),
+            AutoRoute(page: TrendTabPage, initial: true),
             AutoRoute(page: ByCategoryTabPage),
-            AutoRoute(page: TrendTabPage),
           ],
         ),
         AutoRoute(page: SettingPage),

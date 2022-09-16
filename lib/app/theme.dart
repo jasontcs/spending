@@ -15,6 +15,13 @@ final kAppTheme = FlexThemeData.light(
   useMaterial3: true,
   // To use the playground font, add GoogleFonts package and uncomment
   // fontFamily: GoogleFonts.notoSans().fontFamily,
+).copyWith(
+  extensions: [
+    AppColor(
+      positive: Colors.green,
+      negative: Colors.red,
+    )
+  ],
 );
 
 final kAppDarkTheme = FlexThemeData.dark(
@@ -30,29 +37,47 @@ final kAppDarkTheme = FlexThemeData.dark(
   useMaterial3: true,
   // To use the playground font, add GoogleFonts package and uncomment
   // fontFamily: GoogleFonts.notoSans().fontFamily,
+).copyWith(
+  extensions: [
+    AppColor(
+      positive: Colors.green,
+      negative: Colors.red,
+    )
+  ],
 );
 
 @immutable
-class PercentColor extends ThemeExtension<PercentColor> {
-  const PercentColor({this.positive, this.negative});
+class AppColor extends ThemeExtension<AppColor> {
+  AppColor({this.positive, this.negative});
+  final List<Color> palette = const <Color>[
+    Color.fromRGBO(75, 135, 185, 1),
+    Color.fromRGBO(192, 108, 132, 1),
+    Color.fromRGBO(246, 114, 128, 1),
+    Color.fromRGBO(248, 177, 149, 1),
+    Color.fromRGBO(116, 180, 155, 1),
+    Color.fromRGBO(0, 168, 181, 1),
+    Color.fromRGBO(73, 76, 162, 1),
+    Color.fromRGBO(255, 205, 96, 1),
+    Color.fromRGBO(255, 240, 219, 1),
+    Color.fromRGBO(238, 238, 238, 1),
+  ];
 
   final Color? positive;
   final Color? negative;
   @override
-  ThemeExtension<PercentColor> copyWith({Color? positive, Color? negative}) {
-    return PercentColor(
+  ThemeExtension<AppColor> copyWith({Color? positive, Color? negative}) {
+    return AppColor(
       positive: positive ?? this.positive,
       negative: negative ?? this.negative,
     );
   }
 
   @override
-  ThemeExtension<PercentColor> lerp(
-      ThemeExtension<PercentColor>? other, double t) {
-    if (other is! PercentColor) {
+  ThemeExtension<AppColor> lerp(ThemeExtension<AppColor>? other, double t) {
+    if (other is! AppColor) {
       return this;
     }
-    return PercentColor(
+    return AppColor(
       positive: Color.lerp(positive, other.positive, t),
       negative: Color.lerp(negative, other.negative, t),
     );

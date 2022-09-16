@@ -1,0 +1,170 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+
+part of 'person_with_records.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+/// @nodoc
+mixin _$PersonWithRecords {
+  Person get person => throw _privateConstructorUsedError;
+  List<Record> get records => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PersonWithRecordsCopyWith<PersonWithRecords> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PersonWithRecordsCopyWith<$Res> {
+  factory $PersonWithRecordsCopyWith(
+          PersonWithRecords value, $Res Function(PersonWithRecords) then) =
+      _$PersonWithRecordsCopyWithImpl<$Res>;
+  $Res call({Person person, List<Record> records});
+
+  $PersonCopyWith<$Res> get person;
+}
+
+/// @nodoc
+class _$PersonWithRecordsCopyWithImpl<$Res>
+    implements $PersonWithRecordsCopyWith<$Res> {
+  _$PersonWithRecordsCopyWithImpl(this._value, this._then);
+
+  final PersonWithRecords _value;
+  // ignore: unused_field
+  final $Res Function(PersonWithRecords) _then;
+
+  @override
+  $Res call({
+    Object? person = freezed,
+    Object? records = freezed,
+  }) {
+    return _then(_value.copyWith(
+      person: person == freezed
+          ? _value.person
+          : person // ignore: cast_nullable_to_non_nullable
+              as Person,
+      records: records == freezed
+          ? _value.records
+          : records // ignore: cast_nullable_to_non_nullable
+              as List<Record>,
+    ));
+  }
+
+  @override
+  $PersonCopyWith<$Res> get person {
+    return $PersonCopyWith<$Res>(_value.person, (value) {
+      return _then(_value.copyWith(person: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_PersonWithRecordsCopyWith<$Res>
+    implements $PersonWithRecordsCopyWith<$Res> {
+  factory _$$_PersonWithRecordsCopyWith(_$_PersonWithRecords value,
+          $Res Function(_$_PersonWithRecords) then) =
+      __$$_PersonWithRecordsCopyWithImpl<$Res>;
+  @override
+  $Res call({Person person, List<Record> records});
+
+  @override
+  $PersonCopyWith<$Res> get person;
+}
+
+/// @nodoc
+class __$$_PersonWithRecordsCopyWithImpl<$Res>
+    extends _$PersonWithRecordsCopyWithImpl<$Res>
+    implements _$$_PersonWithRecordsCopyWith<$Res> {
+  __$$_PersonWithRecordsCopyWithImpl(
+      _$_PersonWithRecords _value, $Res Function(_$_PersonWithRecords) _then)
+      : super(_value, (v) => _then(v as _$_PersonWithRecords));
+
+  @override
+  _$_PersonWithRecords get _value => super._value as _$_PersonWithRecords;
+
+  @override
+  $Res call({
+    Object? person = freezed,
+    Object? records = freezed,
+  }) {
+    return _then(_$_PersonWithRecords(
+      person: person == freezed
+          ? _value.person
+          : person // ignore: cast_nullable_to_non_nullable
+              as Person,
+      records: records == freezed
+          ? _value._records
+          : records // ignore: cast_nullable_to_non_nullable
+              as List<Record>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_PersonWithRecords implements _PersonWithRecords {
+  _$_PersonWithRecords(
+      {required this.person, final List<Record> records = const []})
+      : _records = records;
+
+  @override
+  final Person person;
+  final List<Record> _records;
+  @override
+  @JsonKey()
+  List<Record> get records {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_records);
+  }
+
+  @override
+  String toString() {
+    return 'PersonWithRecords(person: $person, records: $records)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_PersonWithRecords &&
+            const DeepCollectionEquality().equals(other.person, person) &&
+            const DeepCollectionEquality().equals(other._records, _records));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(person),
+      const DeepCollectionEquality().hash(_records));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_PersonWithRecordsCopyWith<_$_PersonWithRecords> get copyWith =>
+      __$$_PersonWithRecordsCopyWithImpl<_$_PersonWithRecords>(
+          this, _$identity);
+}
+
+abstract class _PersonWithRecords implements PersonWithRecords {
+  factory _PersonWithRecords(
+      {required final Person person,
+      final List<Record> records}) = _$_PersonWithRecords;
+
+  @override
+  Person get person;
+  @override
+  List<Record> get records;
+  @override
+  @JsonKey(ignore: true)
+  _$$_PersonWithRecordsCopyWith<_$_PersonWithRecords> get copyWith =>
+      throw _privateConstructorUsedError;
+}

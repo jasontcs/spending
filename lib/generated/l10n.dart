@@ -349,6 +349,36 @@ class S {
       args: [],
     );
   }
+
+  /// `名稱`
+  String get name {
+    return Intl.message(
+      '名稱',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `圖示`
+  String get icon {
+    return Intl.message(
+      '圖示',
+      name: 'icon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `數值需要正數`
+  String get error_num_not_larger_than_0 {
+    return Intl.message(
+      '數值需要正數',
+      name: 'error_num_not_larger_than_0',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

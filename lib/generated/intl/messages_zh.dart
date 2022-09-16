@@ -37,8 +37,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("yyyy年M月d日"),
         "deleted": MessageLookupByLibrary.simpleMessage("已刪除"),
         "draft": MessageLookupByLibrary.simpleMessage("未上載"),
+        "error_num_not_larger_than_0":
+            MessageLookupByLibrary.simpleMessage("數值需要正數"),
         "gallery": MessageLookupByLibrary.simpleMessage("相簿"),
+        "icon": MessageLookupByLibrary.simpleMessage("圖示"),
         "locale": MessageLookupByLibrary.simpleMessage("zh_HK"),
+        "name": MessageLookupByLibrary.simpleMessage("名稱"),
         "new_category": MessageLookupByLibrary.simpleMessage("新類別"),
         "new_person": MessageLookupByLibrary.simpleMessage("新成員"),
         "no_records": MessageLookupByLibrary.simpleMessage("沒有記錄"),

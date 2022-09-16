@@ -28,5 +28,8 @@
     "ratio": "比例",
     "spent": "支出",
     "balance": "餘額",
-    "not_set": "未設定"
+    "not_set": "未設定",
+    "name": "名稱",
+    "icon": "圖示",
+    "error_num_not_larger_than_0": "數值需要正數"
 }

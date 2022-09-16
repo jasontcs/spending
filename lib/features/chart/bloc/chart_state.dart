@@ -6,40 +6,42 @@ class ChartState with _$ChartState {
 
   const factory ChartState({
     required DateTime month,
-    @Default({}) Map<Category, List<Record>> categoriesWithRecords,
-    @Default({}) Map<Person, List<Record>> peopleWithRecords,
+    @Default([]) List<CategoryWithRecords> categoriesWithRecords,
+    @Default([]) List<PersonWithRecords> peopleWithRecords,
     @Default([]) List<Record> records,
     DateTime? trendFocusedDate,
   }) = _ChartState;
 
-  Map<Category, List<Record>> get categoriesWithRecordsThisMonth =>
-      categoriesWithRecords.map((key, value) => MapEntry(
-          key,
-          value
-              .where((record) => DateUtils.isSameMonth(record.dateTime, month))
-              .toList()));
+  num get totalThisMonth => records.fold<num>(
+      0, (previousValue, element) => previousValue += element.amount);
+}
 
-  Map<Category, num> get categoriesWithTotalThisMonth {
-    return categoriesWithRecordsThisMonth.map((key, value) => MapEntry(
-        key,
-        value.fold<num>(
-            0, (previousValue, element) => previousValue += element.amount)));
+extension CategoryWithRecordsX on CategoryWithRecords {
+  num get total =>
+      records.fold(0, (previousValue, record) => previousValue + record.amount);
+  CategoryWithRecords whereMonth(DateTime month) => copyWith(
+      records: records
+          .where((record) => DateUtils.isSameMonth(record.dateTime, month))
+          .toList());
+
+  List<DateWithRecords> datesWithRecordsWithMonth(DateTime month) {
+    final days = List.generate(
+        DateUtils.getDaysInMonth(month.year, month.month),
+        (index) => DateTime(month.year, month.month, 1 + index));
+    final dateWithRecordsMap =
+        records.groupListsBy((record) => DateUtils.dateOnly(record.dateTime));
+    return days
+        .map((day) =>
+            DateWithRecords(date: day, records: dateWithRecordsMap[day] ?? []))
+        .toList();
   }
+}
 
-  Map<Person, List<Record>> get peopleWithRecordsThisMonth =>
-      peopleWithRecords.map((key, value) => MapEntry(
-          key,
-          value
-              .where((record) => DateUtils.isSameMonth(record.dateTime, month))
-              .toList()));
-
-  Map<Person, num> get peopleWithTotalThisMonth {
-    return peopleWithRecordsThisMonth.map((key, value) => MapEntry(
-        key,
-        value.fold<num>(
-            0, (previousValue, element) => previousValue += element.amount)));
-  }
-
-  num get totalThisMonth => categoriesWithTotalThisMonth.entries
-      .fold<num>(0, (previousValue, element) => previousValue += element.value);
+extension PersonWithRecordsX on PersonWithRecords {
+  num get total =>
+      records.fold(0, (previousValue, record) => previousValue + record.amount);
+  PersonWithRecords whereMonth(DateTime month) => copyWith(
+      records: records
+          .where((record) => DateUtils.isSameMonth(record.dateTime, month))
+          .toList());
 }

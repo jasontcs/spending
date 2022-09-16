@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ChartState {
   DateTime get month => throw _privateConstructorUsedError;
-  Map<Category, List<Record>> get categoriesWithRecords =>
+  List<CategoryWithRecords> get categoriesWithRecords =>
       throw _privateConstructorUsedError;
-  Map<Person, List<Record>> get peopleWithRecords =>
+  List<PersonWithRecords> get peopleWithRecords =>
       throw _privateConstructorUsedError;
   List<Record> get records => throw _privateConstructorUsedError;
   DateTime? get trendFocusedDate => throw _privateConstructorUsedError;
@@ -36,8 +36,8 @@ abstract class $ChartStateCopyWith<$Res> {
       _$ChartStateCopyWithImpl<$Res>;
   $Res call(
       {DateTime month,
-      Map<Category, List<Record>> categoriesWithRecords,
-      Map<Person, List<Record>> peopleWithRecords,
+      List<CategoryWithRecords> categoriesWithRecords,
+      List<PersonWithRecords> peopleWithRecords,
       List<Record> records,
       DateTime? trendFocusedDate});
 }
@@ -66,11 +66,11 @@ class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
       categoriesWithRecords: categoriesWithRecords == freezed
           ? _value.categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
-              as Map<Category, List<Record>>,
+              as List<CategoryWithRecords>,
       peopleWithRecords: peopleWithRecords == freezed
           ? _value.peopleWithRecords
           : peopleWithRecords // ignore: cast_nullable_to_non_nullable
-              as Map<Person, List<Record>>,
+              as List<PersonWithRecords>,
       records: records == freezed
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
@@ -92,8 +92,8 @@ abstract class _$$_ChartStateCopyWith<$Res>
   @override
   $Res call(
       {DateTime month,
-      Map<Category, List<Record>> categoriesWithRecords,
-      Map<Person, List<Record>> peopleWithRecords,
+      List<CategoryWithRecords> categoriesWithRecords,
+      List<PersonWithRecords> peopleWithRecords,
       List<Record> records,
       DateTime? trendFocusedDate});
 }
@@ -124,11 +124,11 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
       categoriesWithRecords: categoriesWithRecords == freezed
           ? _value._categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
-              as Map<Category, List<Record>>,
+              as List<CategoryWithRecords>,
       peopleWithRecords: peopleWithRecords == freezed
           ? _value._peopleWithRecords
           : peopleWithRecords // ignore: cast_nullable_to_non_nullable
-              as Map<Person, List<Record>>,
+              as List<PersonWithRecords>,
       records: records == freezed
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
@@ -146,8 +146,8 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
 class _$_ChartState extends _ChartState {
   const _$_ChartState(
       {required this.month,
-      final Map<Category, List<Record>> categoriesWithRecords = const {},
-      final Map<Person, List<Record>> peopleWithRecords = const {},
+      final List<CategoryWithRecords> categoriesWithRecords = const [],
+      final List<PersonWithRecords> peopleWithRecords = const [],
       final List<Record> records = const [],
       this.trendFocusedDate})
       : _categoriesWithRecords = categoriesWithRecords,
@@ -157,20 +157,20 @@ class _$_ChartState extends _ChartState {
 
   @override
   final DateTime month;
-  final Map<Category, List<Record>> _categoriesWithRecords;
+  final List<CategoryWithRecords> _categoriesWithRecords;
   @override
   @JsonKey()
-  Map<Category, List<Record>> get categoriesWithRecords {
+  List<CategoryWithRecords> get categoriesWithRecords {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_categoriesWithRecords);
+    return EqualUnmodifiableListView(_categoriesWithRecords);
   }
 
-  final Map<Person, List<Record>> _peopleWithRecords;
+  final List<PersonWithRecords> _peopleWithRecords;
   @override
   @JsonKey()
-  Map<Person, List<Record>> get peopleWithRecords {
+  List<PersonWithRecords> get peopleWithRecords {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_peopleWithRecords);
+    return EqualUnmodifiableListView(_peopleWithRecords);
   }
 
   final List<Record> _records;
@@ -222,8 +222,8 @@ class _$_ChartState extends _ChartState {
 abstract class _ChartState extends ChartState {
   const factory _ChartState(
       {required final DateTime month,
-      final Map<Category, List<Record>> categoriesWithRecords,
-      final Map<Person, List<Record>> peopleWithRecords,
+      final List<CategoryWithRecords> categoriesWithRecords,
+      final List<PersonWithRecords> peopleWithRecords,
       final List<Record> records,
       final DateTime? trendFocusedDate}) = _$_ChartState;
   const _ChartState._() : super._();
@@ -231,9 +231,9 @@ abstract class _ChartState extends ChartState {
   @override
   DateTime get month;
   @override
-  Map<Category, List<Record>> get categoriesWithRecords;
+  List<CategoryWithRecords> get categoriesWithRecords;
   @override
-  Map<Person, List<Record>> get peopleWithRecords;
+  List<PersonWithRecords> get peopleWithRecords;
   @override
   List<Record> get records;
   @override

@@ -17,45 +17,48 @@ class ReceiptsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderImagePicker(
-      name: name,
-      displayCustomType: (obj) {
-        if (obj is Receipt) {
-          return obj.image.imageUrl;
-        }
-        return obj;
-      },
-      valueTransformer: (objs) {
-        return objs
-            ?.map((obj) {
-              if (obj is Receipt) return obj;
-              if (obj is XFile) {
-                return Receipt(
-                  image: SpendingImage(
-                    imageFile: File(obj.path),
-                  ),
-                );
-              }
-            })
-            .whereType<Receipt>()
-            .toList();
-      },
-      decoration: InputDecoration(
-        labelText: S.of(context).receipts,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderImagePicker(
+        name: name,
+        displayCustomType: (obj) {
+          if (obj is Receipt) {
+            return obj.image.imageUrl;
+          }
+          return obj;
+        },
+        valueTransformer: (objs) {
+          return objs
+              ?.map((obj) {
+                if (obj is Receipt) return obj;
+                if (obj is XFile) {
+                  return Receipt(
+                    image: SpendingImage(
+                      imageFile: File(obj.path),
+                    ),
+                  );
+                }
+              })
+              .whereType<Receipt>()
+              .toList();
+        },
+        decoration: InputDecoration(
+          labelText: S.of(context).receipts,
+        ),
+        transformImageWidget: (context, displayImage) {
+          late final Image? image;
+          if (displayImage is Image) {
+            image = displayImage;
+          } else if (displayImage is XFileImage) {
+            image = Image.file(File(displayImage.file.path));
+          }
+          final tag = ObjectKey(image);
+          return ReceiptThumbnail(tag: tag, image: image);
+        },
+        bottomSheetPadding: MediaQuery.of(context).padding,
+        cameraLabel: Text(S.of(context).camera),
+        galleryLabel: Text(S.of(context).gallery),
       ),
-      transformImageWidget: (context, displayImage) {
-        late final Image? image;
-        if (displayImage is Image) {
-          image = displayImage;
-        } else if (displayImage is XFileImage) {
-          image = Image.file(File(displayImage.file.path));
-        }
-        final tag = ObjectKey(image);
-        return ReceiptThumbnail(tag: tag, image: image);
-      },
-      bottomSheetPadding: MediaQuery.of(context).padding,
-      cameraLabel: Text(S.of(context).camera),
-      galleryLabel: Text(S.of(context).gallery),
     );
   }
 }

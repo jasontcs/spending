@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-import '../../../common/common.dart';
+import '../../../model/category_with_records.dart';
+import '../../../model/person_with_records.dart';
+import '../chart.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'chart_bloc.freezed.dart';
@@ -34,9 +36,11 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
       _spendingRepository.categoriesStream,
       _spendingRepository.recordsStream,
       (List<Category> a, List<Record> b) {
-        return Map.fromEntries(
-            a.map((category) => MapEntry(category, <Record>[])).toList())
-          ..addAll(b.groupListsBy((record) => record.category));
+        final recordsMap = b.groupListsBy((record) => record.category);
+        return a
+            .map((e) =>
+                CategoryWithRecords(category: e, records: recordsMap[e]!))
+            .toList();
       },
     ).listen((value) {
       add(ChartCategoriesWithRecordsChanged(value));
@@ -45,9 +49,10 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
       _spendingRepository.peopleStream,
       _spendingRepository.recordsStream,
       (List<Person> a, List<Record> b) {
-        return Map.fromEntries(
-            a.map((people) => MapEntry(people, <Record>[])).toList())
-          ..addAll(b.groupListsBy((record) => record.person));
+        final recordsMap = b.groupListsBy((record) => record.person);
+        return a
+            .map((e) => PersonWithRecords(person: e, records: recordsMap[e]!))
+            .toList();
       },
     ).listen((value) {
       add(ChartPeopleWithRecordsChanged(value));
@@ -58,9 +63,9 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<Map<Category, List<Record>>>
+  late StreamSubscription<List<CategoryWithRecords>>
       _categoriesWithRecordsSubscription;
-  late StreamSubscription<Map<Person, List<Record>>>
+  late StreamSubscription<List<PersonWithRecords>>
       _peopleWithRecordsSubscription;
 
   late StreamSubscription<List<Record>> _recordsSubscription;

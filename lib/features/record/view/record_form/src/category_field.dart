@@ -15,29 +15,33 @@ class CategoryField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderField<Category>(
-      name: name,
-      builder: (field) => TextFormField(
-        controller: TextEditingController(text: field.value?.title),
-        readOnly: true,
-        onTap: () async {
-          final selected = await context
-              .pushRoute<Category?>(CategoriesRoute(selected: field.value?.id));
-          if (selected != null) field.didChange(selected);
-        },
-        decoration: InputDecoration(
-          suffixIcon: Icon(Icons.arrow_forward_ios),
-          labelText: S.of(context).category,
-          prefixIcon: Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: Text(
-              field.value?.icon ?? '',
-              style: TextStyle(fontSize: 18),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderField<Category>(
+        name: name,
+        builder: (field) => TextFormField(
+          controller: TextEditingController(text: field.value?.title),
+          readOnly: true,
+          onTap: () async {
+            final selected = await context.pushRoute<Category?>(
+                CategoriesRoute(selected: field.value?.id));
+            if (selected != null) field.didChange(selected);
+          },
+          decoration: InputDecoration(
+            suffixIcon: Icon(Icons.arrow_forward_ios),
+            labelText: S.of(context).category,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(13.0),
+              child: Text(
+                field.value?.icon ?? '',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
+            errorText: field.errorText,
           ),
         ),
+        validator: FormBuilderValidators.required(),
       ),
-      validator: FormBuilderValidators.required(),
     );
   }
 }

@@ -27,7 +27,11 @@ class PersonForm extends StatelessWidget {
             },
             child: Column(
               children: [
-                IdField(),
+                Visibility(
+                  visible: false,
+                  maintainState: true,
+                  child: IdField(),
+                ),
                 TitleField(),
                 SaveButton(),
               ],

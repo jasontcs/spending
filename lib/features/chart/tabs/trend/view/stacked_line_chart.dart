@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:spending_repository/spending_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../../../app/theme.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../chart.dart';
 
@@ -13,24 +14,8 @@ class TrendStackedLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final month = context.select((ChartBloc bloc) => bloc.state.month);
-    final datas = context.select(
-      (ChartBloc bloc) => bloc.state.categoriesWithRecordsThisMonth.map(
-        (key, value) {
-          final days = List.generate(
-              DateUtils.getDaysInMonth(month.year, month.month),
-              (index) => DateTime(month.year, month.month, 1 + index));
-          final daysMap =
-              Map.fromEntries(days.map((e) => MapEntry(e, <Record>[])));
-
-          return MapEntry(
-            key,
-            daysMap
-              ..addAll(value.groupListsBy(
-                  (record) => DateUtils.dateOnly(record.dateTime))),
-          );
-        },
-      ),
-    );
+    final categoriesWithRecords =
+        context.select((ChartBloc bloc) => bloc.state.categoriesWithRecords);
     return SfCartesianChart(
       primaryXAxis: DateTimeAxis(
         minimum: DateTime(month.year, month.month, 1),
@@ -50,28 +35,26 @@ class TrendStackedLineChart extends StatelessWidget {
         enable: true,
         shouldAlwaysShow: true,
       ),
-      series: datas.entries
-          .map((e) =>
-              StackedColumnSeries<MapEntry<DateTime, List<Record>>, DateTime>(
-                name: e.key.title,
-                dataSource: e.value.entries.toList(),
-                xValueMapper: (data, _) => data.key,
-                yValueMapper: (data, _) => data.value.fold<num>(
+      series: categoriesWithRecords
+          .map((e) => StackedColumnSeries<DateWithRecords, DateTime>(
+                name: e.category.title,
+                dataSource: e.datesWithRecordsWithMonth(month),
+                xValueMapper: (data, _) => data.date,
+                yValueMapper: (data, _) => data.records.fold<num>(
                     0,
                     (previousValue, element) =>
                         previousValue += element.amount),
               ))
           .toList(),
       onTooltipRender: (tooltipArgs) {
-        final date = datas.entries
+        final date = categoriesWithRecords
             .elementAt(tooltipArgs.seriesIndex as int)
-            .value
-            .entries
+            .datesWithRecordsWithMonth(month)
             .elementAt(tooltipArgs.pointIndex! as int)
-            .key;
-
+            .date;
         context.read<ChartBloc>().add(ChartTrendBarSelected(date));
       },
+      palette: Theme.of(context).extension<AppColor>()!.palette,
     );
   }
 }

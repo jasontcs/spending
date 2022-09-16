@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spending_repository/spending_repository.dart';
 
+import '../../../../../app/theme.dart';
 import '../../../../../widgets/records_list.dart';
 import '../../../chart.dart';
 
@@ -16,12 +18,22 @@ class TrendTabPage extends StatelessWidget {
           ),
         )
         .toList());
+    final categories = context.select((ChartBloc bloc) =>
+        bloc.state.categoriesWithRecords.map((e) => e.category).toList());
+    final Map<Category, Color?> categoriesColor = {
+      for (final element in categories.asMap().entries)
+        element.value:
+            Theme.of(context).extension<AppColor>()!.palette[element.key]
+    };
     return Scaffold(
       body: Column(
         children: [
-          TrendStackedLineChart(),
+          const TrendStackedLineChart(),
           Flexible(
-            child: RecordsList(records: records),
+            child: RecordsList(
+              records: records,
+              categoriesColor: categoriesColor,
+            ),
           ),
         ],
       ),

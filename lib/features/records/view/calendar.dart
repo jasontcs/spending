@@ -77,32 +77,7 @@ class RecordsCalendar extends StatelessWidget {
               ),
             );
       },
-      calendarBuilders: CalendarBuilders(
-        markerBuilder: (context, day, List<Record> records) {
-          if (records.isNotEmpty) {
-            final total = records.fold<num>(
-                0, (total, current) => total += current.amount);
-            final theme = Theme.of(context);
-            return Text(
-              total.toStringAsFixed(0),
-              style: theme.primaryTextTheme.labelSmall?.copyWith(
-                // color: theme.colorScheme.outline,
-                color: theme.colorScheme.tertiaryContainer,
-                // fontWeight: FontWeight.bold,
-                shadows: kElevationToShadow[2],
-                // shadows: [
-                //   Shadow(
-                //     offset: Offset(1, 1),
-                //     blurRadius: 5.0,
-                //     color: theme.colorScheme.surface,
-                //   ),
-                // ],
-              ),
-            );
-          }
-          return null;
-        },
-      ),
+      calendarBuilders: CalendarBuilders(),
       rowHeight: 62,
     );
   }

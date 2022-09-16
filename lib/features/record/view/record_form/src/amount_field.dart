@@ -20,6 +20,7 @@ class AmountField extends StatelessWidget {
       name: name,
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
+        AppFormBuilderValidators.positiveNum(),
       ]),
       builder: (field) {
         return CalculatorField(
@@ -33,6 +34,7 @@ class AmountField extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: S.of(context).amount,
                 prefixIcon: Icon(Icons.attach_money),
+                errorText: field.errorText,
               ),
             );
           },

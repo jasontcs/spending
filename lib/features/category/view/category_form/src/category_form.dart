@@ -25,7 +25,11 @@ class CategoryForm extends StatelessWidget {
             },
             child: Column(
               children: [
-                IdField(),
+                Visibility(
+                  visible: false,
+                  maintainState: true,
+                  child: IdField(),
+                ),
                 TitleField(),
                 IconField(),
                 BudgetField(),
@@ -41,7 +45,7 @@ extension CategoryX on Category {
   Map<String, Object?> toFormData() => {
         IdField.name: id,
         TitleField.name: title,
-        BudgetField.name: budget.toString(),
+        BudgetField.name: budget,
         IconField.name: icon,
       };
 }

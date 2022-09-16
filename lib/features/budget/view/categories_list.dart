@@ -17,7 +17,7 @@ class BudgetCategoriesList extends StatelessWidget {
     final categoriesWithTotalThisMonth = context
         .select((BudgetBloc bloc) => bloc.state.categoriesWithTotalThisMonth);
 
-    final percentColor = Theme.of(context).extension<PercentColor>()!;
+    final percentColor = Theme.of(context).extension<AppColor>()!;
     return ListView.separated(
       itemBuilder: (context, index) {
         final category =
@@ -59,12 +59,13 @@ class BudgetCategoriesList extends StatelessWidget {
                     );
                   },
                   onDone: (value) {
-                    context.read<BudgetBloc>().add(
-                          BudgetCategoriesBudgetUpdated(
-                            category: category,
-                            budget: value,
-                          ),
-                        );
+                    if (value > 0)
+                      context.read<BudgetBloc>().add(
+                            BudgetCategoriesBudgetUpdated(
+                              category: category,
+                              budget: value,
+                            ),
+                          );
                   },
                 ),
               ),

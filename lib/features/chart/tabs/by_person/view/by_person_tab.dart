@@ -10,7 +10,7 @@ class ByPersonTabPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [
+          children: const [
             ByPersonPieChart(),
             ByPersonDataTable(),
           ],

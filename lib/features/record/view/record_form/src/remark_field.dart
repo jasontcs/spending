@@ -9,10 +9,13 @@ class RemarkField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderTextField(
-      name: name,
-      maxLines: 3,
-      decoration: InputDecoration(labelText: S.of(context).remark),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderTextField(
+        name: name,
+        maxLines: 3,
+        decoration: InputDecoration(labelText: S.of(context).remark),
+      ),
     );
   }
 }

@@ -13,24 +13,27 @@ class SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isBusy =
         context.select((PersonBloc bloc) => bloc.state.status.isBusy);
-    return ElevatedButton(
-      onPressed: isBusy
-          ? null
-          : () {
-              final form = FormBuilder.of(context);
-              if (form?.saveAndValidate() ?? false) {
-                developer.log(form!.value.toString(),
-                    name: 'UI', level: Level.INFO.value);
-                context
-                    .read<PersonBloc>()
-                    .add(PersonFormSaved(form.value.toPerson()));
-              } else {
-                developer.log(form!.value.toString(),
-                    name: 'UI', level: Level.INFO.value);
-                debugPrint('validation failed');
-              }
-            },
-      child: Text(S.of(context).save),
+    return FractionallySizedBox(
+      widthFactor: 1,
+      child: ElevatedButton(
+        onPressed: isBusy
+            ? null
+            : () {
+                final form = FormBuilder.of(context);
+                if (form?.saveAndValidate() ?? false) {
+                  developer.log(form!.value.toString(),
+                      name: 'UI', level: Level.INFO.value);
+                  context
+                      .read<PersonBloc>()
+                      .add(PersonFormSaved(form.value.toPerson()));
+                } else {
+                  developer.log(form!.value.toString(),
+                      name: 'UI', level: Level.INFO.value);
+                  debugPrint('validation failed');
+                }
+              },
+        child: Text(S.of(context).save),
+      ),
     );
   }
 }

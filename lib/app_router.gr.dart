@@ -100,13 +100,13 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const ByPersonTabPage());
     },
-    ByCategoryTabRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const ByCategoryTabPage());
-    },
     TrendTabRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const TrendTabPage());
+    },
+    ByCategoryTabRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ByCategoryTabPage());
     }
   };
 
@@ -125,10 +125,10 @@ class _$AppRouter extends RootStackRouter {
               children: [
                 RouteConfig(ByPersonTabRoute.name,
                     path: 'by-person-tab-page', parent: ChartRoute.name),
-                RouteConfig(ByCategoryTabRoute.name,
-                    path: 'by-category-tab-page', parent: ChartRoute.name),
                 RouteConfig(TrendTabRoute.name,
-                    path: 'trend-tab-page', parent: ChartRoute.name)
+                    path: '', parent: ChartRoute.name),
+                RouteConfig(ByCategoryTabRoute.name,
+                    path: 'by-category-tab-page', parent: ChartRoute.name)
               ]),
           RouteConfig(SettingRoute.name,
               path: 'setting-page', parent: AppHomeRoute.name)
@@ -363,18 +363,18 @@ class ByPersonTabRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TrendTabPage]
+class TrendTabRoute extends PageRouteInfo<void> {
+  const TrendTabRoute() : super(TrendTabRoute.name, path: '');
+
+  static const String name = 'TrendTabRoute';
+}
+
+/// generated route for
 /// [ByCategoryTabPage]
 class ByCategoryTabRoute extends PageRouteInfo<void> {
   const ByCategoryTabRoute()
       : super(ByCategoryTabRoute.name, path: 'by-category-tab-page');
 
   static const String name = 'ByCategoryTabRoute';
-}
-
-/// generated route for
-/// [TrendTabPage]
-class TrendTabRoute extends PageRouteInfo<void> {
-  const TrendTabRoute() : super(TrendTabRoute.name, path: 'trend-tab-page');
-
-  static const String name = 'TrendTabRoute';
 }

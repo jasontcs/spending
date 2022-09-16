@@ -20,20 +20,23 @@ class CurrencyField extends StatelessWidget {
     final currencies = context.select((RecordBloc bloc) =>
         [if (value != null) value, ...bloc.state.currencies].toSet());
 
-    return FormBuilderChoiceChip(
-      name: name,
-      validator: FormBuilderValidators.required(),
-      options: currencies
-          .map((currency) => FormBuilderChipOption<Currency>(
-                value: currency,
-                child: Text(currency.title),
-              ))
-          .toList(),
-      valueTransformer: (value) =>
-          currencies.singleWhereOrNull((currency) => currency.title == value),
-      spacing: 8.0,
-      decoration: InputDecoration(
-        labelText: S.of(context).currency,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: FormBuilderChoiceChip(
+        name: name,
+        validator: FormBuilderValidators.required(),
+        options: currencies
+            .map((currency) => FormBuilderChipOption<Currency>(
+                  value: currency,
+                  child: Text(currency.title),
+                ))
+            .toList(),
+        valueTransformer: (value) =>
+            currencies.singleWhereOrNull((currency) => currency.title == value),
+        spacing: 8.0,
+        decoration: InputDecoration(
+          labelText: S.of(context).currency,
+        ),
       ),
     );
   }
