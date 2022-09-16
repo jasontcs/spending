@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "amount": MessageLookupByLibrary.simpleMessage("金額"),
         "app_title": MessageLookupByLibrary.simpleMessage("記帳HK"),
+        "average_per_day": MessageLookupByLibrary.simpleMessage("平均每天"),
         "balance": MessageLookupByLibrary.simpleMessage("餘額"),
         "budget": MessageLookupByLibrary.simpleMessage("預算"),
         "calculator_enter": MessageLookupByLibrary.simpleMessage("確定"),
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "setting": MessageLookupByLibrary.simpleMessage("設定"),
         "sign_in": MessageLookupByLibrary.simpleMessage("登入"),
         "spent": MessageLookupByLibrary.simpleMessage("支出"),
+        "total": MessageLookupByLibrary.simpleMessage("合計"),
         "updated": MessageLookupByLibrary.simpleMessage("已更新")
       };
 }

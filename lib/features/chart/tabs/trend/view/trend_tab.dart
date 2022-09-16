@@ -29,6 +29,7 @@ class TrendTabPage extends StatelessWidget {
       body: Column(
         children: [
           const TrendStackedLineChart(),
+          TotalDetails(),
           Flexible(
             child: RecordsList(
               records: records,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../by_person.dart';
+import '../../../chart.dart';
 
 class ByPersonTabPage extends StatelessWidget {
   const ByPersonTabPage({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class ByPersonTabPage extends StatelessWidget {
         child: Column(
           children: const [
             ByPersonPieChart(),
+            TotalDetails(),
             ByPersonDataTable(),
           ],
         ),

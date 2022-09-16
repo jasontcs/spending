@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../by_category.dart';
+import '../../../chart.dart';
 
 class ByCategoryTabPage extends StatelessWidget {
   const ByCategoryTabPage({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class ByCategoryTabPage extends StatelessWidget {
         child: Column(
           children: [
             ByCategoryPieChart(),
+            TotalDetails(),
             ByCategoryDataTable(),
           ],
         ),

@@ -12,8 +12,10 @@ class ChartState with _$ChartState {
     DateTime? trendFocusedDate,
   }) = _ChartState;
 
-  num get totalThisMonth => records.fold<num>(
-      0, (previousValue, element) => previousValue += element.amount);
+  num get totalThisMonth => records
+      .where((record) => DateUtils.isSameMonth(record.dateTime, month))
+      .fold<num>(
+          0, (previousValue, element) => previousValue += element.amount);
 }
 
 extension CategoryWithRecordsX on CategoryWithRecords {

@@ -370,6 +370,26 @@ class S {
     );
   }
 
+  /// `合計`
+  String get total {
+    return Intl.message(
+      '合計',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `平均每天`
+  String get average_per_day {
+    return Intl.message(
+      '平均每天',
+      name: 'average_per_day',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `數值需要正數`
   String get error_num_not_larger_than_0 {
     return Intl.message(
