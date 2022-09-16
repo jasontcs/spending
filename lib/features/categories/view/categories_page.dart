@@ -90,7 +90,7 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: selected ? Theme.of(context).primaryColorLight : null,
+      color: selected ? Theme.of(context).colorScheme.secondaryContainer : null,
       child: InkWell(
         onTap: onTap,
         child: GridTile(
