@@ -95,7 +95,11 @@ class CategoryTile extends StatelessWidget {
         onTap: onTap,
         child: GridTile(
           footer: Center(child: Text(category.title)),
-          child: Center(child: Text(category.icon)),
+          child: Center(
+              child: Text(
+            category.icon,
+            style: Theme.of(context).textTheme.titleMedium,
+          )),
         ),
       ),
     );
