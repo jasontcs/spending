@@ -39,7 +39,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
         final recordsMap = b.groupListsBy((record) => record.category);
         return a
             .map((e) =>
-                CategoryWithRecords(category: e, records: recordsMap[e]!))
+                CategoryWithRecords(category: e, records: recordsMap[e] ?? []))
             .toList();
       },
     ).listen((value) {
@@ -51,7 +51,8 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
       (List<Person> a, List<Record> b) {
         final recordsMap = b.groupListsBy((record) => record.person);
         return a
-            .map((e) => PersonWithRecords(person: e, records: recordsMap[e]!))
+            .map((e) =>
+                PersonWithRecords(person: e, records: recordsMap[e] ?? []))
             .toList();
       },
     ).listen((value) {
