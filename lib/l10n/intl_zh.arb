@@ -33,5 +33,6 @@
     "icon": "圖示",
     "total": "合計",
     "average_per_day": "平均每天",
+    "please_select_a_bar": "請點擊圖表項目",
     "error_num_not_larger_than_0": "數值需要正數"
 }

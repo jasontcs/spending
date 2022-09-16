@@ -390,6 +390,16 @@ class S {
     );
   }
 
+  /// `請點擊圖表項目`
+  String get please_select_a_bar {
+    return Intl.message(
+      '請點擊圖表項目',
+      name: 'please_select_a_bar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `數值需要正數`
   String get error_num_not_larger_than_0 {
     return Intl.message(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../../../app/theme.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../../widgets/records_list.dart';
 import '../../../chart.dart';
 
@@ -25,16 +26,23 @@ class TrendTabPage extends StatelessWidget {
         element.value:
             Theme.of(context).extension<AppColor>()!.palette[element.key]
     };
+    final hasSelectedDate =
+        context.select((ChartBloc bloc) => bloc.state.trendFocusedDate != null);
     return Scaffold(
       body: Column(
         children: [
           const TrendStackedLineChart(),
           TotalDetails(),
           Flexible(
-            child: RecordsList(
-              records: records,
-              categoriesColor: categoriesColor,
-            ),
+            child: hasSelectedDate
+                ? RecordsList(
+                    records: records,
+                    categoriesColor: categoriesColor,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(S.of(context).please_select_a_bar),
+                  ),
           ),
         ],
       ),

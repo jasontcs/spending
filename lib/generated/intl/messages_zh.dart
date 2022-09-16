@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_records": MessageLookupByLibrary.simpleMessage("沒有記錄"),
         "not_set": MessageLookupByLibrary.simpleMessage("未設定"),
         "person": MessageLookupByLibrary.simpleMessage("成員"),
+        "please_select_a_bar": MessageLookupByLibrary.simpleMessage("請點擊圖表項目"),
         "ratio": MessageLookupByLibrary.simpleMessage("比例"),
         "receipts": MessageLookupByLibrary.simpleMessage("收據"),
         "record": MessageLookupByLibrary.simpleMessage("記錄"),
