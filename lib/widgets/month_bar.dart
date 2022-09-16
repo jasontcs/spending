@@ -15,7 +15,7 @@ class MonthBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.onPrimary;
+    final color = Theme.of(context).appBarTheme.foregroundColor;
     return TableCalendar(
       focusedDay: focusedMonth,
       firstDay: DateTime.utc(0),

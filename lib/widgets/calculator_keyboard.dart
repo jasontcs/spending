@@ -44,13 +44,19 @@ class CalculatorField extends StatelessWidget {
                     child: ValueListenableBuilder(
                         valueListenable: notifier,
                         builder: (context, String value, child) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12.0, horizontal: 18.0),
-                            child: Text(
-                              value,
-                              style:
-                                  Theme.of(context).primaryTextTheme.bodyLarge,
+                          return ColoredBox(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onTertiaryContainer,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0, horizontal: 18.0),
+                              child: Text(
+                                value,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyLarge,
+                              ),
                             ),
                           );
                         }),
@@ -59,12 +65,15 @@ class CalculatorField extends StatelessWidget {
                     onTap: () {
                       focusNode.unfocus();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 18.0),
-                      child: Text(
-                        S.of(context).calculator_enter,
-                        style: Theme.of(context).primaryTextTheme.bodyLarge,
+                    child: ColoredBox(
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 18.0),
+                        child: Text(
+                          S.of(context).calculator_enter,
+                          style: Theme.of(context).primaryTextTheme.bodyLarge,
+                        ),
                       ),
                     ),
                   )
@@ -286,8 +295,7 @@ class CalculatorKeyboardKey extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            onSurface:
-                backgroundColor ?? Theme.of(context).colorScheme.secondary,
+            primary: backgroundColor ?? Theme.of(context).colorScheme.secondary,
           ),
           onPressed: onTap,
           child: Container(
