@@ -31,6 +31,7 @@ String percentageFormat(BuildContext context, num value) =>
 
 class AppFormBuilderValidators {
   static FormFieldValidator<T> positiveNum<T>({
+    required bool allowZero,
     String? errorText,
   }) =>
       (T? value) {
@@ -40,6 +41,8 @@ class AppFormBuilderValidators {
         } else if (value is num) {
           numVal = value;
         }
-        return (numVal ?? 0) > 0 ? null : S.current.error_num_not_larger_than_0;
+        return (allowZero ? (numVal ?? 0) >= 0 : (numVal ?? 0) > 0)
+            ? null
+            : S.current.error_num_not_larger_than_0;
       };
 }

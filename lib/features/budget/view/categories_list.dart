@@ -59,7 +59,7 @@ class BudgetCategoriesList extends StatelessWidget {
                     );
                   },
                   onDone: (value) {
-                    if (value > 0)
+                    if (value >= 0)
                       context.read<BudgetBloc>().add(
                             BudgetCategoriesBudgetUpdated(
                               category: category,

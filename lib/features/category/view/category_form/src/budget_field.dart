@@ -19,7 +19,7 @@ class BudgetField extends StatelessWidget {
       name: name,
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
-        AppFormBuilderValidators.positiveNum(),
+        AppFormBuilderValidators.positiveNum(allowZero: true),
       ]),
       builder: (field) {
         return CalculatorField(
