@@ -4,6 +4,7 @@ import 'package:spending_repository/spending_repository.dart';
 import 'package:collection/collection.dart';
 
 import '../../../common/common.dart';
+import '../../../generated/l10n.dart';
 import '../../../widgets/form_page.dart';
 import '../../../widgets/form_posting_listener.dart';
 import '../bloc/record_bloc.dart';
@@ -27,9 +28,9 @@ class RecordPage extends StatelessWidget with AutoRouteWrapper {
       idExist: (state) => state.record?.id != null,
       listener: (context, state, type) {
         late final String label;
-        if (type == PostingType.created) label = 'Created';
-        if (type == PostingType.updated) label = 'Updated';
-        if (type == PostingType.deleted) label = 'Deleted';
+        if (type == PostingType.created) label = S.of(context).created;
+        if (type == PostingType.updated) label = S.of(context).updated;
+        if (type == PostingType.deleted) label = S.of(context).deleted;
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(label)));
         context.popRoute();

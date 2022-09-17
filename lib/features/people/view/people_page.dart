@@ -42,13 +42,12 @@ class PeopleView extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).person),
         actions: [
-          if (selected == null)
-            IconButton(
-              onPressed: () {
-                context.pushRoute(PersonRoute());
-              },
-              icon: Icon(Icons.add),
-            )
+          IconButton(
+            onPressed: () {
+              context.pushRoute(PersonRoute());
+            },
+            icon: Icon(Icons.add),
+          )
         ],
       ),
       body: ListView.separated(

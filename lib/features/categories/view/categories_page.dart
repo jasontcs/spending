@@ -42,13 +42,12 @@ class CategoriesView extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).category),
         actions: [
-          if (selected == null)
-            IconButton(
-              onPressed: () {
-                context.pushRoute(CategoryRoute());
-              },
-              icon: Icon(Icons.add),
-            )
+          IconButton(
+            onPressed: () {
+              context.pushRoute(CategoryRoute());
+            },
+            icon: Icon(Icons.add),
+          )
         ],
       ),
       body: GridView.builder(
