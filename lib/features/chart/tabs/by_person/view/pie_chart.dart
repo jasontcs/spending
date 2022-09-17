@@ -15,6 +15,7 @@ class ByPersonPieChart extends StatelessWidget {
     final List<ChartData> chartData = context.select((ChartBloc bloc) => bloc
         .state.peopleWithRecords
         .map((e) => e.whereMonth(bloc.state.month))
+        .where((element) => element.records.isNotEmpty)
         .map((e) => ChartData(e.person.title, e.total))
         .toList());
     return SfCircularChart(

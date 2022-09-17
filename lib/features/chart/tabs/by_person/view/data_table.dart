@@ -12,6 +12,7 @@ class ByPersonDataTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final rows = context.select((ChartBloc bloc) => bloc.state.peopleWithRecords
         .map((e) => e.whereMonth(bloc.state.month))
+        .where((element) => element.records.isNotEmpty)
         .sorted((a, b) => -a.total.compareTo(b.total))
         .mapIndexed(
           (index, element) => DataRow(

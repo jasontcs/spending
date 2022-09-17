@@ -22,6 +22,9 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
       homeIndex: 1,
       builder: (context, child, tabController) {
         final month = context.select((ChartBloc bloc) => bloc.state.month);
+        final hasRecord = context.select((ChartBloc bloc) => bloc.state.records
+            .where((record) => DateUtils.isSameMonth(record.dateTime, month))
+            .isNotEmpty);
         return Scaffold(
           appBar: AppBar(
             title: Text(S.of(context).chart),
@@ -32,11 +35,17 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
               },
             ),
           ),
-          body: child,
-          floatingActionButton: Transform.translate(
-            offset: const Offset(0, -16),
-            child: TabPageSelector(controller: tabController),
-          ),
+          body: hasRecord
+              ? child
+              : Center(
+                  child: Text(S.of(context).no_records),
+                ),
+          floatingActionButton: hasRecord
+              ? Transform.translate(
+                  offset: const Offset(0, -16),
+                  child: TabPageSelector(controller: tabController),
+                )
+              : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         );

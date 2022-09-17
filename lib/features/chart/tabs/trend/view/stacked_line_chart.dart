@@ -36,6 +36,7 @@ class TrendStackedLineChart extends StatelessWidget {
         shouldAlwaysShow: true,
       ),
       series: categoriesWithRecords
+          .where((element) => element.whereMonth(month).records.isNotEmpty)
           .map((e) => StackedColumnSeries<DateWithRecords, DateTime>(
                 name: e.category.title,
                 dataSource: e.datesWithRecordsWithMonth(month),
