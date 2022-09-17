@@ -19,8 +19,12 @@ class TrendTabPage extends StatelessWidget {
           ),
         )
         .toList());
-    final categories = context.select((ChartBloc bloc) =>
-        bloc.state.categoriesWithRecords.map((e) => e.category).toList());
+    final categories = context.select((ChartBloc bloc) => bloc
+        .state.categoriesWithRecords
+        .map((e) => e.whereMonth(bloc.state.month))
+        .where((element) => element.records.isNotEmpty)
+        .map((e) => e.category)
+        .toList());
     final Map<Category, Color?> categoriesColor = {
       for (final element in categories.asMap().entries)
         element.value:
