@@ -12,7 +12,6 @@ final kAppTheme = FlexThemeData.light(
     blendOnColors: false,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  useMaterial3: true,
   // To use the playground font, add GoogleFonts package and uncomment
   // fontFamily: GoogleFonts.notoSans().fontFamily,
 ).copyWith(
@@ -34,7 +33,6 @@ final kAppDarkTheme = FlexThemeData.dark(
     blendOnLevel: 30,
   ),
   visualDensity: FlexColorScheme.comfortablePlatformDensity,
-  useMaterial3: true,
   // To use the playground font, add GoogleFonts package and uncomment
   // fontFamily: GoogleFonts.notoSans().fontFamily,
 ).copyWith(
