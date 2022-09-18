@@ -22,7 +22,7 @@ class ByCategoryDataTable extends StatelessWidget {
                   DataCell(Text(element.category.title)),
                   DataCell(Text(currencyFormat(context, element.total))),
                   DataCell(Text(bloc.state.totalThisMonth == 0
-                      ? '-'
+                      ? S.of(context).amount_not_available
                       : percentageFormat(
                           context, element.total / bloc.state.totalThisMonth))),
                 ],

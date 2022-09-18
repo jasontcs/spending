@@ -34,7 +34,11 @@ class RecordForm extends StatelessWidget {
                 AmountField(),
                 CategoryField(),
                 PersonField(),
-                CurrencyField(),
+                Visibility(
+                  visible: false,
+                  maintainState: true,
+                  child: CurrencyField(),
+                ),
                 ReceiptsField(),
                 RemarkField(),
                 SaveButton(),

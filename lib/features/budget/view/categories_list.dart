@@ -89,7 +89,7 @@ class BudgetCategoriesList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      '${S.of(context).balance}: ${budget.percentString(context) ?? '--'}'),
+                      '${S.of(context).balance}: ${budget.percentString(context) ?? S.of(context).amount_not_available}'),
                   Text(
                       '${S.of(context).spent}: ${currencyFormat(context, budget.used)}')
                 ],

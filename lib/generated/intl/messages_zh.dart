@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "amount": MessageLookupByLibrary.simpleMessage("金額"),
+        "amount_not_available": MessageLookupByLibrary.simpleMessage("--"),
         "app_title": MessageLookupByLibrary.simpleMessage("記帳HK"),
         "average_per_day": MessageLookupByLibrary.simpleMessage("平均每天"),
         "balance": MessageLookupByLibrary.simpleMessage("餘額"),

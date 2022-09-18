@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `--`
+  String get amount_not_available {
+    return Intl.message(
+      '--',
+      name: 'amount_not_available',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `記帳HK`
   String get app_title {
     return Intl.message(

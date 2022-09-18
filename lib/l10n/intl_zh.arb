@@ -1,5 +1,6 @@
 {
     "locale": "zh_HK",
+    "amount_not_available": "--",
     "app_title": "記帳HK",
     "sign_in": "登入",
     "record": "記錄",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../app/theme.dart';
+import '../../../generated/l10n.dart';
 import '../budget.dart';
 
 class BudgetPercentIndicator extends StatelessWidget {
@@ -24,7 +25,7 @@ class BudgetPercentIndicator extends StatelessWidget {
       lineWidth: 12.0,
       circularStrokeCap: CircularStrokeCap.round,
       center: Text(
-        budget.percentString(context) ?? '-',
+        budget.percentString(context) ?? S.of(context).amount_not_available,
         style: Theme.of(context).textTheme.titleLarge,
       ),
       backgroundColor: Theme.of(context).dividerColor,
