@@ -23,7 +23,6 @@ class BudgetField extends StatelessWidget {
       ]),
       builder: (field) {
         return CalculatorField(
-          initialValue: field.value.toString(),
           builder: (context, value, hasFocus) {
             return TextFormField(
               controller: TextEditingController(

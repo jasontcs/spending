@@ -25,11 +25,7 @@ class CategoryForm extends StatelessWidget {
             },
             child: Column(
               children: const [
-                Visibility(
-                  visible: false,
-                  maintainState: true,
-                  child: IdField(),
-                ),
+                IdField(visible: false),
                 TitleField(),
                 IconField(),
                 BudgetField(),
@@ -37,7 +33,7 @@ class CategoryForm extends StatelessWidget {
               ],
             ),
           )
-        : const Material();
+        : const SizedBox.shrink();
   }
 }
 

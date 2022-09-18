@@ -25,17 +25,13 @@ class PersonForm extends StatelessWidget {
             },
             child: Column(
               children: const [
-                Visibility(
-                  visible: false,
-                  maintainState: true,
-                  child: IdField(),
-                ),
+                IdField(visible: false),
                 TitleField(),
                 SaveButton(),
               ],
             ),
           )
-        : const Material();
+        : const SizedBox.shrink();
   }
 }
 

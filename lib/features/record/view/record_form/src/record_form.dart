@@ -28,11 +28,7 @@ class RecordForm extends StatelessWidget {
             },
             child: Column(
               children: const [
-                Visibility(
-                  visible: false,
-                  maintainState: true,
-                  child: RecordIdField(),
-                ),
+                RecordIdField(visible: false),
                 LastUpdate(),
                 DateField(),
                 AmountField(),
@@ -45,7 +41,7 @@ class RecordForm extends StatelessWidget {
               ],
             ),
           )
-        : const Material();
+        : const SizedBox.shrink();
   }
 }
 
