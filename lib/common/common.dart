@@ -24,7 +24,10 @@ extension MapTrySet<K, V> on Map<K, V> {
 }
 
 String currencyFormat(BuildContext context, num amount) =>
-    NumberFormat.simpleCurrency(locale: S.of(context).locale).format(amount);
+    NumberFormat.simpleCurrency(
+      locale: S.of(context).locale,
+      decimalDigits: 1,
+    ).format(amount);
 
 String percentageFormat(BuildContext context, num? value) =>
     NumberFormat.percentPattern(S.of(context).locale).format(value);
