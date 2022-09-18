@@ -54,7 +54,8 @@ class RecordTile extends StatelessWidget {
         ),
       ),
       title: Text(record.category.title),
-      subtitle: Text(record.person.title),
+      subtitle: Text(
+          '${record.person.title}${record.remarks.isNotEmpty ? '- ${record.remarks}' : null}'),
       trailing: Text(currencyFormat(context, record.amount)),
       onTap: () {
         context.pushRoute(RecordRoute(recordId: record.id));

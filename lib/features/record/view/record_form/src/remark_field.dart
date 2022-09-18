@@ -13,7 +13,6 @@ class RemarkField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: FormBuilderTextField(
         name: name,
-        maxLines: 3,
         decoration: InputDecoration(labelText: S.of(context).remark),
       ),
     );
