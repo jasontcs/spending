@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:spending_repository/spending_repository.dart';
 
-import '../../../../../common/common.dart';
 import '../../../person.dart';
 
 class PersonForm extends StatelessWidget {
   const PersonForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class PersonForm extends StatelessWidget {
               context.read<PersonBloc>().add(PersonFormEdited());
             },
             child: Column(
-              children: [
+              children: const [
                 Visibility(
                   visible: false,
                   maintainState: true,
@@ -37,7 +35,7 @@ class PersonForm extends StatelessWidget {
               ],
             ),
           )
-        : Material();
+        : const Material();
   }
 }
 

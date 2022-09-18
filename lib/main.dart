@@ -15,14 +15,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final spendingRepository = SpendingRepositoryImpl(FirebaseSpendingApi());
-
-  BlocOverrides.runZoned(
-    () {
-      runApp(App(
-        spendingRepository: spendingRepository,
-        firebaseAuth: FirebaseAuth.instance,
-      ));
-    },
-    blocObserver: AppBlocObserver(),
-  );
+  Bloc.observer = AppBlocObserver();
+  runApp(App(
+    spendingRepository: spendingRepository,
+    firebaseAuth: FirebaseAuth.instance,
+  ));
 }

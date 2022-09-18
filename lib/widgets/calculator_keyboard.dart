@@ -9,13 +9,12 @@ import '../generated/l10n.dart';
 
 class CalculatorField extends StatelessWidget {
   CalculatorField({
-    Key? key,
+    super.key,
     FocusNode? focusNode,
     this.onDone,
     required this.builder,
     this.initialValue = '',
-  })  : focusNode = focusNode ?? FocusNode(),
-        super(key: key);
+  }) : focusNode = focusNode ?? FocusNode();
   final String initialValue;
   final FocusNode focusNode;
   late final notifier = ValueNotifier<String>(initialValue);
@@ -108,22 +107,22 @@ const double kKeyboardKeyHeight = 70;
 
 class CalculatorKeyboard extends StatefulWidget implements PreferredSizeWidget {
   const CalculatorKeyboard({
-    Key? key,
+    super.key,
     required this.notifier,
     required this.calculator,
-  }) : super(key: key);
+  });
 
   final ValueNotifier<String> notifier;
   final Calculator calculator;
 
   @override
   State<CalculatorKeyboard> createState() => _CalculatorKeyboardState();
-  Size get preferredSize => Size.fromHeight(kKeyboardKeyHeight * 4 + 24);
+  @override
+  Size get preferredSize => const Size.fromHeight(kKeyboardKeyHeight * 4 + 24);
 }
 
 class _CalculatorKeyboardState extends State<CalculatorKeyboard>
     with KeyboardCustomPanelMixin<String> {
-  @override
   late StreamSubscription<CalculatorValue> _subscription;
 
   @override
@@ -142,6 +141,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
 
   @override
   void dispose() {
+    _subscription.cancel();
     super.dispose();
   }
 
@@ -153,7 +153,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
       color: Theme.of(context).colorScheme.onTertiaryContainer,
       child: Table(
         defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        columnWidths: [FractionColumnWidth(0.23)].asMap(),
+        columnWidths: [const FractionColumnWidth(0.23)].asMap(),
         children: [
           TableRow(children: [
             CalculatorKeyboardKey(
@@ -275,13 +275,12 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard>
 
 class CalculatorKeyboardKey extends StatelessWidget {
   const CalculatorKeyboardKey({
-    Key? key,
+    super.key,
     this.label,
     this.widget,
     required this.onTap,
     this.backgroundColor,
-  })  : assert(label != null || widget != null),
-        super(key: key);
+  }) : assert(label != null || widget != null);
   final String? label;
   final Widget? widget;
   final GestureTapCallback onTap;
@@ -295,7 +294,8 @@ class CalculatorKeyboardKey extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: backgroundColor ?? Theme.of(context).colorScheme.secondary,
+            backgroundColor:
+                backgroundColor ?? Theme.of(context).colorScheme.secondary,
           ),
           onPressed: onTap,
           child: Container(

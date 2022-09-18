@@ -6,8 +6,8 @@ import '../budget.dart';
 
 class BudgetOverallTable extends StatelessWidget {
   const BudgetOverallTable({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -7,10 +7,10 @@ import '../common/common.dart';
 
 class RecordsList extends StatelessWidget {
   const RecordsList({
-    Key? key,
+    super.key,
     required this.records,
     this.categoriesColor,
-  }) : super(key: key);
+  });
 
   final List<Record> records;
   final Map<Category, Color?>? categoriesColor;
@@ -27,7 +27,7 @@ class RecordsList extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) {
-        return Divider();
+        return const Divider();
       },
     );
   }
@@ -35,10 +35,10 @@ class RecordsList extends StatelessWidget {
 
 class RecordTile extends StatelessWidget {
   const RecordTile({
-    Key? key,
+    super.key,
     required this.record,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final Record record;
   final Color? backgroundColor;

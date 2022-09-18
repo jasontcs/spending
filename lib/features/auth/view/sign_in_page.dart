@@ -6,7 +6,7 @@ import '../../../generated/l10n.dart';
 import '../auth.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SignInPage extends StatelessWidget {
           previous.status == AuthStatus.logout &&
           current.status == AuthStatus.login,
       listener: (context, state) {
-        context.replaceRoute(AppHomeRoute());
+        context.replaceRoute(const AppHomeRoute());
       },
       child: Scaffold(
         appBar: AppBar(title: Text(S.of(context).sign_in)),

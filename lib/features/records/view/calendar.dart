@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:spending_repository/spending_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../generated/l10n.dart';
 import '../records.dart';
 
 class RecordsCalendar extends StatelessWidget {
-  const RecordsCalendar({Key? key}) : super(key: key);
+  const RecordsCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class RecordsCalendar extends StatelessWidget {
       focusedDay: config.focusedDay ?? DateUtils.dateOnly(DateTime.now()),
       selectedDayPredicate: (day) =>
           DateUtils.isSameDay(config.selectedDate, day),
-      weekendDays: [DateTime.sunday],
+      weekendDays: const [DateTime.sunday],
       onDaySelected: (selectedDay, focusedDay) {
         if (!DateUtils.isSameDay(config.selectedDate, selectedDay)) {
           context.read<RecordsBloc>().add(
@@ -54,7 +53,7 @@ class RecordsCalendar extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: kElevationToShadow[1],
         ),
-        todayTextStyle: TextStyle(),
+        todayTextStyle: const TextStyle(),
         todayDecoration: BoxDecoration(
           color: colorScheme.secondaryContainer,
           shape: BoxShape.circle,
@@ -69,7 +68,7 @@ class RecordsCalendar extends StatelessWidget {
         weekendTextStyle: TextStyle(color: colorScheme.error),
         defaultTextStyle: TextStyle(color: colorScheme.onSurface),
       ),
-      availableCalendarFormats: {CalendarFormat.month: ''},
+      availableCalendarFormats: const {CalendarFormat.month: ''},
       onPageChanged: (focusedDay) {
         context.read<RecordsBloc>().add(
               RecordsCalendarConfigChanged(
@@ -77,7 +76,7 @@ class RecordsCalendar extends StatelessWidget {
               ),
             );
       },
-      calendarBuilders: CalendarBuilders(),
+      calendarBuilders: const CalendarBuilders(),
       rowHeight: 62,
     );
   }

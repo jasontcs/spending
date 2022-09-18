@@ -15,7 +15,7 @@ class AppHomePage extends StatelessWidget {
 }
 
 class AppHomeView extends StatelessWidget {
-  const AppHomeView({Key? key}) : super(key: key);
+  const AppHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,11 @@ class AppHomeView extends StatelessWidget {
                 context.pushRoute(RecordRoute());
                 return false;
               }
-              if (index < 2)
+              if (index < 2) {
                 tabsRouter.setActiveIndex(index);
-              else
+              } else {
                 tabsRouter.setActiveIndex(index - 1);
+              }
               return true;
             },
             initialActiveIndex: tabsRouter.activeIndex < 2

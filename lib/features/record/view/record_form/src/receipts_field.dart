@@ -2,16 +2,15 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import 'package:spending_repository/spending_repository.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spending_repository/spending_repository.dart';
 
 import '../../../../../app_router.dart';
 import '../../../../../generated/l10n.dart';
 
 class ReceiptsField extends StatelessWidget {
-  const ReceiptsField({Key? key}) : super(key: key);
+  const ReceiptsField({super.key});
 
   static const String name = 'receipts';
 
@@ -65,10 +64,10 @@ class ReceiptsField extends StatelessWidget {
 
 class ReceiptThumbnail extends StatelessWidget {
   const ReceiptThumbnail({
-    Key? key,
+    super.key,
     required this.tag,
     required this.image,
-  }) : super(key: key);
+  });
 
   final ObjectKey tag;
   final Image? image;
@@ -79,7 +78,7 @@ class ReceiptThumbnail extends StatelessWidget {
       tag: tag,
       child: Material(
         color: Colors.transparent,
-        child: Container(
+        child: SizedBox(
           width: 130,
           height: 130,
           child: FittedBox(
@@ -88,11 +87,12 @@ class ReceiptThumbnail extends StatelessWidget {
             child: Center(
               child: InkWell(
                 onTap: () {
-                  if (image != null)
+                  if (image != null) {
                     context.pushRoute(ReceiptRoute(
                       image: image!,
                       heroTag: tag,
                     ));
+                  }
                 },
                 child: image,
               ),

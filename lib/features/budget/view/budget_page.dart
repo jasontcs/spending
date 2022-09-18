@@ -7,7 +7,7 @@ import '../../../widgets/month_bar.dart';
 import '../budget.dart';
 
 class BudgetPage extends StatelessWidget with AutoRouteWrapper {
-  const BudgetPage({Key? key}) : super(key: key);
+  const BudgetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +27,21 @@ class BudgetPage extends StatelessWidget with AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [
+              children: const [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: BudgetPercentIndicator(),
                 ),
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: BudgetOverallTable(),
                   ),
                 ),
               ],
             ),
           ),
-          Flexible(
+          const Flexible(
             child: BudgetCategoriesList(),
           ),
         ],

@@ -4,7 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../../../../../generated/l10n.dart';
 
 class RemarkField extends StatelessWidget {
-  const RemarkField({Key? key}) : super(key: key);
+  const RemarkField({super.key});
   static const String name = 'remark';
 
   @override

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../common/common.dart';
 import '../../../../../generated/l10n.dart';
@@ -41,7 +41,7 @@ class ByCategoryDataTable extends StatelessWidget {
               label: Expanded(
                 child: Text(
                   e,
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),

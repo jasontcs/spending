@@ -13,7 +13,7 @@ part 'records_state.dart';
 class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
   RecordsBloc({required SpendingRepository spendingRepository})
       : _spendingRepository = spendingRepository,
-        super(RecordsState()) {
+        super(const RecordsState()) {
     on<RecordsItemsChanged>(_onItemsChanged);
     on<RecordsCalendarConfigChanged>(_onCalendarConfigChanged);
     _recordsSubscription = _spendingRepository.recordsStream.listen((records) {
@@ -42,12 +42,14 @@ class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
     Emitter<RecordsState> emit,
   ) {
     RecordsState state = this.state;
-    if (event.config.selectedDate != null)
+    if (event.config.selectedDate != null) {
       state = state.copyWith
           .calendarConfig(selectedDate: event.config.selectedDate);
-    if (event.config.focusedDay != null)
+    }
+    if (event.config.focusedDay != null) {
       state =
           state.copyWith.calendarConfig(focusedDay: event.config.focusedDay);
+    }
     emit(state);
   }
 }

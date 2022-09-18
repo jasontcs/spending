@@ -14,7 +14,7 @@ class CategoriesPage extends StatelessWidget with AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return CategoriesView();
+    return const CategoriesView();
   }
 
   @override
@@ -30,7 +30,7 @@ class CategoriesPage extends StatelessWidget with AutoRouteWrapper {
 }
 
 class CategoriesView extends StatelessWidget {
-  const CategoriesView({Key? key}) : super(key: key);
+  const CategoriesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +46,12 @@ class CategoriesView extends StatelessWidget {
             onPressed: () {
               context.pushRoute(CategoryRoute());
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           )
         ],
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 100,
         ),
         itemCount: categories.length,
@@ -76,11 +76,11 @@ class CategoriesView extends StatelessWidget {
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile({
-    Key? key,
+    super.key,
     required this.category,
     this.onTap,
     this.selected = false,
-  }) : super(key: key);
+  });
 
   final Category category;
   final GestureTapCallback? onTap;

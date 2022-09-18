@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:collection/collection.dart';
 
 import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
@@ -11,7 +10,7 @@ import '../bloc/record_bloc.dart';
 import 'record_form/record_form.dart';
 
 class RecordPage extends StatelessWidget with AutoRouteWrapper {
-  RecordPage({Key? key, this.recordId, this.date}) : super(key: key);
+  RecordPage({super.key, this.recordId, this.date});
 
   @QueryParam('record_id')
   final String? recordId;
@@ -35,7 +34,7 @@ class RecordPage extends StatelessWidget with AutoRouteWrapper {
             .showSnackBar(SnackBar(content: Text(label)));
         context.popRoute();
       },
-      child: RecordView(),
+      child: const RecordView(),
     );
   }
 
@@ -54,7 +53,7 @@ class RecordPage extends StatelessWidget with AutoRouteWrapper {
 }
 
 class RecordView extends StatelessWidget {
-  const RecordView({Key? key}) : super(key: key);
+  const RecordView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +61,12 @@ class RecordView extends StatelessWidget {
         context.select((RecordBloc bloc) => bloc.state.status.isBusy);
 
     return AppFormPage(
-      title: Text('記錄'),
+      title: Text(S.of(context).record),
       onDelete: () {
         context.read<RecordBloc>().add(RecordRemoveRequested());
       },
       isBusy: isBusy,
-      child: RecordForm(),
+      child: const RecordForm(),
     );
   }
 }

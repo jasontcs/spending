@@ -9,7 +9,7 @@ import '../../../widgets/form_posting_listener.dart';
 import '../person.dart';
 
 class PersonPage extends StatelessWidget with AutoRouteWrapper {
-  const PersonPage({Key? key, this.id}) : super(key: key);
+  const PersonPage({super.key, this.id});
 
   @QueryParam('person_id')
   final String? id;
@@ -30,7 +30,7 @@ class PersonPage extends StatelessWidget with AutoRouteWrapper {
             .showSnackBar(SnackBar(content: Text(label)));
         context.popRoute();
       },
-      child: PersonView(),
+      child: const PersonView(),
     );
   }
 
@@ -46,7 +46,7 @@ class PersonPage extends StatelessWidget with AutoRouteWrapper {
 }
 
 class PersonView extends StatelessWidget {
-  const PersonView({Key? key}) : super(key: key);
+  const PersonView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class PersonView extends StatelessWidget {
         context.read<PersonBloc>().add(PersonRemoveRequested());
       },
       isBusy: isBusy,
-      child: PersonForm(),
+      child: const PersonForm(),
     );
   }
 }

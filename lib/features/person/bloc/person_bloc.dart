@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
@@ -17,7 +16,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
   PersonBloc({
     required SpendingRepository spendingRepository,
   })  : _spendingRepository = spendingRepository,
-        super(PersonState()) {
+        super(const PersonState()) {
     on<PersonItemLoaded>(_onItemLoaded);
     on<PersonFormEdited>(_onFormEdited);
     on<PersonFormSaved>(_onFormSaved);

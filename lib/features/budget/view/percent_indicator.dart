@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../app/theme.dart';
-import '../../../common/common.dart';
 import '../budget.dart';
 
 class BudgetPercentIndicator extends StatelessWidget {
   const BudgetPercentIndicator({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

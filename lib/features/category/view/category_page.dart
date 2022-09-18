@@ -9,7 +9,7 @@ import '../../../widgets/form_posting_listener.dart';
 import '../category.dart';
 
 class CategoryPage extends StatelessWidget with AutoRouteWrapper {
-  const CategoryPage({Key? key, this.id}) : super(key: key);
+  const CategoryPage({super.key, this.id});
 
   @QueryParam('category_id')
   final String? id;
@@ -23,14 +23,20 @@ class CategoryPage extends StatelessWidget with AutoRouteWrapper {
       idExist: (state) => state.category?.id != null,
       listener: (context, state, type) {
         late final String label;
-        if (type == PostingType.created) label = S.of(context).created;
-        if (type == PostingType.updated) label = S.of(context).updated;
-        if (type == PostingType.deleted) label = S.of(context).deleted;
+        if (type == PostingType.created) {
+          label = S.of(context).created;
+        }
+        if (type == PostingType.updated) {
+          label = S.of(context).updated;
+        }
+        if (type == PostingType.deleted) {
+          label = S.of(context).deleted;
+        }
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(label)));
         context.popRoute();
       },
-      child: CategoryView(),
+      child: const CategoryView(),
     );
   }
 
@@ -46,7 +52,7 @@ class CategoryPage extends StatelessWidget with AutoRouteWrapper {
 }
 
 class CategoryView extends StatelessWidget {
-  const CategoryView({Key? key}) : super(key: key);
+  const CategoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,7 @@ class CategoryView extends StatelessWidget {
       onDelete: () {
         context.read<CategoryBloc>().add(CategoryRemoveRequested());
       },
-      child: CategoryForm(),
+      child: const CategoryForm(),
     );
   }
 }

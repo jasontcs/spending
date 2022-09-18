@@ -1,10 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ReceiptPage extends StatelessWidget {
-  const ReceiptPage({Key? key, required this.image, required this.heroTag})
-      : super(key: key);
+  const ReceiptPage({super.key, required this.image, required this.heroTag});
 
   final Object heroTag;
   final Image image;

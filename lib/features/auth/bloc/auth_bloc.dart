@@ -8,7 +8,7 @@ part 'auth_event.dart';
 part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(this.firebaseAuth) : super(AuthState()) {
+  AuthBloc(this.firebaseAuth) : super(const AuthState()) {
     on<AuthLoginRequested>(_onLoginRequested);
     on<AuthUserChanged>(_onUserChanged);
     on<AuthLogoutRequested>(_onLogoutRequested);

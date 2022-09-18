@@ -6,8 +6,8 @@ import '../../../../../generated/l10n.dart';
 
 class IconField extends StatelessWidget {
   const IconField({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static String name = 'icon';
 

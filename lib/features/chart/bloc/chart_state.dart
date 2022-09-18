@@ -2,8 +2,6 @@ part of 'chart_bloc.dart';
 
 @freezed
 class ChartState with _$ChartState {
-  const ChartState._();
-
   const factory ChartState({
     required DateTime month,
     @Default([]) List<CategoryWithRecords> categoriesWithRecords,
@@ -11,6 +9,7 @@ class ChartState with _$ChartState {
     @Default([]) List<Record> records,
     DateTime? trendFocusedDate,
   }) = _ChartState;
+  const ChartState._();
 
   num get totalThisMonth => records
       .where((record) => DateUtils.isSameMonth(record.dateTime, month))

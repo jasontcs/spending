@@ -56,6 +56,7 @@ class PostingListener<B extends StateStreamable<S>, S>
             }
           }
         }
+        return null;
       },
       listener: listener,
       child: child,

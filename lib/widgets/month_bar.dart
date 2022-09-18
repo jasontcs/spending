@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../features/chart/chart.dart';
-
 class MonthBar extends StatelessWidget implements PreferredSizeWidget {
   const MonthBar({
-    Key? key,
+    super.key,
     required this.focusedMonth,
     this.onPageChanged,
-  }) : super(key: key);
+  });
 
   final DateTime focusedMonth;
   final void Function(DateTime focusedDay)? onPageChanged;
@@ -22,10 +20,11 @@ class MonthBar extends StatelessWidget implements PreferredSizeWidget {
       lastDay: DateTime.utc(9999),
       daysOfWeekVisible: false,
       calendarBuilders: CalendarBuilders(
-        defaultBuilder: (context, day, focusedDay) => SizedBox.shrink(),
-        prioritizedBuilder: (context, day, focusedDay) => SizedBox.shrink(),
+        defaultBuilder: (context, day, focusedDay) => const SizedBox.shrink(),
+        prioritizedBuilder: (context, day, focusedDay) =>
+            const SizedBox.shrink(),
       ),
-      availableCalendarFormats: {CalendarFormat.month: ''},
+      availableCalendarFormats: const {CalendarFormat.month: ''},
       headerStyle: HeaderStyle(
         titleCentered: true,
         formatButtonVisible: false,
@@ -49,5 +48,5 @@ class MonthBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(46);
+  Size get preferredSize => const Size.fromHeight(46);
 }

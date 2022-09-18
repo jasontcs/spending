@@ -6,8 +6,8 @@ import '../../../../../generated/l10n.dart';
 
 class TitleField extends StatelessWidget {
   const TitleField({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static String name = 'title';
 

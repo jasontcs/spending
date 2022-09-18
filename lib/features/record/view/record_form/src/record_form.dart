@@ -7,7 +7,7 @@ import '../../../record.dart';
 import '../record_form.dart';
 
 class RecordForm extends StatelessWidget {
-  RecordForm({Key? key}) : super(key: key);
+  const RecordForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class RecordForm extends StatelessWidget {
               context.read<RecordBloc>().add(RecordFormEditted());
             },
             child: Column(
-              children: [
+              children: const [
                 Visibility(
                   visible: false,
                   maintainState: true,
@@ -45,7 +45,7 @@ class RecordForm extends StatelessWidget {
               ],
             ),
           )
-        : Material();
+        : const Material();
   }
 }
 

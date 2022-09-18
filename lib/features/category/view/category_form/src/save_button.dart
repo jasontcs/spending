@@ -1,13 +1,14 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'dart:developer' as developer;
 import 'package:logging/logging.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../category.dart';
 
 class SaveButton extends StatelessWidget {
-  const SaveButton({Key? key}) : super(key: key);
+  const SaveButton({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -77,8 +77,9 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     RecordPageEntered event,
     Emitter<RecordState> emit,
   ) async {
-    if (event.recordId != null && event.dateString != null)
+    if (event.recordId != null && event.dateString != null) {
       throw Exception('event.recordId != null && event.dateString != null');
+    }
 
     emit(state.copyWith(status: AppFormStatus.fetching));
     final record = event.recordId != null
@@ -125,10 +126,11 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     final record = event.record;
     emit(state.copyWith(record: record, status: AppFormStatus.posting));
     late final Record result;
-    if (record.id == null)
+    if (record.id == null) {
       result = await _spendingRepository.addRecord(record);
-    else
+    } else {
       result = await _spendingRepository.updateRecord(state.record!, record);
+    }
     emit(state.copyWith(record: result, status: AppFormStatus.idle));
     emit(state.copyWith(formKey: GlobalKey<FormBuilderState>()));
   }

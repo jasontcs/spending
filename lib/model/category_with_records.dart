@@ -4,9 +4,9 @@ part 'category_with_records.freezed.dart';
 
 @freezed
 class CategoryWithRecords with _$CategoryWithRecords {
-  const CategoryWithRecords._();
   factory CategoryWithRecords({
     required Category category,
     @Default([]) List<Record> records,
   }) = _CategoryWithRecords;
+  const CategoryWithRecords._();
 }

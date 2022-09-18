@@ -42,18 +42,18 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
   void _onBudgetCategoriesWithRecordsChanged(
     BudgetCategoriesWithRecordsChanged event,
     Emitter<BudgetState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(categoriesWithRecords: event.categoriesWithRecords));
   }
 
   void _onBudgetMonthChanged(
     BudgetMonthChanged event,
     Emitter<BudgetState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(month: event.month));
   }
 
-  void _onBudgetCategoriesBudgetUpdated(
+  Future<void> _onBudgetCategoriesBudgetUpdated(
     BudgetCategoriesBudgetUpdated event,
     Emitter<BudgetState> emit,
   ) async {

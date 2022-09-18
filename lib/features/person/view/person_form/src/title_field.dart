@@ -6,8 +6,8 @@ import '../../../../../generated/l10n.dart';
 
 class TitleField extends StatelessWidget {
   const TitleField({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static String name = 'title';
 
@@ -20,7 +20,7 @@ class TitleField extends StatelessWidget {
         validator: FormBuilderValidators.required(),
         decoration: InputDecoration(
           labelText: S.of(context).name,
-          prefixIcon: Icon(Icons.person),
+          prefixIcon: const Icon(Icons.person),
         ),
       ),
     );

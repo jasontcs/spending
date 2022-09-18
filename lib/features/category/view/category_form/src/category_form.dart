@@ -6,8 +6,8 @@ import '../../../category.dart';
 
 class CategoryForm extends StatelessWidget {
   const CategoryForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class CategoryForm extends StatelessWidget {
               context.read<CategoryBloc>().add(CategoryFormEdited());
             },
             child: Column(
-              children: [
+              children: const [
                 Visibility(
                   visible: false,
                   maintainState: true,
@@ -37,7 +37,7 @@ class CategoryForm extends StatelessWidget {
               ],
             ),
           )
-        : Material();
+        : const Material();
   }
 }
 

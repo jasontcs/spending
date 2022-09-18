@@ -9,8 +9,8 @@ import '../budget.dart';
 
 class BudgetCategoriesList extends StatelessWidget {
   const BudgetCategoriesList({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class BudgetCategoriesList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(category.title),
-              Spacer(),
+              const Spacer(),
               Flexible(
                 child: CalculatorField(
                   builder: (context, value, hasFocus) {
@@ -59,13 +59,14 @@ class BudgetCategoriesList extends StatelessWidget {
                     );
                   },
                   onDone: (value) {
-                    if (value >= 0)
+                    if (value >= 0) {
                       context.read<BudgetBloc>().add(
                             BudgetCategoriesBudgetUpdated(
                               category: category,
                               budget: value,
                             ),
                           );
+                    }
                   },
                 ),
               ),
@@ -77,7 +78,7 @@ class BudgetCategoriesList extends StatelessWidget {
               LinearPercentIndicator(
                 padding: EdgeInsets.zero,
                 percent: budget.percentForIndicator,
-                barRadius: Radius.circular(2.5),
+                barRadius: const Radius.circular(2.5),
                 progressColor: budget.isPositive
                     ? percentColor.positive
                     : percentColor.negative,
@@ -97,7 +98,7 @@ class BudgetCategoriesList extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => const Divider(),
       itemCount: categoriesWithTotalThisMonth.length,
     );
   }

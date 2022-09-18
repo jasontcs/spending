@@ -14,7 +14,7 @@ class PeoplePage extends StatelessWidget with AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return PeopleView();
+    return const PeopleView();
   }
 
   @override
@@ -30,7 +30,7 @@ class PeoplePage extends StatelessWidget with AutoRouteWrapper {
 }
 
 class PeopleView extends StatelessWidget {
-  const PeopleView({Key? key}) : super(key: key);
+  const PeopleView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class PeopleView extends StatelessWidget {
             onPressed: () {
               context.pushRoute(PersonRoute());
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           )
         ],
       ),
@@ -66,7 +66,7 @@ class PeopleView extends StatelessWidget {
             selected: person == selected,
           );
         },
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
       ),
     );
   }
@@ -74,11 +74,11 @@ class PeopleView extends StatelessWidget {
 
 class PersonTile extends StatelessWidget {
   const PersonTile({
-    Key? key,
+    super.key,
     required this.person,
     this.onTap,
     this.selected = false,
-  }) : super(key: key);
+  });
 
   final Person person;
   final GestureTapCallback? onTap;

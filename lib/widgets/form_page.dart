@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class AppFormPage extends StatelessWidget {
   const AppFormPage({
-    Key? key,
+    super.key,
     this.title,
     this.onDelete,
     required this.isBusy,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget? title;
   final VoidCallback? onDelete;
@@ -21,7 +21,7 @@ class AppFormPage extends StatelessWidget {
       appBar: AppBar(
         title: title,
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           onPressed: () {
             context.popRoute();
           },
@@ -36,16 +36,16 @@ class AppFormPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         child: Column(
           children: [
-            if (isBusy) LinearProgressIndicator(),
+            if (isBusy) const LinearProgressIndicator(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: child,
             ),
           ],
         ),
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       ),
     );
   }

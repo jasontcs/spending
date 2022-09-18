@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
@@ -17,7 +16,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({
     required SpendingRepository spendingRepository,
   })  : _spendingRepository = spendingRepository,
-        super(CategoryState()) {
+        super(const CategoryState()) {
     on<CategoryItemLoaded>(_onItemLoaded);
     on<CategoryFormEdited>(_onFormEdited);
     on<CategoryFormSaved>(_onFormSaved);

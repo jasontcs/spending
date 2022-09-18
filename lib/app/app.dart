@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/i10n.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
-import 'package:spending/app/theme.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../app_router.dart';
 import '../features/auth/auth.dart';
 import '../generated/l10n.dart';
+import 'theme.dart';
 
 class App extends StatelessWidget {
-  App({
+  const App({
     super.key,
     required this.spendingRepository,
     required this.firebaseAuth,
@@ -32,13 +32,11 @@ class App extends StatelessWidget {
 
 class AppBlocs extends StatelessWidget {
   const AppBlocs({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final SpendingRepository spendingRepository =
-        context.read<SpendingRepository>();
     final FirebaseAuth firebaseAuth = context.read<FirebaseAuth>();
     return MultiBlocProvider(
       providers: [
@@ -47,13 +45,13 @@ class AppBlocs extends StatelessWidget {
               AuthBloc(firebaseAuth)..add(AuthLoginRequested()),
         ),
       ],
-      child: AppView(),
+      child: const AppView(),
     );
   }
 }
 
 class AppView extends StatefulWidget {
-  AppView({Key? key}) : super(key: key);
+  const AppView({super.key});
 
   @override
   State<AppView> createState() => _AppViewState();
@@ -64,8 +62,8 @@ class _AppViewState extends State<AppView> {
 
   @override
   void initState() {
-    final authBloc = BlocProvider.of<AuthBloc>(context, listen: false);
-    _appRouter = AppRouter(authGuard: AuthGuard(authBloc.stream));
+    _appRouter =
+        AppRouter(authGuard: AuthGuard(context.read<AuthBloc>().stream));
     super.initState();
   }
 
@@ -87,9 +85,9 @@ class _AppViewState extends State<AppView> {
         GlobalCupertinoLocalizations.delegate,
       ],
       // supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
-      supportedLocales: [
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
+      supportedLocales: const [
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
       ],
     );
   }

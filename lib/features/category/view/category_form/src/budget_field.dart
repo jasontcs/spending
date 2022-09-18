@@ -8,8 +8,8 @@ import '../../../../../widgets/calculator_keyboard.dart';
 
 class BudgetField extends StatelessWidget {
   const BudgetField({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static String name = 'budget';
 
@@ -32,7 +32,7 @@ class BudgetField extends StatelessWidget {
               readOnly: true,
               decoration: InputDecoration(
                 labelText: S.of(context).budget,
-                prefixIcon: Icon(Icons.attach_money),
+                prefixIcon: const Icon(Icons.attach_money),
                 errorText: field.errorText,
               ),
             );

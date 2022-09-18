@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
-import '../../categories/categories.dart';
-import '../../people/people.dart';
 
 class SettingPage extends StatelessWidget {
-  SettingPage({Key? key}) : super(key: key);
+  SettingPage({super.key});
 
   final items = [
     SettingItem(title: S.current.category, route: CategoriesRoute()),
@@ -28,7 +26,7 @@ class SettingPage extends StatelessWidget {
             },
           );
         },
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
         itemCount: items.length,
       ),
     );

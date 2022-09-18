@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../../app/theme.dart';
-import '../../../../../common/common.dart';
 import '../../../chart.dart';
 
 class ByCategoryPieChart extends StatelessWidget {
   const ByCategoryPieChart({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

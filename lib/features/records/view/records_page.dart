@@ -1,25 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
 
-import '../../../app_router.dart';
-import '../../../common/common.dart';
 import '../../../generated/l10n.dart';
 import '../../../widgets/records_list.dart';
-import '../../record/view/view.dart';
-import '../bloc/records_bloc.dart';
 import '../records.dart';
 
 class RecordsPage extends StatelessWidget implements AutoRouteWrapper {
-  const RecordsPage({Key? key}) : super(key: key);
+  const RecordsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return RecordsView();
+    return const RecordsView();
   }
 
   @override
@@ -34,7 +26,7 @@ class RecordsPage extends StatelessWidget implements AutoRouteWrapper {
 }
 
 class RecordsView extends StatelessWidget {
-  const RecordsView({Key? key}) : super(key: key);
+  const RecordsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +41,7 @@ class RecordsView extends StatelessWidget {
       appBar: AppBar(title: Text(S.of(context).record)),
       body: Column(
         children: [
-          RecordsCalendar(),
+          const RecordsCalendar(),
           if (records.isEmpty)
             Padding(
               padding: const EdgeInsets.all(8.0),

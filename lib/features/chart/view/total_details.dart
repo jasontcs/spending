@@ -5,7 +5,7 @@ import '../../../generated/l10n.dart';
 import '../chart.dart';
 
 class TotalDetails extends StatelessWidget {
-  const TotalDetails({Key? key}) : super(key: key);
+  const TotalDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class TotalDetails extends StatelessWidget {
         child: Row(
           children: [
             Text('${S.of(context).total}: ${currencyFormat(context, total)}'),
-            Spacer(),
+            const Spacer(),
             Text(
                 '${S.of(context).average_per_day}: ${currencyFormat(context, average)}'),
           ],

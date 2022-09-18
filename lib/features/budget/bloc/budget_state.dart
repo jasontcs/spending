@@ -2,12 +2,11 @@ part of 'budget_bloc.dart';
 
 @freezed
 class BudgetState with _$BudgetState {
-  const BudgetState._();
-
   const factory BudgetState({
     required DateTime month,
     @Default({}) Map<Category, List<Record>> categoriesWithRecords,
   }) = _BudgetState;
+  const BudgetState._();
   Map<Category, List<Record>> get categoriesWithRecordsThisMonth =>
       categoriesWithRecords.map((key, value) => MapEntry(
           key,

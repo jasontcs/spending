@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:spending_repository/spending_repository.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import '../../../model/category_with_records.dart';
 import '../../../model/person_with_records.dart';
@@ -71,7 +69,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
 
   late StreamSubscription<List<Record>> _recordsSubscription;
 
-  void _onMonthChanged(
+  Future<void> _onMonthChanged(
     ChartMonthChanged event,
     Emitter<ChartState> emit,
   ) async {
@@ -84,28 +82,28 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
   void _onCategoriesWithRecordsChanged(
     ChartCategoriesWithRecordsChanged event,
     Emitter<ChartState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(categoriesWithRecords: event.categoriesWithRecords));
   }
 
   void _onPeopleWithRecordsChanged(
     ChartPeopleWithRecordsChanged event,
     Emitter<ChartState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(peopleWithRecords: event.peopleWithRecords));
   }
 
   void _onChartTrendBarSelected(
     ChartTrendBarSelected event,
     Emitter<ChartState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(trendFocusedDate: event.date));
   }
 
   void _onChartRecordsUpdated(
     ChartRecordsUpdated event,
     Emitter<ChartState> emit,
-  ) async {
+  ) {
     emit(state.copyWith(records: event.records));
   }
 

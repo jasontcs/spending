@@ -7,7 +7,7 @@ import '../../../../../widgets/records_list.dart';
 import '../../../chart.dart';
 
 class TrendTabPage extends StatelessWidget {
-  const TrendTabPage({Key? key}) : super(key: key);
+  const TrendTabPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class TrendTabPage extends StatelessWidget {
       body: Column(
         children: [
           const TrendStackedLineChart(),
-          TotalDetails(),
+          const TotalDetails(),
           Flexible(
             child: hasSelectedDate
                 ? RecordsList(
