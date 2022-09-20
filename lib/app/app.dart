@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/i10n.dart';
@@ -76,7 +77,7 @@ class _AppViewState extends State<AppView> {
       // themeMode: ThemeMode.dark,
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),
-      routerDelegate: _appRouter.delegate(),
+      routerDelegate: AutoRouterDelegate(_appRouter),
       localizationsDelegates: const [
         S.delegate,
         FormBuilderLocalizations.delegate,
