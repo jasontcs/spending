@@ -4,6 +4,7 @@ import 'package:spending_repository/spending_repository.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 import '../../../widgets/month_bar.dart';
 import '../chart.dart';
 
@@ -25,7 +26,7 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
             .where((record) => DateUtils.isSameMonth(record.dateTime, month))
             .isNotEmpty);
         return Scaffold(
-          appBar: AppBar(
+          appBar: SpendingAppBar(
             title: Text(S.of(context).chart),
             bottom: MonthBar(
               focusedMonth: month,

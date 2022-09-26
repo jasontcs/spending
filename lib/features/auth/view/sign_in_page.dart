@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 import '../auth.dart';
 
 class SignInPage extends StatelessWidget {
@@ -18,7 +19,7 @@ class SignInPage extends StatelessWidget {
         context.replaceRoute(const AppHomeRoute());
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(S.of(context).sign_in)),
+        appBar: SpendingAppBar(title: Text(S.of(context).sign_in)),
       ),
     );
   }

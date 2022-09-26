@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
+import '../../../widgets/app_bar.dart';
+
 class ReceiptPage extends StatelessWidget {
   const ReceiptPage({super.key, required this.image, required this.heroTag});
 
@@ -10,9 +12,7 @@ class ReceiptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: const SpendingAppBar(isTransparent: true),
       body: Hero(
         tag: heroTag,
         child: PhotoView(

@@ -77,7 +77,9 @@ class _AppViewState extends State<AppView> {
       // themeMode: ThemeMode.dark,
       routeInformationProvider: _appRouter.routeInfoProvider(),
       routeInformationParser: _appRouter.defaultRouteParser(),
-      routerDelegate: AutoRouterDelegate(_appRouter),
+      routerDelegate: AutoRouterDelegate(
+        _appRouter,
+      ),
       localizationsDelegates: const [
         S.delegate,
         FormBuilderLocalizations.delegate,

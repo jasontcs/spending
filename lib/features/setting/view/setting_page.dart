@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 
 class SettingPage extends StatelessWidget {
   SettingPage({super.key});
@@ -15,7 +16,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).setting)),
+      appBar: SpendingAppBar(title: Text(S.of(context).setting)),
       body: ListView.separated(
         itemBuilder: (context, index) {
           final item = items[index];

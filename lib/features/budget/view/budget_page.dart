@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 import '../../../widgets/month_bar.dart';
 import '../budget.dart';
 
@@ -13,7 +14,7 @@ class BudgetPage extends StatelessWidget with AutoRouteWrapper {
   Widget build(BuildContext context) {
     final month = context.select((BudgetBloc bloc) => bloc.state.month);
     return Scaffold(
-      appBar: AppBar(
+      appBar: SpendingAppBar(
         title: Text(S.of(context).budget),
         bottom: MonthBar(
           focusedMonth: month,

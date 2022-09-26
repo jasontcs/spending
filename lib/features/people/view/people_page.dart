@@ -4,6 +4,7 @@ import 'package:spending_repository/spending_repository.dart';
 
 import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 import '../people.dart';
 
 class PeoplePage extends StatelessWidget with AutoRouteWrapper {
@@ -39,7 +40,7 @@ class PeopleView extends StatelessWidget {
     final Person? selected =
         context.select((PeopleCubit cubit) => cubit.state.selected);
     return Scaffold(
-      appBar: AppBar(
+      appBar: SpendingAppBar(
         title: Text(S.of(context).person),
         actions: [
           IconButton(

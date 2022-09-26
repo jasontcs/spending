@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import '../../../generated/l10n.dart';
+import '../../../widgets/app_bar.dart';
 import '../../../widgets/records_list.dart';
 import '../records.dart';
 
@@ -38,7 +39,7 @@ class RecordsView extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).record)),
+      appBar: SpendingAppBar(title: Text(S.of(context).record)),
       body: Column(
         children: [
           const RecordsCalendar(),
