@@ -6,6 +6,7 @@ import 'package:spending_api/spending_api.dart';
 import 'package:spending_repository/spending_repository.dart';
 
 import 'app/app.dart';
+import 'app_router.dart';
 import 'bloc_observer.dart';
 import 'firebase_options.dart';
 
@@ -15,9 +16,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final spendingRepository = SpendingRepositoryImpl(FirebaseSpendingApi());
+  final appRouterWrapper = AppRouterWrapper();
   Bloc.observer = AppBlocObserver();
   runApp(App(
     spendingRepository: spendingRepository,
     firebaseAuth: FirebaseAuth.instance,
+    appRouterWrapper: appRouterWrapper,
   ));
 }

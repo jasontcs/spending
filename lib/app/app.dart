@@ -15,16 +15,19 @@ class App extends StatelessWidget {
     super.key,
     required this.spendingRepository,
     required this.firebaseAuth,
+    required this.appRouterWrapper,
   });
 
   final SpendingRepository spendingRepository;
   final FirebaseAuth firebaseAuth;
+  final AppRouterWrapper appRouterWrapper;
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: spendingRepository),
         RepositoryProvider.value(value: firebaseAuth),
+        RepositoryProvider.value(value: appRouterWrapper),
       ],
       child: const AppBlocs(),
     );
@@ -51,34 +54,21 @@ class AppBlocs extends StatelessWidget {
   }
 }
 
-class AppView extends StatefulWidget {
+class AppView extends StatelessWidget {
   const AppView({super.key});
 
   @override
-  State<AppView> createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
-  late final AppRouter _appRouter;
-
-  @override
-  void initState() {
-    _appRouter =
-        AppRouter(authGuard: AuthGuard(context.read<AuthBloc>().stream));
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final appRouter = context.read<AppRouterWrapper>().appRouter;
     return MaterialApp.router(
       onGenerateTitle: (context) => S.of(context).app_title,
       theme: kAppTheme,
       darkTheme: kAppDarkTheme,
       // themeMode: ThemeMode.dark,
-      routeInformationProvider: _appRouter.routeInfoProvider(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+      routeInformationProvider: appRouter.routeInfoProvider(),
+      routeInformationParser: appRouter.defaultRouteParser(),
       routerDelegate: AutoRouterDelegate(
-        _appRouter,
+        appRouter,
       ),
       localizationsDelegates: const [
         S.delegate,
@@ -92,6 +82,10 @@ class _AppViewState extends State<AppView> {
         Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
         Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
       ],
+      builder: (context, child) => AuthListener(
+        router: appRouter,
+        child: child,
+      ),
     );
   }
 }

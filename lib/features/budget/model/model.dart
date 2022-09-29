@@ -18,5 +18,5 @@ class Budget {
       (percent?.abs() ?? 0) > 1 ? 1 : percent?.abs() ?? 0;
 
   String? percentString(BuildContext context) =>
-      percent != null ? percentageFormat(context, percent!) : null;
+      percent != null ? percentageFormat(context, percent) : null;
 }

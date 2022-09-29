@@ -22,7 +22,6 @@ part 'app_router.gr.dart';
   routes: <AutoRoute>[
     AutoRoute(
       page: AppHomePage,
-      guards: [AuthGuard],
       children: [
         AutoRoute(page: RecordsPage),
         AutoRoute(page: BudgetPage),
@@ -55,22 +54,9 @@ part 'app_router.gr.dart';
 )
 // extend the generated private router
 class AppRouter extends _$AppRouter {
-  AppRouter({required super.authGuard});
+  AppRouter();
 }
 
-class AuthGuard extends AutoRouteGuard {
-  AuthGuard(Stream<AuthState> authStream) {
-    authStream.listen((state) {
-      _authenticated = state.status == AuthStatus.login;
-    });
-  }
-  bool _authenticated = true;
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (_authenticated) {
-      resolver.next();
-    } else {
-      router.push(const SignInRoute());
-    }
-  }
+class AppRouterWrapper {
+  final appRouter = AppRouter();
 }
