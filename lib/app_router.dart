@@ -53,9 +53,7 @@ part 'app_router.gr.dart';
   ],
 )
 // extend the generated private router
-class AppRouter extends _$AppRouter {
-  AppRouter();
-}
+class AppRouter extends _$AppRouter {}
 
 class AppRouterWrapper {
   final appRouter = AppRouter();
