@@ -34,7 +34,7 @@ class _$AppRouter extends RootStackRouter {
     CategoriesRoute.name: (routeData) {
       final args = routeData.argsAs<CategoriesRouteArgs>(
           orElse: () => const CategoriesRouteArgs());
-      return MaterialPageX<Category?>(
+      return MaterialPageX<Category>(
           routeData: routeData,
           child: WrappedRoute(
               child: CategoriesPage(key: args.key, selected: args.selected)));
@@ -49,7 +49,7 @@ class _$AppRouter extends RootStackRouter {
     PeopleRoute.name: (routeData) {
       final args = routeData.argsAs<PeopleRouteArgs>(
           orElse: () => const PeopleRouteArgs());
-      return MaterialPageX<Person?>(
+      return MaterialPageX<Person>(
           routeData: routeData,
           child: WrappedRoute(
               child: PeoplePage(key: args.key, selectedId: args.selectedId)));

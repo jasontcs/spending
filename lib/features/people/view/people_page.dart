@@ -59,7 +59,7 @@ class PeopleView extends StatelessWidget {
             person: person,
             onTap: () {
               if (selected != null) {
-                context.popRoute(person);
+                context.popRoute<Person>(person);
               } else {
                 context.pushRoute(PersonRoute(id: person.id));
               }

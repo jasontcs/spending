@@ -41,9 +41,9 @@ part 'app_router.gr.dart';
       page: RecordPage,
       fullscreenDialog: true,
     ),
-    AutoRoute<Category?>(page: CategoriesPage),
+    AutoRoute<Category>(page: CategoriesPage),
     AutoRoute(page: CategoryPage),
-    AutoRoute<Person?>(page: PeoplePage),
+    AutoRoute<Person>(page: PeoplePage),
     AutoRoute(page: PersonPage),
     AutoRoute(page: SignInPage),
     AutoRoute(

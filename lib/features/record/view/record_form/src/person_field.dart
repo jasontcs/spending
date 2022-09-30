@@ -23,7 +23,7 @@ class PersonField extends StatelessWidget {
           readOnly: true,
           onTap: () async {
             final selected = await context
-                .pushRoute<Person?>(PeopleRoute(selectedId: field.value?.id));
+                .pushRoute<Person>(PeopleRoute(selectedId: field.value?.id));
             if (selected != null) field.didChange(selected);
           },
           decoration: InputDecoration(

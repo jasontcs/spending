@@ -21,7 +21,7 @@ class CategoryField extends StatelessWidget {
           controller: TextEditingController(text: field.value?.title),
           readOnly: true,
           onTap: () async {
-            final selected = await context.pushRoute<Category?>(
+            final selected = await context.pushRoute<Category>(
                 CategoriesRoute(selected: field.value?.id));
             if (selected != null) field.didChange(selected);
           },

@@ -62,7 +62,7 @@ class CategoriesView extends StatelessWidget {
             category: category,
             onTap: () {
               if (selected != null) {
-                context.popRoute(category);
+                context.popRoute<Category>(category);
               } else {
                 context.pushRoute(CategoryRoute(id: category.id));
               }
