@@ -100,7 +100,7 @@ class SpendingRepositoryImpl implements SpendingRepository {
 
         return records;
       }).asyncMap((records) async {
-        final result = Future.wait(
+        final result = await Future.wait(
             records.map((record) async => await _appendImageUrl(record)));
         _logInfo('_recordsStream', result);
         return result;
