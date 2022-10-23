@@ -7,7 +7,7 @@ part of 'category.dart';
 // **************************************************************************
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, require_trailing_commas, prefer_single_quotes, prefer_double_quotes, use_super_parameters
 
 class _Sentinel {
   const _Sentinel();
@@ -68,7 +68,7 @@ class _$ApiCategoryModelCollectionReference extends _$ApiCategoryModelQuery
 
   _$ApiCategoryModelCollectionReference._(
     CollectionReference<ApiCategoryModel> reference,
-  ) : super(reference, reference);
+  ) : super(reference, $referenceWithoutCursor: reference);
 
   String get path => reference.path;
 
@@ -128,13 +128,31 @@ abstract class ApiCategoryModelDocumentReference
   @override
   Future<void> delete();
 
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
   Future<void> update({
     String title,
-    double budget,
+    FieldValue titleFieldValue,
+    num budget,
+    FieldValue budgetFieldValue,
     String icon,
+    FieldValue iconFieldValue,
   });
 
-  Future<void> set(ApiCategoryModel value);
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    String title,
+    FieldValue titleFieldValue,
+    num budget,
+    FieldValue budgetFieldValue,
+    String icon,
+    FieldValue iconFieldValue,
+  });
 }
 
 class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
@@ -152,45 +170,83 @@ class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   Stream<ApiCategoryModelDocumentSnapshot> snapshots() {
-    return reference.snapshots().map((snapshot) {
-      return ApiCategoryModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.snapshots().map(ApiCategoryModelDocumentSnapshot._);
   }
 
   @override
   Future<ApiCategoryModelDocumentSnapshot> get([GetOptions? options]) {
-    return reference.get(options).then((snapshot) {
-      return ApiCategoryModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.get(options).then(ApiCategoryModelDocumentSnapshot._);
   }
 
   @override
-  Future<void> delete() {
-    return reference.delete();
+  Future<ApiCategoryModelDocumentSnapshot> transactionGet(
+      Transaction transaction) {
+    return transaction.get(reference).then(ApiCategoryModelDocumentSnapshot._);
   }
 
   Future<void> update({
     Object? title = _sentinel,
+    FieldValue? titleFieldValue,
     Object? budget = _sentinel,
+    FieldValue? budgetFieldValue,
     Object? icon = _sentinel,
+    FieldValue? iconFieldValue,
   }) async {
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
+    assert(
+      budget == _sentinel || budgetFieldValue == null,
+      "Cannot specify both budget and budgetFieldValue",
+    );
+    assert(
+      icon == _sentinel || iconFieldValue == null,
+      "Cannot specify both icon and iconFieldValue",
+    );
     final json = {
-      if (title != _sentinel) "title": title as String,
-      if (budget != _sentinel) "budget": budget as double,
-      if (icon != _sentinel) "icon": icon as String,
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
+      if (budget != _sentinel) 'budget': budget as num,
+      if (budgetFieldValue != null) 'budget': budgetFieldValue,
+      if (icon != _sentinel) 'icon': icon as String,
+      if (iconFieldValue != null) 'icon': iconFieldValue,
     };
 
     return reference.update(json);
   }
 
-  Future<void> set(ApiCategoryModel value) {
-    return reference.set(value);
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? title = _sentinel,
+    FieldValue? titleFieldValue,
+    Object? budget = _sentinel,
+    FieldValue? budgetFieldValue,
+    Object? icon = _sentinel,
+    FieldValue? iconFieldValue,
+  }) {
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
+    assert(
+      budget == _sentinel || budgetFieldValue == null,
+      "Cannot specify both budget and budgetFieldValue",
+    );
+    assert(
+      icon == _sentinel || iconFieldValue == null,
+      "Cannot specify both icon and iconFieldValue",
+    );
+    final json = {
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
+      if (budget != _sentinel) 'budget': budget as num,
+      if (budgetFieldValue != null) 'budget': budgetFieldValue,
+      if (icon != _sentinel) 'icon': icon as String,
+      if (iconFieldValue != null) 'icon': iconFieldValue,
+    };
+
+    transaction.update(reference, json);
   }
 
   @override
@@ -203,27 +259,6 @@ class _$ApiCategoryModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   int get hashCode => Object.hash(runtimeType, parent, id);
-}
-
-class ApiCategoryModelDocumentSnapshot
-    extends FirestoreDocumentSnapshot<ApiCategoryModel> {
-  ApiCategoryModelDocumentSnapshot._(
-    this.snapshot,
-    this.data,
-  );
-
-  @override
-  final DocumentSnapshot<ApiCategoryModel> snapshot;
-
-  @override
-  ApiCategoryModelDocumentReference get reference {
-    return ApiCategoryModelDocumentReference(
-      snapshot.reference,
-    );
-  }
-
-  @override
-  final ApiCategoryModel? data;
 }
 
 abstract class ApiCategoryModelQuery
@@ -322,15 +357,15 @@ abstract class ApiCategoryModelQuery
     List<String>? whereNotIn,
   });
   ApiCategoryModelQuery whereBudget({
-    double? isEqualTo,
-    double? isNotEqualTo,
-    double? isLessThan,
-    double? isLessThanOrEqualTo,
-    double? isGreaterThan,
-    double? isGreaterThanOrEqualTo,
+    num? isEqualTo,
+    num? isNotEqualTo,
+    num? isLessThan,
+    num? isLessThanOrEqualTo,
+    num? isGreaterThan,
+    num? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<double>? whereIn,
-    List<double>? whereNotIn,
+    List<num>? whereIn,
+    List<num>? whereNotIn,
   });
   ApiCategoryModelQuery whereIcon({
     String? isEqualTo,
@@ -370,10 +405,10 @@ abstract class ApiCategoryModelQuery
 
   ApiCategoryModelQuery orderByBudget({
     bool descending = false,
-    double startAt,
-    double startAfter,
-    double endAt,
-    double endBefore,
+    num startAt,
+    num startAfter,
+    num endAt,
+    num endBefore,
     ApiCategoryModelDocumentSnapshot? startAtDocument,
     ApiCategoryModelDocumentSnapshot? endAtDocument,
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
@@ -397,61 +432,45 @@ class _$ApiCategoryModelQuery
     extends QueryReference<ApiCategoryModel, ApiCategoryModelQuerySnapshot>
     implements ApiCategoryModelQuery {
   _$ApiCategoryModelQuery(
-    this.reference,
-    this._collection,
-  );
+    this._collection, {
+    required Query<ApiCategoryModel> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
 
   final CollectionReference<Object?> _collection;
 
   @override
-  final Query<ApiCategoryModel> reference;
-
-  ApiCategoryModelQuerySnapshot _decodeSnapshot(
-    QuerySnapshot<ApiCategoryModel> snapshot,
-  ) {
-    final docs = snapshot.docs.map((e) {
-      return ApiCategoryModelQueryDocumentSnapshot._(e, e.data());
-    }).toList();
-
-    final docChanges = snapshot.docChanges.map((change) {
-      return FirestoreDocumentChange<ApiCategoryModelDocumentSnapshot>(
-        type: change.type,
-        oldIndex: change.oldIndex,
-        newIndex: change.newIndex,
-        doc: ApiCategoryModelDocumentSnapshot._(change.doc, change.doc.data()),
-      );
-    }).toList();
-
-    return ApiCategoryModelQuerySnapshot._(
-      snapshot,
-      docs,
-      docChanges,
-    );
-  }
-
-  @override
   Stream<ApiCategoryModelQuerySnapshot> snapshots([SnapshotOptions? options]) {
-    return reference.snapshots().map(_decodeSnapshot);
+    return reference
+        .snapshots()
+        .map(ApiCategoryModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   Future<ApiCategoryModelQuerySnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(_decodeSnapshot);
+    return reference
+        .get(options)
+        .then(ApiCategoryModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   ApiCategoryModelQuery limit(int limit) {
     return _$ApiCategoryModelQuery(
-      reference.limit(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
   @override
   ApiCategoryModelQuery limitToLast(int limit) {
     return _$ApiCategoryModelQuery(
-      reference.limitToLast(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -467,35 +486,64 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(fieldPath, descending: descending);
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
-
-    return _$ApiCategoryModelQuery(query, _collection);
+    return _$ApiCategoryModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCategoryModelQuery whereFieldPath(
@@ -513,7 +561,8 @@ class _$ApiCategoryModelQuery
     bool? isNull,
   }) {
     return _$ApiCategoryModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         fieldPath,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -527,7 +576,7 @@ class _$ApiCategoryModelQuery
         whereNotIn: whereNotIn,
         isNull: isNull,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -543,7 +592,8 @@ class _$ApiCategoryModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         FieldPath.documentId,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -555,7 +605,7 @@ class _$ApiCategoryModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -571,8 +621,9 @@ class _$ApiCategoryModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
-      reference.where(
-        _$ApiCategoryModelFieldMap["title"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCategoryModelFieldMap['title']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -583,24 +634,25 @@ class _$ApiCategoryModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
   ApiCategoryModelQuery whereBudget({
-    double? isEqualTo,
-    double? isNotEqualTo,
-    double? isLessThan,
-    double? isLessThanOrEqualTo,
-    double? isGreaterThan,
-    double? isGreaterThanOrEqualTo,
+    num? isEqualTo,
+    num? isNotEqualTo,
+    num? isLessThan,
+    num? isLessThanOrEqualTo,
+    num? isGreaterThan,
+    num? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<double>? whereIn,
-    List<double>? whereNotIn,
+    List<num>? whereIn,
+    List<num>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
-      reference.where(
-        _$ApiCategoryModelFieldMap["budget"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCategoryModelFieldMap['budget']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -611,7 +663,7 @@ class _$ApiCategoryModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -627,8 +679,9 @@ class _$ApiCategoryModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCategoryModelQuery(
-      reference.where(
-        _$ApiCategoryModelFieldMap["icon"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCategoryModelFieldMap['icon']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -639,7 +692,7 @@ class _$ApiCategoryModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -654,35 +707,65 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(FieldPath.documentId, descending: descending);
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCategoryModelQuery(query, _collection);
+    return _$ApiCategoryModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCategoryModelQuery orderByTitle({
@@ -696,36 +779,65 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["title"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCategoryModelFieldMap['title']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCategoryModelQuery(query, _collection);
+    return _$ApiCategoryModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCategoryModelQuery orderByBudget({
@@ -739,36 +851,65 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["budget"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCategoryModelFieldMap['budget']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCategoryModelQuery(query, _collection);
+    return _$ApiCategoryModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCategoryModelQuery orderByIcon({
@@ -782,36 +923,65 @@ class _$ApiCategoryModelQuery
     ApiCategoryModelDocumentSnapshot? endBeforeDocument,
     ApiCategoryModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCategoryModelFieldMap["icon"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCategoryModelFieldMap['icon']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCategoryModelQuery(query, _collection);
+    return _$ApiCategoryModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   @override
@@ -825,6 +995,24 @@ class _$ApiCategoryModelQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
+class ApiCategoryModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiCategoryModel> {
+  ApiCategoryModelDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<ApiCategoryModel> snapshot;
+
+  @override
+  ApiCategoryModelDocumentReference get reference {
+    return ApiCategoryModelDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final ApiCategoryModel? data;
+}
+
 class ApiCategoryModelQuerySnapshot extends FirestoreQuerySnapshot<
     ApiCategoryModel, ApiCategoryModelQueryDocumentSnapshot> {
   ApiCategoryModelQuerySnapshot._(
@@ -832,6 +1020,40 @@ class ApiCategoryModelQuerySnapshot extends FirestoreQuerySnapshot<
     this.docs,
     this.docChanges,
   );
+
+  factory ApiCategoryModelQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<ApiCategoryModel> snapshot,
+  ) {
+    final docs =
+        snapshot.docs.map(ApiCategoryModelQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        ApiCategoryModelDocumentSnapshot._,
+      );
+    }).toList();
+
+    return ApiCategoryModelQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<ApiCategoryModelDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    ApiCategoryModelDocumentSnapshot Function(DocumentSnapshot<T> doc)
+        decodeDoc,
+  ) {
+    return FirestoreDocumentChange<ApiCategoryModelDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
 
   final QuerySnapshot<ApiCategoryModel> snapshot;
 
@@ -846,18 +1068,19 @@ class ApiCategoryModelQuerySnapshot extends FirestoreQuerySnapshot<
 class ApiCategoryModelQueryDocumentSnapshot
     extends FirestoreQueryDocumentSnapshot<ApiCategoryModel>
     implements ApiCategoryModelDocumentSnapshot {
-  ApiCategoryModelQueryDocumentSnapshot._(this.snapshot, this.data);
+  ApiCategoryModelQueryDocumentSnapshot._(this.snapshot)
+      : data = snapshot.data();
 
   @override
   final QueryDocumentSnapshot<ApiCategoryModel> snapshot;
 
   @override
+  final ApiCategoryModel data;
+
+  @override
   ApiCategoryModelDocumentReference get reference {
     return ApiCategoryModelDocumentReference(snapshot.reference);
   }
-
-  @override
-  final ApiCategoryModel data;
 }
 
 // **************************************************************************
@@ -867,7 +1090,7 @@ class ApiCategoryModelQueryDocumentSnapshot
 ApiCategoryModel _$ApiCategoryModelFromJson(Map<String, dynamic> json) =>
     ApiCategoryModel(
       title: json['title'] as String,
-      budget: (json['budget'] as num).toDouble(),
+      budget: json['budget'] as num,
       icon: json['icon'] as String,
     );
 

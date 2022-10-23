@@ -23,6 +23,10 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: AppHomePage,
       children: [
+        AutoRoute(
+          page: SignInPage,
+          initial: true,
+        ),
         AutoRoute(page: RecordsPage),
         AutoRoute(page: BudgetPage),
         AutoRoute(
@@ -35,7 +39,6 @@ part 'app_router.gr.dart';
         ),
         AutoRoute(page: SettingPage),
       ],
-      initial: true,
     ),
     AutoRoute(
       page: RecordPage,
@@ -45,7 +48,6 @@ part 'app_router.gr.dart';
     AutoRoute(page: CategoryPage),
     AutoRoute<Person>(page: PeoplePage),
     AutoRoute(page: PersonPage),
-    AutoRoute(page: SignInPage),
     AutoRoute(
       page: ReceiptPage,
       fullscreenDialog: true,

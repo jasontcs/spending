@@ -4,11 +4,10 @@ import 'package:collection/collection.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:spending_api/spending_api.dart';
+import 'package:spending_logger/spending_logger.dart';
 
 import '../spending_repository.dart';
 import 'spending_repository_error.dart';
-import 'dart:developer' as developer;
-import 'package:logging/logging.dart';
 
 enum SpendingRepositoryImage {
   receipt('receipt');
@@ -21,6 +20,10 @@ class SpendingRepositoryImpl implements SpendingRepository {
   final SpendingApi _spendingApi;
 
   SpendingRepositoryImpl(this._spendingApi);
+
+  void _logInfo(String function, Object? data) {
+    SpendingLogger.type(this).i('$function: $data');
+  }
 
   @override
   Future<Category> addCategory(Category category) async {
@@ -198,14 +201,6 @@ class SpendingRepositoryImpl implements SpendingRepository {
     final result = await getRecord(new_.id!);
     _logInfo('updateRecord', result);
     return result!;
-  }
-
-  void _logInfo(String function, Object? data) {
-    developer.log(
-      '$function: $data',
-      name: 'Repository',
-      level: Level.INFO.value,
-    );
   }
 
   @override

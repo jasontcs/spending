@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:spending_api/spending_api.dart';
-import 'dart:developer' as developer;
-import 'package:logging/logging.dart';
+import 'package:spending_logger/spending_logger.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseSpendingApi implements SpendingApi {
@@ -308,10 +307,6 @@ class FirebaseSpendingApi implements SpendingApi {
   }
 
   void _logInfo(String function, Object? data) {
-    developer.log(
-      '$function: $data',
-      name: 'API',
-      level: Level.INFO.value,
-    );
+    SpendingLogger.type(this).i('$function: $data');
   }
 }

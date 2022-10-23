@@ -61,10 +61,6 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData,
           child: WrappedRoute(child: PersonPage(key: args.key, id: args.id)));
     },
-    SignInRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SignInPage());
-    },
     ReceiptRoute.name: (routeData) {
       final args = routeData.argsAs<ReceiptRouteArgs>();
       return MaterialPageX<dynamic>(
@@ -72,6 +68,10 @@ class _$AppRouter extends RootStackRouter {
           child: ReceiptPage(
               key: args.key, image: args.image, heroTag: args.heroTag),
           fullscreenDialog: true);
+    },
+    SignInRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SignInPage());
     },
     RecordsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -108,7 +108,8 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   List<RouteConfig> get routes => [
-        RouteConfig(AppHomeRoute.name, path: '/', children: [
+        RouteConfig(AppHomeRoute.name, path: '/app-home-page', children: [
+          RouteConfig(SignInRoute.name, path: '', parent: AppHomeRoute.name),
           RouteConfig(RecordsRoute.name,
               path: 'records-page', parent: AppHomeRoute.name),
           RouteConfig(BudgetRoute.name,
@@ -132,7 +133,6 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(CategoryRoute.name, path: '/category-page'),
         RouteConfig(PeopleRoute.name, path: '/people-page'),
         RouteConfig(PersonRoute.name, path: '/person-page'),
-        RouteConfig(SignInRoute.name, path: '/sign-in-page'),
         RouteConfig(ReceiptRoute.name, path: '/receipt-page')
       ];
 }
@@ -141,7 +141,8 @@ class _$AppRouter extends RootStackRouter {
 /// [AppHomePage]
 class AppHomeRoute extends PageRouteInfo<void> {
   const AppHomeRoute({List<PageRouteInfo>? children})
-      : super(AppHomeRoute.name, path: '/', initialChildren: children);
+      : super(AppHomeRoute.name,
+            path: '/app-home-page', initialChildren: children);
 
   static const String name = 'AppHomeRoute';
 }
@@ -267,14 +268,6 @@ class PersonRouteArgs {
 }
 
 /// generated route for
-/// [SignInPage]
-class SignInRoute extends PageRouteInfo<void> {
-  const SignInRoute() : super(SignInRoute.name, path: '/sign-in-page');
-
-  static const String name = 'SignInRoute';
-}
-
-/// generated route for
 /// [ReceiptPage]
 class ReceiptRoute extends PageRouteInfo<ReceiptRouteArgs> {
   ReceiptRoute({Key? key, required Image image, required Object heroTag})
@@ -299,6 +292,14 @@ class ReceiptRouteArgs {
   String toString() {
     return 'ReceiptRouteArgs{key: $key, image: $image, heroTag: $heroTag}';
   }
+}
+
+/// generated route for
+/// [SignInPage]
+class SignInRoute extends PageRouteInfo<void> {
+  const SignInRoute() : super(SignInRoute.name, path: '');
+
+  static const String name = 'SignInRoute';
 }
 
 /// generated route for

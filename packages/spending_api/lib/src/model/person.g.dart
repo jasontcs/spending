@@ -7,7 +7,7 @@ part of 'person.dart';
 // **************************************************************************
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, require_trailing_commas, prefer_single_quotes, prefer_double_quotes, use_super_parameters
 
 class _Sentinel {
   const _Sentinel();
@@ -67,7 +67,7 @@ class _$ApiPersonModelCollectionReference extends _$ApiPersonModelQuery
 
   _$ApiPersonModelCollectionReference._(
     CollectionReference<ApiPersonModel> reference,
-  ) : super(reference, reference);
+  ) : super(reference, $referenceWithoutCursor: reference);
 
   String get path => reference.path;
 
@@ -127,11 +127,23 @@ abstract class ApiPersonModelDocumentReference
   @override
   Future<void> delete();
 
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
   Future<void> update({
     String title,
+    FieldValue titleFieldValue,
   });
 
-  Future<void> set(ApiPersonModel value);
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    String title,
+    FieldValue titleFieldValue,
+  });
 }
 
 class _$ApiPersonModelDocumentReference extends FirestoreDocumentReference<
@@ -149,41 +161,51 @@ class _$ApiPersonModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   Stream<ApiPersonModelDocumentSnapshot> snapshots() {
-    return reference.snapshots().map((snapshot) {
-      return ApiPersonModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.snapshots().map(ApiPersonModelDocumentSnapshot._);
   }
 
   @override
   Future<ApiPersonModelDocumentSnapshot> get([GetOptions? options]) {
-    return reference.get(options).then((snapshot) {
-      return ApiPersonModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.get(options).then(ApiPersonModelDocumentSnapshot._);
   }
 
   @override
-  Future<void> delete() {
-    return reference.delete();
+  Future<ApiPersonModelDocumentSnapshot> transactionGet(
+      Transaction transaction) {
+    return transaction.get(reference).then(ApiPersonModelDocumentSnapshot._);
   }
 
   Future<void> update({
     Object? title = _sentinel,
+    FieldValue? titleFieldValue,
   }) async {
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
     final json = {
-      if (title != _sentinel) "title": title as String,
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
     };
 
     return reference.update(json);
   }
 
-  Future<void> set(ApiPersonModel value) {
-    return reference.set(value);
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? title = _sentinel,
+    FieldValue? titleFieldValue,
+  }) {
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
+    final json = {
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
+    };
+
+    transaction.update(reference, json);
   }
 
   @override
@@ -196,27 +218,6 @@ class _$ApiPersonModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   int get hashCode => Object.hash(runtimeType, parent, id);
-}
-
-class ApiPersonModelDocumentSnapshot
-    extends FirestoreDocumentSnapshot<ApiPersonModel> {
-  ApiPersonModelDocumentSnapshot._(
-    this.snapshot,
-    this.data,
-  );
-
-  @override
-  final DocumentSnapshot<ApiPersonModel> snapshot;
-
-  @override
-  ApiPersonModelDocumentReference get reference {
-    return ApiPersonModelDocumentReference(
-      snapshot.reference,
-    );
-  }
-
-  @override
-  final ApiPersonModel? data;
 }
 
 abstract class ApiPersonModelQuery
@@ -344,61 +345,45 @@ class _$ApiPersonModelQuery
     extends QueryReference<ApiPersonModel, ApiPersonModelQuerySnapshot>
     implements ApiPersonModelQuery {
   _$ApiPersonModelQuery(
-    this.reference,
-    this._collection,
-  );
+    this._collection, {
+    required Query<ApiPersonModel> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
 
   final CollectionReference<Object?> _collection;
 
   @override
-  final Query<ApiPersonModel> reference;
-
-  ApiPersonModelQuerySnapshot _decodeSnapshot(
-    QuerySnapshot<ApiPersonModel> snapshot,
-  ) {
-    final docs = snapshot.docs.map((e) {
-      return ApiPersonModelQueryDocumentSnapshot._(e, e.data());
-    }).toList();
-
-    final docChanges = snapshot.docChanges.map((change) {
-      return FirestoreDocumentChange<ApiPersonModelDocumentSnapshot>(
-        type: change.type,
-        oldIndex: change.oldIndex,
-        newIndex: change.newIndex,
-        doc: ApiPersonModelDocumentSnapshot._(change.doc, change.doc.data()),
-      );
-    }).toList();
-
-    return ApiPersonModelQuerySnapshot._(
-      snapshot,
-      docs,
-      docChanges,
-    );
-  }
-
-  @override
   Stream<ApiPersonModelQuerySnapshot> snapshots([SnapshotOptions? options]) {
-    return reference.snapshots().map(_decodeSnapshot);
+    return reference
+        .snapshots()
+        .map(ApiPersonModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   Future<ApiPersonModelQuerySnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(_decodeSnapshot);
+    return reference
+        .get(options)
+        .then(ApiPersonModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   ApiPersonModelQuery limit(int limit) {
     return _$ApiPersonModelQuery(
-      reference.limit(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
   @override
   ApiPersonModelQuery limitToLast(int limit) {
     return _$ApiPersonModelQuery(
-      reference.limitToLast(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -414,35 +399,64 @@ class _$ApiPersonModelQuery
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(fieldPath, descending: descending);
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
-
-    return _$ApiPersonModelQuery(query, _collection);
+    return _$ApiPersonModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiPersonModelQuery whereFieldPath(
@@ -460,7 +474,8 @@ class _$ApiPersonModelQuery
     bool? isNull,
   }) {
     return _$ApiPersonModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         fieldPath,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -474,7 +489,7 @@ class _$ApiPersonModelQuery
         whereNotIn: whereNotIn,
         isNull: isNull,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -490,7 +505,8 @@ class _$ApiPersonModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiPersonModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         FieldPath.documentId,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -502,7 +518,7 @@ class _$ApiPersonModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -518,8 +534,9 @@ class _$ApiPersonModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiPersonModelQuery(
-      reference.where(
-        _$ApiPersonModelFieldMap["title"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiPersonModelFieldMap['title']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -530,7 +547,7 @@ class _$ApiPersonModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -545,35 +562,65 @@ class _$ApiPersonModelQuery
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(FieldPath.documentId, descending: descending);
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiPersonModelQuery(query, _collection);
+    return _$ApiPersonModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiPersonModelQuery orderByTitle({
@@ -587,36 +634,65 @@ class _$ApiPersonModelQuery
     ApiPersonModelDocumentSnapshot? endBeforeDocument,
     ApiPersonModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiPersonModelFieldMap["title"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiPersonModelFieldMap['title']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiPersonModelQuery(query, _collection);
+    return _$ApiPersonModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   @override
@@ -630,6 +706,24 @@ class _$ApiPersonModelQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
+class ApiPersonModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiPersonModel> {
+  ApiPersonModelDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<ApiPersonModel> snapshot;
+
+  @override
+  ApiPersonModelDocumentReference get reference {
+    return ApiPersonModelDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final ApiPersonModel? data;
+}
+
 class ApiPersonModelQuerySnapshot extends FirestoreQuerySnapshot<ApiPersonModel,
     ApiPersonModelQueryDocumentSnapshot> {
   ApiPersonModelQuerySnapshot._(
@@ -637,6 +731,39 @@ class ApiPersonModelQuerySnapshot extends FirestoreQuerySnapshot<ApiPersonModel,
     this.docs,
     this.docChanges,
   );
+
+  factory ApiPersonModelQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<ApiPersonModel> snapshot,
+  ) {
+    final docs =
+        snapshot.docs.map(ApiPersonModelQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        ApiPersonModelDocumentSnapshot._,
+      );
+    }).toList();
+
+    return ApiPersonModelQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<ApiPersonModelDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    ApiPersonModelDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+  ) {
+    return FirestoreDocumentChange<ApiPersonModelDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
 
   final QuerySnapshot<ApiPersonModel> snapshot;
 
@@ -651,18 +778,18 @@ class ApiPersonModelQuerySnapshot extends FirestoreQuerySnapshot<ApiPersonModel,
 class ApiPersonModelQueryDocumentSnapshot
     extends FirestoreQueryDocumentSnapshot<ApiPersonModel>
     implements ApiPersonModelDocumentSnapshot {
-  ApiPersonModelQueryDocumentSnapshot._(this.snapshot, this.data);
+  ApiPersonModelQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
 
   @override
   final QueryDocumentSnapshot<ApiPersonModel> snapshot;
 
   @override
+  final ApiPersonModel data;
+
+  @override
   ApiPersonModelDocumentReference get reference {
     return ApiPersonModelDocumentReference(snapshot.reference);
   }
-
-  @override
-  final ApiPersonModel data;
 }
 
 // **************************************************************************

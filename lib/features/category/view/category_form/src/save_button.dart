@@ -22,15 +22,9 @@ class SaveButton extends StatelessWidget {
             : () {
                 final form = FormBuilder.of(context);
                 if (form?.saveAndValidate() ?? false) {
-                  developer.log(form!.value.toString(),
-                      name: 'UI', level: Level.INFO.value);
                   context
                       .read<CategoryBloc>()
-                      .add(CategoryFormSaved(form.value.toCategory()));
-                } else {
-                  developer.log(form!.value.toString(),
-                      name: 'UI', level: Level.INFO.value);
-                  debugPrint('validation failed');
+                      .add(CategoryFormSaved(form!.value.toCategory()));
                 }
               },
         child: Text(S.of(context).save),

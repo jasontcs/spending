@@ -7,7 +7,7 @@ part of 'currency.dart';
 // **************************************************************************
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, require_trailing_commas, prefer_single_quotes, prefer_double_quotes, use_super_parameters
 
 class _Sentinel {
   const _Sentinel();
@@ -68,7 +68,7 @@ class _$ApiCurrencyModelCollectionReference extends _$ApiCurrencyModelQuery
 
   _$ApiCurrencyModelCollectionReference._(
     CollectionReference<ApiCurrencyModel> reference,
-  ) : super(reference, reference);
+  ) : super(reference, $referenceWithoutCursor: reference);
 
   String get path => reference.path;
 
@@ -128,14 +128,35 @@ abstract class ApiCurrencyModelDocumentReference
   @override
   Future<void> delete();
 
+  /// Updates data on the document. Data will be merged with any existing
+  /// document data.
+  ///
+  /// If no document exists yet, the update will fail.
   Future<void> update({
-    double rate,
+    num rate,
+    FieldValue rateFieldValue,
     String title,
+    FieldValue titleFieldValue,
     String flag,
+    FieldValue flagFieldValue,
     DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
   });
 
-  Future<void> set(ApiCurrencyModel value);
+  /// Updates fields in the current document using the transaction API.
+  ///
+  /// The update will fail if applied to a document that does not exist.
+  void transactionUpdate(
+    Transaction transaction, {
+    num rate,
+    FieldValue rateFieldValue,
+    String title,
+    FieldValue titleFieldValue,
+    String flag,
+    FieldValue flagFieldValue,
+    DateTime updatedAt,
+    FieldValue updatedAtFieldValue,
+  });
 }
 
 class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
@@ -153,47 +174,99 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   Stream<ApiCurrencyModelDocumentSnapshot> snapshots() {
-    return reference.snapshots().map((snapshot) {
-      return ApiCurrencyModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.snapshots().map(ApiCurrencyModelDocumentSnapshot._);
   }
 
   @override
   Future<ApiCurrencyModelDocumentSnapshot> get([GetOptions? options]) {
-    return reference.get(options).then((snapshot) {
-      return ApiCurrencyModelDocumentSnapshot._(
-        snapshot,
-        snapshot.data(),
-      );
-    });
+    return reference.get(options).then(ApiCurrencyModelDocumentSnapshot._);
   }
 
   @override
-  Future<void> delete() {
-    return reference.delete();
+  Future<ApiCurrencyModelDocumentSnapshot> transactionGet(
+      Transaction transaction) {
+    return transaction.get(reference).then(ApiCurrencyModelDocumentSnapshot._);
   }
 
   Future<void> update({
     Object? rate = _sentinel,
+    FieldValue? rateFieldValue,
     Object? title = _sentinel,
+    FieldValue? titleFieldValue,
     Object? flag = _sentinel,
+    FieldValue? flagFieldValue,
     Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
   }) async {
+    assert(
+      rate == _sentinel || rateFieldValue == null,
+      "Cannot specify both rate and rateFieldValue",
+    );
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
+    assert(
+      flag == _sentinel || flagFieldValue == null,
+      "Cannot specify both flag and flagFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
     final json = {
-      if (rate != _sentinel) "rate": rate as double,
-      if (title != _sentinel) "title": title as String,
-      if (flag != _sentinel) "flag": flag as String,
-      if (updatedAt != _sentinel) "updatedAt": updatedAt as DateTime,
+      if (rate != _sentinel) 'rate': rate as num,
+      if (rateFieldValue != null) 'rate': rateFieldValue,
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
+      if (flag != _sentinel) 'flag': flag as String,
+      if (flagFieldValue != null) 'flag': flagFieldValue,
+      if (updatedAt != _sentinel) 'updatedAt': updatedAt as DateTime,
+      if (updatedAtFieldValue != null) 'updatedAt': updatedAtFieldValue,
     };
 
     return reference.update(json);
   }
 
-  Future<void> set(ApiCurrencyModel value) {
-    return reference.set(value);
+  void transactionUpdate(
+    Transaction transaction, {
+    Object? rate = _sentinel,
+    FieldValue? rateFieldValue,
+    Object? title = _sentinel,
+    FieldValue? titleFieldValue,
+    Object? flag = _sentinel,
+    FieldValue? flagFieldValue,
+    Object? updatedAt = _sentinel,
+    FieldValue? updatedAtFieldValue,
+  }) {
+    assert(
+      rate == _sentinel || rateFieldValue == null,
+      "Cannot specify both rate and rateFieldValue",
+    );
+    assert(
+      title == _sentinel || titleFieldValue == null,
+      "Cannot specify both title and titleFieldValue",
+    );
+    assert(
+      flag == _sentinel || flagFieldValue == null,
+      "Cannot specify both flag and flagFieldValue",
+    );
+    assert(
+      updatedAt == _sentinel || updatedAtFieldValue == null,
+      "Cannot specify both updatedAt and updatedAtFieldValue",
+    );
+    final json = {
+      if (rate != _sentinel) 'rate': rate as num,
+      if (rateFieldValue != null) 'rate': rateFieldValue,
+      if (title != _sentinel) 'title': title as String,
+      if (titleFieldValue != null) 'title': titleFieldValue,
+      if (flag != _sentinel) 'flag': flag as String,
+      if (flagFieldValue != null) 'flag': flagFieldValue,
+      if (updatedAt != _sentinel) 'updatedAt': updatedAt as DateTime,
+      if (updatedAtFieldValue != null) 'updatedAt': updatedAtFieldValue,
+    };
+
+    transaction.update(reference, json);
   }
 
   @override
@@ -206,27 +279,6 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
 
   @override
   int get hashCode => Object.hash(runtimeType, parent, id);
-}
-
-class ApiCurrencyModelDocumentSnapshot
-    extends FirestoreDocumentSnapshot<ApiCurrencyModel> {
-  ApiCurrencyModelDocumentSnapshot._(
-    this.snapshot,
-    this.data,
-  );
-
-  @override
-  final DocumentSnapshot<ApiCurrencyModel> snapshot;
-
-  @override
-  ApiCurrencyModelDocumentReference get reference {
-    return ApiCurrencyModelDocumentReference(
-      snapshot.reference,
-    );
-  }
-
-  @override
-  final ApiCurrencyModel? data;
 }
 
 abstract class ApiCurrencyModelQuery
@@ -314,15 +366,15 @@ abstract class ApiCurrencyModelQuery
     List<String>? whereNotIn,
   });
   ApiCurrencyModelQuery whereRate({
-    double? isEqualTo,
-    double? isNotEqualTo,
-    double? isLessThan,
-    double? isLessThanOrEqualTo,
-    double? isGreaterThan,
-    double? isGreaterThanOrEqualTo,
+    num? isEqualTo,
+    num? isNotEqualTo,
+    num? isLessThan,
+    num? isLessThanOrEqualTo,
+    num? isGreaterThan,
+    num? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<double>? whereIn,
-    List<double>? whereNotIn,
+    List<num>? whereIn,
+    List<num>? whereNotIn,
   });
   ApiCurrencyModelQuery whereTitle({
     String? isEqualTo,
@@ -372,10 +424,10 @@ abstract class ApiCurrencyModelQuery
 
   ApiCurrencyModelQuery orderByRate({
     bool descending = false,
-    double startAt,
-    double startAfter,
-    double endAt,
-    double endBefore,
+    num startAt,
+    num startAfter,
+    num endAt,
+    num endBefore,
     ApiCurrencyModelDocumentSnapshot? startAtDocument,
     ApiCurrencyModelDocumentSnapshot? endAtDocument,
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
@@ -423,61 +475,45 @@ class _$ApiCurrencyModelQuery
     extends QueryReference<ApiCurrencyModel, ApiCurrencyModelQuerySnapshot>
     implements ApiCurrencyModelQuery {
   _$ApiCurrencyModelQuery(
-    this.reference,
-    this._collection,
-  );
+    this._collection, {
+    required Query<ApiCurrencyModel> $referenceWithoutCursor,
+    $QueryCursor $queryCursor = const $QueryCursor(),
+  }) : super(
+          $referenceWithoutCursor: $referenceWithoutCursor,
+          $queryCursor: $queryCursor,
+        );
 
   final CollectionReference<Object?> _collection;
 
   @override
-  final Query<ApiCurrencyModel> reference;
-
-  ApiCurrencyModelQuerySnapshot _decodeSnapshot(
-    QuerySnapshot<ApiCurrencyModel> snapshot,
-  ) {
-    final docs = snapshot.docs.map((e) {
-      return ApiCurrencyModelQueryDocumentSnapshot._(e, e.data());
-    }).toList();
-
-    final docChanges = snapshot.docChanges.map((change) {
-      return FirestoreDocumentChange<ApiCurrencyModelDocumentSnapshot>(
-        type: change.type,
-        oldIndex: change.oldIndex,
-        newIndex: change.newIndex,
-        doc: ApiCurrencyModelDocumentSnapshot._(change.doc, change.doc.data()),
-      );
-    }).toList();
-
-    return ApiCurrencyModelQuerySnapshot._(
-      snapshot,
-      docs,
-      docChanges,
-    );
-  }
-
-  @override
   Stream<ApiCurrencyModelQuerySnapshot> snapshots([SnapshotOptions? options]) {
-    return reference.snapshots().map(_decodeSnapshot);
+    return reference
+        .snapshots()
+        .map(ApiCurrencyModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   Future<ApiCurrencyModelQuerySnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(_decodeSnapshot);
+    return reference
+        .get(options)
+        .then(ApiCurrencyModelQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
   ApiCurrencyModelQuery limit(int limit) {
     return _$ApiCurrencyModelQuery(
-      reference.limit(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
   @override
   ApiCurrencyModelQuery limitToLast(int limit) {
     return _$ApiCurrencyModelQuery(
-      reference.limitToLast(limit),
       _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -493,35 +529,64 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(fieldPath, descending: descending);
+    final query =
+        $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
-
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCurrencyModelQuery whereFieldPath(
@@ -539,7 +604,8 @@ class _$ApiCurrencyModelQuery
     bool? isNull,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         fieldPath,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -553,7 +619,7 @@ class _$ApiCurrencyModelQuery
         whereNotIn: whereNotIn,
         isNull: isNull,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -569,7 +635,8 @@ class _$ApiCurrencyModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
         FieldPath.documentId,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
@@ -581,24 +648,25 @@ class _$ApiCurrencyModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
   ApiCurrencyModelQuery whereRate({
-    double? isEqualTo,
-    double? isNotEqualTo,
-    double? isLessThan,
-    double? isLessThanOrEqualTo,
-    double? isGreaterThan,
-    double? isGreaterThanOrEqualTo,
+    num? isEqualTo,
+    num? isNotEqualTo,
+    num? isLessThan,
+    num? isLessThanOrEqualTo,
+    num? isGreaterThan,
+    num? isGreaterThanOrEqualTo,
     bool? isNull,
-    List<double>? whereIn,
-    List<double>? whereNotIn,
+    List<num>? whereIn,
+    List<num>? whereNotIn,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
-        _$ApiCurrencyModelFieldMap["rate"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCurrencyModelFieldMap['rate']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -609,7 +677,7 @@ class _$ApiCurrencyModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -625,8 +693,9 @@ class _$ApiCurrencyModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
-        _$ApiCurrencyModelFieldMap["title"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCurrencyModelFieldMap['title']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -637,7 +706,7 @@ class _$ApiCurrencyModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -653,8 +722,9 @@ class _$ApiCurrencyModelQuery
     List<String>? whereNotIn,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
-        _$ApiCurrencyModelFieldMap["flag"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCurrencyModelFieldMap['flag']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -665,7 +735,7 @@ class _$ApiCurrencyModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -681,8 +751,9 @@ class _$ApiCurrencyModelQuery
     List<DateTime>? whereNotIn,
   }) {
     return _$ApiCurrencyModelQuery(
-      reference.where(
-        _$ApiCurrencyModelFieldMap["updatedAt"]!,
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCurrencyModelFieldMap['updatedAt']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -693,7 +764,7 @@ class _$ApiCurrencyModelQuery
         whereIn: whereIn,
         whereNotIn: whereNotIn,
       ),
-      _collection,
+      $queryCursor: $queryCursor,
     );
   }
 
@@ -708,35 +779,65 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(FieldPath.documentId, descending: descending);
+    final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCurrencyModelQuery orderByRate({
@@ -750,36 +851,65 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["rate"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCurrencyModelFieldMap['rate']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCurrencyModelQuery orderByTitle({
@@ -793,36 +923,65 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["title"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCurrencyModelFieldMap['title']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCurrencyModelQuery orderByFlag({
@@ -836,36 +995,65 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["flag"]!,
-        descending: descending);
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCurrencyModelFieldMap['flag']!, descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   ApiCurrencyModelQuery orderByUpdatedAt({
@@ -879,36 +1067,66 @@ class _$ApiCurrencyModelQuery
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
     ApiCurrencyModelDocumentSnapshot? startAfterDocument,
   }) {
-    var query = reference.orderBy(_$ApiCurrencyModelFieldMap["updatedAt"]!,
+    final query = $referenceWithoutCursor.orderBy(
+        _$ApiCurrencyModelFieldMap['updatedAt']!,
         descending: descending);
+    var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
-      query = query.startAtDocument(startAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
     }
     if (startAfterDocument != null) {
-      query = query.startAfterDocument(startAfterDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
     }
     if (endAtDocument != null) {
-      query = query.endAtDocument(endAtDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
     }
     if (endBeforeDocument != null) {
-      query = query.endBeforeDocument(endBeforeDocument.snapshot);
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
     }
 
     if (startAt != _sentinel) {
-      query = query.startAt([startAt]);
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
     }
     if (startAfter != _sentinel) {
-      query = query.startAfter([startAfter]);
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
     }
     if (endAt != _sentinel) {
-      query = query.endAt([endAt]);
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
     }
     if (endBefore != _sentinel) {
-      query = query.endBefore([endBefore]);
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
     }
 
-    return _$ApiCurrencyModelQuery(query, _collection);
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
   }
 
   @override
@@ -922,6 +1140,24 @@ class _$ApiCurrencyModelQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
+class ApiCurrencyModelDocumentSnapshot
+    extends FirestoreDocumentSnapshot<ApiCurrencyModel> {
+  ApiCurrencyModelDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+
+  @override
+  final DocumentSnapshot<ApiCurrencyModel> snapshot;
+
+  @override
+  ApiCurrencyModelDocumentReference get reference {
+    return ApiCurrencyModelDocumentReference(
+      snapshot.reference,
+    );
+  }
+
+  @override
+  final ApiCurrencyModel? data;
+}
+
 class ApiCurrencyModelQuerySnapshot extends FirestoreQuerySnapshot<
     ApiCurrencyModel, ApiCurrencyModelQueryDocumentSnapshot> {
   ApiCurrencyModelQuerySnapshot._(
@@ -929,6 +1165,40 @@ class ApiCurrencyModelQuerySnapshot extends FirestoreQuerySnapshot<
     this.docs,
     this.docChanges,
   );
+
+  factory ApiCurrencyModelQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<ApiCurrencyModel> snapshot,
+  ) {
+    final docs =
+        snapshot.docs.map(ApiCurrencyModelQueryDocumentSnapshot._).toList();
+
+    final docChanges = snapshot.docChanges.map((change) {
+      return _decodeDocumentChange(
+        change,
+        ApiCurrencyModelDocumentSnapshot._,
+      );
+    }).toList();
+
+    return ApiCurrencyModelQuerySnapshot._(
+      snapshot,
+      docs,
+      docChanges,
+    );
+  }
+
+  static FirestoreDocumentChange<ApiCurrencyModelDocumentSnapshot>
+      _decodeDocumentChange<T>(
+    DocumentChange<T> docChange,
+    ApiCurrencyModelDocumentSnapshot Function(DocumentSnapshot<T> doc)
+        decodeDoc,
+  ) {
+    return FirestoreDocumentChange<ApiCurrencyModelDocumentSnapshot>(
+      type: docChange.type,
+      oldIndex: docChange.oldIndex,
+      newIndex: docChange.newIndex,
+      doc: decodeDoc(docChange.doc),
+    );
+  }
 
   final QuerySnapshot<ApiCurrencyModel> snapshot;
 
@@ -943,18 +1213,19 @@ class ApiCurrencyModelQuerySnapshot extends FirestoreQuerySnapshot<
 class ApiCurrencyModelQueryDocumentSnapshot
     extends FirestoreQueryDocumentSnapshot<ApiCurrencyModel>
     implements ApiCurrencyModelDocumentSnapshot {
-  ApiCurrencyModelQueryDocumentSnapshot._(this.snapshot, this.data);
+  ApiCurrencyModelQueryDocumentSnapshot._(this.snapshot)
+      : data = snapshot.data();
 
   @override
   final QueryDocumentSnapshot<ApiCurrencyModel> snapshot;
 
   @override
+  final ApiCurrencyModel data;
+
+  @override
   ApiCurrencyModelDocumentReference get reference {
     return ApiCurrencyModelDocumentReference(snapshot.reference);
   }
-
-  @override
-  final ApiCurrencyModel data;
 }
 
 // **************************************************************************
@@ -963,7 +1234,7 @@ class ApiCurrencyModelQueryDocumentSnapshot
 
 ApiCurrencyModel _$ApiCurrencyModelFromJson(Map<String, dynamic> json) =>
     ApiCurrencyModel(
-      rate: (json['rate'] as num).toDouble(),
+      rate: json['rate'] as num,
       title: json['title'] as String,
       flag: json['flag'] as String,
       updatedAt: DateTime.parse(json['updatedAt'] as String),
