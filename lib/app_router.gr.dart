@@ -53,7 +53,7 @@ class _$AppRouter extends RootStackRouter {
     PeopleRoute.name: (routeData) {
       final args = routeData.argsAs<PeopleRouteArgs>(
           orElse: () => const PeopleRouteArgs());
-      return MaterialPageX<Person>(
+      return MaterialPageX<dynamic>(
           routeData: routeData,
           child: WrappedRoute(
               child: PeoplePage(key: args.key, selectedId: args.selectedId)));
@@ -64,6 +64,11 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData,
           child: WrappedRoute(child: PersonPage(key: args.key, id: args.id)));
+    },
+    CurrenciesRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: WrappedRoute(child: const CurrenciesPage()));
     },
     ReceiptRoute.name: (routeData) {
       final args = routeData.argsAs<ReceiptRouteArgs>();
@@ -133,6 +138,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(CategoryRoute.name, path: '/category-page'),
         RouteConfig(PeopleRoute.name, path: '/people-page'),
         RouteConfig(PersonRoute.name, path: '/person-page'),
+        RouteConfig(CurrenciesRoute.name, path: '/currencies-page'),
         RouteConfig(ReceiptRoute.name, path: '/receipt-page')
       ];
 }
@@ -273,6 +279,15 @@ class PersonRouteArgs {
   String toString() {
     return 'PersonRouteArgs{key: $key, id: $id}';
   }
+}
+
+/// generated route for
+/// [CurrenciesPage]
+class CurrenciesRoute extends PageRouteInfo<void> {
+  const CurrenciesRoute()
+      : super(CurrenciesRoute.name, path: '/currencies-page');
+
+  static const String name = 'CurrenciesRoute';
 }
 
 /// generated route for

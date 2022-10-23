@@ -8,13 +8,14 @@ import '../../../widgets/app_bar.dart';
 class SettingPage extends StatelessWidget {
   SettingPage({super.key});
 
-  final items = [
-    SettingItem(title: S.current.category, route: CategoriesRoute()),
-    SettingItem(title: S.current.person, route: PeopleRoute()),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final items = [
+      SettingItem(title: S.of(context).category, route: CategoriesRoute()),
+      SettingItem(title: S.of(context).person, route: PeopleRoute()),
+      SettingItem(
+          title: S.of(context).currency, route: const CurrenciesRoute()),
+    ];
     return Scaffold(
       appBar: SpendingAppBar(title: Text(S.of(context).setting)),
       body: ListView.separated(

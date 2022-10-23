@@ -7,6 +7,7 @@ import 'features/budget/budget.dart';
 import 'features/categories/categories.dart';
 import 'features/category/category.dart';
 import 'features/chart/chart.dart';
+import 'features/currencies/currencies.dart';
 import 'features/home/home.dart';
 import 'features/people/people.dart';
 import 'features/person/person.dart';
@@ -48,6 +49,7 @@ part 'app_router.gr.dart';
     AutoRoute(page: CategoryPage),
     AutoRoute<Person>(page: PeoplePage),
     AutoRoute(page: PersonPage),
+    AutoRoute(page: CurrenciesPage),
     AutoRoute(
       page: ReceiptPage,
       fullscreenDialog: true,
