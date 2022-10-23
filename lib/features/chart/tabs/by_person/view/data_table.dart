@@ -19,11 +19,15 @@ class ByPersonDataTable extends StatelessWidget {
             cells: <DataCell>[
               DataCell(Text((index + 1).toString())),
               DataCell(Text(element.person.title)),
-              DataCell(Text(currencyFormat(context, element.total))),
+              DataCell(Text(currencyFormat(context,
+                  element.total / (bloc.state.mainCurrency?.rate ?? 1)))),
               DataCell(Text(bloc.state.totalThisMonth == 0
                   ? S.of(context).amount_not_available
                   : percentageFormat(
-                      context, element.total / bloc.state.totalThisMonth))),
+                      context,
+                      element.total /
+                          bloc.state.totalThisMonth *
+                          (bloc.state.mainCurrency?.rate ?? 1)))),
             ],
           ),
         )

@@ -23,6 +23,7 @@ mixin _$ChartState {
       throw _privateConstructorUsedError;
   List<Record> get records => throw _privateConstructorUsedError;
   DateTime? get trendFocusedDate => throw _privateConstructorUsedError;
+  Currency? get mainCurrency => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChartStateCopyWith<ChartState> get copyWith =>
@@ -39,7 +40,10 @@ abstract class $ChartStateCopyWith<$Res> {
       List<CategoryWithRecords> categoriesWithRecords,
       List<PersonWithRecords> peopleWithRecords,
       List<Record> records,
-      DateTime? trendFocusedDate});
+      DateTime? trendFocusedDate,
+      Currency? mainCurrency});
+
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -57,6 +61,7 @@ class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
     Object? peopleWithRecords = freezed,
     Object? records = freezed,
     Object? trendFocusedDate = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_value.copyWith(
       month: month == freezed
@@ -79,7 +84,22 @@ class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
           ? _value.trendFocusedDate
           : trendFocusedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      mainCurrency: mainCurrency == freezed
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ));
+  }
+
+  @override
+  $CurrencyCopyWith<$Res>? get mainCurrency {
+    if (_value.mainCurrency == null) {
+      return null;
+    }
+
+    return $CurrencyCopyWith<$Res>(_value.mainCurrency!, (value) {
+      return _then(_value.copyWith(mainCurrency: value));
+    });
   }
 }
 
@@ -95,7 +115,11 @@ abstract class _$$_ChartStateCopyWith<$Res>
       List<CategoryWithRecords> categoriesWithRecords,
       List<PersonWithRecords> peopleWithRecords,
       List<Record> records,
-      DateTime? trendFocusedDate});
+      DateTime? trendFocusedDate,
+      Currency? mainCurrency});
+
+  @override
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -115,6 +139,7 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
     Object? peopleWithRecords = freezed,
     Object? records = freezed,
     Object? trendFocusedDate = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_$_ChartState(
       month: month == freezed
@@ -137,6 +162,10 @@ class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
           ? _value.trendFocusedDate
           : trendFocusedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      mainCurrency: mainCurrency == freezed
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ));
   }
 }
@@ -149,7 +178,8 @@ class _$_ChartState extends _ChartState {
       final List<CategoryWithRecords> categoriesWithRecords = const [],
       final List<PersonWithRecords> peopleWithRecords = const [],
       final List<Record> records = const [],
-      this.trendFocusedDate})
+      this.trendFocusedDate,
+      this.mainCurrency})
       : _categoriesWithRecords = categoriesWithRecords,
         _peopleWithRecords = peopleWithRecords,
         _records = records,
@@ -183,10 +213,12 @@ class _$_ChartState extends _ChartState {
 
   @override
   final DateTime? trendFocusedDate;
+  @override
+  final Currency? mainCurrency;
 
   @override
   String toString() {
-    return 'ChartState(month: $month, categoriesWithRecords: $categoriesWithRecords, peopleWithRecords: $peopleWithRecords, records: $records, trendFocusedDate: $trendFocusedDate)';
+    return 'ChartState(month: $month, categoriesWithRecords: $categoriesWithRecords, peopleWithRecords: $peopleWithRecords, records: $records, trendFocusedDate: $trendFocusedDate, mainCurrency: $mainCurrency)';
   }
 
   @override
@@ -201,7 +233,9 @@ class _$_ChartState extends _ChartState {
                 .equals(other._peopleWithRecords, _peopleWithRecords) &&
             const DeepCollectionEquality().equals(other._records, _records) &&
             const DeepCollectionEquality()
-                .equals(other.trendFocusedDate, trendFocusedDate));
+                .equals(other.trendFocusedDate, trendFocusedDate) &&
+            const DeepCollectionEquality()
+                .equals(other.mainCurrency, mainCurrency));
   }
 
   @override
@@ -211,7 +245,8 @@ class _$_ChartState extends _ChartState {
       const DeepCollectionEquality().hash(_categoriesWithRecords),
       const DeepCollectionEquality().hash(_peopleWithRecords),
       const DeepCollectionEquality().hash(_records),
-      const DeepCollectionEquality().hash(trendFocusedDate));
+      const DeepCollectionEquality().hash(trendFocusedDate),
+      const DeepCollectionEquality().hash(mainCurrency));
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +260,8 @@ abstract class _ChartState extends ChartState {
       final List<CategoryWithRecords> categoriesWithRecords,
       final List<PersonWithRecords> peopleWithRecords,
       final List<Record> records,
-      final DateTime? trendFocusedDate}) = _$_ChartState;
+      final DateTime? trendFocusedDate,
+      final Currency? mainCurrency}) = _$_ChartState;
   const _ChartState._() : super._();
 
   @override
@@ -238,6 +274,8 @@ abstract class _ChartState extends ChartState {
   List<Record> get records;
   @override
   DateTime? get trendFocusedDate;
+  @override
+  Currency? get mainCurrency;
   @override
   @JsonKey(ignore: true)
   _$$_ChartStateCopyWith<_$_ChartState> get copyWith =>

@@ -15,7 +15,8 @@ class ByCategoryPieChart extends StatelessWidget {
         .state.categoriesWithRecords
         .map((e) => e.whereMonth(bloc.state.month))
         .where((element) => element.records.isNotEmpty)
-        .map((e) => ChartData(e.category.title, e.total))
+        .map((e) => ChartData(
+            e.category.title, e.total / (bloc.state.mainCurrency?.rate ?? 1)))
         .toList());
     return SfCircularChart(
       legend: Legend(

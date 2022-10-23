@@ -16,8 +16,8 @@ class CurrencyField extends StatelessWidget {
   Widget build(BuildContext context) {
     final value =
         context.select((RecordBloc bloc) => bloc.state.record?.currency);
-    final currencies = context.select((RecordBloc bloc) =>
-        {if (value != null) value, ...bloc.state.currencies});
+    final currencies =
+        context.select((RecordBloc bloc) => bloc.state.currencies);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),

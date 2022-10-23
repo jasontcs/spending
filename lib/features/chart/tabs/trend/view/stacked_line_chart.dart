@@ -12,6 +12,8 @@ class TrendStackedLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final month = context.select((ChartBloc bloc) => bloc.state.month);
+    final rate =
+        context.select((ChartBloc bloc) => bloc.state.mainCurrency?.rate ?? 1);
     final categoriesWithRecords =
         context.select((ChartBloc bloc) => bloc.state.categoriesWithRecords);
     return SfCartesianChart(
@@ -39,10 +41,12 @@ class TrendStackedLineChart extends StatelessWidget {
                 name: e.category.title,
                 dataSource: e.datesWithRecordsWithMonth(month),
                 xValueMapper: (data, _) => data.date,
-                yValueMapper: (data, _) => data.records.fold<num>(
-                    0,
-                    (previousValue, element) =>
-                        previousValue += element.amount),
+                yValueMapper: (data, _) =>
+                    data.records.fold<num>(
+                        0,
+                        (previousValue, element) =>
+                            previousValue += element.relativeAmount) /
+                    rate,
               ))
           .toList(),
       onTooltipRender: (tooltipArgs) {

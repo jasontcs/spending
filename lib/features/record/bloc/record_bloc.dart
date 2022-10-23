@@ -86,7 +86,8 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
         ? await _spendingRepository.getRecord(event.recordId!)
         : Record(
             amount: 0,
-            currency: (await _spendingRepository.currencies).first,
+            currency: (await _spendingRepository.currencies)
+                .firstWhere((currency) => currency.main),
             category: (await _spendingRepository.categories).first,
             person: (await _spendingRepository.people).first,
             receipts: [],

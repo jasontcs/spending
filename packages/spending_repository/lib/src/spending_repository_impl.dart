@@ -278,6 +278,7 @@ extension ApiCurrencyModelX on ApiCurrencyModel {
       title: title,
       flag: flag,
       updatedAt: updatedAt,
+      main: main,
     );
   }
 }
@@ -331,6 +332,7 @@ extension CurrencyX on Currency {
       title: title,
       flag: flag,
       updatedAt: updatedAt ?? DateTime.now(),
+      main: main,
     );
   }
 }

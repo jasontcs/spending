@@ -6,6 +6,8 @@ part 'model.freezed.dart';
 
 @freezed
 class Record with _$Record {
+  Record._();
+
   factory Record({
     final String? id,
     required num amount,
@@ -18,6 +20,8 @@ class Record with _$Record {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Record;
+
+  num get relativeAmount => amount * currency.rate;
 }
 
 @freezed
@@ -28,6 +32,7 @@ class Currency with _$Currency {
     required String title,
     required String flag,
     DateTime? updatedAt,
+    required bool main,
   }) = _Currency;
 }
 

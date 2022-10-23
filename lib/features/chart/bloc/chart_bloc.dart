@@ -29,6 +29,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     on<ChartPeopleWithRecordsChanged>(_onPeopleWithRecordsChanged);
     on<ChartTrendBarSelected>(_onChartTrendBarSelected);
     on<ChartRecordsUpdated>(_onChartRecordsUpdated);
+    on<ChartMainCurrencyUpdated>(_onMainCurrencyUpdated);
 
     _categoriesWithRecordsSubscription = CombineLatestStream.combine2(
       _spendingRepository.categoriesStream,
@@ -60,6 +61,12 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     _recordsSubscription = _spendingRepository.recordsStream.listen((records) {
       add(ChartRecordsUpdated(records));
     });
+
+    _currenciesSubscription =
+        _spendingRepository.currenciesStream.listen((currencies) {
+      add(ChartMainCurrencyUpdated(
+          currencies.singleWhere((currency) => currency.main)));
+    });
   }
   final SpendingRepository _spendingRepository;
   late StreamSubscription<List<CategoryWithRecords>>
@@ -68,6 +75,8 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
       _peopleWithRecordsSubscription;
 
   late StreamSubscription<List<Record>> _recordsSubscription;
+
+  late StreamSubscription<List<Currency>> _currenciesSubscription;
 
   Future<void> _onMonthChanged(
     ChartMonthChanged event,
@@ -107,11 +116,19 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     emit(state.copyWith(records: event.records));
   }
 
+  void _onMainCurrencyUpdated(
+    ChartMainCurrencyUpdated event,
+    Emitter<ChartState> emit,
+  ) {
+    emit(state.copyWith(mainCurrency: event.mainCurrency));
+  }
+
   @override
   Future<void> close() {
     _categoriesWithRecordsSubscription.cancel();
     _peopleWithRecordsSubscription.cancel();
     _recordsSubscription.cancel();
+    _currenciesSubscription.cancel();
     return super.close();
   }
 }

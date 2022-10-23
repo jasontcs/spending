@@ -8,18 +8,19 @@ class ChartState with _$ChartState {
     @Default([]) List<PersonWithRecords> peopleWithRecords,
     @Default([]) List<Record> records,
     DateTime? trendFocusedDate,
+    Currency? mainCurrency,
   }) = _ChartState;
   const ChartState._();
 
   num get totalThisMonth => records
       .where((record) => DateUtils.isSameMonth(record.dateTime, month))
-      .fold<num>(
-          0, (previousValue, element) => previousValue += element.amount);
+      .fold<num>(0,
+          (previousValue, element) => previousValue += element.relativeAmount);
 }
 
 extension CategoryWithRecordsX on CategoryWithRecords {
-  num get total =>
-      records.fold(0, (previousValue, record) => previousValue + record.amount);
+  num get total => records.fold(
+      0, (previousValue, record) => previousValue + record.relativeAmount);
   CategoryWithRecords whereMonth(DateTime month) => copyWith(
       records: records
           .where((record) => DateUtils.isSameMonth(record.dateTime, month))
@@ -39,8 +40,8 @@ extension CategoryWithRecordsX on CategoryWithRecords {
 }
 
 extension PersonWithRecordsX on PersonWithRecords {
-  num get total =>
-      records.fold(0, (previousValue, record) => previousValue + record.amount);
+  num get total => records.fold(
+      0, (previousValue, record) => previousValue + record.relativeAmount);
   PersonWithRecords whereMonth(DateTime month) => copyWith(
       records: records
           .where((record) => DateUtils.isSameMonth(record.dateTime, month))

@@ -15,7 +15,8 @@ class ByPersonPieChart extends StatelessWidget {
         .state.peopleWithRecords
         .map((e) => e.whereMonth(bloc.state.month))
         .where((element) => element.records.isNotEmpty)
-        .map((e) => ChartData(e.person.title, e.total))
+        .map((e) => ChartData(
+            e.person.title, e.total / (bloc.state.mainCurrency?.rate ?? 1)))
         .toList());
     return SfCircularChart(
       legend: Legend(

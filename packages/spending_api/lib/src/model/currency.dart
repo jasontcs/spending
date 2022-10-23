@@ -12,6 +12,7 @@ class ApiCurrencyModel {
     required this.title,
     required this.flag,
     required this.updatedAt,
+    required this.main,
   });
 
   @JsonKey(ignore: true)
@@ -20,6 +21,8 @@ class ApiCurrencyModel {
   final String title;
   final String flag;
   final DateTime updatedAt;
+  @JsonKey(defaultValue: false)
+  final bool main;
 
   ApiCurrencyModel copyWith({
     String? id,
@@ -27,6 +30,7 @@ class ApiCurrencyModel {
     String? title,
     String? flag,
     DateTime? updatedAt,
+    bool? main,
   }) {
     return ApiCurrencyModel(
       id: id ?? this.id,
@@ -34,6 +38,7 @@ class ApiCurrencyModel {
       title: title ?? this.title,
       flag: flag ?? this.flag,
       updatedAt: updatedAt ?? this.updatedAt,
+      main: main ?? this.main,
     );
   }
 }

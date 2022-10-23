@@ -31,3 +31,9 @@ class ChartRecordsUpdated extends ChartEvent {
 
   final List<Record> records;
 }
+
+class ChartMainCurrencyUpdated extends ChartEvent {
+  ChartMainCurrencyUpdated(this.mainCurrency);
+
+  final Currency mainCurrency;
+}

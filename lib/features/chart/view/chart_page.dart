@@ -25,6 +25,8 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
         final hasRecord = context.select((ChartBloc bloc) => bloc.state.records
             .where((record) => DateUtils.isSameMonth(record.dateTime, month))
             .isNotEmpty);
+        final mainCurrency =
+            context.select((ChartBloc bloc) => bloc.state.mainCurrency);
         return Scaffold(
           appBar: SpendingAppBar(
             title: Text(S.of(context).chart),
@@ -34,6 +36,10 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
                 context.read<ChartBloc>().add(ChartMonthChanged(focusedDay));
               },
             ),
+            actions: [
+              TextButton(
+                  onPressed: () {}, child: Text(mainCurrency?.title ?? '-'))
+            ],
           ),
           body: hasRecord
               ? child

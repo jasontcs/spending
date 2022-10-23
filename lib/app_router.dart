@@ -21,12 +21,12 @@ part 'app_router.gr.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
+      page: SignInPage,
+      initial: true,
+    ),
+    AutoRoute(
       page: AppHomePage,
       children: [
-        AutoRoute(
-          page: SignInPage,
-          initial: true,
-        ),
         AutoRoute(page: RecordsPage),
         AutoRoute(page: BudgetPage),
         AutoRoute(

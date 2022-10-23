@@ -17,6 +17,10 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    SignInRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SignInPage());
+    },
     AppHomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const AppHomePage());
@@ -69,10 +73,6 @@ class _$AppRouter extends RootStackRouter {
               key: args.key, image: args.image, heroTag: args.heroTag),
           fullscreenDialog: true);
     },
-    SignInRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SignInPage());
-    },
     RecordsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
@@ -108,8 +108,8 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   List<RouteConfig> get routes => [
+        RouteConfig(SignInRoute.name, path: '/'),
         RouteConfig(AppHomeRoute.name, path: '/app-home-page', children: [
-          RouteConfig(SignInRoute.name, path: '', parent: AppHomeRoute.name),
           RouteConfig(RecordsRoute.name,
               path: 'records-page', parent: AppHomeRoute.name),
           RouteConfig(BudgetRoute.name,
@@ -135,6 +135,14 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(PersonRoute.name, path: '/person-page'),
         RouteConfig(ReceiptRoute.name, path: '/receipt-page')
       ];
+}
+
+/// generated route for
+/// [SignInPage]
+class SignInRoute extends PageRouteInfo<void> {
+  const SignInRoute() : super(SignInRoute.name, path: '/');
+
+  static const String name = 'SignInRoute';
 }
 
 /// generated route for
@@ -292,14 +300,6 @@ class ReceiptRouteArgs {
   String toString() {
     return 'ReceiptRouteArgs{key: $key, image: $image, heroTag: $heroTag}';
   }
-}
-
-/// generated route for
-/// [SignInPage]
-class SignInRoute extends PageRouteInfo<void> {
-  const SignInRoute() : super(SignInRoute.name, path: '');
-
-  static const String name = 'SignInRoute';
 }
 
 /// generated route for

@@ -18,7 +18,9 @@ class BudgetState with _$BudgetState {
     return categoriesWithRecordsThisMonth.map((key, value) => MapEntry(
         key,
         value.fold<num>(
-            0, (previousValue, element) => previousValue += element.amount)));
+            0,
+            (previousValue, element) =>
+                previousValue += element.relativeAmount)));
   }
 
   num get totalThisMonth => categoriesWithTotalThisMonth.entries

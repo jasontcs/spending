@@ -233,7 +233,7 @@ class __$$_RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Record implements _Record {
+class _$_Record extends _Record {
   _$_Record(
       {this.id,
       required this.amount,
@@ -245,7 +245,8 @@ class _$_Record implements _Record {
       required this.dateTime,
       this.createdAt,
       this.updatedAt})
-      : _receipts = receipts;
+      : _receipts = receipts,
+        super._();
 
   @override
   final String? id;
@@ -315,7 +316,7 @@ class _$_Record implements _Record {
       __$$_RecordCopyWithImpl<_$_Record>(this, _$identity);
 }
 
-abstract class _Record implements Record {
+abstract class _Record extends Record {
   factory _Record(
       {final String? id,
       required final num amount,
@@ -327,6 +328,7 @@ abstract class _Record implements Record {
       required final DateTime dateTime,
       final DateTime? createdAt,
       final DateTime? updatedAt}) = _$_Record;
+  _Record._() : super._();
 
   @override
   String? get id;
@@ -361,6 +363,7 @@ mixin _$Currency {
   String get title => throw _privateConstructorUsedError;
   String get flag => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  bool get main => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrencyCopyWith<Currency> get copyWith =>
@@ -372,7 +375,12 @@ abstract class $CurrencyCopyWith<$Res> {
   factory $CurrencyCopyWith(Currency value, $Res Function(Currency) then) =
       _$CurrencyCopyWithImpl<$Res>;
   $Res call(
-      {String? id, num rate, String title, String flag, DateTime? updatedAt});
+      {String? id,
+      num rate,
+      String title,
+      String flag,
+      DateTime? updatedAt,
+      bool main});
 }
 
 /// @nodoc
@@ -390,6 +398,7 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
     Object? title = freezed,
     Object? flag = freezed,
     Object? updatedAt = freezed,
+    Object? main = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -412,6 +421,10 @@ class _$CurrencyCopyWithImpl<$Res> implements $CurrencyCopyWith<$Res> {
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      main: main == freezed
+          ? _value.main
+          : main // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -423,7 +436,12 @@ abstract class _$$_CurrencyCopyWith<$Res> implements $CurrencyCopyWith<$Res> {
       __$$_CurrencyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id, num rate, String title, String flag, DateTime? updatedAt});
+      {String? id,
+      num rate,
+      String title,
+      String flag,
+      DateTime? updatedAt,
+      bool main});
 }
 
 /// @nodoc
@@ -443,6 +461,7 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
     Object? title = freezed,
     Object? flag = freezed,
     Object? updatedAt = freezed,
+    Object? main = freezed,
   }) {
     return _then(_$_Currency(
       id: id == freezed
@@ -465,6 +484,10 @@ class __$$_CurrencyCopyWithImpl<$Res> extends _$CurrencyCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      main: main == freezed
+          ? _value.main
+          : main // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -477,7 +500,8 @@ class _$_Currency implements _Currency {
       required this.rate,
       required this.title,
       required this.flag,
-      this.updatedAt});
+      this.updatedAt,
+      required this.main});
 
   @override
   final String? id;
@@ -489,10 +513,12 @@ class _$_Currency implements _Currency {
   final String flag;
   @override
   final DateTime? updatedAt;
+  @override
+  final bool main;
 
   @override
   String toString() {
-    return 'Currency(id: $id, rate: $rate, title: $title, flag: $flag, updatedAt: $updatedAt)';
+    return 'Currency(id: $id, rate: $rate, title: $title, flag: $flag, updatedAt: $updatedAt, main: $main)';
   }
 
   @override
@@ -504,7 +530,8 @@ class _$_Currency implements _Currency {
             const DeepCollectionEquality().equals(other.rate, rate) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.flag, flag) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.main, main));
   }
 
   @override
@@ -514,7 +541,8 @@ class _$_Currency implements _Currency {
       const DeepCollectionEquality().hash(rate),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(flag),
-      const DeepCollectionEquality().hash(updatedAt));
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(main));
 
   @JsonKey(ignore: true)
   @override
@@ -528,7 +556,8 @@ abstract class _Currency implements Currency {
       required final num rate,
       required final String title,
       required final String flag,
-      final DateTime? updatedAt}) = _$_Currency;
+      final DateTime? updatedAt,
+      required final bool main}) = _$_Currency;
 
   @override
   String? get id;
@@ -540,6 +569,8 @@ abstract class _Currency implements Currency {
   String get flag;
   @override
   DateTime? get updatedAt;
+  @override
+  bool get main;
   @override
   @JsonKey(ignore: true)
   _$$_CurrencyCopyWith<_$_Currency> get copyWith =>

@@ -141,6 +141,8 @@ abstract class ApiCurrencyModelDocumentReference
     FieldValue flagFieldValue,
     DateTime updatedAt,
     FieldValue updatedAtFieldValue,
+    bool main,
+    FieldValue mainFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -156,6 +158,8 @@ abstract class ApiCurrencyModelDocumentReference
     FieldValue flagFieldValue,
     DateTime updatedAt,
     FieldValue updatedAtFieldValue,
+    bool main,
+    FieldValue mainFieldValue,
   });
 }
 
@@ -197,6 +201,8 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
     FieldValue? flagFieldValue,
     Object? updatedAt = _sentinel,
     FieldValue? updatedAtFieldValue,
+    Object? main = _sentinel,
+    FieldValue? mainFieldValue,
   }) async {
     assert(
       rate == _sentinel || rateFieldValue == null,
@@ -214,6 +220,10 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
       updatedAt == _sentinel || updatedAtFieldValue == null,
       "Cannot specify both updatedAt and updatedAtFieldValue",
     );
+    assert(
+      main == _sentinel || mainFieldValue == null,
+      "Cannot specify both main and mainFieldValue",
+    );
     final json = {
       if (rate != _sentinel) 'rate': rate as num,
       if (rateFieldValue != null) 'rate': rateFieldValue,
@@ -223,6 +233,8 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
       if (flagFieldValue != null) 'flag': flagFieldValue,
       if (updatedAt != _sentinel) 'updatedAt': updatedAt as DateTime,
       if (updatedAtFieldValue != null) 'updatedAt': updatedAtFieldValue,
+      if (main != _sentinel) 'main': main as bool,
+      if (mainFieldValue != null) 'main': mainFieldValue,
     };
 
     return reference.update(json);
@@ -238,6 +250,8 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
     FieldValue? flagFieldValue,
     Object? updatedAt = _sentinel,
     FieldValue? updatedAtFieldValue,
+    Object? main = _sentinel,
+    FieldValue? mainFieldValue,
   }) {
     assert(
       rate == _sentinel || rateFieldValue == null,
@@ -255,6 +269,10 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
       updatedAt == _sentinel || updatedAtFieldValue == null,
       "Cannot specify both updatedAt and updatedAtFieldValue",
     );
+    assert(
+      main == _sentinel || mainFieldValue == null,
+      "Cannot specify both main and mainFieldValue",
+    );
     final json = {
       if (rate != _sentinel) 'rate': rate as num,
       if (rateFieldValue != null) 'rate': rateFieldValue,
@@ -264,6 +282,8 @@ class _$ApiCurrencyModelDocumentReference extends FirestoreDocumentReference<
       if (flagFieldValue != null) 'flag': flagFieldValue,
       if (updatedAt != _sentinel) 'updatedAt': updatedAt as DateTime,
       if (updatedAtFieldValue != null) 'updatedAt': updatedAtFieldValue,
+      if (main != _sentinel) 'main': main as bool,
+      if (mainFieldValue != null) 'main': mainFieldValue,
     };
 
     transaction.update(reference, json);
@@ -409,6 +429,17 @@ abstract class ApiCurrencyModelQuery
     List<DateTime>? whereIn,
     List<DateTime>? whereNotIn,
   });
+  ApiCurrencyModelQuery whereMain({
+    bool? isEqualTo,
+    bool? isNotEqualTo,
+    bool? isLessThan,
+    bool? isLessThanOrEqualTo,
+    bool? isGreaterThan,
+    bool? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<bool>? whereIn,
+    List<bool>? whereNotIn,
+  });
 
   ApiCurrencyModelQuery orderByDocumentId({
     bool descending = false,
@@ -464,6 +495,18 @@ abstract class ApiCurrencyModelQuery
     DateTime startAfter,
     DateTime endAt,
     DateTime endBefore,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  });
+
+  ApiCurrencyModelQuery orderByMain({
+    bool descending = false,
+    bool startAt,
+    bool startAfter,
+    bool endAt,
+    bool endBefore,
     ApiCurrencyModelDocumentSnapshot? startAtDocument,
     ApiCurrencyModelDocumentSnapshot? endAtDocument,
     ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
@@ -754,6 +797,35 @@ class _$ApiCurrencyModelQuery
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         _$ApiCurrencyModelFieldMap['updatedAt']!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  ApiCurrencyModelQuery whereMain({
+    bool? isEqualTo,
+    bool? isNotEqualTo,
+    bool? isLessThan,
+    bool? isLessThanOrEqualTo,
+    bool? isGreaterThan,
+    bool? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<bool>? whereIn,
+    List<bool>? whereNotIn,
+  }) {
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$ApiCurrencyModelFieldMap['main']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -1129,6 +1201,78 @@ class _$ApiCurrencyModelQuery
     );
   }
 
+  ApiCurrencyModelQuery orderByMain({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    ApiCurrencyModelDocumentSnapshot? startAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endAtDocument,
+    ApiCurrencyModelDocumentSnapshot? endBeforeDocument,
+    ApiCurrencyModelDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$ApiCurrencyModelFieldMap['main']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$ApiCurrencyModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
   @override
   bool operator ==(Object other) {
     return other is _$ApiCurrencyModelQuery &&
@@ -1238,6 +1382,7 @@ ApiCurrencyModel _$ApiCurrencyModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       flag: json['flag'] as String,
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      main: json['main'] as bool? ?? false,
     );
 
 const _$ApiCurrencyModelFieldMap = <String, String>{
@@ -1245,6 +1390,7 @@ const _$ApiCurrencyModelFieldMap = <String, String>{
   'title': 'title',
   'flag': 'flag',
   'updatedAt': 'updatedAt',
+  'main': 'main',
 };
 
 Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
@@ -1253,4 +1399,5 @@ Map<String, dynamic> _$ApiCurrencyModelToJson(ApiCurrencyModel instance) =>
       'title': instance.title,
       'flag': instance.flag,
       'updatedAt': instance.updatedAt.toIso8601String(),
+      'main': instance.main,
     };
