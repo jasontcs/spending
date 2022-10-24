@@ -1,2 +1,2 @@
-export 'cubit/currencies_cubit.dart';
+export 'bloc/currencies_bloc.dart';
 export 'view/view.dart';

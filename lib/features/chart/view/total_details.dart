@@ -15,8 +15,8 @@ class TotalDetails extends StatelessWidget {
         total /
         DateUtils.getDaysInMonth(
             bloc.state.month.year, bloc.state.month.month));
-    final currency = context
-        .select((ChartBloc bloc) => bloc.state.mainCurrency?.title ?? '');
+    final mainCurrency =
+        context.select((ChartBloc bloc) => bloc.state.mainCurrency);
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.titleLarge!,
       child: Padding(
@@ -24,10 +24,10 @@ class TotalDetails extends StatelessWidget {
         child: Row(
           children: [
             Text(
-                '${S.of(context).total}: $currency ${currencyFormat(context, total)}'),
+                '${S.of(context).total}: ${currencyFormat(context, total, mainCurrency?.title)}'),
             const Spacer(),
             Text(
-                '${S.of(context).average_per_day}: $currency ${currencyFormat(context, average)}'),
+                '${S.of(context).average_per_day}: ${currencyFormat(context, average, mainCurrency?.title)}'),
           ],
         ),
       ),

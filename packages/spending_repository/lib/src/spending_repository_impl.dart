@@ -257,6 +257,23 @@ class SpendingRepositoryImpl implements SpendingRepository {
           );
         }).toList());
   }
+
+  @override
+  Future<Currency> setMainCurrency(Currency mainCurrency) async {
+    for (final currency
+        in (await currencies).sorted((a, b) => b.main ? 1 : -1)) {
+      if (currency.id == mainCurrency.id) {
+        if (currency.main) continue;
+        await _spendingApi.editCurrency(
+            currency.id!, currency.copyWith(main: true).fromEntity());
+      } else {
+        if (!currency.main) continue;
+        await _spendingApi.editCurrency(
+            currency.id!, currency.copyWith(main: false).fromEntity());
+      }
+    }
+    return (await getCurrency(mainCurrency.id!))!;
+  }
 }
 
 extension ApiCategoryModelX on ApiCategoryModel {

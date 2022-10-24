@@ -14,6 +14,9 @@ class BudgetCategoriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainCurrency =
+        context.select((BudgetBloc bloc) => bloc.state.mainCurrency);
+    final mainRate = mainCurrency?.rate ?? 1;
     final categoriesWithTotalThisMonth = context
         .select((BudgetBloc bloc) => bloc.state.categoriesWithTotalThisMonth);
 
@@ -23,8 +26,9 @@ class BudgetCategoriesList extends StatelessWidget {
         final category =
             categoriesWithTotalThisMonth.entries.elementAt(index).key;
         final budget = Budget(
-          total: category.budget,
-          used: categoriesWithTotalThisMonth.entries.elementAt(index).value,
+          total: category.budget / mainRate,
+          used: categoriesWithTotalThisMonth.entries.elementAt(index).value /
+              mainRate,
         );
 
         return ListTile(
@@ -40,7 +44,8 @@ class BudgetCategoriesList extends StatelessWidget {
                     final text = hasFocus == true
                         ? value
                         : budget.total != 0
-                            ? currencyFormat(context, budget.total)
+                            ? currencyFormat(context, budget.total / mainRate,
+                                mainCurrency?.title)
                             : null;
                     return TextField(
                       controller: TextEditingController(text: text),
@@ -63,7 +68,7 @@ class BudgetCategoriesList extends StatelessWidget {
                       context.read<BudgetBloc>().add(
                             BudgetCategoriesBudgetUpdated(
                               category: category,
-                              budget: value,
+                              budget: value * mainRate,
                             ),
                           );
                     }
@@ -91,7 +96,7 @@ class BudgetCategoriesList extends StatelessWidget {
                   Text(
                       '${S.of(context).balance}: ${budget.percentString(context) ?? S.of(context).amount_not_available}'),
                   Text(
-                      '${S.of(context).spent}: ${currencyFormat(context, budget.used)}')
+                      '${S.of(context).spent}: ${currencyFormat(context, budget.used, mainCurrency?.title)}')
                 ],
               ),
             ],

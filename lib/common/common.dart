@@ -23,9 +23,10 @@ extension MapTrySet<K, V> on Map<K, V> {
   }
 }
 
-String currencyFormat(BuildContext context, num amount) =>
+String currencyFormat(BuildContext context, num amount, [String? name]) =>
     NumberFormat.simpleCurrency(
       locale: S.of(context).locale,
+      name: name,
       decimalDigits: 1,
     ).format(amount);
 

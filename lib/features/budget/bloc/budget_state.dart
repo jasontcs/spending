@@ -5,6 +5,7 @@ class BudgetState with _$BudgetState {
   const factory BudgetState({
     required DateTime month,
     @Default({}) Map<Category, List<Record>> categoriesWithRecords,
+    Currency? mainCurrency,
   }) = _BudgetState;
   const BudgetState._();
   Map<Category, List<Record>> get categoriesWithRecordsThisMonth =>

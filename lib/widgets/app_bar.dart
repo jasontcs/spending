@@ -22,6 +22,7 @@ class SpendingAppBar extends StatelessWidget with PreferredSizeWidget {
       bottom: bottom,
       actions: actions,
       backgroundColor: isTransparent ? Colors.transparent : null,
+      centerTitle: true,
     );
   }
 

@@ -20,3 +20,9 @@ class BudgetCategoriesBudgetUpdated extends BudgetEvent {
   final Category category;
   final num? budget;
 }
+
+class BudgetMainCurrencyUpdated extends BudgetEvent {
+  BudgetMainCurrencyUpdated(this.mainCurrency);
+
+  final Currency? mainCurrency;
+}

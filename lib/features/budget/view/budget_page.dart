@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
 
+import '../../../app_router.dart';
 import '../../../generated/l10n.dart';
 import '../../../widgets/app_bar.dart';
 import '../../../widgets/month_bar.dart';
@@ -13,6 +14,8 @@ class BudgetPage extends StatelessWidget with AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     final month = context.select((BudgetBloc bloc) => bloc.state.month);
+    final mainCurrency =
+        context.select((BudgetBloc bloc) => bloc.state.mainCurrency);
     return Scaffold(
       appBar: SpendingAppBar(
         title: Text(S.of(context).budget),
@@ -22,6 +25,17 @@ class BudgetPage extends StatelessWidget with AutoRouteWrapper {
             context.read<BudgetBloc>().add(BudgetMonthChanged(focusedDay));
           },
         ),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            ),
+            onPressed: () {
+              context.pushRoute(const CurrenciesRoute());
+            },
+            child: Text(mainCurrency?.title ?? '-'),
+          ),
+        ],
       ),
       body: Column(
         children: [

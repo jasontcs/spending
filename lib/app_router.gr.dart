@@ -53,7 +53,7 @@ class _$AppRouter extends RootStackRouter {
     PeopleRoute.name: (routeData) {
       final args = routeData.argsAs<PeopleRouteArgs>(
           orElse: () => const PeopleRouteArgs());
-      return MaterialPageX<dynamic>(
+      return MaterialPageX<Person>(
           routeData: routeData,
           child: WrappedRoute(
               child: PeoplePage(key: args.key, selectedId: args.selectedId)));

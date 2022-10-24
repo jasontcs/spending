@@ -19,6 +19,7 @@ mixin _$BudgetState {
   DateTime get month => throw _privateConstructorUsedError;
   Map<Category, List<Record>> get categoriesWithRecords =>
       throw _privateConstructorUsedError;
+  Currency? get mainCurrency => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BudgetStateCopyWith<BudgetState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $BudgetStateCopyWith<$Res> {
           BudgetState value, $Res Function(BudgetState) then) =
       _$BudgetStateCopyWithImpl<$Res>;
   $Res call(
-      {DateTime month, Map<Category, List<Record>> categoriesWithRecords});
+      {DateTime month,
+      Map<Category, List<Record>> categoriesWithRecords,
+      Currency? mainCurrency});
+
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -46,6 +51,7 @@ class _$BudgetStateCopyWithImpl<$Res> implements $BudgetStateCopyWith<$Res> {
   $Res call({
     Object? month = freezed,
     Object? categoriesWithRecords = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_value.copyWith(
       month: month == freezed
@@ -56,7 +62,22 @@ class _$BudgetStateCopyWithImpl<$Res> implements $BudgetStateCopyWith<$Res> {
           ? _value.categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as Map<Category, List<Record>>,
+      mainCurrency: mainCurrency == freezed
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ));
+  }
+
+  @override
+  $CurrencyCopyWith<$Res>? get mainCurrency {
+    if (_value.mainCurrency == null) {
+      return null;
+    }
+
+    return $CurrencyCopyWith<$Res>(_value.mainCurrency!, (value) {
+      return _then(_value.copyWith(mainCurrency: value));
+    });
   }
 }
 
@@ -68,7 +89,12 @@ abstract class _$$_BudgetStateCopyWith<$Res>
       __$$_BudgetStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DateTime month, Map<Category, List<Record>> categoriesWithRecords});
+      {DateTime month,
+      Map<Category, List<Record>> categoriesWithRecords,
+      Currency? mainCurrency});
+
+  @override
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -85,6 +111,7 @@ class __$$_BudgetStateCopyWithImpl<$Res> extends _$BudgetStateCopyWithImpl<$Res>
   $Res call({
     Object? month = freezed,
     Object? categoriesWithRecords = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_$_BudgetState(
       month: month == freezed
@@ -95,6 +122,10 @@ class __$$_BudgetStateCopyWithImpl<$Res> extends _$BudgetStateCopyWithImpl<$Res>
           ? _value._categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as Map<Category, List<Record>>,
+      mainCurrency: mainCurrency == freezed
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ));
   }
 }
@@ -104,7 +135,8 @@ class __$$_BudgetStateCopyWithImpl<$Res> extends _$BudgetStateCopyWithImpl<$Res>
 class _$_BudgetState extends _BudgetState {
   const _$_BudgetState(
       {required this.month,
-      final Map<Category, List<Record>> categoriesWithRecords = const {}})
+      final Map<Category, List<Record>> categoriesWithRecords = const {},
+      this.mainCurrency})
       : _categoriesWithRecords = categoriesWithRecords,
         super._();
 
@@ -119,8 +151,11 @@ class _$_BudgetState extends _BudgetState {
   }
 
   @override
+  final Currency? mainCurrency;
+
+  @override
   String toString() {
-    return 'BudgetState(month: $month, categoriesWithRecords: $categoriesWithRecords)';
+    return 'BudgetState(month: $month, categoriesWithRecords: $categoriesWithRecords, mainCurrency: $mainCurrency)';
   }
 
   @override
@@ -130,14 +165,17 @@ class _$_BudgetState extends _BudgetState {
             other is _$_BudgetState &&
             const DeepCollectionEquality().equals(other.month, month) &&
             const DeepCollectionEquality()
-                .equals(other._categoriesWithRecords, _categoriesWithRecords));
+                .equals(other._categoriesWithRecords, _categoriesWithRecords) &&
+            const DeepCollectionEquality()
+                .equals(other.mainCurrency, mainCurrency));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(month),
-      const DeepCollectionEquality().hash(_categoriesWithRecords));
+      const DeepCollectionEquality().hash(_categoriesWithRecords),
+      const DeepCollectionEquality().hash(mainCurrency));
 
   @JsonKey(ignore: true)
   @override
@@ -147,15 +185,17 @@ class _$_BudgetState extends _BudgetState {
 
 abstract class _BudgetState extends BudgetState {
   const factory _BudgetState(
-          {required final DateTime month,
-          final Map<Category, List<Record>> categoriesWithRecords}) =
-      _$_BudgetState;
+      {required final DateTime month,
+      final Map<Category, List<Record>> categoriesWithRecords,
+      final Currency? mainCurrency}) = _$_BudgetState;
   const _BudgetState._() : super._();
 
   @override
   DateTime get month;
   @override
   Map<Category, List<Record>> get categoriesWithRecords;
+  @override
+  Currency? get mainCurrency;
   @override
   @JsonKey(ignore: true)
   _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>

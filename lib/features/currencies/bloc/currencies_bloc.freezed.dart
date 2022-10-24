@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'currencies_cubit.dart';
+part of 'currencies_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CurrenciesState {
+  AppFormStatus get status => throw _privateConstructorUsedError;
   List<Currency> get currencies => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -28,7 +29,7 @@ abstract class $CurrenciesStateCopyWith<$Res> {
   factory $CurrenciesStateCopyWith(
           CurrenciesState value, $Res Function(CurrenciesState) then) =
       _$CurrenciesStateCopyWithImpl<$Res>;
-  $Res call({List<Currency> currencies});
+  $Res call({AppFormStatus status, List<Currency> currencies});
 }
 
 /// @nodoc
@@ -42,9 +43,14 @@ class _$CurrenciesStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? status = freezed,
     Object? currencies = freezed,
   }) {
     return _then(_value.copyWith(
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as AppFormStatus,
       currencies: currencies == freezed
           ? _value.currencies
           : currencies // ignore: cast_nullable_to_non_nullable
@@ -60,7 +66,7 @@ abstract class _$$_CurrenciesStateCopyWith<$Res>
           _$_CurrenciesState value, $Res Function(_$_CurrenciesState) then) =
       __$$_CurrenciesStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Currency> currencies});
+  $Res call({AppFormStatus status, List<Currency> currencies});
 }
 
 /// @nodoc
@@ -76,9 +82,14 @@ class __$$_CurrenciesStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? status = freezed,
     Object? currencies = freezed,
   }) {
     return _then(_$_CurrenciesState(
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as AppFormStatus,
       currencies: currencies == freezed
           ? _value._currencies
           : currencies // ignore: cast_nullable_to_non_nullable
@@ -90,9 +101,14 @@ class __$$_CurrenciesStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CurrenciesState implements _CurrenciesState {
-  const _$_CurrenciesState({final List<Currency> currencies = const []})
+  const _$_CurrenciesState(
+      {this.status = AppFormStatus.init,
+      final List<Currency> currencies = const []})
       : _currencies = currencies;
 
+  @override
+  @JsonKey()
+  final AppFormStatus status;
   final List<Currency> _currencies;
   @override
   @JsonKey()
@@ -103,7 +119,7 @@ class _$_CurrenciesState implements _CurrenciesState {
 
   @override
   String toString() {
-    return 'CurrenciesState(currencies: $currencies)';
+    return 'CurrenciesState(status: $status, currencies: $currencies)';
   }
 
   @override
@@ -111,13 +127,16 @@ class _$_CurrenciesState implements _CurrenciesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CurrenciesState &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other._currencies, _currencies));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_currencies));
+      runtimeType,
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(_currencies));
 
   @JsonKey(ignore: true)
   @override
@@ -126,9 +145,12 @@ class _$_CurrenciesState implements _CurrenciesState {
 }
 
 abstract class _CurrenciesState implements CurrenciesState {
-  const factory _CurrenciesState({final List<Currency> currencies}) =
-      _$_CurrenciesState;
+  const factory _CurrenciesState(
+      {final AppFormStatus status,
+      final List<Currency> currencies}) = _$_CurrenciesState;
 
+  @override
+  AppFormStatus get status;
   @override
   List<Currency> get currencies;
   @override

@@ -30,4 +30,6 @@ abstract class SpendingRepository {
   Future<Category> deleteCategory(Category category);
   Future<Currency> deleteCurrency(Currency currency);
   Future<Person> deletePerson(Person person);
+
+  Future<Currency> setMainCurrency(Currency currency);
 }

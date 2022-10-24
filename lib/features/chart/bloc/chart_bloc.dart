@@ -65,7 +65,7 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     _currenciesSubscription =
         _spendingRepository.currenciesStream.listen((currencies) {
       add(ChartMainCurrencyUpdated(
-          currencies.singleWhere((currency) => currency.main)));
+          currencies.singleWhereOrNull((currency) => currency.main)));
     });
   }
   final SpendingRepository _spendingRepository;

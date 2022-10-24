@@ -5,6 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../../common/common.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../widgets/calculator_keyboard.dart';
+import '../../../../budget/budget.dart';
 
 class BudgetField extends StatelessWidget {
   const BudgetField({
@@ -15,6 +16,8 @@ class BudgetField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainCurrency =
+        context.select((BudgetBloc bloc) => bloc.state.mainCurrency);
     return FormBuilderField<num>(
       name: name,
       validator: FormBuilderValidators.compose([
@@ -26,7 +29,8 @@ class BudgetField extends StatelessWidget {
           builder: (context, value, hasFocus) {
             return TextFormField(
               controller: TextEditingController(
-                text: currencyFormat(context, field.value ?? 0),
+                text: currencyFormat(
+                    context, field.value ?? 0, mainCurrency?.title),
               ),
               readOnly: true,
               decoration: InputDecoration(

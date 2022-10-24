@@ -35,5 +35,5 @@ class ChartRecordsUpdated extends ChartEvent {
 class ChartMainCurrencyUpdated extends ChartEvent {
   ChartMainCurrencyUpdated(this.mainCurrency);
 
-  final Currency mainCurrency;
+  final Currency? mainCurrency;
 }

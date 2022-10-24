@@ -25,6 +25,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     on<BudgetCategoriesWithRecordsChanged>(
         _onBudgetCategoriesWithRecordsChanged);
     on<BudgetCategoriesBudgetUpdated>(_onBudgetCategoriesBudgetUpdated);
+    on<BudgetMainCurrencyUpdated>(_onBudgetMainCurrencyUpdated);
     _categoriesWithRecordsSubscription = CombineLatestStream.combine2(
         _spendingRepository.categoriesStream, _spendingRepository.recordsStream,
         (List<Category> a, List<Record> b) {
@@ -34,10 +35,16 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     }).listen((value) {
       add(BudgetCategoriesWithRecordsChanged(value));
     });
+    _currenciesSubscription =
+        _spendingRepository.currenciesStream.listen((currencies) {
+      add(BudgetMainCurrencyUpdated(
+          currencies.singleWhereOrNull((currency) => currency.main)));
+    });
   }
   final SpendingRepository _spendingRepository;
   late StreamSubscription<Map<Category, List<Record>>>
       _categoriesWithRecordsSubscription;
+  late StreamSubscription<List<Currency>> _currenciesSubscription;
 
   void _onBudgetCategoriesWithRecordsChanged(
     BudgetCategoriesWithRecordsChanged event,
@@ -61,9 +68,17 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
         event.category, event.category.copyWith(budget: event.budget ?? 0));
   }
 
+  void _onBudgetMainCurrencyUpdated(
+    BudgetMainCurrencyUpdated event,
+    Emitter<BudgetState> emit,
+  ) {
+    emit(state.copyWith(mainCurrency: event.mainCurrency));
+  }
+
   @override
   Future<void> close() {
     _categoriesWithRecordsSubscription.cancel();
+    _currenciesSubscription.cancel();
     return super.close();
   }
 }

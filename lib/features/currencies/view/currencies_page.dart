@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_repository/spending_repository.dart';
 
@@ -18,7 +19,7 @@ class CurrenciesPage extends StatelessWidget with AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => CurrenciesCubit(
+      create: (context) => CurrenciesBloc(
         spendingRepository: context.read<SpendingRepository>(),
       ),
       child: this,
@@ -32,20 +33,12 @@ class CurrenciesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Currency> currencies =
-        context.select((CurrenciesCubit cubit) => cubit.state.currencies);
-    final mainCurrency = context.select((CurrenciesCubit cubit) =>
-        cubit.state.currencies.singleWhere((currency) => currency.main));
+        context.select((CurrenciesBloc cubit) => cubit.state.currencies);
+    final mainCurrency = context.select((CurrenciesBloc cubit) =>
+        cubit.state.currencies.singleWhereOrNull((currency) => currency.main));
     return Scaffold(
       appBar: SpendingAppBar(
         title: Text(S.of(context).currency),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.pushRoute(PersonRoute());
-            },
-            icon: const Icon(Icons.add),
-          )
-        ],
       ),
       body: ListView.separated(
         itemCount: currencies.length,
@@ -54,7 +47,12 @@ class CurrenciesView extends StatelessWidget {
           return CurrencyTile(
             currency: currency,
             mainCurrency: mainCurrency,
-            onChanged: (value) {},
+            onChanged: (currency) {
+              if (currency == null) return;
+              context
+                  .read<CurrenciesBloc>()
+                  .add(CurrenciesMainSelectedEvent(currency));
+            },
           );
         },
         separatorBuilder: (context, index) => const Divider(),
@@ -68,11 +66,11 @@ class CurrencyTile extends StatelessWidget {
     super.key,
     required this.currency,
     required this.onChanged,
-    required this.mainCurrency,
+    this.mainCurrency,
   });
 
   final Currency currency;
-  final Currency mainCurrency;
+  final Currency? mainCurrency;
   final ValueChanged<Currency?> onChanged;
 
   @override

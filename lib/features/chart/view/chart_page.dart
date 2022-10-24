@@ -38,7 +38,14 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
             ),
             actions: [
               TextButton(
-                  onPressed: () {}, child: Text(mainCurrency?.title ?? '-'))
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                ),
+                onPressed: () {
+                  context.pushRoute(const CurrenciesRoute());
+                },
+                child: Text(mainCurrency?.title ?? '-'),
+              ),
             ],
           ),
           body: hasRecord
