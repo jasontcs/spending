@@ -39,7 +39,8 @@ class ChartPage extends StatelessWidget with AutoRouteWrapper {
             actions: [
               TextButton(
                 style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                  foregroundColor:
+                      Theme.of(context).appBarTheme.actionsIconTheme?.color,
                 ),
                 onPressed: () {
                   context.pushRoute(const CurrenciesRoute());
