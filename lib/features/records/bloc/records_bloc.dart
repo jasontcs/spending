@@ -22,7 +22,7 @@ class RecordsBloc extends Bloc<RecordsEvent, RecordsState> {
   }
 
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Record>> _recordsSubscription;
+  late final StreamSubscription<List<Record>> _recordsSubscription;
 
   @override
   Future<void> close() {

@@ -123,7 +123,7 @@ class CalculatorKeyboard extends StatefulWidget implements PreferredSizeWidget {
 
 class _CalculatorKeyboardState extends State<CalculatorKeyboard>
     with KeyboardCustomPanelMixin<String> {
-  late StreamSubscription<CalculatorValue> _subscription;
+  late final StreamSubscription<CalculatorValue> _subscription;
 
   @override
   void initState() {

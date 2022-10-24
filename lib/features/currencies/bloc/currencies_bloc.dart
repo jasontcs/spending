@@ -26,7 +26,7 @@ class CurrenciesBloc extends Bloc<CurrenciesEvent, CurrenciesState> {
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Currency>> _currenciesSubscription;
+  late final StreamSubscription<List<Currency>> _currenciesSubscription;
 
   Future<void> _onCurrenciesMainSelectedEvent(
     CurrenciesMainSelectedEvent event,

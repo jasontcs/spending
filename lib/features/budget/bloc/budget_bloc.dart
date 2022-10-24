@@ -42,9 +42,9 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<Map<Category, List<Record>>>
+  late final StreamSubscription<Map<Category, List<Record>>>
       _categoriesWithRecordsSubscription;
-  late StreamSubscription<List<Currency>> _currenciesSubscription;
+  late final StreamSubscription<List<Currency>> _currenciesSubscription;
 
   void _onBudgetCategoriesWithRecordsChanged(
     BudgetCategoriesWithRecordsChanged event,

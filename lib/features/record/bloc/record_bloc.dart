@@ -40,9 +40,9 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Category>> _categoriesSubscription;
-  late StreamSubscription<List<Currency>> _currenciesSubscription;
-  late StreamSubscription<List<Person>> _peopleSubscription;
+  late final StreamSubscription<List<Category>> _categoriesSubscription;
+  late final StreamSubscription<List<Currency>> _currenciesSubscription;
+  late final StreamSubscription<List<Person>> _peopleSubscription;
 
   @override
   Future<void> close() {

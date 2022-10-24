@@ -27,7 +27,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
   final String? selectedId;
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Category>> _categoriesSubscription;
+  late final StreamSubscription<List<Category>> _categoriesSubscription;
 
   @override
   Future<void> close() {

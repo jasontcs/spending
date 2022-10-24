@@ -25,7 +25,7 @@ class PeopleCubit extends Cubit<PeopleState> {
   }
   final String? selectedId;
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<Person>> _peopleSubscription;
+  late final StreamSubscription<List<Person>> _peopleSubscription;
 
   @override
   Future<void> close() {

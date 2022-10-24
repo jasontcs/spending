@@ -69,14 +69,14 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     });
   }
   final SpendingRepository _spendingRepository;
-  late StreamSubscription<List<CategoryWithRecords>>
+  late final StreamSubscription<List<CategoryWithRecords>>
       _categoriesWithRecordsSubscription;
-  late StreamSubscription<List<PersonWithRecords>>
+  late final StreamSubscription<List<PersonWithRecords>>
       _peopleWithRecordsSubscription;
 
-  late StreamSubscription<List<Record>> _recordsSubscription;
+  late final StreamSubscription<List<Record>> _recordsSubscription;
 
-  late StreamSubscription<List<Currency>> _currenciesSubscription;
+  late final StreamSubscription<List<Currency>> _currenciesSubscription;
 
   Future<void> _onMonthChanged(
     ChartMonthChanged event,
