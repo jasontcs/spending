@@ -10,7 +10,7 @@ Spending Tracker app for my family use.
 ## Pages
 |Records Page|Record Page|Budget Page|
 |:----:|:----:|:----:|
-|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/records.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/record.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/budget.jpeg" width="240">|
+|<img src="https://github.com/jasontcs/spending/blob/master/screenshots/budget.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/screenshots/record.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/screenshots/budget.jpeg" width="240">|
 |Chart Page|Trend Page|Categories Page|
 |:----:|:----:|:----:|
-|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/chart.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/trend.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/categories.jpeg" width="240">|
+|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/screenshots/chart.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/screenshots/trend.jpeg" width="240">|<img src="https://github.com/jasontcs/SwiftCafe/blob/master/screenshots/categories.jpeg" width="240">|
