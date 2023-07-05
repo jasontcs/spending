@@ -1,11 +1,30 @@
-# spending
+# Spending
 
-Spending Tracker app for my family use.
+Spending is a mobile application written in [Flutter](https://flutter.dev/)
+
+## Features
+- Support multiple members
+- Categories
+- Upload receipts
+- Firestore as a backend
+- Set Budget to limit the expense
+- Chart for Data Visualization
 
 ## Getting Started
+Put your own firebase project config   file `lib/firebase_options.dart` with Firebase Auth, Firestore & Firebase Storage enabled
 
-- Use Firestore, Firebase Auth & Firebase Storage (Free Tier!)
-- Use BloC because I love it
+You will need a recent version of [Flutter](https://flutter.dev/), then just
+
+`$ flutter run`
+
+on mobile devices
+
+## Tech Stacks
+
+- UI Framework: Flutter
+- Design Pattern: BloC
+- Backends: Firebase Auth, Firestore, Firebase Storage
+- Others: ReactiveX (RxDart)
 
 ## Project Structure
 ```
@@ -31,15 +50,15 @@ spending
 │  ├─ main.dart             
 │  ├─ model                 
 │  └─ widgets               # Reusable Widgets 
-├─ packages                 # Seperate non UI repositories
-│  ├─ calculator            # Just a calucator logic
+├─ packages                 # Separate non-UI repositories
+│  ├─ calculator            # Calculator Logic API
 │  ├─ spending_api          # Data Layer: Firestore API
 │  ├─ spending_logger       
 │  └─ spending_repository   # Domain Layer: Modelized, Filtered & Streamed repository
 └─ pubspec.yaml             # App config, dependencies
 ```
 
-## Architecture
+## Architecture - BloC Pattern
 <img src="https://github.com/jasontcs/spending/blob/master/screenshots/architecture.png" width="720"> 
 
 ## Pages
