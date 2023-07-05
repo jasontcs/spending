@@ -24,7 +24,7 @@ on mobile devices
 - UI Framework: Flutter
 - Design Pattern: BloC
 - Backends: Firebase Auth, Firestore, Firebase Storage
-- Others: ReactiveX (RxDart)
+- Handling of async events: ReactiveX (RxDart)
 
 ## Project Structure
 ```
