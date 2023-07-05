@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `zh_HK`
+  /// `en_US`
   String get locale {
     return Intl.message(
-      'zh_HK',
+      'en_US',
       name: 'locale',
       desc: '',
       args: [],
@@ -70,350 +70,350 @@ class S {
     );
   }
 
-  /// `記帳HK`
+  /// `Spending HK`
   String get app_title {
     return Intl.message(
-      '記帳HK',
+      'Spending HK',
       name: 'app_title',
       desc: '',
       args: [],
     );
   }
 
-  /// `登入`
+  /// `Login`
   String get sign_in {
     return Intl.message(
-      '登入',
+      'Login',
       name: 'sign_in',
       desc: '',
       args: [],
     );
   }
 
-  /// `記錄`
+  /// `Record`
   String get record {
     return Intl.message(
-      '記錄',
+      'Record',
       name: 'record',
       desc: '',
       args: [],
     );
   }
 
-  /// `沒有記錄`
+  /// `No records`
   String get no_records {
     return Intl.message(
-      '沒有記錄',
+      'No records',
       name: 'no_records',
       desc: '',
       args: [],
     );
   }
 
-  /// `日期`
+  /// `Date`
   String get date {
     return Intl.message(
-      '日期',
+      'Date',
       name: 'date',
       desc: '',
       args: [],
     );
   }
 
-  /// `金額`
+  /// `Amount`
   String get amount {
     return Intl.message(
-      '金額',
+      'Amount',
       name: 'amount',
       desc: '',
       args: [],
     );
   }
 
-  /// `類別`
+  /// `Category`
   String get category {
     return Intl.message(
-      '類別',
+      'Category',
       name: 'category',
       desc: '',
       args: [],
     );
   }
 
-  /// `新類別`
+  /// `New Category`
   String get new_category {
     return Intl.message(
-      '新類別',
+      'New Category',
       name: 'new_category',
       desc: '',
       args: [],
     );
   }
 
-  /// `成員`
+  /// `Person`
   String get person {
     return Intl.message(
-      '成員',
+      'Person',
       name: 'person',
       desc: '',
       args: [],
     );
   }
 
-  /// `新成員`
+  /// `New Person`
   String get new_person {
     return Intl.message(
-      '新成員',
+      'New Person',
       name: 'new_person',
       desc: '',
       args: [],
     );
   }
 
-  /// `未上載`
+  /// `Draft`
   String get draft {
     return Intl.message(
-      '未上載',
+      'Draft',
       name: 'draft',
       desc: '',
       args: [],
     );
   }
 
-  /// `已上載`
+  /// `Created`
   String get created {
     return Intl.message(
-      '已上載',
+      'Created',
       name: 'created',
       desc: '',
       args: [],
     );
   }
 
-  /// `已更新`
+  /// `Updated`
   String get updated {
     return Intl.message(
-      '已更新',
+      'Updated',
       name: 'updated',
       desc: '',
       args: [],
     );
   }
 
-  /// `已刪除`
+  /// `Deleted`
   String get deleted {
     return Intl.message(
-      '已刪除',
+      'Deleted',
       name: 'deleted',
       desc: '',
       args: [],
     );
   }
 
-  /// `儲存`
+  /// `Save`
   String get save {
     return Intl.message(
-      '儲存',
+      'Save',
       name: 'save',
       desc: '',
       args: [],
     );
   }
 
-  /// `預算`
+  /// `Budget`
   String get budget {
     return Intl.message(
-      '預算',
+      'Budget',
       name: 'budget',
       desc: '',
       args: [],
     );
   }
 
-  /// `分析`
+  /// `Chart`
   String get chart {
     return Intl.message(
-      '分析',
+      'Chart',
       name: 'chart',
       desc: '',
       args: [],
     );
   }
 
-  /// `設定`
+  /// `Setting`
   String get setting {
     return Intl.message(
-      '設定',
+      'Setting',
       name: 'setting',
       desc: '',
       args: [],
     );
   }
 
-  /// `yyyy年M月d日`
+  /// `yyyy-MM-dd`
   String get date_format_pattern {
     return Intl.message(
-      'yyyy年M月d日',
+      'yyyy-MM-dd',
       name: 'date_format_pattern',
       desc: '',
       args: [],
     );
   }
 
-  /// `貨幣`
+  /// `Currency`
   String get currency {
     return Intl.message(
-      '貨幣',
+      'Currency',
       name: 'currency',
       desc: '',
       args: [],
     );
   }
 
-  /// `備註`
+  /// `Remark`
   String get remark {
     return Intl.message(
-      '備註',
+      'Remark',
       name: 'remark',
       desc: '',
       args: [],
     );
   }
 
-  /// `收據`
+  /// `Receipts`
   String get receipts {
     return Intl.message(
-      '收據',
+      'Receipts',
       name: 'receipts',
       desc: '',
       args: [],
     );
   }
 
-  /// `相機`
+  /// `Camera`
   String get camera {
     return Intl.message(
-      '相機',
+      'Camera',
       name: 'camera',
       desc: '',
       args: [],
     );
   }
 
-  /// `相簿`
+  /// `Gallery`
   String get gallery {
     return Intl.message(
-      '相簿',
+      'Gallery',
       name: 'gallery',
       desc: '',
       args: [],
     );
   }
 
-  /// `確定`
+  /// `Enter`
   String get calculator_enter {
     return Intl.message(
-      '確定',
+      'Enter',
       name: 'calculator_enter',
       desc: '',
       args: [],
     );
   }
 
-  /// `比例`
+  /// `Ratio`
   String get ratio {
     return Intl.message(
-      '比例',
+      'Ratio',
       name: 'ratio',
       desc: '',
       args: [],
     );
   }
 
-  /// `支出`
+  /// `Spent`
   String get spent {
     return Intl.message(
-      '支出',
+      'Spent',
       name: 'spent',
       desc: '',
       args: [],
     );
   }
 
-  /// `餘額`
+  /// `Balance`
   String get balance {
     return Intl.message(
-      '餘額',
+      'Balance',
       name: 'balance',
       desc: '',
       args: [],
     );
   }
 
-  /// `未設定`
+  /// `Not set`
   String get not_set {
     return Intl.message(
-      '未設定',
+      'Not set',
       name: 'not_set',
       desc: '',
       args: [],
     );
   }
 
-  /// `名稱`
+  /// `Name`
   String get name {
     return Intl.message(
-      '名稱',
+      'Name',
       name: 'name',
       desc: '',
       args: [],
     );
   }
 
-  /// `圖示`
+  /// `Icon`
   String get icon {
     return Intl.message(
-      '圖示',
+      'Icon',
       name: 'icon',
       desc: '',
       args: [],
     );
   }
 
-  /// `合計`
+  /// `Total`
   String get total {
     return Intl.message(
-      '合計',
+      'Total',
       name: 'total',
       desc: '',
       args: [],
     );
   }
 
-  /// `平均每天`
+  /// `Average per day`
   String get average_per_day {
     return Intl.message(
-      '平均每天',
+      'Average per day',
       name: 'average_per_day',
       desc: '',
       args: [],
     );
   }
 
-  /// `請點擊圖表項目`
+  /// `Please select a bar`
   String get please_select_a_bar {
     return Intl.message(
-      '請點擊圖表項目',
+      'Please select a bar',
       name: 'please_select_a_bar',
       desc: '',
       args: [],
     );
   }
 
-  /// `數值需要正數`
+  /// `Value not larger than 0`
   String get error_num_not_larger_than_0 {
     return Intl.message(
-      '數值需要正數',
+      'Value not larger than 0',
       name: 'error_num_not_larger_than_0',
       desc: '',
       args: [],
@@ -426,6 +426,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
+      Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'zh'),
     ];
   }

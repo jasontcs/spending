@@ -79,6 +79,7 @@ class AppView extends StatelessWidget {
       ],
       // supportedLocales: FormBuilderLocalizations.delegate.supportedLocales,
       supportedLocales: const [
+        Locale.fromSubtags(languageCode: 'en', scriptCode: 'US'),
         Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
         Locale.fromSubtags(languageCode: 'zh', scriptCode: 'HK')
       ],
