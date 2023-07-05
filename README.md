@@ -6,12 +6,12 @@ Spending is a mobile application written in [Flutter](https://flutter.dev/)
 - Support multiple members
 - Categories
 - Upload receipts
-- Firestore as a backend
-- Set Budget to limit the expense
+- Firebase as a backend
+- Set Budgets to limit the expense
 - Chart for Data Visualization
 
 ## Getting Started
-Put your own firebase project config   file `lib/firebase_options.dart` with Firebase Auth, Firestore & Firebase Storage enabled
+Put your own Firebase project config   file `lib/firebase_options.dart` with Firebase Auth, Firestore & Firebase Storage enabled
 
 You will need a recent version of [Flutter](https://flutter.dev/), then just
 
@@ -21,10 +21,10 @@ on mobile devices
 
 ## Tech Stacks
 
-- UI Framework: Flutter
-- Design Pattern: BloC
-- Backends: Firebase Auth, Firestore, Firebase Storage
-- Handling of async events: ReactiveX (RxDart)
+- UI Framework: [Flutter](https://flutter.dev/)
+- Design Pattern: [BloC](https://bloclibrary.dev/)
+- Backends: [Firebase Auth](https://firebase.google.com/docs/auth), [Firestore](https://firebase.google.com/docs/firestore), [Firebase Storage](https://firebase.google.com/docs/storage)
+- Handling of async events: [ReactiveX](https://reactivex.io/) ([RxDart](https://github.com/ReactiveX/rxdart))
 
 ## Project Structure
 ```
@@ -36,7 +36,7 @@ spending
 │  ├─ app_router.dart       # All Routing using [auto_route]
 │  ├─ bloc_observer.dart    # Middleware of Bloc, Use for Logging
 │  ├─ common                # Common util function
-│  ├─ features              # Feature Layer: Seperate Pages  
+│  ├─ features              # Feature Layer: Separate Pages  
 │  │  ├─ auth
 │  │  ├─ budget
 │  │  ├─ categories
