@@ -30,6 +30,8 @@
 	<string>Camera Usage Required</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo Library Usage Required</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
