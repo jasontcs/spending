@@ -10,6 +10,13 @@ Spending is a mobile application written in [Flutter](https://flutter.dev/)
 - Set Budgets to limit the expense
 - Chart for Data Visualization
 
+## Pages
+|                                          Records Page                                           |                                           Record Page                                           |                                             Budget Page                                             |
+| :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/jasontcs/spending/blob/master/screenshots/budget.png" width="240"> | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/record.png" width="240"> |   <img src="https://github.com/jasontcs/spending/blob/master/screenshots/budget.png" width="240">   |
+|                                           Chart Page                                            |                                           Trend Page                                            |                                           Categories Page                                           |
+| <img src="https://github.com/jasontcs/spending/blob/master/screenshots/chart.png" width="240">  | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/trend.png" width="240">  | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/categories.png" width="240"> |
+
 ## Getting Started
 Put your own Firebase project config   file `lib/firebase_options.dart` with Firebase Auth, Firestore & Firebase Storage enabled
 
@@ -60,10 +67,3 @@ spending
 
 ## Architecture - BloC Pattern
 <img src="https://github.com/jasontcs/spending/blob/master/screenshots/architecture.png" width="720"> 
-
-## Pages
-|                                          Records Page                                           |                                           Record Page                                           |                                             Budget Page                                             |
-| :---------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/jasontcs/spending/blob/master/screenshots/budget.png" width="240"> | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/record.png" width="240"> |   <img src="https://github.com/jasontcs/spending/blob/master/screenshots/budget.png" width="240">   |
-|                                           Chart Page                                            |                                           Trend Page                                            |                                           Categories Page                                           |
-| <img src="https://github.com/jasontcs/spending/blob/master/screenshots/chart.png" width="240">  | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/trend.png" width="240">  | <img src="https://github.com/jasontcs/spending/blob/master/screenshots/categories.png" width="240"> |
