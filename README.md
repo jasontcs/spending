@@ -1,6 +1,6 @@
 # Spending
 
-Spending is a mobile application written in [Flutter](https://flutter.dev/)
+Spending is an expense tracker mobile application written in [Flutter](https://flutter.dev/)
 
 ## Features
 - Support multiple members
