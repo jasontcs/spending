@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'records_bloc.dart';
 
@@ -28,41 +28,46 @@ mixin _$RecordsState {
 abstract class $RecordsStateCopyWith<$Res> {
   factory $RecordsStateCopyWith(
           RecordsState value, $Res Function(RecordsState) then) =
-      _$RecordsStateCopyWithImpl<$Res>;
+      _$RecordsStateCopyWithImpl<$Res, RecordsState>;
+  @useResult
   $Res call({List<Record> records, TableCalendarConfig calendarConfig});
 
   $TableCalendarConfigCopyWith<$Res> get calendarConfig;
 }
 
 /// @nodoc
-class _$RecordsStateCopyWithImpl<$Res> implements $RecordsStateCopyWith<$Res> {
+class _$RecordsStateCopyWithImpl<$Res, $Val extends RecordsState>
+    implements $RecordsStateCopyWith<$Res> {
   _$RecordsStateCopyWithImpl(this._value, this._then);
 
-  final RecordsState _value;
   // ignore: unused_field
-  final $Res Function(RecordsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? records = freezed,
-    Object? calendarConfig = freezed,
+    Object? records = null,
+    Object? calendarConfig = null,
   }) {
     return _then(_value.copyWith(
-      records: records == freezed
+      records: null == records
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-      calendarConfig: calendarConfig == freezed
+      calendarConfig: null == calendarConfig
           ? _value.calendarConfig
           : calendarConfig // ignore: cast_nullable_to_non_nullable
               as TableCalendarConfig,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TableCalendarConfigCopyWith<$Res> get calendarConfig {
     return $TableCalendarConfigCopyWith<$Res>(_value.calendarConfig, (value) {
-      return _then(_value.copyWith(calendarConfig: value));
+      return _then(_value.copyWith(calendarConfig: value) as $Val);
     });
   }
 }
@@ -74,6 +79,7 @@ abstract class _$$_RecordsStateCopyWith<$Res>
           _$_RecordsState value, $Res Function(_$_RecordsState) then) =
       __$$_RecordsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<Record> records, TableCalendarConfig calendarConfig});
 
   @override
@@ -82,26 +88,24 @@ abstract class _$$_RecordsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_RecordsStateCopyWithImpl<$Res>
-    extends _$RecordsStateCopyWithImpl<$Res>
+    extends _$RecordsStateCopyWithImpl<$Res, _$_RecordsState>
     implements _$$_RecordsStateCopyWith<$Res> {
   __$$_RecordsStateCopyWithImpl(
       _$_RecordsState _value, $Res Function(_$_RecordsState) _then)
-      : super(_value, (v) => _then(v as _$_RecordsState));
+      : super(_value, _then);
 
-  @override
-  _$_RecordsState get _value => super._value as _$_RecordsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? records = freezed,
-    Object? calendarConfig = freezed,
+    Object? records = null,
+    Object? calendarConfig = null,
   }) {
     return _then(_$_RecordsState(
-      records: records == freezed
+      records: null == records
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-      calendarConfig: calendarConfig == freezed
+      calendarConfig: null == calendarConfig
           ? _value.calendarConfig
           : calendarConfig // ignore: cast_nullable_to_non_nullable
               as TableCalendarConfig,
@@ -121,6 +125,7 @@ class _$_RecordsState implements _RecordsState {
   @override
   @JsonKey()
   List<Record> get records {
+    if (_records is EqualUnmodifiableListView) return _records;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_records);
   }
@@ -140,18 +145,17 @@ class _$_RecordsState implements _RecordsState {
         (other.runtimeType == runtimeType &&
             other is _$_RecordsState &&
             const DeepCollectionEquality().equals(other._records, _records) &&
-            const DeepCollectionEquality()
-                .equals(other.calendarConfig, calendarConfig));
+            (identical(other.calendarConfig, calendarConfig) ||
+                other.calendarConfig == calendarConfig));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_records),
-      const DeepCollectionEquality().hash(calendarConfig));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_records), calendarConfig);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RecordsStateCopyWith<_$_RecordsState> get copyWith =>
       __$$_RecordsStateCopyWithImpl<_$_RecordsState>(this, _$identity);
 }
@@ -185,34 +189,37 @@ mixin _$TableCalendarConfig {
 abstract class $TableCalendarConfigCopyWith<$Res> {
   factory $TableCalendarConfigCopyWith(
           TableCalendarConfig value, $Res Function(TableCalendarConfig) then) =
-      _$TableCalendarConfigCopyWithImpl<$Res>;
+      _$TableCalendarConfigCopyWithImpl<$Res, TableCalendarConfig>;
+  @useResult
   $Res call({DateTime? focusedDay, DateTime? selectedDate});
 }
 
 /// @nodoc
-class _$TableCalendarConfigCopyWithImpl<$Res>
+class _$TableCalendarConfigCopyWithImpl<$Res, $Val extends TableCalendarConfig>
     implements $TableCalendarConfigCopyWith<$Res> {
   _$TableCalendarConfigCopyWithImpl(this._value, this._then);
 
-  final TableCalendarConfig _value;
   // ignore: unused_field
-  final $Res Function(TableCalendarConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? focusedDay = freezed,
     Object? selectedDate = freezed,
   }) {
     return _then(_value.copyWith(
-      focusedDay: focusedDay == freezed
+      focusedDay: freezed == focusedDay
           ? _value.focusedDay
           : focusedDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      selectedDate: selectedDate == freezed
+      selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -223,31 +230,30 @@ abstract class _$$_TableCalendarConfigCopyWith<$Res>
           $Res Function(_$_TableCalendarConfig) then) =
       __$$_TableCalendarConfigCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({DateTime? focusedDay, DateTime? selectedDate});
 }
 
 /// @nodoc
 class __$$_TableCalendarConfigCopyWithImpl<$Res>
-    extends _$TableCalendarConfigCopyWithImpl<$Res>
+    extends _$TableCalendarConfigCopyWithImpl<$Res, _$_TableCalendarConfig>
     implements _$$_TableCalendarConfigCopyWith<$Res> {
   __$$_TableCalendarConfigCopyWithImpl(_$_TableCalendarConfig _value,
       $Res Function(_$_TableCalendarConfig) _then)
-      : super(_value, (v) => _then(v as _$_TableCalendarConfig));
+      : super(_value, _then);
 
-  @override
-  _$_TableCalendarConfig get _value => super._value as _$_TableCalendarConfig;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? focusedDay = freezed,
     Object? selectedDate = freezed,
   }) {
     return _then(_$_TableCalendarConfig(
-      focusedDay: focusedDay == freezed
+      focusedDay: freezed == focusedDay
           ? _value.focusedDay
           : focusedDay // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      selectedDate: selectedDate == freezed
+      selectedDate: freezed == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -275,20 +281,18 @@ class _$_TableCalendarConfig implements _TableCalendarConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TableCalendarConfig &&
-            const DeepCollectionEquality()
-                .equals(other.focusedDay, focusedDay) &&
-            const DeepCollectionEquality()
-                .equals(other.selectedDate, selectedDate));
+            (identical(other.focusedDay, focusedDay) ||
+                other.focusedDay == focusedDay) &&
+            (identical(other.selectedDate, selectedDate) ||
+                other.selectedDate == selectedDate));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(focusedDay),
-      const DeepCollectionEquality().hash(selectedDate));
+  int get hashCode => Object.hash(runtimeType, focusedDay, selectedDate);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TableCalendarConfigCopyWith<_$_TableCalendarConfig> get copyWith =>
       __$$_TableCalendarConfigCopyWithImpl<_$_TableCalendarConfig>(
           this, _$identity);

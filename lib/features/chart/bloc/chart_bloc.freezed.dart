@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'chart_bloc.dart';
 
@@ -34,7 +34,8 @@ mixin _$ChartState {
 abstract class $ChartStateCopyWith<$Res> {
   factory $ChartStateCopyWith(
           ChartState value, $Res Function(ChartState) then) =
-      _$ChartStateCopyWithImpl<$Res>;
+      _$ChartStateCopyWithImpl<$Res, ChartState>;
+  @useResult
   $Res call(
       {DateTime month,
       List<CategoryWithRecords> categoriesWithRecords,
@@ -47,58 +48,62 @@ abstract class $ChartStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChartStateCopyWithImpl<$Res> implements $ChartStateCopyWith<$Res> {
+class _$ChartStateCopyWithImpl<$Res, $Val extends ChartState>
+    implements $ChartStateCopyWith<$Res> {
   _$ChartStateCopyWithImpl(this._value, this._then);
 
-  final ChartState _value;
   // ignore: unused_field
-  final $Res Function(ChartState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = freezed,
-    Object? categoriesWithRecords = freezed,
-    Object? peopleWithRecords = freezed,
-    Object? records = freezed,
+    Object? month = null,
+    Object? categoriesWithRecords = null,
+    Object? peopleWithRecords = null,
+    Object? records = null,
     Object? trendFocusedDate = freezed,
     Object? mainCurrency = freezed,
   }) {
     return _then(_value.copyWith(
-      month: month == freezed
+      month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      categoriesWithRecords: categoriesWithRecords == freezed
+      categoriesWithRecords: null == categoriesWithRecords
           ? _value.categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as List<CategoryWithRecords>,
-      peopleWithRecords: peopleWithRecords == freezed
+      peopleWithRecords: null == peopleWithRecords
           ? _value.peopleWithRecords
           : peopleWithRecords // ignore: cast_nullable_to_non_nullable
               as List<PersonWithRecords>,
-      records: records == freezed
+      records: null == records
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-      trendFocusedDate: trendFocusedDate == freezed
+      trendFocusedDate: freezed == trendFocusedDate
           ? _value.trendFocusedDate
           : trendFocusedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      mainCurrency: mainCurrency == freezed
+      mainCurrency: freezed == mainCurrency
           ? _value.mainCurrency
           : mainCurrency // ignore: cast_nullable_to_non_nullable
               as Currency?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CurrencyCopyWith<$Res>? get mainCurrency {
     if (_value.mainCurrency == null) {
       return null;
     }
 
     return $CurrencyCopyWith<$Res>(_value.mainCurrency!, (value) {
-      return _then(_value.copyWith(mainCurrency: value));
+      return _then(_value.copyWith(mainCurrency: value) as $Val);
     });
   }
 }
@@ -110,6 +115,7 @@ abstract class _$$_ChartStateCopyWith<$Res>
           _$_ChartState value, $Res Function(_$_ChartState) then) =
       __$$_ChartStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DateTime month,
       List<CategoryWithRecords> categoriesWithRecords,
@@ -123,46 +129,45 @@ abstract class _$$_ChartStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ChartStateCopyWithImpl<$Res> extends _$ChartStateCopyWithImpl<$Res>
+class __$$_ChartStateCopyWithImpl<$Res>
+    extends _$ChartStateCopyWithImpl<$Res, _$_ChartState>
     implements _$$_ChartStateCopyWith<$Res> {
   __$$_ChartStateCopyWithImpl(
       _$_ChartState _value, $Res Function(_$_ChartState) _then)
-      : super(_value, (v) => _then(v as _$_ChartState));
+      : super(_value, _then);
 
-  @override
-  _$_ChartState get _value => super._value as _$_ChartState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = freezed,
-    Object? categoriesWithRecords = freezed,
-    Object? peopleWithRecords = freezed,
-    Object? records = freezed,
+    Object? month = null,
+    Object? categoriesWithRecords = null,
+    Object? peopleWithRecords = null,
+    Object? records = null,
     Object? trendFocusedDate = freezed,
     Object? mainCurrency = freezed,
   }) {
     return _then(_$_ChartState(
-      month: month == freezed
+      month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      categoriesWithRecords: categoriesWithRecords == freezed
+      categoriesWithRecords: null == categoriesWithRecords
           ? _value._categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as List<CategoryWithRecords>,
-      peopleWithRecords: peopleWithRecords == freezed
+      peopleWithRecords: null == peopleWithRecords
           ? _value._peopleWithRecords
           : peopleWithRecords // ignore: cast_nullable_to_non_nullable
               as List<PersonWithRecords>,
-      records: records == freezed
+      records: null == records
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-      trendFocusedDate: trendFocusedDate == freezed
+      trendFocusedDate: freezed == trendFocusedDate
           ? _value.trendFocusedDate
           : trendFocusedDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      mainCurrency: mainCurrency == freezed
+      mainCurrency: freezed == mainCurrency
           ? _value.mainCurrency
           : mainCurrency // ignore: cast_nullable_to_non_nullable
               as Currency?,
@@ -191,6 +196,8 @@ class _$_ChartState extends _ChartState {
   @override
   @JsonKey()
   List<CategoryWithRecords> get categoriesWithRecords {
+    if (_categoriesWithRecords is EqualUnmodifiableListView)
+      return _categoriesWithRecords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_categoriesWithRecords);
   }
@@ -199,6 +206,8 @@ class _$_ChartState extends _ChartState {
   @override
   @JsonKey()
   List<PersonWithRecords> get peopleWithRecords {
+    if (_peopleWithRecords is EqualUnmodifiableListView)
+      return _peopleWithRecords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_peopleWithRecords);
   }
@@ -207,6 +216,7 @@ class _$_ChartState extends _ChartState {
   @override
   @JsonKey()
   List<Record> get records {
+    if (_records is EqualUnmodifiableListView) return _records;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_records);
   }
@@ -226,30 +236,31 @@ class _$_ChartState extends _ChartState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChartState &&
-            const DeepCollectionEquality().equals(other.month, month) &&
+            (identical(other.month, month) || other.month == month) &&
             const DeepCollectionEquality()
                 .equals(other._categoriesWithRecords, _categoriesWithRecords) &&
             const DeepCollectionEquality()
                 .equals(other._peopleWithRecords, _peopleWithRecords) &&
             const DeepCollectionEquality().equals(other._records, _records) &&
-            const DeepCollectionEquality()
-                .equals(other.trendFocusedDate, trendFocusedDate) &&
-            const DeepCollectionEquality()
-                .equals(other.mainCurrency, mainCurrency));
+            (identical(other.trendFocusedDate, trendFocusedDate) ||
+                other.trendFocusedDate == trendFocusedDate) &&
+            (identical(other.mainCurrency, mainCurrency) ||
+                other.mainCurrency == mainCurrency));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(month),
+      month,
       const DeepCollectionEquality().hash(_categoriesWithRecords),
       const DeepCollectionEquality().hash(_peopleWithRecords),
       const DeepCollectionEquality().hash(_records),
-      const DeepCollectionEquality().hash(trendFocusedDate),
-      const DeepCollectionEquality().hash(mainCurrency));
+      trendFocusedDate,
+      mainCurrency);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ChartStateCopyWith<_$_ChartState> get copyWith =>
       __$$_ChartStateCopyWithImpl<_$_ChartState>(this, _$identity);
 }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'person_bloc.dart';
 
@@ -28,45 +28,50 @@ mixin _$PersonState {
 abstract class $PersonStateCopyWith<$Res> {
   factory $PersonStateCopyWith(
           PersonState value, $Res Function(PersonState) then) =
-      _$PersonStateCopyWithImpl<$Res>;
+      _$PersonStateCopyWithImpl<$Res, PersonState>;
+  @useResult
   $Res call({AppFormStatus status, Person? person});
 
   $PersonCopyWith<$Res>? get person;
 }
 
 /// @nodoc
-class _$PersonStateCopyWithImpl<$Res> implements $PersonStateCopyWith<$Res> {
+class _$PersonStateCopyWithImpl<$Res, $Val extends PersonState>
+    implements $PersonStateCopyWith<$Res> {
   _$PersonStateCopyWithImpl(this._value, this._then);
 
-  final PersonState _value;
   // ignore: unused_field
-  final $Res Function(PersonState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
+    Object? status = null,
     Object? person = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
-      person: person == freezed
+      person: freezed == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PersonCopyWith<$Res>? get person {
     if (_value.person == null) {
       return null;
     }
 
     return $PersonCopyWith<$Res>(_value.person!, (value) {
-      return _then(_value.copyWith(person: value));
+      return _then(_value.copyWith(person: value) as $Val);
     });
   }
 }
@@ -78,6 +83,7 @@ abstract class _$$_PersonStateCopyWith<$Res>
           _$_PersonState value, $Res Function(_$_PersonState) then) =
       __$$_PersonStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AppFormStatus status, Person? person});
 
   @override
@@ -85,26 +91,25 @@ abstract class _$$_PersonStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PersonStateCopyWithImpl<$Res> extends _$PersonStateCopyWithImpl<$Res>
+class __$$_PersonStateCopyWithImpl<$Res>
+    extends _$PersonStateCopyWithImpl<$Res, _$_PersonState>
     implements _$$_PersonStateCopyWith<$Res> {
   __$$_PersonStateCopyWithImpl(
       _$_PersonState _value, $Res Function(_$_PersonState) _then)
-      : super(_value, (v) => _then(v as _$_PersonState));
+      : super(_value, _then);
 
-  @override
-  _$_PersonState get _value => super._value as _$_PersonState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
+    Object? status = null,
     Object? person = freezed,
   }) {
     return _then(_$_PersonState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
-      person: person == freezed
+      person: freezed == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person?,
@@ -133,18 +138,16 @@ class _$_PersonState implements _PersonState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PersonState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.person, person));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.person, person) || other.person == person));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(person));
+  int get hashCode => Object.hash(runtimeType, status, person);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PersonStateCopyWith<_$_PersonState> get copyWith =>
       __$$_PersonStateCopyWithImpl<_$_PersonState>(this, _$identity);
 }

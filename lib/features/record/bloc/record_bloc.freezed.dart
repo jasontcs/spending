@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'record_bloc.dart';
 
@@ -33,7 +33,8 @@ mixin _$RecordState {
 abstract class $RecordStateCopyWith<$Res> {
   factory $RecordStateCopyWith(
           RecordState value, $Res Function(RecordState) then) =
-      _$RecordStateCopyWithImpl<$Res>;
+      _$RecordStateCopyWithImpl<$Res, RecordState>;
+  @useResult
   $Res call(
       {List<Category> categories,
       List<Currency> currencies,
@@ -46,58 +47,62 @@ abstract class $RecordStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RecordStateCopyWithImpl<$Res> implements $RecordStateCopyWith<$Res> {
+class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
+    implements $RecordStateCopyWith<$Res> {
   _$RecordStateCopyWithImpl(this._value, this._then);
 
-  final RecordState _value;
   // ignore: unused_field
-  final $Res Function(RecordState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
-    Object? currencies = freezed,
-    Object? people = freezed,
+    Object? categories = null,
+    Object? currencies = null,
+    Object? people = null,
     Object? record = freezed,
     Object? formKey = freezed,
-    Object? status = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
-      categories: categories == freezed
+      categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      currencies: currencies == freezed
+      currencies: null == currencies
           ? _value.currencies
           : currencies // ignore: cast_nullable_to_non_nullable
               as List<Currency>,
-      people: people == freezed
+      people: null == people
           ? _value.people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
-      record: record == freezed
+      record: freezed == record
           ? _value.record
           : record // ignore: cast_nullable_to_non_nullable
               as Record?,
-      formKey: formKey == freezed
+      formKey: freezed == formKey
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormBuilderState>?,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RecordCopyWith<$Res>? get record {
     if (_value.record == null) {
       return null;
     }
 
     return $RecordCopyWith<$Res>(_value.record!, (value) {
-      return _then(_value.copyWith(record: value));
+      return _then(_value.copyWith(record: value) as $Val);
     });
   }
 }
@@ -109,6 +114,7 @@ abstract class _$$_RecordStateCopyWith<$Res>
           _$_RecordState value, $Res Function(_$_RecordState) then) =
       __$$_RecordStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {List<Category> categories,
       List<Currency> currencies,
@@ -122,46 +128,45 @@ abstract class _$$_RecordStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RecordStateCopyWithImpl<$Res> extends _$RecordStateCopyWithImpl<$Res>
+class __$$_RecordStateCopyWithImpl<$Res>
+    extends _$RecordStateCopyWithImpl<$Res, _$_RecordState>
     implements _$$_RecordStateCopyWith<$Res> {
   __$$_RecordStateCopyWithImpl(
       _$_RecordState _value, $Res Function(_$_RecordState) _then)
-      : super(_value, (v) => _then(v as _$_RecordState));
+      : super(_value, _then);
 
-  @override
-  _$_RecordState get _value => super._value as _$_RecordState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
-    Object? currencies = freezed,
-    Object? people = freezed,
+    Object? categories = null,
+    Object? currencies = null,
+    Object? people = null,
     Object? record = freezed,
     Object? formKey = freezed,
-    Object? status = freezed,
+    Object? status = null,
   }) {
     return _then(_$_RecordState(
-      categories: categories == freezed
+      categories: null == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      currencies: currencies == freezed
+      currencies: null == currencies
           ? _value._currencies
           : currencies // ignore: cast_nullable_to_non_nullable
               as List<Currency>,
-      people: people == freezed
+      people: null == people
           ? _value._people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
-      record: record == freezed
+      record: freezed == record
           ? _value.record
           : record // ignore: cast_nullable_to_non_nullable
               as Record?,
-      formKey: formKey == freezed
+      formKey: freezed == formKey
           ? _value.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormBuilderState>?,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
@@ -187,6 +192,7 @@ class _$_RecordState implements _RecordState {
   @override
   @JsonKey()
   List<Category> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_categories);
   }
@@ -195,6 +201,7 @@ class _$_RecordState implements _RecordState {
   @override
   @JsonKey()
   List<Currency> get currencies {
+    if (_currencies is EqualUnmodifiableListView) return _currencies;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_currencies);
   }
@@ -203,6 +210,7 @@ class _$_RecordState implements _RecordState {
   @override
   @JsonKey()
   List<Person> get people {
+    if (_people is EqualUnmodifiableListView) return _people;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_people);
   }
@@ -230,9 +238,9 @@ class _$_RecordState implements _RecordState {
             const DeepCollectionEquality()
                 .equals(other._currencies, _currencies) &&
             const DeepCollectionEquality().equals(other._people, _people) &&
-            const DeepCollectionEquality().equals(other.record, record) &&
-            const DeepCollectionEquality().equals(other.formKey, formKey) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            (identical(other.record, record) || other.record == record) &&
+            (identical(other.formKey, formKey) || other.formKey == formKey) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
@@ -241,12 +249,13 @@ class _$_RecordState implements _RecordState {
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_currencies),
       const DeepCollectionEquality().hash(_people),
-      const DeepCollectionEquality().hash(record),
-      const DeepCollectionEquality().hash(formKey),
-      const DeepCollectionEquality().hash(status));
+      record,
+      formKey,
+      status);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RecordStateCopyWith<_$_RecordState> get copyWith =>
       __$$_RecordStateCopyWithImpl<_$_RecordState>(this, _$identity);
 }

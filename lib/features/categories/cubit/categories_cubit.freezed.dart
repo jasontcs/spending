@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'categories_cubit.dart';
 
@@ -28,46 +28,50 @@ mixin _$CategoriesState {
 abstract class $CategoriesStateCopyWith<$Res> {
   factory $CategoriesStateCopyWith(
           CategoriesState value, $Res Function(CategoriesState) then) =
-      _$CategoriesStateCopyWithImpl<$Res>;
+      _$CategoriesStateCopyWithImpl<$Res, CategoriesState>;
+  @useResult
   $Res call({List<Category> categories, Category? selected});
 
   $CategoryCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
-class _$CategoriesStateCopyWithImpl<$Res>
+class _$CategoriesStateCopyWithImpl<$Res, $Val extends CategoriesState>
     implements $CategoriesStateCopyWith<$Res> {
   _$CategoriesStateCopyWithImpl(this._value, this._then);
 
-  final CategoriesState _value;
   // ignore: unused_field
-  final $Res Function(CategoriesState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? categories = null,
     Object? selected = freezed,
   }) {
     return _then(_value.copyWith(
-      categories: categories == freezed
+      categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      selected: selected == freezed
+      selected: freezed == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as Category?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CategoryCopyWith<$Res>? get selected {
     if (_value.selected == null) {
       return null;
     }
 
     return $CategoryCopyWith<$Res>(_value.selected!, (value) {
-      return _then(_value.copyWith(selected: value));
+      return _then(_value.copyWith(selected: value) as $Val);
     });
   }
 }
@@ -79,6 +83,7 @@ abstract class _$$_CategoriesStateCopyWith<$Res>
           _$_CategoriesState value, $Res Function(_$_CategoriesState) then) =
       __$$_CategoriesStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<Category> categories, Category? selected});
 
   @override
@@ -87,26 +92,24 @@ abstract class _$$_CategoriesStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_CategoriesStateCopyWithImpl<$Res>
-    extends _$CategoriesStateCopyWithImpl<$Res>
+    extends _$CategoriesStateCopyWithImpl<$Res, _$_CategoriesState>
     implements _$$_CategoriesStateCopyWith<$Res> {
   __$$_CategoriesStateCopyWithImpl(
       _$_CategoriesState _value, $Res Function(_$_CategoriesState) _then)
-      : super(_value, (v) => _then(v as _$_CategoriesState));
+      : super(_value, _then);
 
-  @override
-  _$_CategoriesState get _value => super._value as _$_CategoriesState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? categories = null,
     Object? selected = freezed,
   }) {
     return _then(_$_CategoriesState(
-      categories: categories == freezed
+      categories: null == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
-      selected: selected == freezed
+      selected: freezed == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as Category?,
@@ -125,6 +128,7 @@ class _$_CategoriesState implements _CategoriesState {
   @override
   @JsonKey()
   List<Category> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_categories);
   }
@@ -144,17 +148,17 @@ class _$_CategoriesState implements _CategoriesState {
             other is _$_CategoriesState &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
-            const DeepCollectionEquality().equals(other.selected, selected));
+            (identical(other.selected, selected) ||
+                other.selected == selected));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_categories),
-      const DeepCollectionEquality().hash(selected));
+      runtimeType, const DeepCollectionEquality().hash(_categories), selected);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CategoriesStateCopyWith<_$_CategoriesState> get copyWith =>
       __$$_CategoriesStateCopyWithImpl<_$_CategoriesState>(this, _$identity);
 }

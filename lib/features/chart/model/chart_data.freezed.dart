@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'chart_data.dart';
 
@@ -28,38 +28,42 @@ mixin _$ChartData {
 /// @nodoc
 abstract class $ChartDataCopyWith<$Res> {
   factory $ChartDataCopyWith(ChartData value, $Res Function(ChartData) then) =
-      _$ChartDataCopyWithImpl<$Res>;
+      _$ChartDataCopyWithImpl<$Res, ChartData>;
+  @useResult
   $Res call({String x, num y, Color? color});
 }
 
 /// @nodoc
-class _$ChartDataCopyWithImpl<$Res> implements $ChartDataCopyWith<$Res> {
+class _$ChartDataCopyWithImpl<$Res, $Val extends ChartData>
+    implements $ChartDataCopyWith<$Res> {
   _$ChartDataCopyWithImpl(this._value, this._then);
 
-  final ChartData _value;
   // ignore: unused_field
-  final $Res Function(ChartData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? x = null,
+    Object? y = null,
     Object? color = freezed,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as String,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as num,
-      color: color == freezed
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -69,35 +73,35 @@ abstract class _$$_ChartDataCopyWith<$Res> implements $ChartDataCopyWith<$Res> {
           _$_ChartData value, $Res Function(_$_ChartData) then) =
       __$$_ChartDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String x, num y, Color? color});
 }
 
 /// @nodoc
-class __$$_ChartDataCopyWithImpl<$Res> extends _$ChartDataCopyWithImpl<$Res>
+class __$$_ChartDataCopyWithImpl<$Res>
+    extends _$ChartDataCopyWithImpl<$Res, _$_ChartData>
     implements _$$_ChartDataCopyWith<$Res> {
   __$$_ChartDataCopyWithImpl(
       _$_ChartData _value, $Res Function(_$_ChartData) _then)
-      : super(_value, (v) => _then(v as _$_ChartData));
+      : super(_value, _then);
 
-  @override
-  _$_ChartData get _value => super._value as _$_ChartData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? x = null,
+    Object? y = null,
     Object? color = freezed,
   }) {
     return _then(_$_ChartData(
-      x == freezed
+      null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as String,
-      y == freezed
+      null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as num,
-      color == freezed
+      freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color?,
@@ -127,20 +131,17 @@ class _$_ChartData implements _ChartData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChartData &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y) &&
-            const DeepCollectionEquality().equals(other.color, color));
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.color, color) || other.color == color));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y),
-      const DeepCollectionEquality().hash(color));
+  int get hashCode => Object.hash(runtimeType, x, y, color);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ChartDataCopyWith<_$_ChartData> get copyWith =>
       __$$_ChartDataCopyWithImpl<_$_ChartData>(this, _$identity);
 }

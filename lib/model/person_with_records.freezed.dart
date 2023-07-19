@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'person_with_records.dart';
 
@@ -28,42 +28,46 @@ mixin _$PersonWithRecords {
 abstract class $PersonWithRecordsCopyWith<$Res> {
   factory $PersonWithRecordsCopyWith(
           PersonWithRecords value, $Res Function(PersonWithRecords) then) =
-      _$PersonWithRecordsCopyWithImpl<$Res>;
+      _$PersonWithRecordsCopyWithImpl<$Res, PersonWithRecords>;
+  @useResult
   $Res call({Person person, List<Record> records});
 
   $PersonCopyWith<$Res> get person;
 }
 
 /// @nodoc
-class _$PersonWithRecordsCopyWithImpl<$Res>
+class _$PersonWithRecordsCopyWithImpl<$Res, $Val extends PersonWithRecords>
     implements $PersonWithRecordsCopyWith<$Res> {
   _$PersonWithRecordsCopyWithImpl(this._value, this._then);
 
-  final PersonWithRecords _value;
   // ignore: unused_field
-  final $Res Function(PersonWithRecords) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? person = freezed,
-    Object? records = freezed,
+    Object? person = null,
+    Object? records = null,
   }) {
     return _then(_value.copyWith(
-      person: person == freezed
+      person: null == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person,
-      records: records == freezed
+      records: null == records
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PersonCopyWith<$Res> get person {
     return $PersonCopyWith<$Res>(_value.person, (value) {
-      return _then(_value.copyWith(person: value));
+      return _then(_value.copyWith(person: value) as $Val);
     });
   }
 }
@@ -75,6 +79,7 @@ abstract class _$$_PersonWithRecordsCopyWith<$Res>
           $Res Function(_$_PersonWithRecords) then) =
       __$$_PersonWithRecordsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Person person, List<Record> records});
 
   @override
@@ -83,26 +88,24 @@ abstract class _$$_PersonWithRecordsCopyWith<$Res>
 
 /// @nodoc
 class __$$_PersonWithRecordsCopyWithImpl<$Res>
-    extends _$PersonWithRecordsCopyWithImpl<$Res>
+    extends _$PersonWithRecordsCopyWithImpl<$Res, _$_PersonWithRecords>
     implements _$$_PersonWithRecordsCopyWith<$Res> {
   __$$_PersonWithRecordsCopyWithImpl(
       _$_PersonWithRecords _value, $Res Function(_$_PersonWithRecords) _then)
-      : super(_value, (v) => _then(v as _$_PersonWithRecords));
+      : super(_value, _then);
 
-  @override
-  _$_PersonWithRecords get _value => super._value as _$_PersonWithRecords;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? person = freezed,
-    Object? records = freezed,
+    Object? person = null,
+    Object? records = null,
   }) {
     return _then(_$_PersonWithRecords(
-      person: person == freezed
+      person: null == person
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person,
-      records: records == freezed
+      records: null == records
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
@@ -123,6 +126,7 @@ class _$_PersonWithRecords implements _PersonWithRecords {
   @override
   @JsonKey()
   List<Record> get records {
+    if (_records is EqualUnmodifiableListView) return _records;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_records);
   }
@@ -137,18 +141,17 @@ class _$_PersonWithRecords implements _PersonWithRecords {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PersonWithRecords &&
-            const DeepCollectionEquality().equals(other.person, person) &&
+            (identical(other.person, person) || other.person == person) &&
             const DeepCollectionEquality().equals(other._records, _records));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(person),
-      const DeepCollectionEquality().hash(_records));
+      runtimeType, person, const DeepCollectionEquality().hash(_records));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PersonWithRecordsCopyWith<_$_PersonWithRecords> get copyWith =>
       __$$_PersonWithRecordsCopyWithImpl<_$_PersonWithRecords>(
           this, _$identity);

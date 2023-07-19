@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'people_cubit.dart';
 
@@ -28,45 +28,50 @@ mixin _$PeopleState {
 abstract class $PeopleStateCopyWith<$Res> {
   factory $PeopleStateCopyWith(
           PeopleState value, $Res Function(PeopleState) then) =
-      _$PeopleStateCopyWithImpl<$Res>;
+      _$PeopleStateCopyWithImpl<$Res, PeopleState>;
+  @useResult
   $Res call({List<Person> people, Person? selected});
 
   $PersonCopyWith<$Res>? get selected;
 }
 
 /// @nodoc
-class _$PeopleStateCopyWithImpl<$Res> implements $PeopleStateCopyWith<$Res> {
+class _$PeopleStateCopyWithImpl<$Res, $Val extends PeopleState>
+    implements $PeopleStateCopyWith<$Res> {
   _$PeopleStateCopyWithImpl(this._value, this._then);
 
-  final PeopleState _value;
   // ignore: unused_field
-  final $Res Function(PeopleState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? people = freezed,
+    Object? people = null,
     Object? selected = freezed,
   }) {
     return _then(_value.copyWith(
-      people: people == freezed
+      people: null == people
           ? _value.people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
-      selected: selected == freezed
+      selected: freezed == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as Person?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PersonCopyWith<$Res>? get selected {
     if (_value.selected == null) {
       return null;
     }
 
     return $PersonCopyWith<$Res>(_value.selected!, (value) {
-      return _then(_value.copyWith(selected: value));
+      return _then(_value.copyWith(selected: value) as $Val);
     });
   }
 }
@@ -78,6 +83,7 @@ abstract class _$$_PeopleStateCopyWith<$Res>
           _$_PeopleState value, $Res Function(_$_PeopleState) then) =
       __$$_PeopleStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<Person> people, Person? selected});
 
   @override
@@ -85,26 +91,25 @@ abstract class _$$_PeopleStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PeopleStateCopyWithImpl<$Res> extends _$PeopleStateCopyWithImpl<$Res>
+class __$$_PeopleStateCopyWithImpl<$Res>
+    extends _$PeopleStateCopyWithImpl<$Res, _$_PeopleState>
     implements _$$_PeopleStateCopyWith<$Res> {
   __$$_PeopleStateCopyWithImpl(
       _$_PeopleState _value, $Res Function(_$_PeopleState) _then)
-      : super(_value, (v) => _then(v as _$_PeopleState));
+      : super(_value, _then);
 
-  @override
-  _$_PeopleState get _value => super._value as _$_PeopleState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? people = freezed,
+    Object? people = null,
     Object? selected = freezed,
   }) {
     return _then(_$_PeopleState(
-      people: people == freezed
+      people: null == people
           ? _value._people
           : people // ignore: cast_nullable_to_non_nullable
               as List<Person>,
-      selected: selected == freezed
+      selected: freezed == selected
           ? _value.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as Person?,
@@ -122,6 +127,7 @@ class _$_PeopleState implements _PeopleState {
   @override
   @JsonKey()
   List<Person> get people {
+    if (_people is EqualUnmodifiableListView) return _people;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_people);
   }
@@ -140,17 +146,17 @@ class _$_PeopleState implements _PeopleState {
         (other.runtimeType == runtimeType &&
             other is _$_PeopleState &&
             const DeepCollectionEquality().equals(other._people, _people) &&
-            const DeepCollectionEquality().equals(other.selected, selected));
+            (identical(other.selected, selected) ||
+                other.selected == selected));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_people),
-      const DeepCollectionEquality().hash(selected));
+      runtimeType, const DeepCollectionEquality().hash(_people), selected);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PeopleStateCopyWith<_$_PeopleState> get copyWith =>
       __$$_PeopleStateCopyWithImpl<_$_PeopleState>(this, _$identity);
 }

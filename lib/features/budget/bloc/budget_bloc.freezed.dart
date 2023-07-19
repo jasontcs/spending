@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'budget_bloc.dart';
 
@@ -30,7 +30,8 @@ mixin _$BudgetState {
 abstract class $BudgetStateCopyWith<$Res> {
   factory $BudgetStateCopyWith(
           BudgetState value, $Res Function(BudgetState) then) =
-      _$BudgetStateCopyWithImpl<$Res>;
+      _$BudgetStateCopyWithImpl<$Res, BudgetState>;
+  @useResult
   $Res call(
       {DateTime month,
       Map<Category, List<Record>> categoriesWithRecords,
@@ -40,43 +41,47 @@ abstract class $BudgetStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BudgetStateCopyWithImpl<$Res> implements $BudgetStateCopyWith<$Res> {
+class _$BudgetStateCopyWithImpl<$Res, $Val extends BudgetState>
+    implements $BudgetStateCopyWith<$Res> {
   _$BudgetStateCopyWithImpl(this._value, this._then);
 
-  final BudgetState _value;
   // ignore: unused_field
-  final $Res Function(BudgetState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = freezed,
-    Object? categoriesWithRecords = freezed,
+    Object? month = null,
+    Object? categoriesWithRecords = null,
     Object? mainCurrency = freezed,
   }) {
     return _then(_value.copyWith(
-      month: month == freezed
+      month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      categoriesWithRecords: categoriesWithRecords == freezed
+      categoriesWithRecords: null == categoriesWithRecords
           ? _value.categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as Map<Category, List<Record>>,
-      mainCurrency: mainCurrency == freezed
+      mainCurrency: freezed == mainCurrency
           ? _value.mainCurrency
           : mainCurrency // ignore: cast_nullable_to_non_nullable
               as Currency?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CurrencyCopyWith<$Res>? get mainCurrency {
     if (_value.mainCurrency == null) {
       return null;
     }
 
     return $CurrencyCopyWith<$Res>(_value.mainCurrency!, (value) {
-      return _then(_value.copyWith(mainCurrency: value));
+      return _then(_value.copyWith(mainCurrency: value) as $Val);
     });
   }
 }
@@ -88,6 +93,7 @@ abstract class _$$_BudgetStateCopyWith<$Res>
           _$_BudgetState value, $Res Function(_$_BudgetState) then) =
       __$$_BudgetStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DateTime month,
       Map<Category, List<Record>> categoriesWithRecords,
@@ -98,31 +104,30 @@ abstract class _$$_BudgetStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_BudgetStateCopyWithImpl<$Res> extends _$BudgetStateCopyWithImpl<$Res>
+class __$$_BudgetStateCopyWithImpl<$Res>
+    extends _$BudgetStateCopyWithImpl<$Res, _$_BudgetState>
     implements _$$_BudgetStateCopyWith<$Res> {
   __$$_BudgetStateCopyWithImpl(
       _$_BudgetState _value, $Res Function(_$_BudgetState) _then)
-      : super(_value, (v) => _then(v as _$_BudgetState));
+      : super(_value, _then);
 
-  @override
-  _$_BudgetState get _value => super._value as _$_BudgetState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = freezed,
-    Object? categoriesWithRecords = freezed,
+    Object? month = null,
+    Object? categoriesWithRecords = null,
     Object? mainCurrency = freezed,
   }) {
     return _then(_$_BudgetState(
-      month: month == freezed
+      month: null == month
           ? _value.month
           : month // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      categoriesWithRecords: categoriesWithRecords == freezed
+      categoriesWithRecords: null == categoriesWithRecords
           ? _value._categoriesWithRecords
           : categoriesWithRecords // ignore: cast_nullable_to_non_nullable
               as Map<Category, List<Record>>,
-      mainCurrency: mainCurrency == freezed
+      mainCurrency: freezed == mainCurrency
           ? _value.mainCurrency
           : mainCurrency // ignore: cast_nullable_to_non_nullable
               as Currency?,
@@ -146,6 +151,8 @@ class _$_BudgetState extends _BudgetState {
   @override
   @JsonKey()
   Map<Category, List<Record>> get categoriesWithRecords {
+    if (_categoriesWithRecords is EqualUnmodifiableMapView)
+      return _categoriesWithRecords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_categoriesWithRecords);
   }
@@ -163,22 +170,23 @@ class _$_BudgetState extends _BudgetState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BudgetState &&
-            const DeepCollectionEquality().equals(other.month, month) &&
+            (identical(other.month, month) || other.month == month) &&
             const DeepCollectionEquality()
                 .equals(other._categoriesWithRecords, _categoriesWithRecords) &&
-            const DeepCollectionEquality()
-                .equals(other.mainCurrency, mainCurrency));
+            (identical(other.mainCurrency, mainCurrency) ||
+                other.mainCurrency == mainCurrency));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(month),
+      month,
       const DeepCollectionEquality().hash(_categoriesWithRecords),
-      const DeepCollectionEquality().hash(mainCurrency));
+      mainCurrency);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BudgetStateCopyWith<_$_BudgetState> get copyWith =>
       __$$_BudgetStateCopyWithImpl<_$_BudgetState>(this, _$identity);
 }

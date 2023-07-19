@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'category_with_records.dart';
 
@@ -28,42 +28,46 @@ mixin _$CategoryWithRecords {
 abstract class $CategoryWithRecordsCopyWith<$Res> {
   factory $CategoryWithRecordsCopyWith(
           CategoryWithRecords value, $Res Function(CategoryWithRecords) then) =
-      _$CategoryWithRecordsCopyWithImpl<$Res>;
+      _$CategoryWithRecordsCopyWithImpl<$Res, CategoryWithRecords>;
+  @useResult
   $Res call({Category category, List<Record> records});
 
   $CategoryCopyWith<$Res> get category;
 }
 
 /// @nodoc
-class _$CategoryWithRecordsCopyWithImpl<$Res>
+class _$CategoryWithRecordsCopyWithImpl<$Res, $Val extends CategoryWithRecords>
     implements $CategoryWithRecordsCopyWith<$Res> {
   _$CategoryWithRecordsCopyWithImpl(this._value, this._then);
 
-  final CategoryWithRecords _value;
   // ignore: unused_field
-  final $Res Function(CategoryWithRecords) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? category = freezed,
-    Object? records = freezed,
+    Object? category = null,
+    Object? records = null,
   }) {
     return _then(_value.copyWith(
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      records: records == freezed
+      records: null == records
           ? _value.records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CategoryCopyWith<$Res> get category {
     return $CategoryCopyWith<$Res>(_value.category, (value) {
-      return _then(_value.copyWith(category: value));
+      return _then(_value.copyWith(category: value) as $Val);
     });
   }
 }
@@ -75,6 +79,7 @@ abstract class _$$_CategoryWithRecordsCopyWith<$Res>
           $Res Function(_$_CategoryWithRecords) then) =
       __$$_CategoryWithRecordsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Category category, List<Record> records});
 
   @override
@@ -83,26 +88,24 @@ abstract class _$$_CategoryWithRecordsCopyWith<$Res>
 
 /// @nodoc
 class __$$_CategoryWithRecordsCopyWithImpl<$Res>
-    extends _$CategoryWithRecordsCopyWithImpl<$Res>
+    extends _$CategoryWithRecordsCopyWithImpl<$Res, _$_CategoryWithRecords>
     implements _$$_CategoryWithRecordsCopyWith<$Res> {
   __$$_CategoryWithRecordsCopyWithImpl(_$_CategoryWithRecords _value,
       $Res Function(_$_CategoryWithRecords) _then)
-      : super(_value, (v) => _then(v as _$_CategoryWithRecords));
+      : super(_value, _then);
 
-  @override
-  _$_CategoryWithRecords get _value => super._value as _$_CategoryWithRecords;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? category = freezed,
-    Object? records = freezed,
+    Object? category = null,
+    Object? records = null,
   }) {
     return _then(_$_CategoryWithRecords(
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
-      records: records == freezed
+      records: null == records
           ? _value._records
           : records // ignore: cast_nullable_to_non_nullable
               as List<Record>,
@@ -124,6 +127,7 @@ class _$_CategoryWithRecords extends _CategoryWithRecords {
   @override
   @JsonKey()
   List<Record> get records {
+    if (_records is EqualUnmodifiableListView) return _records;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_records);
   }
@@ -138,18 +142,18 @@ class _$_CategoryWithRecords extends _CategoryWithRecords {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CategoryWithRecords &&
-            const DeepCollectionEquality().equals(other.category, category) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             const DeepCollectionEquality().equals(other._records, _records));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(_records));
+      runtimeType, category, const DeepCollectionEquality().hash(_records));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CategoryWithRecordsCopyWith<_$_CategoryWithRecords> get copyWith =>
       __$$_CategoryWithRecordsCopyWithImpl<_$_CategoryWithRecords>(
           this, _$identity);

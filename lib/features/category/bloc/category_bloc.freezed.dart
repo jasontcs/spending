@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'category_bloc.dart';
 
@@ -28,46 +28,50 @@ mixin _$CategoryState {
 abstract class $CategoryStateCopyWith<$Res> {
   factory $CategoryStateCopyWith(
           CategoryState value, $Res Function(CategoryState) then) =
-      _$CategoryStateCopyWithImpl<$Res>;
+      _$CategoryStateCopyWithImpl<$Res, CategoryState>;
+  @useResult
   $Res call({AppFormStatus status, Category? category});
 
   $CategoryCopyWith<$Res>? get category;
 }
 
 /// @nodoc
-class _$CategoryStateCopyWithImpl<$Res>
+class _$CategoryStateCopyWithImpl<$Res, $Val extends CategoryState>
     implements $CategoryStateCopyWith<$Res> {
   _$CategoryStateCopyWithImpl(this._value, this._then);
 
-  final CategoryState _value;
   // ignore: unused_field
-  final $Res Function(CategoryState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
+    Object? status = null,
     Object? category = freezed,
   }) {
     return _then(_value.copyWith(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CategoryCopyWith<$Res>? get category {
     if (_value.category == null) {
       return null;
     }
 
     return $CategoryCopyWith<$Res>(_value.category!, (value) {
-      return _then(_value.copyWith(category: value));
+      return _then(_value.copyWith(category: value) as $Val);
     });
   }
 }
@@ -79,6 +83,7 @@ abstract class _$$_CategoryStateCopyWith<$Res>
           _$_CategoryState value, $Res Function(_$_CategoryState) then) =
       __$$_CategoryStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AppFormStatus status, Category? category});
 
   @override
@@ -87,26 +92,24 @@ abstract class _$$_CategoryStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_CategoryStateCopyWithImpl<$Res>
-    extends _$CategoryStateCopyWithImpl<$Res>
+    extends _$CategoryStateCopyWithImpl<$Res, _$_CategoryState>
     implements _$$_CategoryStateCopyWith<$Res> {
   __$$_CategoryStateCopyWithImpl(
       _$_CategoryState _value, $Res Function(_$_CategoryState) _then)
-      : super(_value, (v) => _then(v as _$_CategoryState));
+      : super(_value, _then);
 
-  @override
-  _$_CategoryState get _value => super._value as _$_CategoryState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
+    Object? status = null,
     Object? category = freezed,
   }) {
     return _then(_$_CategoryState(
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as AppFormStatus,
-      category: category == freezed
+      category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
@@ -135,18 +138,17 @@ class _$_CategoryState implements _CategoryState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CategoryState &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.category, category));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(category));
+  int get hashCode => Object.hash(runtimeType, status, category);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CategoryStateCopyWith<_$_CategoryState> get copyWith =>
       __$$_CategoryStateCopyWithImpl<_$_CategoryState>(this, _$identity);
 }
