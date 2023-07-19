@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spending_repository/spending_repository.dart';
@@ -21,8 +22,15 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<CategoryFormEdited>(_onFormEdited);
     on<CategoryFormSaved>(_onFormSaved);
     on<CategoryRemoveRequested>(_onRemoveRequested);
+    on<CategoryMainCurrencyUpdated>(_onMainCurrencyUpdated);
+    _currenciesSubscription =
+        _spendingRepository.currenciesStream.listen((currencies) {
+      add(CategoryMainCurrencyUpdated(
+          currencies.singleWhereOrNull((currency) => currency.main)));
+    });
   }
   final SpendingRepository _spendingRepository;
+  late final StreamSubscription<List<Currency>> _currenciesSubscription;
 
   Future<void> _onItemLoaded(
     CategoryItemLoaded event,
@@ -73,5 +81,18 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     emit(state.copyWith(status: AppFormStatus.posting));
     final result = await _spendingRepository.deleteCategory(state.category!);
     emit(state.copyWith(category: result, status: AppFormStatus.idle));
+  }
+
+  void _onMainCurrencyUpdated(
+    CategoryMainCurrencyUpdated event,
+    Emitter<CategoryState> emit,
+  ) {
+    emit(state.copyWith(mainCurrency: event.mainCurrency));
+  }
+
+  @override
+  Future<void> close() {
+    _currenciesSubscription.cancel();
+    return super.close();
   }
 }

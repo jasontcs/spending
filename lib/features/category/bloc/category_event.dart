@@ -17,3 +17,9 @@ class CategoryFormSaved extends CategoryEvent {
 }
 
 class CategoryRemoveRequested extends CategoryEvent {}
+
+class CategoryMainCurrencyUpdated extends CategoryEvent {
+  CategoryMainCurrencyUpdated(this.mainCurrency);
+
+  final Currency? mainCurrency;
+}

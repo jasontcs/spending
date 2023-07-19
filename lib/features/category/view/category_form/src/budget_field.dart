@@ -5,7 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../../common/common.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../widgets/calculator_keyboard.dart';
-import '../../../../budget/budget.dart';
+import '../../../category.dart';
 
 class BudgetField extends StatelessWidget {
   const BudgetField({
@@ -17,7 +17,7 @@ class BudgetField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainCurrency =
-        context.select((BudgetBloc bloc) => bloc.state.mainCurrency);
+        context.select((CategoryBloc bloc) => bloc.state.mainCurrency);
     return FormBuilderField<num>(
       name: name,
       validator: FormBuilderValidators.compose([

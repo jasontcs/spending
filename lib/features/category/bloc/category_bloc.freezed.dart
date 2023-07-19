@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CategoryState {
   AppFormStatus get status => throw _privateConstructorUsedError;
   Category? get category => throw _privateConstructorUsedError;
+  Currency? get mainCurrency => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryStateCopyWith<CategoryState> get copyWith =>
@@ -30,9 +31,10 @@ abstract class $CategoryStateCopyWith<$Res> {
           CategoryState value, $Res Function(CategoryState) then) =
       _$CategoryStateCopyWithImpl<$Res, CategoryState>;
   @useResult
-  $Res call({AppFormStatus status, Category? category});
+  $Res call({AppFormStatus status, Category? category, Currency? mainCurrency});
 
   $CategoryCopyWith<$Res>? get category;
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -50,6 +52,7 @@ class _$CategoryStateCopyWithImpl<$Res, $Val extends CategoryState>
   $Res call({
     Object? status = null,
     Object? category = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -60,6 +63,10 @@ class _$CategoryStateCopyWithImpl<$Res, $Val extends CategoryState>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      mainCurrency: freezed == mainCurrency
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ) as $Val);
   }
 
@@ -74,6 +81,18 @@ class _$CategoryStateCopyWithImpl<$Res, $Val extends CategoryState>
       return _then(_value.copyWith(category: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CurrencyCopyWith<$Res>? get mainCurrency {
+    if (_value.mainCurrency == null) {
+      return null;
+    }
+
+    return $CurrencyCopyWith<$Res>(_value.mainCurrency!, (value) {
+      return _then(_value.copyWith(mainCurrency: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -84,10 +103,12 @@ abstract class _$$_CategoryStateCopyWith<$Res>
       __$$_CategoryStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppFormStatus status, Category? category});
+  $Res call({AppFormStatus status, Category? category, Currency? mainCurrency});
 
   @override
   $CategoryCopyWith<$Res>? get category;
+  @override
+  $CurrencyCopyWith<$Res>? get mainCurrency;
 }
 
 /// @nodoc
@@ -103,6 +124,7 @@ class __$$_CategoryStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? category = freezed,
+    Object? mainCurrency = freezed,
   }) {
     return _then(_$_CategoryState(
       status: null == status
@@ -113,6 +135,10 @@ class __$$_CategoryStateCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category?,
+      mainCurrency: freezed == mainCurrency
+          ? _value.mainCurrency
+          : mainCurrency // ignore: cast_nullable_to_non_nullable
+              as Currency?,
     ));
   }
 }
@@ -120,17 +146,20 @@ class __$$_CategoryStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CategoryState implements _CategoryState {
-  const _$_CategoryState({this.status = AppFormStatus.init, this.category});
+  const _$_CategoryState(
+      {this.status = AppFormStatus.init, this.category, this.mainCurrency});
 
   @override
   @JsonKey()
   final AppFormStatus status;
   @override
   final Category? category;
+  @override
+  final Currency? mainCurrency;
 
   @override
   String toString() {
-    return 'CategoryState(status: $status, category: $category)';
+    return 'CategoryState(status: $status, category: $category, mainCurrency: $mainCurrency)';
   }
 
   @override
@@ -140,11 +169,13 @@ class _$_CategoryState implements _CategoryState {
             other is _$_CategoryState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            (identical(other.mainCurrency, mainCurrency) ||
+                other.mainCurrency == mainCurrency));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, category);
+  int get hashCode => Object.hash(runtimeType, status, category, mainCurrency);
 
   @JsonKey(ignore: true)
   @override
@@ -156,12 +187,15 @@ class _$_CategoryState implements _CategoryState {
 abstract class _CategoryState implements CategoryState {
   const factory _CategoryState(
       {final AppFormStatus status,
-      final Category? category}) = _$_CategoryState;
+      final Category? category,
+      final Currency? mainCurrency}) = _$_CategoryState;
 
   @override
   AppFormStatus get status;
   @override
   Category? get category;
+  @override
+  Currency? get mainCurrency;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryStateCopyWith<_$_CategoryState> get copyWith =>
