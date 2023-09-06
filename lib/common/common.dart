@@ -27,7 +27,7 @@ String currencyFormat(BuildContext context, num amount, [String? name]) =>
     NumberFormat.simpleCurrency(
       locale: S.of(context).locale,
       name: name,
-      decimalDigits: 1,
+      decimalDigits: 2,
     ).format(amount);
 
 String percentageFormat(BuildContext context, num? value) =>

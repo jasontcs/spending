@@ -65,7 +65,7 @@ class Calculator {
   Calculator({
     this.initialValue,
     this.decimal = 2,
-    this.autoCalculateDelay = const Duration(seconds: 1),
+    this.autoCalculateDelay = const Duration(seconds: 2),
   }) {
     _update(CalculatorValue(first: initialValue?.toString()));
   }
